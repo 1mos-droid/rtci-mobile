@@ -1,0 +1,47 @@
+class GivingTransaction {
+  final String id;
+  final double amount;
+  final String type; // contribution, expense
+  final String? category; // Tithe, Offering, etc.
+  final DateTime date;
+  final String description;
+  final String? memberId;
+  final String? campus;
+
+  GivingTransaction({
+    required this.id,
+    required this.amount,
+    required this.type,
+    required this.date,
+    required this.description,
+    this.category,
+    this.memberId,
+    this.campus,
+  });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'amount': amount,
+      'type': type,
+      'category': category,
+      'date': date.toIso8601String(),
+      'description': description,
+      'member_id': memberId,
+      'campus': campus,
+    };
+  }
+
+  factory GivingTransaction.fromMap(Map<String, dynamic> map) {
+    return GivingTransaction(
+      id: map['id']?.toString() ?? '',
+      amount: (map['amount'] as num?)?.toDouble() ?? 0.0,
+      type: map['type'] ?? 'contribution',
+      category: map['category'],
+      date: DateTime.parse(map['date'] ?? map['created_at'] ?? DateTime.now().toIso8601String()),
+      description: map['description'] ?? '',
+      memberId: map['member_id']?.toString(),
+      campus: map['campus']?.toString(),
+    );
+  }
+}

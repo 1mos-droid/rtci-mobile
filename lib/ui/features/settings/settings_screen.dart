@@ -1,0 +1,134 @@
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:rtc_mobile/theme/app_theme.dart';
+import 'package:rtc_mobile/widgets/glass_card.dart';
+import 'package:rtc_mobile/widgets/mesh_gradient_background.dart';
+import 'package:rtc_mobile/providers/auth_provider.dart';
+
+class SettingsScreen extends StatelessWidget {
+  const SettingsScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final auth = Provider.of<AuthProvider>(context);
+
+    return Scaffold(
+      backgroundColor: ObsidianTheme.backgroundDark,
+      body: MeshGradientBackground(
+        child: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              backgroundColor: Colors.transparent,
+              pinned: true,
+              expandedHeight: 120.0,
+              flexibleSpace: FlexibleSpaceBar(
+                titlePadding: const EdgeInsets.only(left: 48, bottom: 16),
+                title: Text(
+                  "Account Settings",
+                  style: GoogleFonts.cinzel(
+                    color: ObsidianTheme.textVibrant,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  children: [
+                    GlassCard(
+                      padding: const EdgeInsets.all(20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              CircleAvatar(
+                                radius: 30,
+                                backgroundColor: ObsidianTheme.primaryCrimson.withOpacity(0.1),
+                                child: Text(auth.userName.isNotEmpty ? auth.userName[0] : 'U', style: const TextStyle(fontSize: 24, color: ObsidianTheme.primaryCrimson, fontWeight: FontWeight.bold)),
+                              ),
+                              const SizedBox(width: 16),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(auth.userName, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
+                                    Text(auth.userEmail, style: const TextStyle(fontSize: 12, color: ObsidianTheme.textMuted)),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          const Divider(height: 40, color: ObsidianTheme.borderHairline),
+                          Text("Official Profile", style: GoogleFonts.cinzel(fontSize: 14, fontWeight: FontWeight.bold, color: ObsidianTheme.secondaryGold)),
+                          const SizedBox(height: 16),
+                          _buildInfoRow("Role", auth.role.name.toUpperCase()),
+                          if (auth.department != null) _buildInfoRow("Department", auth.department!),
+                          const SizedBox(height: 24),
+                          SizedBox(
+                            width: double.infinity,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(backgroundColor: ObsidianTheme.primaryCrimson, foregroundColor: Colors.white),
+                              onPressed: () {},
+                              child: const Text("EDIT PROFILE"),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    GlassCard(
+                      padding: const EdgeInsets.all(20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Security & Terminal", style: GoogleFonts.cinzel(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.redAccent)),
+                          const SizedBox(height: 16),
+                          ListTile(
+                            contentPadding: EdgeInsets.zero,
+                            leading: const Icon(Icons.lock_outline, color: Colors.redAccent),
+                            title: const Text("Update Credentials", style: TextStyle(color: Colors.white, fontSize: 14)),
+                            trailing: const Icon(Icons.chevron_right, color: ObsidianTheme.textMuted),
+                            onTap: () {},
+                          ),
+                          ListTile(
+                            contentPadding: EdgeInsets.zero,
+                            leading: const Icon(Icons.logout, color: Colors.redAccent),
+                            title: const Text("Terminal Shutdown", style: TextStyle(color: Colors.white, fontSize: 14)),
+                            trailing: const Icon(Icons.chevron_right, color: ObsidianTheme.textMuted),
+                            onTap: () async {
+                              await auth.logout();
+                              if (context.mounted) {
+                                Navigator.of(context).pushNamedAndRemoveUntil('/', (route) => false);
+                              }
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildInfoRow(String label, String value) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(label, style: const TextStyle(color: ObsidianTheme.textMuted, fontSize: 12)),
+          Text(value, style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold)),
+        ],
+      ),
+    );
+  }
+}
