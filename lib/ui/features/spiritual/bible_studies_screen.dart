@@ -151,7 +151,7 @@ class _BibleStudiesScreenState extends State<BibleStudiesScreen> with SingleTick
             padding: const EdgeInsets.all(16),
             child: ListTile(
               leading: CircleAvatar(
-                backgroundColor: ObsidianTheme.secondaryGold.withOpacity(0.1),
+                backgroundColor: ObsidianTheme.secondaryGold.withValues(alpha: 0.1),
                 child: const Icon(Icons.file_present_outlined, color: ObsidianTheme.secondaryGold),
               ),
               title: Text(res.title, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),

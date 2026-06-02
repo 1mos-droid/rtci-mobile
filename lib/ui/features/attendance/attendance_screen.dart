@@ -71,7 +71,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                             style: GoogleFonts.plusJakartaSans(fontSize: 48, fontWeight: FontWeight.w900, color: Colors.white),
                             decoration: InputDecoration(
                               hintText: "0",
-                              hintStyle: TextStyle(color: ObsidianTheme.textMuted.withOpacity(0.5)),
+                              hintStyle: TextStyle(color: ObsidianTheme.textMuted.withValues(alpha: 0.5)),
                               border: InputBorder.none,
                             ),
                           ),
@@ -82,6 +82,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                               onPressed: () async {
                                 final count = int.tryParse(_headcountController.text);
                                 if (count != null) {
+                                  final scaffoldMessenger = ScaffoldMessenger.of(context);
                                   final success = await attendanceProv.saveRecord(
                                     date: DateTime.now(),
                                     headcount: count,
@@ -89,7 +90,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                                   );
                                   if (success && mounted) {
                                     _headcountController.clear();
-                                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Attendance recorded!")));
+                                    scaffoldMessenger.showSnackBar(const SnackBar(content: Text("Attendance recorded!")));
                                   }
                                 }
                               },

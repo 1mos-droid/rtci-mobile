@@ -432,7 +432,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
               showCheckmark: false,
               label: Text(m),
               selected: isSelected,
-              selectedColor: ObsidianTheme.secondaryGold.withOpacity(0.2),
+              selectedColor: ObsidianTheme.secondaryGold.withValues(alpha: 0.2),
               backgroundColor: ObsidianTheme.surfaceDark,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
@@ -496,7 +496,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
           height: 120,
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-            color: ObsidianTheme.surfaceDark.withOpacity(0.5),
+            color: ObsidianTheme.surfaceDark.withValues(alpha: 0.5),
             borderRadius: BorderRadius.circular(12),
             border: Border.all(color: ObsidianTheme.borderHairline, width: 1.0),
           ),
@@ -551,7 +551,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
     return Container(
       padding: const EdgeInsets.only(left: 24, right: 24, bottom: 24, top: 10),
       decoration: BoxDecoration(
-        color: ObsidianTheme.surfaceDark.withOpacity(0.8),
+        color: ObsidianTheme.surfaceDark.withValues(alpha: 0.8),
         border: const Border(top: BorderSide(color: ObsidianTheme.borderHairline, width: 0.5)),
       ),
       child: Row(

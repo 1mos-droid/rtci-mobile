@@ -151,7 +151,7 @@ class _EventsScreenState extends State<EventsScreen> {
                             style: GoogleFonts.plusJakartaSans(fontSize: 13, fontWeight: FontWeight.bold, color: ObsidianTheme.textVibrant),
                           ),
                           value: isOnline,
-                          activeColor: ObsidianTheme.secondaryGold,
+                          activeThumbColor: ObsidianTheme.secondaryGold,
                           contentPadding: EdgeInsets.zero,
                           onChanged: (val) {
                             setModalState(() => isOnline = val);
@@ -292,8 +292,8 @@ class _EventsScreenState extends State<EventsScreen> {
                                     padding: const EdgeInsets.symmetric(vertical: 10),
                                     decoration: BoxDecoration(
                                       color: event.isOnline
-                                          ? ObsidianTheme.secondaryGold.withOpacity(0.1)
-                                          : ObsidianTheme.surfaceDark.withOpacity(0.5),
+                                          ? ObsidianTheme.secondaryGold.withValues(alpha: 0.1)
+                                          : ObsidianTheme.surfaceDark.withValues(alpha: 0.5),
                                       border: Border.all(
                                         color: event.isOnline ? ObsidianTheme.secondaryGold : ObsidianTheme.borderHairline,
                                         width: 0.8,
@@ -338,9 +338,9 @@ class _EventsScreenState extends State<EventsScreen> {
                                               Container(
                                                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                                                 decoration: BoxDecoration(
-                                                  color: ObsidianTheme.secondaryGold.withOpacity(0.1),
+                                                  color: ObsidianTheme.secondaryGold.withValues(alpha: 0.1),
                                                   borderRadius: BorderRadius.circular(6),
-                                                  border: Border.all(color: ObsidianTheme.secondaryGold.withOpacity(0.3), width: 0.5),
+                                                  border: Border.all(color: ObsidianTheme.secondaryGold.withValues(alpha: 0.3), width: 0.5),
                                                 ),
                                                 child: Text(
                                                   event.department!.toUpperCase(),

@@ -28,12 +28,10 @@ class ObsidianTheme {
       colorScheme: const ColorScheme.dark(
         primary: primaryCrimson,
         secondary: secondaryGold,
-        surface: surfaceDark,
-        background: backgroundDark,
+        surface: backgroundDark,
         onPrimary: Colors.white,
         onSecondary: Colors.black,
         onSurface: textVibrant,
-        onBackground: textVibrant,
       ),
       dividerColor: borderHairline,
       textTheme: TextTheme(

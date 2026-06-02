@@ -15,8 +15,6 @@ class PrayerRequestsScreen extends StatefulWidget {
 }
 
 class _PrayerRequestsScreenState extends State<PrayerRequestsScreen> {
-  String _selectedCategory = 'All';
-  final List<String> _categories = ['All', 'Spiritual', 'Health', 'Financial', 'Family', 'General'];
 
   void _showAddPrayerSheet(BuildContext context) {
     final contentController = TextEditingController();
@@ -80,10 +78,10 @@ class _PrayerRequestsScreenState extends State<PrayerRequestsScreen> {
                           style: GoogleFonts.plusJakartaSans(fontSize: 13, fontWeight: FontWeight.bold, color: ObsidianTheme.textVibrant),
                         ),
                         value: isPrivate,
-                        activeColor: ObsidianTheme.secondaryGold,
+                        activeThumbColor: ObsidianTheme.secondaryGold,
                         contentPadding: EdgeInsets.zero,
                         onChanged: (val) {
-                          if (val != null) setModalState(() => isPrivate = val);
+                          setModalState(() => isPrivate = val);
                         },
                       ),
                       const SizedBox(height: 16),
@@ -177,7 +175,7 @@ class _PrayerRequestsScreenState extends State<PrayerRequestsScreen> {
                                       children: [
                                         Chip(
                                           label: Text(prayer.status.toUpperCase()),
-                                          backgroundColor: prayer.status == 'answered' ? Colors.green.withOpacity(0.1) : Colors.orange.withOpacity(0.1),
+                                          backgroundColor: prayer.status == 'answered' ? Colors.green.withValues(alpha: 0.1) : Colors.orange.withValues(alpha: 0.1),
                                           labelStyle: TextStyle(
                                             color: prayer.status == 'answered' ? Colors.green : Colors.orange,
                                             fontSize: 10,

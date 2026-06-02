@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:rtc_mobile/theme/app_theme.dart';
 import 'package:rtc_mobile/ui/features/dashboard/dashboard_screen.dart';
 import 'package:rtc_mobile/ui/features/spiritual/live_bible_screen.dart';
@@ -33,7 +34,7 @@ class _MainTabScreenState extends State<MainTabScreen> {
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          color: ObsidianTheme.surfaceDark.withOpacity(0.8),
+          color: ObsidianTheme.surfaceDark.withValues(alpha: 0.9),
           border: const Border(
             top: BorderSide(color: ObsidianTheme.borderHairline, width: 0.5),
           ),
@@ -53,8 +54,15 @@ class _MainTabScreenState extends State<MainTabScreen> {
               elevation: 0,
               selectedItemColor: ObsidianTheme.primaryCrimson,
               unselectedItemColor: ObsidianTheme.textMuted,
-              selectedFontSize: 10,
-              unselectedFontSize: 10,
+              selectedLabelStyle: GoogleFonts.plusJakartaSans(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
+              unselectedLabelStyle: GoogleFonts.plusJakartaSans(
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+              ),
+              iconSize: 28,
               items: const [
                 BottomNavigationBarItem(
                   icon: Icon(Icons.home_outlined),
@@ -62,18 +70,18 @@ class _MainTabScreenState extends State<MainTabScreen> {
                   label: 'Home',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.auto_stories_outlined),
-                  activeIcon: Icon(Icons.auto_stories),
+                  icon: Icon(Icons.menu_book_outlined),
+                  activeIcon: Icon(Icons.menu_book),
                   label: 'Bible',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.favorite_border),
-                  activeIcon: Icon(Icons.favorite),
-                  label: 'Giving',
+                  icon: Icon(Icons.volunteer_activism_outlined),
+                  activeIcon: Icon(Icons.volunteer_activism),
+                  label: 'Give',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.menu),
-                  activeIcon: Icon(Icons.menu_open),
+                  icon: Icon(Icons.menu_rounded),
+                  activeIcon: Icon(Icons.menu_open_rounded),
                   label: 'Menu',
                 ),
               ],

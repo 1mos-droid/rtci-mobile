@@ -24,10 +24,10 @@ class GlassCard extends StatelessWidget {
     Color borderColor;
     switch (borderType) {
       case GlassBorderType.gold:
-        borderColor = const Color(0xFFEAB308).withOpacity(0.3);
+        borderColor = const Color(0xFFEAB308).withValues(alpha: 0.3);
         break;
       case GlassBorderType.crimson:
-        borderColor = const Color(0xFF8B1E31).withOpacity(0.3);
+        borderColor = const Color(0xFF8B1E31).withValues(alpha: 0.3);
         break;
       default:
         borderColor = const Color(0x14FFFFFF);
@@ -42,7 +42,7 @@ class GlassCard extends StatelessWidget {
           child: Container(
             padding: padding,
             decoration: BoxDecoration(
-              color: const Color(0xFF0F0F11).withOpacity(0.6),
+              color: const Color(0xFF0F0F11).withValues(alpha: 0.6),
               borderRadius: BorderRadius.circular(borderRadius),
               border: Border.all(
                 color: borderColor,
@@ -50,7 +50,7 @@ class GlassCard extends StatelessWidget {
               ),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.5),
+                  color: Colors.black.withValues(alpha: 0.5),
                   blurRadius: 30,
                   offset: const Offset(0, 15),
                 )

@@ -43,7 +43,7 @@ class _GradientButtonState extends State<GradientButton> {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         );
-        glowCol = ObsidianTheme.secondaryGold.withOpacity(0.2);
+        glowCol = ObsidianTheme.secondaryGold.withValues(alpha: 0.2);
         textCol = ObsidianTheme.backgroundDark;
         break;
       case GradientButtonType.outline:
@@ -52,14 +52,14 @@ class _GradientButtonState extends State<GradientButton> {
         textCol = ObsidianTheme.textVibrant;
         break;
       case GradientButtonType.crimson:
-      default:
         gradient = const LinearGradient(
           colors: [ObsidianTheme.primaryCrimson, Color(0xFF6B1724)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         );
-        glowCol = ObsidianTheme.primaryCrimson.withOpacity(0.18);
+        glowCol = ObsidianTheme.primaryCrimson.withValues(alpha: 0.18);
         textCol = Colors.white;
+        break;
     }
 
     if (!isEnabled) {

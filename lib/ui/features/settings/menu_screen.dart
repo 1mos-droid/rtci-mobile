@@ -6,7 +6,6 @@ import 'package:rtc_mobile/theme/app_theme.dart';
 import 'package:rtc_mobile/widgets/glass_card.dart';
 import 'package:rtc_mobile/providers/auth_provider.dart';
 import 'package:rtc_mobile/ui/features/spiritual/prayer_requests_screen.dart';
-import 'package:rtc_mobile/ui/features/events/events_screen.dart';
 import 'package:rtc_mobile/ui/features/groups/groups_screen.dart';
 import 'package:rtc_mobile/ui/features/messaging/messaging_screen.dart';
 import 'package:rtc_mobile/ui/features/auth/welcome_screen.dart';
@@ -189,7 +188,7 @@ class MenuScreen extends StatelessWidget {
                         Container(
                           padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
-                            color: Colors.redAccent.withOpacity(0.1),
+                            color: Colors.redAccent.withValues(alpha: 0.1),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: const Icon(Icons.logout_outlined, color: Colors.redAccent),
@@ -244,9 +243,9 @@ class MenuScreen extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color: ObsidianTheme.primaryCrimson.withOpacity(0.1),
+                color: ObsidianTheme.primaryCrimson.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: ObsidianTheme.primaryCrimson.withOpacity(0.2), width: 1),
+                border: Border.all(color: ObsidianTheme.primaryCrimson.withValues(alpha: 0.2), width: 1),
               ),
               child: Icon(icon, color: ObsidianTheme.primaryCrimson, size: 24),
             ),

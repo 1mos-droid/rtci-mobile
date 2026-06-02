@@ -27,6 +27,7 @@ class _GroupsScreenState extends State<GroupsScreen> {
         ),
       );
     } else {
+       if (!mounted) return;
        ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text("Action failed. Please try again."),
@@ -85,7 +86,7 @@ class _GroupsScreenState extends State<GroupsScreen> {
                           showCheckmark: false,
                           label: Center(child: Text(type.toUpperCase())),
                           selected: isSel,
-                          selectedColor: ObsidianTheme.secondaryGold.withOpacity(0.2),
+                          selectedColor: ObsidianTheme.secondaryGold.withValues(alpha: 0.2),
                           backgroundColor: Colors.transparent,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -142,8 +143,8 @@ class _GroupsScreenState extends State<GroupsScreen> {
                                       Container(
                                         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                                         decoration: BoxDecoration(
-                                          color: ObsidianTheme.secondaryGold.withOpacity(0.1),
-                                          border: Border.all(color: ObsidianTheme.secondaryGold.withOpacity(0.3), width: 0.5),
+                                          color: ObsidianTheme.secondaryGold.withValues(alpha: 0.1),
+                                          border: Border.all(color: ObsidianTheme.secondaryGold.withValues(alpha: 0.3), width: 0.5),
                                           borderRadius: BorderRadius.circular(6),
                                         ),
                                         child: Text(

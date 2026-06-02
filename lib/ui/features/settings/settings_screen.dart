@@ -47,7 +47,7 @@ class SettingsScreen extends StatelessWidget {
                             children: [
                               CircleAvatar(
                                 radius: 30,
-                                backgroundColor: ObsidianTheme.primaryCrimson.withOpacity(0.1),
+                                backgroundColor: ObsidianTheme.primaryCrimson.withValues(alpha: 0.1),
                                 child: Text(auth.userName.isNotEmpty ? auth.userName[0] : 'U', style: const TextStyle(fontSize: 24, color: ObsidianTheme.primaryCrimson, fontWeight: FontWeight.bold)),
                               ),
                               const SizedBox(width: 16),

@@ -17,7 +17,6 @@ class LiveBibleScreen extends StatefulWidget {
 class _LiveBibleScreenState extends State<LiveBibleScreen> {
   final _noteController = TextEditingController();
   List<String> _savedNotes = [];
-  bool _isPlayingStream = false;
 
   String _selectedVersion = 'KJV';
   String? _selectedBookId;
@@ -80,6 +79,7 @@ class _LiveBibleScreenState extends State<LiveBibleScreen> {
     final newNote = "${DateTime.now().toString().substring(0, 16)}: ${_noteController.text.trim()}";
     _savedNotes.insert(0, newNote);
     await prefs.setStringList('sermon_notes_vault', _savedNotes);
+    if (!mounted) return;
     setState(() { _noteController.clear(); });
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Note saved!")));
   }
@@ -193,7 +193,7 @@ class _LiveBibleScreenState extends State<LiveBibleScreen> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12),
       decoration: BoxDecoration(
-        color: ObsidianTheme.surfaceDark.withOpacity(0.5),
+        color: ObsidianTheme.surfaceDark.withValues(alpha: 0.5),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: ObsidianTheme.borderHairline),
       ),

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rtc_mobile/theme/app_theme.dart';
 import 'package:rtc_mobile/widgets/glass_card.dart';
 import 'package:rtc_mobile/widgets/mesh_gradient_background.dart';
-import 'package:rtc_mobile/providers/auth_provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class UserManagementScreen extends StatefulWidget {
@@ -76,7 +74,7 @@ class _UserManagementScreenState extends State<UserManagementScreen> {
                     child: Row(
                       children: [
                         CircleAvatar(
-                          backgroundColor: ObsidianTheme.primaryCrimson.withOpacity(0.1),
+                          backgroundColor: ObsidianTheme.primaryCrimson.withValues(alpha: 0.1),
                           child: Text(profile['name']?[0] ?? 'U', style: const TextStyle(color: ObsidianTheme.primaryCrimson)),
                         ),
                         const SizedBox(width: 16),
@@ -92,7 +90,7 @@ class _UserManagementScreenState extends State<UserManagementScreen> {
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                           decoration: BoxDecoration(
-                            color: ObsidianTheme.secondaryGold.withOpacity(0.1),
+                            color: ObsidianTheme.secondaryGold.withValues(alpha: 0.1),
                             borderRadius: BorderRadius.circular(6),
                           ),
                           child: Text(

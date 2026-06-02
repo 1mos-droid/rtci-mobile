@@ -58,7 +58,7 @@ class LeadershipScreen extends StatelessWidget {
                           CircleAvatar(
                             radius: 40,
                             backgroundImage: leader.avatarUrl != null ? NetworkImage(leader.avatarUrl!) : null,
-                            backgroundColor: ObsidianTheme.primaryCrimson.withOpacity(0.2),
+                            backgroundColor: ObsidianTheme.primaryCrimson.withValues(alpha: 0.2),
                             child: leader.avatarUrl == null ? Text(
                               leader.name[0],
                               style: const TextStyle(
@@ -80,7 +80,7 @@ class LeadershipScreen extends StatelessWidget {
                           Container(
                             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                             decoration: BoxDecoration(
-                              color: ObsidianTheme.secondaryGold.withOpacity(0.1),
+                              color: ObsidianTheme.secondaryGold.withValues(alpha: 0.1),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: Text(

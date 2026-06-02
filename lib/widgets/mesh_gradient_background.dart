@@ -53,7 +53,7 @@ class MeshGradientBackground extends StatelessWidget {
         ),
         // Noise Texture Overlay (Optional, using a semi-transparent black for depth if no image is available)
         Container(
-          color: Colors.black.withOpacity(0.1),
+          color: Colors.black.withValues(alpha: 0.1),
         ),
         // Content
         SafeArea(

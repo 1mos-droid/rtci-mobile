@@ -62,11 +62,11 @@ class DashboardScreen extends StatelessWidget {
                         children: [
                           CircleAvatar(
                             radius: 30,
-                            backgroundColor: primaryAccent.withOpacity(0.08),
+                            backgroundColor: primaryAccent.withValues(alpha: 0.08),
                             child: Container(
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                border: Border.all(color: primaryAccent.withOpacity(0.3), width: 1.0),
+                                border: Border.all(color: primaryAccent.withValues(alpha: 0.3), width: 1.0),
                               ),
                               child: Center(
                                 child: Text(
@@ -105,7 +105,7 @@ class DashboardScreen extends StatelessWidget {
                                 Container(
                                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                                   decoration: BoxDecoration(
-                                    color: primaryAccent.withOpacity(0.1),
+                                    color: primaryAccent.withValues(alpha: 0.1),
                                     borderRadius: BorderRadius.circular(6),
                                   ),
                                   child: Text(
@@ -212,7 +212,7 @@ class DashboardScreen extends StatelessWidget {
                                           Container(
                                             padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                                             decoration: BoxDecoration(
-                                              color: Colors.red.withOpacity(0.1),
+                                              color: Colors.red.withValues(alpha: 0.1),
                                               borderRadius: BorderRadius.circular(4),
                                             ),
                                             child: Text(
@@ -323,7 +323,7 @@ class DashboardScreen extends StatelessWidget {
     return Container(
       width: 160,
       decoration: BoxDecoration(
-        color: ObsidianTheme.surfaceDark.withOpacity(0.6),
+        color: ObsidianTheme.surfaceDark.withValues(alpha: 0.6),
         borderRadius: BorderRadius.circular(20),
         border: Border.all(color: ObsidianTheme.borderHairline),
       ),
@@ -371,9 +371,9 @@ class DashboardScreen extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
             decoration: BoxDecoration(
-              color: ObsidianTheme.secondaryGold.withOpacity(0.1),
+              color: ObsidianTheme.secondaryGold.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: ObsidianTheme.secondaryGold.withOpacity(0.3)),
+              border: Border.all(color: ObsidianTheme.secondaryGold.withValues(alpha: 0.3)),
             ),
             child: Column(
               children: [

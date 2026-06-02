@@ -29,10 +29,10 @@ class WelcomeScreen extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: ObsidianTheme.backgroundDark,
                     shape: BoxShape.circle,
-                    border: Border.all(color: ObsidianTheme.secondaryGold.withOpacity(0.4), width: 1.5),
+                    border: Border.all(color: ObsidianTheme.secondaryGold.withValues(alpha: 0.4), width: 1.5),
                     boxShadow: [
                       BoxShadow(
-                        color: ObsidianTheme.secondaryGold.withOpacity(0.12),
+                        color: ObsidianTheme.secondaryGold.withValues(alpha: 0.12),
                         blurRadius: 20,
                         offset: const Offset(0, 5),
                       )

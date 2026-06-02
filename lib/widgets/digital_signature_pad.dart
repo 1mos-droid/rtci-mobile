@@ -50,7 +50,7 @@ class _DigitalSignaturePadState extends State<DigitalSignaturePad> {
         Container(
           height: 150,
           decoration: BoxDecoration(
-            color: ObsidianTheme.surfaceDark.withOpacity(0.5),
+            color: ObsidianTheme.surfaceDark.withValues(alpha: 0.5),
             borderRadius: BorderRadius.circular(12),
             border: Border.all(color: ObsidianTheme.borderHairline, width: 1.0),
           ),

@@ -63,6 +63,7 @@ class _GivingScreenState extends State<GivingScreen> {
                 ),
                 onPressed: () async {
                   Navigator.pop(ctx);
+                  final scaffoldMessenger = ScaffoldMessenger.of(context);
                   final auth = Provider.of<AuthProvider>(context, listen: false);
                   final finance = Provider.of<FinancialProvider>(context, listen: false);
                   final success = await finance.processGiving(
@@ -76,7 +77,7 @@ class _GivingScreenState extends State<GivingScreen> {
                   if (success && mounted) {
                     _amountController.clear();
                     setState(() => _customAmount = null);
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Giving processed!"), backgroundColor: Colors.green));
+                    scaffoldMessenger.showSnackBar(const SnackBar(content: Text("Giving processed!"), backgroundColor: Colors.green));
                   }
                 },
                 child: const Text("PAY NOW WITH APPLE PAY"),
@@ -146,7 +147,7 @@ class _GivingScreenState extends State<GivingScreen> {
                     onSelected: (val) {
                       if (val) setState(() => _selectedFund = f);
                     },
-                    selectedColor: ObsidianTheme.primaryCrimson.withOpacity(0.2),
+                    selectedColor: ObsidianTheme.primaryCrimson.withValues(alpha: 0.2),
                     labelStyle: GoogleFonts.plusJakartaSans(
                       fontSize: 10,
                       fontWeight: FontWeight.bold,
@@ -190,7 +191,7 @@ class _GivingScreenState extends State<GivingScreen> {
                         prefixText: "GHC ",
                         prefixStyle: const TextStyle(color: ObsidianTheme.textMuted),
                         hintText: "Other Amount",
-                        hintStyle: TextStyle(color: ObsidianTheme.textMuted.withOpacity(0.4)),
+                        hintStyle: TextStyle(color: ObsidianTheme.textMuted.withValues(alpha: 0.4)),
                         enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: ObsidianTheme.borderHairline)),
                         focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: ObsidianTheme.primaryCrimson)),
                       ),

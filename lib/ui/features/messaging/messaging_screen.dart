@@ -128,6 +128,8 @@ class _MessagingScreenState extends State<MessagingScreen> with SingleTickerProv
 
     await Future.delayed(const Duration(milliseconds: 1200));
 
+    if (!mounted) return;
+
     if (_simulateOffline) {
       setState(() {
         _outbox.insert(
@@ -202,6 +204,8 @@ class _MessagingScreenState extends State<MessagingScreen> with SingleTickerProv
       );
 
       await Future.delayed(const Duration(milliseconds: 1000));
+
+      if (!mounted) return;
 
       setState(() {
         _feedMessages.insert(
@@ -371,9 +375,9 @@ class _MessagingScreenState extends State<MessagingScreen> with SingleTickerProv
                                 Container(
                                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                                   decoration: BoxDecoration(
-                                    color: ObsidianTheme.secondaryGold.withOpacity(0.1),
+                                    color: ObsidianTheme.secondaryGold.withValues(alpha: 0.1),
                                     borderRadius: BorderRadius.circular(6),
-                                    border: Border.all(color: ObsidianTheme.secondaryGold.withOpacity(0.3), width: 0.5),
+                                    border: Border.all(color: ObsidianTheme.secondaryGold.withValues(alpha: 0.3), width: 0.5),
                                   ),
                                   child: Text(
                                     msg.category.toUpperCase(),
@@ -547,7 +551,7 @@ class _MessagingScreenState extends State<MessagingScreen> with SingleTickerProv
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   DropdownButtonFormField<String>(
-                    value: _selectedCategory,
+                    initialValue: _selectedCategory,
                     dropdownColor: ObsidianTheme.surfaceDark,
                     style: const TextStyle(color: ObsidianTheme.textVibrant),
                     decoration: const InputDecoration(labelText: "Category"),
@@ -561,7 +565,7 @@ class _MessagingScreenState extends State<MessagingScreen> with SingleTickerProv
                   const SizedBox(height: 14),
 
                   DropdownButtonFormField<String>(
-                    value: _selectedTarget,
+                    initialValue: _selectedTarget,
                     dropdownColor: ObsidianTheme.surfaceDark,
                     style: const TextStyle(color: ObsidianTheme.textVibrant),
                     decoration: const InputDecoration(labelText: "Target"),
@@ -575,7 +579,7 @@ class _MessagingScreenState extends State<MessagingScreen> with SingleTickerProv
                   const SizedBox(height: 14),
 
                   DropdownButtonFormField<String>(
-                    value: _selectedMode,
+                    initialValue: _selectedMode,
                     dropdownColor: ObsidianTheme.surfaceDark,
                     style: const TextStyle(color: ObsidianTheme.textVibrant),
                     decoration: const InputDecoration(labelText: "Channel"),
@@ -617,7 +621,7 @@ class _MessagingScreenState extends State<MessagingScreen> with SingleTickerProv
                       style: GoogleFonts.plusJakartaSans(fontSize: 11.5, fontWeight: FontWeight.bold, color: ObsidianTheme.textMuted),
                     ),
                     value: _simulateOffline,
-                    activeColor: Colors.orange,
+                    activeThumbColor: Colors.orange,
                     contentPadding: EdgeInsets.zero,
                     onChanged: (val) {
                       setState(() {

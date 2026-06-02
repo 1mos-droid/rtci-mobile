@@ -174,9 +174,9 @@ class _ChildrenScreenState extends State<ChildrenScreen> {
                               child: Container(
                                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                                 decoration: BoxDecoration(
-                                  color: ObsidianTheme.secondaryGold.withOpacity(0.1),
+                                  color: ObsidianTheme.secondaryGold.withValues(alpha: 0.1),
                                   borderRadius: BorderRadius.circular(8),
-                                  border: Border.all(color: ObsidianTheme.secondaryGold.withOpacity(0.3)),
+                                  border: Border.all(color: ObsidianTheme.secondaryGold.withValues(alpha: 0.3)),
                                 ),
                                 child: Column(
                                   children: [

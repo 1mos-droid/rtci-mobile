@@ -55,7 +55,7 @@ class _MembersScreenState extends State<MembersScreen> {
                       hintStyle: const TextStyle(color: ObsidianTheme.textMuted),
                       prefixIcon: const Icon(Icons.search, color: ObsidianTheme.textMuted),
                       filled: true,
-                      fillColor: ObsidianTheme.surfaceDark.withOpacity(0.5),
+                      fillColor: ObsidianTheme.surfaceDark.withValues(alpha: 0.5),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
                         borderSide: BorderSide.none,
@@ -82,7 +82,7 @@ class _MembersScreenState extends State<MembersScreen> {
                         child: Row(
                           children: [
                             CircleAvatar(
-                              backgroundColor: ObsidianTheme.primaryCrimson.withOpacity(0.2),
+                              backgroundColor: ObsidianTheme.primaryCrimson.withValues(alpha: 0.2),
                               child: Text(
                                 member.name[0],
                                 style: const TextStyle(
