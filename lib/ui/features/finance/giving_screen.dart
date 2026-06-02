@@ -20,6 +20,7 @@ class _GivingScreenState extends State<GivingScreen> {
   double? _customAmount;
 
   final List<String> _funds = ['Tithe', 'Offering', 'Building Fund', 'Missions', 'Welfare', 'Seed'];
+  final List<int> _presetAmounts = [50, 100, 200, 500];
 
   @override
   void dispose() {
@@ -37,28 +38,44 @@ class _GivingScreenState extends State<GivingScreen> {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
+      isScrollControlled: true,
       builder: (ctx) {
         return GlassCard(
           borderRadius: 24,
-          padding: const EdgeInsets.all(24),
+          padding: const EdgeInsets.all(32),
           child: Column(
             mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
-                "Authorize Transaction",
-                style: GoogleFonts.cinzel(fontSize: 18, fontWeight: FontWeight.bold, color: ObsidianTheme.textVibrant),
+                "Authorize Giving",
+                textAlign: TextAlign.center,
+                style: GoogleFonts.cinzel(fontSize: 22, fontWeight: FontWeight.bold, color: ObsidianTheme.textVibrant),
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: 16),
               Text(
-                "Confirm GHC $amt for $_selectedFund",
-                style: Theme.of(context).textTheme.bodyMedium,
+                "You are giving",
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: ObsidianTheme.textMuted),
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 8),
+              Text(
+                "GHC $amt",
+                textAlign: TextAlign.center,
+                style: GoogleFonts.plusJakartaSans(fontSize: 48, fontWeight: FontWeight.w800, color: ObsidianTheme.secondaryGold),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                "to $_selectedFund",
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: ObsidianTheme.textMuted),
+              ),
+              const SizedBox(height: 32),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: ObsidianTheme.primaryCrimson,
                   foregroundColor: Colors.white,
-                  minimumSize: const Size(double.infinity, 56),
+                  padding: const EdgeInsets.symmetric(vertical: 20),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                 ),
                 onPressed: () async {
@@ -77,10 +94,15 @@ class _GivingScreenState extends State<GivingScreen> {
                   if (success && mounted) {
                     _amountController.clear();
                     setState(() => _customAmount = null);
-                    scaffoldMessenger.showSnackBar(const SnackBar(content: Text("Giving processed!"), backgroundColor: Colors.green));
+                    scaffoldMessenger.showSnackBar(const SnackBar(content: Text("Giving successfully processed!"), backgroundColor: Colors.green));
                   }
                 },
-                child: const Text("PAY NOW WITH APPLE PAY"),
+                child: const Text("CONFIRM PAYMENT", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800, letterSpacing: 1.0)),
+              ),
+              const SizedBox(height: 16),
+              TextButton(
+                onPressed: () => Navigator.pop(ctx),
+                child: Text("CANCEL", style: TextStyle(color: ObsidianTheme.textMuted, fontSize: 16, fontWeight: FontWeight.bold)),
               ),
               const SizedBox(height: 12),
             ],
@@ -101,119 +123,133 @@ class _GivingScreenState extends State<GivingScreen> {
           backgroundColor: Colors.transparent,
           elevation: 0,
           title: Text(
-            "Giving Terminal",
-            style: GoogleFonts.cinzel(fontWeight: FontWeight.bold, color: ObsidianTheme.textVibrant),
+            "Give",
+            style: GoogleFonts.cinzel(fontWeight: FontWeight.bold, fontSize: 24, color: ObsidianTheme.textVibrant),
           ),
           centerTitle: true,
         ),
         body: SingleChildScrollView(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // Statistics Card
-              GlassCard(
-                padding: const EdgeInsets.all(24),
-                child: Column(
-                  children: [
-                    Text(
-                      "TOTAL GIVEN",
-                      style: GoogleFonts.plusJakartaSans(fontSize: 10, fontWeight: FontWeight.bold, color: ObsidianTheme.textMuted, letterSpacing: 1.5),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      "GHC ${finance.totalRevenue.toStringAsFixed(2)}",
-                      style: GoogleFonts.plusJakartaSans(fontSize: 36, fontWeight: FontWeight.bold, color: ObsidianTheme.secondaryGold),
-                    ),
-                  ],
-                ),
-              ),
-
-              const SizedBox(height: 32),
-
               Text(
-                "SELECT FUND",
-                style: Theme.of(context).textTheme.labelLarge?.copyWith(color: ObsidianTheme.textVibrant, letterSpacing: 1.0),
+                "SELECT PURPOSE",
+                style: Theme.of(context).textTheme.labelLarge?.copyWith(color: ObsidianTheme.textMuted, letterSpacing: 1.5),
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: 16),
               Wrap(
-                spacing: 8,
-                runSpacing: 8,
+                spacing: 12,
+                runSpacing: 12,
                 children: _funds.map((f) {
                   final isSelected = _selectedFund == f;
-                  return ChoiceChip(
-                    label: Text(f.toUpperCase()),
-                    selected: isSelected,
-                    onSelected: (val) {
-                      if (val) setState(() => _selectedFund = f);
-                    },
-                    selectedColor: ObsidianTheme.primaryCrimson.withValues(alpha: 0.2),
-                    labelStyle: GoogleFonts.plusJakartaSans(
-                      fontSize: 10,
-                      fontWeight: FontWeight.bold,
-                      color: isSelected ? ObsidianTheme.primaryCrimson : ObsidianTheme.textMuted,
+                  return InkWell(
+                    onTap: () => setState(() => _selectedFund = f),
+                    borderRadius: BorderRadius.circular(12),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+                      decoration: BoxDecoration(
+                        color: isSelected ? ObsidianTheme.primaryCrimson.withValues(alpha: 0.2) : ObsidianTheme.surfaceDark.withValues(alpha: 0.5),
+                        border: Border.all(color: isSelected ? ObsidianTheme.primaryCrimson : ObsidianTheme.borderHairline, width: isSelected ? 2 : 1),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Text(
+                        f.toUpperCase(),
+                        style: GoogleFonts.plusJakartaSans(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w800,
+                          color: isSelected ? ObsidianTheme.textVibrant : ObsidianTheme.textMuted,
+                        ),
+                      ),
                     ),
                   );
                 }).toList(),
               ),
 
-              const SizedBox(height: 32),
+              const SizedBox(height: 40),
 
               Text(
-                "GIVING AMOUNT",
-                style: Theme.of(context).textTheme.labelLarge?.copyWith(color: ObsidianTheme.textVibrant, letterSpacing: 1.0),
+                "CHOOSE AMOUNT",
+                style: Theme.of(context).textTheme.labelLarge?.copyWith(color: ObsidianTheme.textMuted, letterSpacing: 1.5),
               ),
-              const SizedBox(height: 12),
-              GlassCard(
-                padding: const EdgeInsets.all(24),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [50, 100, 200, 500].map((val) {
-                        return OutlinedButton(
-                          onPressed: () => setState(() => _customAmount = val.toDouble()),
-                          style: OutlinedButton.styleFrom(
-                            side: BorderSide(color: _customAmount == val ? ObsidianTheme.primaryCrimson : ObsidianTheme.borderHairline),
-                            padding: const EdgeInsets.symmetric(horizontal: 16),
+              const SizedBox(height: 16),
+              GridView.count(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                crossAxisCount: 2,
+                mainAxisSpacing: 16,
+                crossAxisSpacing: 16,
+                childAspectRatio: 2.2,
+                children: _presetAmounts.map((val) {
+                  final isSelected = _customAmount == val.toDouble();
+                  return InkWell(
+                    onTap: () {
+                      setState(() {
+                        _customAmount = val.toDouble();
+                        _amountController.clear();
+                      });
+                    },
+                    borderRadius: BorderRadius.circular(16),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: isSelected ? ObsidianTheme.secondaryGold.withValues(alpha: 0.15) : ObsidianTheme.surfaceDark.withValues(alpha: 0.5),
+                        border: Border.all(color: isSelected ? ObsidianTheme.secondaryGold : ObsidianTheme.borderHairline, width: isSelected ? 2 : 1),
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Center(
+                        child: Text(
+                          "GHC $val",
+                          style: GoogleFonts.plusJakartaSans(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w800,
+                            color: isSelected ? ObsidianTheme.secondaryGold : ObsidianTheme.textVibrant,
                           ),
-                          child: Text("$val"),
-                        );
-                      }).toList(),
-                    ),
-                    const SizedBox(height: 20),
-                    TextField(
-                      controller: _amountController,
-                      keyboardType: TextInputType.number,
-                      onChanged: (v) => setState(() => _customAmount = null),
-                      style: const TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
-                      decoration: InputDecoration(
-                        prefixText: "GHC ",
-                        prefixStyle: const TextStyle(color: ObsidianTheme.textMuted),
-                        hintText: "Other Amount",
-                        hintStyle: TextStyle(color: ObsidianTheme.textMuted.withValues(alpha: 0.4)),
-                        enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: ObsidianTheme.borderHairline)),
-                        focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: ObsidianTheme.primaryCrimson)),
+                        ),
                       ),
                     ),
-                  ],
+                  );
+                }).toList(),
+              ),
+              
+              const SizedBox(height: 16),
+              
+              GlassCard(
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                child: TextField(
+                  controller: _amountController,
+                  keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                  onChanged: (v) {
+                    if (v.isNotEmpty && _customAmount != null) {
+                      setState(() => _customAmount = null);
+                    }
+                  },
+                  style: const TextStyle(color: ObsidianTheme.textVibrant, fontSize: 24, fontWeight: FontWeight.bold),
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    prefixText: "GHC ",
+                    prefixStyle: const TextStyle(color: ObsidianTheme.textMuted, fontSize: 24, fontWeight: FontWeight.bold),
+                    hintText: "Custom Amount",
+                    hintStyle: TextStyle(color: ObsidianTheme.textMuted.withValues(alpha: 0.4), fontSize: 20),
+                  ),
                 ),
               ),
 
-              const SizedBox(height: 40),
+              const SizedBox(height: 48),
 
               ElevatedButton(
                 onPressed: finance.isLoading ? null : () => _confirmPayment(context),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: ObsidianTheme.secondaryGold,
                   foregroundColor: ObsidianTheme.backgroundDark,
-                  padding: const EdgeInsets.symmetric(vertical: 18),
+                  padding: const EdgeInsets.symmetric(vertical: 20),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                 ),
                 child: finance.isLoading
-                    ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2))
-                    : const Text("Next: Payment", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, letterSpacing: 1.0)),
+                    ? const SizedBox(height: 24, width: 24, child: CircularProgressIndicator(strokeWidth: 3, color: ObsidianTheme.backgroundDark))
+                    : const Text("PROCEED TO PAYMENT", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800, letterSpacing: 1.0)),
               ),
+              
+              const SizedBox(height: 80), // Padding for BottomNav
             ],
           ),
         ),

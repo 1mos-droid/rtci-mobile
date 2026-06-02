@@ -419,6 +419,28 @@ class _EventsScreenState extends State<EventsScreen> {
                                             ),
                                           ],
                                         ),
+                                        const SizedBox(height: 16),
+                                        SizedBox(
+                                          width: double.infinity,
+                                          child: ElevatedButton.icon(
+                                            onPressed: () {
+                                              ScaffoldMessenger.of(context).showSnackBar(
+                                                const SnackBar(
+                                                  content: Text("Attendance confirmed for this service!"),
+                                                  backgroundColor: Colors.green,
+                                                ),
+                                              );
+                                            },
+                                            icon: const Icon(Icons.check_circle_outline, size: 20),
+                                            label: const Text("I'M ATTENDING", style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 1.0)),
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor: ObsidianTheme.secondaryGold,
+                                              foregroundColor: ObsidianTheme.backgroundDark,
+                                              padding: const EdgeInsets.symmetric(vertical: 12),
+                                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                                            ),
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ),
