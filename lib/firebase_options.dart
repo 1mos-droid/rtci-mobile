@@ -35,3 +35,40 @@ class DefaultFirebaseOptions {
         );
       default:
         throw UnsupportedError(
+          'DefaultFirebaseOptions are not supported for this platform.',
+        );
+    }
+  }
+
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyC0EzT9z5kqp0itmAhdhArpqJMiJWEAIfY',
+    appId: '1:381753713314:web:7b4fcf18b09de281266dfb',
+    messagingSenderId: '381753713314',
+    projectId: 'rtci-22582',
+    authDomain: 'rtci-22582.firebaseapp.com',
+    storageBucket: 'rtci-22582.firebasestorage.app',
+    measurementId: 'G-PBVNWMLDB8',
+  );
+
+  static const FirebaseOptions android = FirebaseOptions(
+    apiKey: 'AIzaSyDfQWtE1oc4Y1HcCJS1DDLro0P2Xj7mrm8',
+    appId: '1:381753713314:android:4d8057ae2c1f232a266dfb',
+    messagingSenderId: '381753713314',
+    projectId: 'rtci-22582',
+    storageBucket: 'rtci-22582.firebasestorage.app',
+  );
+
+  static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyAhQTta7j-RatZw5NxUmQOP8UVXEnr-k6s',
+    appId: '1:381753713314:ios:b00529bef257e1cb266dfb',
+    messagingSenderId: '381753713314',
+    projectId: 'rtci-22582',
+    storageBucket: 'rtci-22582.firebasestorage.app',
+    iosBundleId: 'com.rtci.app.rtcMobile',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyAhQTta7j-RatZw5NxUmQOP8UVXEnr-k6s',
+    appId: '1:381753713314:ios:b00529bef257e1cb266dfb',
+    messagingSenderId: '381753713314',
+    projectId: 'rtci-22582',
