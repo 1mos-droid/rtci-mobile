@@ -27,21 +27,26 @@ class ChildCheckIn {
     final data = doc.data() as Map<String, dynamic>;
     return ChildCheckIn(
       id: doc.id,
-      parentName: map['parent_name'] ?? '',
-      parentPhone: map['parent_phone'] ?? '',
-      tagNumber: map['tag_number'] ?? '',
-      status: map['status'] ?? 'checked_in',
-      checkedInAt: DateTime.parse(map['checked_in_at'] ?? DateTime.now().toIso8601String()),
+      childName: data['child_name'] ?? '',
+      parentName: data['parent_name'],
+      parentPhone: data['parent_phone'],
+      guardianId: data['guardian_id'] ?? '',
+      checkInTime: (data['check_in_time'] as Timestamp?)?.toDate() ?? DateTime.now(),
+      status: data['status'] ?? 'checked_in',
+      tagNumber: data['tag_number'] ?? doc.id.substring(0, 4).toUpperCase(),
     );
   }
 }
 
 class ChildrenProvider extends ChangeNotifier {
-  final _supabase = Supabase.instance.client;
-  List<ChildCheckin> _checkins = [];
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  
+  List<ChildCheckIn> _activeCheckIns = [];
   bool _isLoading = false;
 
-  List<ChildCheckin> get checkins => _checkins;
+  List<ChildCheckIn> get activeCheckIns => _activeCheckIns;
+  List<ChildCheckIn> get checkins => _activeCheckIns; // Support getter name mismatch
   bool get isLoading => _isLoading;
 
   ChildrenProvider() {
@@ -49,25 +54,23 @@ class ChildrenProvider extends ChangeNotifier {
   }
 
   void _init() {
-    _supabase.auth.onAuthStateChange.listen((data) {
-      if (data.session != null) {
-        fetchCheckins();
+    _auth.authStateChanges().listen((user) {
+      if (user != null) {
+        fetchActiveCheckIns();
       } else {
-        _checkins = [];
+        _activeCheckIns = [];
         notifyListeners();
       }
     });
   }
 
-  Future<void> fetchCheckins() async {
+  Future<void> fetchActiveCheckIns() async {
     _isLoading = true;
     notifyListeners();
 
     try {
-      final response = await _supabase
-          .from('child_checkins')
-          .select()
-          .eq('status', 'checked_in')
+      final snapshot = await _firestore
+          .collection('child_checkins')
           .order('checked_in_at', ascending: false);
 
       _checkins = (response as List).map((m) => ChildCheckin.fromMap(m)).toList();
