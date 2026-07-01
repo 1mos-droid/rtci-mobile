@@ -43,10 +43,45 @@ class ApplicationProvider extends ChangeNotifier {
     _application = _application.copyWith(
       fullName: fullName,
       email: email,
+      phone: phone,
+      birthDate: birthDate,
+      address: address,
+    );
     notifyListeners();
   }
 
-  // Submission Pipeline
+  void updateSpiritualJourney({
+    String? conversionDate,
+    String? previousChurch,
+    bool? isWaterBaptized,
+    bool? isHolyGhostBaptized,
+  }) {
+    _application = _application.copyWith(
+      conversionDate: conversionDate,
+      previousChurch: previousChurch,
+      isWaterBaptized: isWaterBaptized,
+      isHolyGhostBaptized: isHolyGhostBaptized,
+    );
+    notifyListeners();
+  }
+
+  void toggleMinistry(String ministry) {
+    final list = List<String>.from(_application.selectedMinistries);
+    if (list.contains(ministry)) {
+      list.remove(ministry);
+    } else {
+      list.add(ministry);
+    }
+    _application = _application.copyWith(selectedMinistries: list);
+    notifyListeners();
+  }
+
+  void updateTalents(String talents) {
+    _application = _application.copyWith(talentsAndSkills: talents);
+    notifyListeners();
+  }
+
+  void updateCovenantAgreement(bool agreed) {
   Future<bool> submitApplication() async {
     _isLoading = true;
     notifyListeners();
