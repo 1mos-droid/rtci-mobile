@@ -72,3 +72,9 @@ class AppUser {
       role: role ?? this.role,
       department: department ?? this.department,
     );
+  }
+
+  bool get isAdmin => role == UserRole.admin || role == UserRole.developer;
+  bool get isDeptHead => role == UserRole.departmentHead || role == UserRole.admin || role == UserRole.developer;
+  bool get isDeveloper => role == UserRole.developer;
+}
