@@ -42,6 +42,43 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
             ),
             ListTile(
               leading: Icon(Icons.photo_library_outlined, color: ObsidianTheme.secondaryGold),
+              title: Text("Choose from Gallery", style: TextStyle(color: ObsidianTheme.textVibrant)),
+              onTap: () => Navigator.pop(context, ImageSource.gallery),
+            ),
+          ],
+        ),
+      ),
+    );
+
+    if (source == null) return;
+
+    final XFile? image = await _picker.pickImage(
+      source: source,
+      imageQuality: 75,
+      maxWidth: 800,
+    );
+
+    if (image == null) return;
+
+    if (!context.mounted) return;
+
+    // Show details input dialog
+    final formKey = GlobalKey<FormState>();
+    final titleController = TextEditingController();
+    final descController = TextEditingController();
+    DateTime selectedDate = DateTime.now();
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: ObsidianTheme.backgroundDark,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setSheetState) {
+            return Padding(
 
   @override
   Widget build(BuildContext context) {
