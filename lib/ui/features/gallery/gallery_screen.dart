@@ -405,6 +405,43 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
                           ),
                           delegate: SliverChildBuilderDelegate(
                             (context, index) {
+                              final img = images[index];
+                              return GestureDetector(
+                                onTap: () => _viewFullImage(context, galleryProv, img, canManage),
+                                child: GlassCard(
+                                  padding: EdgeInsets.zero,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                                    children: [
+                                      Expanded(
+                                        child: ClipRRect(
+                                          borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+                                          child: Image.network(
+                                            img.url,
+                                            fit: BoxFit.cover,
+                                            errorBuilder: (context, error, stackTrace) => Container(
+                                              color: ObsidianTheme.borderHairline,
+                                              child: Icon(
+                                                Icons.broken_image,
+                                                color: ObsidianTheme.textMuted,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(12.0),
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              img.description ?? img.title,
+                                              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
                                 ),
                                 Text(
                                   DateFormat('MMM dd, yyyy').format(img.serviceDate),
