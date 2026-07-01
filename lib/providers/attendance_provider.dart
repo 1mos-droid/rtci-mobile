@@ -50,17 +50,16 @@ class AttendanceProvider extends ChangeNotifier {
     });
   }
 
-  Future<void> fetchRecords() async {
+  Future<void> fetchAttendance() async {
     _isLoading = true;
     notifyListeners();
 
     try {
-      final response = await _supabase
-          .from('attendance')
-          .select()
-          .order('date', ascending: false);
-
-      _records = (response as List).map((m) => AttendanceRecord.fromMap(m)).toList();
+      final snapshot = await _firestore
+          .collection('attendance')
+          .orderBy('date', descending: true)
+          .get();
+      _records = snapshot.docs.map((doc) => AttendanceRecord.fromFirestore(doc)).toList();
     } catch (e) {
       debugPrint('Error fetching attendance: $e');
     } finally {
@@ -73,24 +72,27 @@ class AttendanceProvider extends ChangeNotifier {
     required DateTime date,
     required int headcount,
     String? department,
+    String serviceName = 'General Service',
   }) async {
     _isLoading = true;
     notifyListeners();
 
     try {
-      await _supabase.from('attendance').insert({
-        'date': date.toIso8601String(),
-        'headcount': headcount,
+      await _firestore.collection('attendance').add({
+        'service_name': serviceName,
+        'count': headcount,
         'department': department,
+        'date': Timestamp.fromDate(date),
+        'logged_by': _auth.currentUser?.uid,
       });
-      
-      await fetchRecords();
+      await fetchAttendance();
       return true;
     } catch (e) {
-      debugPrint('Error saving attendance: $e');
+      debugPrint('Error logging attendance: $e');
+      return false;
+    } finally {
       _isLoading = false;
       notifyListeners();
-      return false;
     }
   }
 }
