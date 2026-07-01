@@ -109,3 +109,40 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
               data: (user) {
                 if (user == null) return const SizedBox.shrink();
                 return CustomScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  slivers: [
+                    SliverAppBar(
+                pinned: true,
+                floating: false,
+                expandedHeight: 120.0,
+                backgroundColor: theme.scaffoldBackgroundColor,
+                surfaceTintColor: Colors.transparent,
+                iconTheme: IconThemeData(color: theme.colorScheme.primary),
+                flexibleSpace: FlexibleSpaceBar(
+                  title: Text(
+                    "Identity",
+                    style: GoogleFonts.inter(
+                      fontWeight: FontWeight.w800,
+                      color: theme.colorScheme.onSurface,
+                      letterSpacing: -0.5,
+                    ),
+                  ),
+                  centerTitle: false,
+                  titlePadding: const EdgeInsets.only(left: 56, bottom: 16),
+                ),
+              ),
+              SliverToBoxAdapter(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+                        child: Column(
+                          children: [
+                            // Avatar Section
+                            Center(
+                              child: Stack(
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.all(4),
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      border: Border.all(color: colorScheme.primary.withOpacity(0.3), width: 2),
+                                    ),
