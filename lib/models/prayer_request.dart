@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class PrayerRequest {
   final String id;
   final String request;
@@ -7,6 +9,7 @@ class PrayerRequest {
   final String? memberName;
   final String? campus;
   final DateTime createdAt;
+  final int intercessionCount;
 
   PrayerRequest({
     required this.id,
@@ -17,6 +20,7 @@ class PrayerRequest {
     this.memberId,
     this.memberName,
     this.campus,
+    this.intercessionCount = 0,
   });
 
   Map<String, dynamic> toMap() {
@@ -44,6 +48,21 @@ class PrayerRequest {
     );
   }
 
+  factory PrayerRequest.fromFirestore(DocumentSnapshot doc) {
+    final data = doc.data() as Map<String, dynamic>;
+    return PrayerRequest(
+      id: doc.id,
+      request: data['content'] ?? data['request'] ?? '',
+      status: data['status'] ?? 'pending',
+      isPrivate: data['is_anonymous'] ?? data['is_private'] ?? false,
+      memberId: data['user_id'] ?? data['member_id'],
+      memberName: data['user_name'] ?? data['member_name'],
+      campus: data['campus'],
+      createdAt: (data['created_at'] as Timestamp?)?.toDate() ?? DateTime.now(),
+      intercessionCount: data['intercession_count'] ?? 0,
+    );
+  }
+
   PrayerRequest copyWith({
     String? id,
     String? request,
@@ -53,6 +72,7 @@ class PrayerRequest {
     String? memberName,
     String? campus,
     DateTime? createdAt,
+    int? intercessionCount,
   }) {
     return PrayerRequest(
       id: id ?? this.id,
@@ -63,6 +83,7 @@ class PrayerRequest {
       memberName: memberName ?? this.memberName,
       campus: campus ?? this.campus,
       createdAt: createdAt ?? this.createdAt,
+      intercessionCount: intercessionCount ?? this.intercessionCount,
     );
   }
 }
