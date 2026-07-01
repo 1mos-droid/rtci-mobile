@@ -35,3 +35,40 @@ class CustomLogoLoader extends StatelessWidget {
                       colorScheme.secondary,
                       colorScheme.primary,
                       colorScheme.primary.withOpacity(0),
+                    ],
+                  ),
+                ),
+              )
+              .animate(onPlay: (controller) => controller.repeat())
+              .rotate(duration: 2.seconds),
+
+              // Blurred mask for the ring
+              Container(
+                width: size + 16,
+                height: size + 16,
+                decoration: BoxDecoration(
+                  color: theme.scaffoldBackgroundColor,
+                  shape: BoxShape.circle,
+                ),
+              ),
+
+              // The Logo
+              Container(
+                width: size,
+                height: size,
+                padding: const EdgeInsets.all(12),
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  shape: BoxShape.circle,
+                ),
+                child: Image.asset(
+                  'assets/church_logo.png',
+                  fit: BoxFit.contain,
+                ),
+              )
+              .animate(onPlay: (controller) => controller.repeat(reverse: true))
+              .scaleXY(begin: 0.9, end: 1.05, duration: 1.seconds, curve: Curves.easeInOut),
+            ],
+          ),
+          if (message != null) ...[
+            const SizedBox(height: 24),
