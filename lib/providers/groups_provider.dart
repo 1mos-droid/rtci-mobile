@@ -1,29 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class Group {
+class CellGroup {
   final String id;
   final String name;
+  final String leaderName;
+  final String location;
+  final int memberCount;
+  final String? type;
   final String? description;
-  final String? type; // home_cell, ministry, volunteer_rota
-  final String? leaderName;
   final String? campus;
 
-  Group({
-    required this.id,
-    required this.name,
-    this.description,
+  CellGroup({
+    required this.id, 
+    required this.name, 
+    required this.leaderName, 
+    required this.location, 
+    required this.memberCount,
     this.type,
-    this.leaderName,
+    this.description,
     this.campus,
   });
 
-  factory Group.fromMap(Map<String, dynamic> map) {
-    return Group(
-      id: map['id']?.toString() ?? '',
-      name: map['name'] ?? '',
-      description: map['description'],
-      type: map['type'],
+  factory CellGroup.fromFirestore(DocumentSnapshot doc) {
+    final data = doc.data() as Map<String, dynamic>;
+    return CellGroup(
+      id: doc.id,
+      name: data['name'] ?? '',
+      leaderName: data['leader_name'] ?? '',
+      location: data['location'] ?? '',
+      memberCount: data['member_count'] ?? 0,
       leaderName: map['leader'] != null ? map['leader']['name'] : null,
       campus: map['campus'],
     );
