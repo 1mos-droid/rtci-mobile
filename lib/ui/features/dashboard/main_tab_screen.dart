@@ -79,16 +79,33 @@ class _MainTabScreenState extends State<MainTabScreen> {
       return Scaffold(
         body: IndexedStack(
           index: _currentIndex,
-                });
-              },
-              type: BottomNavigationBarType.fixed,
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-              selectedItemColor: ObsidianTheme.primaryCrimson,
-              unselectedItemColor: ObsidianTheme.textMuted,
-              selectedLabelStyle: GoogleFonts.plusJakartaSans(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
+          children: _pages,
+        ),
+        bottomNavigationBar: NavigationBar(
+          selectedIndex: _currentIndex,
+          onDestinationSelected: (index) => setState(() => _currentIndex = index),
+          destinations: const [
+            NavigationDestination(
+              icon: Icon(Icons.home_outlined),
+              selectedIcon: Icon(Icons.home_rounded),
+              label: 'Home',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.auto_stories_outlined),
+              selectedIcon: Icon(Icons.auto_stories_rounded),
+              label: 'Bible',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.favorite_outline_rounded),
+              selectedIcon: Icon(Icons.favorite_rounded),
+              label: 'Give',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.menu_outlined),
+              selectedIcon: Icon(Icons.menu_rounded),
+              label: 'Menu',
+            ),
+          ],
               ),
               unselectedLabelStyle: GoogleFonts.plusJakartaSans(
                 fontSize: 12,
