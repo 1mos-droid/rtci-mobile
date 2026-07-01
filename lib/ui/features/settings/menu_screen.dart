@@ -1,33 +1,40 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_animate/flutter_animate.dart';
-import 'package:rtc_mobile/theme/app_theme.dart';
-import 'package:rtc_mobile/widgets/glass_card.dart';
-import 'package:rtc_mobile/providers/auth_provider.dart';
-import 'package:rtc_mobile/ui/features/spiritual/prayer_requests_screen.dart';
-import 'package:rtc_mobile/ui/features/groups/groups_screen.dart';
-import 'package:rtc_mobile/ui/features/messaging/messaging_screen.dart';
+import 'package:rtc_mobile/application/auth/auth_provider.dart';
+import 'package:rtc_mobile/domain/auth/user_model.dart';
 import 'package:rtc_mobile/ui/features/auth/welcome_screen.dart';
+import 'package:rtc_mobile/ui/features/spiritual/prayer_requests_screen.dart';
+import 'package:rtc_mobile/ui/features/gallery/gallery_screen.dart';
+import 'package:rtc_mobile/ui/features/spiritual/bible_studies_screen.dart';
+import 'package:rtc_mobile/ui/features/leadership/leadership_screen.dart';
 import 'package:rtc_mobile/ui/features/profile/members_screen.dart';
+import 'package:rtc_mobile/ui/features/profile/profile_edit_screen.dart';
+import 'package:rtc_mobile/ui/features/groups/groups_screen.dart';
 import 'package:rtc_mobile/ui/features/children/children_screen.dart';
 import 'package:rtc_mobile/ui/features/attendance/attendance_screen.dart';
 import 'package:rtc_mobile/ui/features/finance/financials_screen.dart';
+import 'package:rtc_mobile/ui/features/messaging/messaging_screen.dart';
 import 'package:rtc_mobile/ui/features/admin/reports_screen.dart';
-import 'package:rtc_mobile/ui/features/spiritual/bible_studies_screen.dart';
-import 'package:rtc_mobile/ui/features/gallery/gallery_screen.dart';
-import 'package:rtc_mobile/ui/features/leadership/leadership_screen.dart';
+import 'package:rtc_mobile/ui/features/admin/user_management_screen.dart';
 import 'package:rtc_mobile/ui/features/settings/settings_screen.dart';
 import 'package:rtc_mobile/ui/features/help/help_screen.dart';
-import 'package:rtc_mobile/ui/features/admin/user_management_screen.dart';
+import 'package:rtc_mobile/widgets/glass_card.dart';
+import 'package:rtc_mobile/theme/app_theme.dart';
 
-class MenuScreen extends StatelessWidget {
+class MenuScreen extends ConsumerWidget {
   const MenuScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final auth = Provider.of<AuthProvider>(context);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final authState = ref.watch(authNotifierProvider);
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
 
+    return authState.when(
+      data: (user) {
+        if (user == null) return const WelcomeScreen();
+        
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: CustomScrollView(
