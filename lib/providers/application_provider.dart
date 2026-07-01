@@ -19,43 +19,6 @@ class ApplicationProvider extends ChangeNotifier {
     ? "RTCI-MEMBER-CERT-${_application.fullName.replaceAll(' ', '_')}.pdf" 
     : null;
 
-  void updatePersonalInfo({
-    String? fullName,
-    String? email,
-    String? phone,
-    String? birthDate,
-    String? gender,
-    String? address,
-  }) {
-    _application.fullName = fullName ?? _application.fullName;
-    _application.email = email ?? _application.email;
-    _application.phone = phone ?? _application.phone;
-    _application.birthDate = birthDate ?? _application.birthDate;
-    _application.gender = gender ?? _application.gender;
-    _application.address = address ?? _application.address;
-    
-    // Auto calculate step progress
-    _calculateProgress();
-    saveProgress();
-    notifyListeners();
-  }
-
-  // Update Spiritual Journey
-  void updateSpiritualJourney({
-    String? conversionDate,
-    bool? isWaterBaptized,
-    bool? isHolyGhostBaptized,
-    String? previousChurch,
-  }) {
-    _application.conversionDate = conversionDate ?? _application.conversionDate;
-    _application.isWaterBaptized = isWaterBaptized ?? _application.isWaterBaptized;
-    _application.isHolyGhostBaptized = isHolyGhostBaptized ?? _application.isHolyGhostBaptized;
-    _application.previousChurch = previousChurch ?? _application.previousChurch;
-    
-    _calculateProgress();
-    saveProgress();
-    notifyListeners();
-  }
 
   // Update Ministries
   void toggleMinistry(String ministry) {
