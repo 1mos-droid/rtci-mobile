@@ -63,9 +63,9 @@ class BibleStudiesProvider extends ChangeNotifier {
   }
 
   void _init() {
-    _supabase.auth.onAuthStateChange.listen((data) {
-      if (data.session != null) {
-        fetchLibrary();
+    _auth.authStateChanges().listen((user) {
+      if (user != null) {
+        fetchStudies();
       } else {
         _modules = [];
         _resources = [];
@@ -74,25 +74,18 @@ class BibleStudiesProvider extends ChangeNotifier {
     });
   }
 
-  Future<void> fetchLibrary() async {
+  Future<void> fetchStudies() async {
     _isLoading = true;
     notifyListeners();
 
     try {
-      final modulesRes = await _supabase
-          .from('bible_studies')
-          .select()
-          .order('created_at', ascending: false);
-
-      final resourcesRes = await _supabase
-          .from('resources')
-          .select()
-          .order('created_at', ascending: false);
-
-      _modules = (modulesRes as List).map((m) => BibleStudyModule.fromMap(m)).toList();
-      _resources = (resourcesRes as List).map((m) => ResourceItem.fromMap(m)).toList();
+      final modulesSnapshot = await _firestore.collection('study_modules').get();
+      _modules = modulesSnapshot.docs.map((doc) => StudyModule.fromFirestore(doc)).toList();
+      
+      final resourcesSnapshot = await _firestore.collection('study_resources').get();
+      _resources = resourcesSnapshot.docs.map((doc) => StudyResource.fromFirestore(doc)).toList();
     } catch (e) {
-      debugPrint('Error fetching library: $e');
+      debugPrint('Error fetching study data: $e');
     } finally {
       _isLoading = false;
       notifyListeners();
