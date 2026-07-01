@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rtc_mobile/theme/app_theme.dart';
 import 'package:rtc_mobile/widgets/glass_card.dart';
 import 'package:rtc_mobile/widgets/mesh_gradient_background.dart';
-import 'package:rtc_mobile/providers/members_provider.dart';
+import 'package:rtc_mobile/providers/riverpod_providers.dart';
 
-class MembersScreen extends StatefulWidget {
+class MembersScreen extends ConsumerStatefulWidget {
   const MembersScreen({super.key});
 
   @override
-  State<MembersScreen> createState() => _MembersScreenState();
+  ConsumerState<MembersScreen> createState() => _MembersScreenState();
 }
 
-class _MembersScreenState extends State<MembersScreen> {
+class _MembersScreenState extends ConsumerState<MembersScreen> {
   String _searchTerm = '';
 
   @override
   Widget build(BuildContext context) {
-    final membersProv = Provider.of<MembersProvider>(context);
+    final membersProv = ref.watch(membersProvider);
     final filteredMembers = membersProv.members.where((m) => 
       m.name.toLowerCase().contains(_searchTerm.toLowerCase()) ||
       m.email.toLowerCase().contains(_searchTerm.toLowerCase())
@@ -49,11 +49,11 @@ class _MembersScreenState extends State<MembersScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                   child: TextField(
                     onChanged: (val) => setState(() => _searchTerm = val),
-                    style: const TextStyle(color: Colors.white),
+                    style: TextStyle(color: ObsidianTheme.textVibrant),
                     decoration: InputDecoration(
                       hintText: "Search registry...",
-                      hintStyle: const TextStyle(color: ObsidianTheme.textMuted),
-                      prefixIcon: const Icon(Icons.search, color: ObsidianTheme.textMuted),
+                      hintStyle: TextStyle(color: ObsidianTheme.textMuted),
+                      prefixIcon: Icon(Icons.search, color: ObsidianTheme.textMuted),
                       filled: true,
                       fillColor: ObsidianTheme.surfaceDark.withValues(alpha: 0.5),
                       border: OutlineInputBorder(
@@ -70,7 +70,7 @@ class _MembersScreenState extends State<MembersScreen> {
               sliver: membersProv.isLoading && filteredMembers.isEmpty
                 ? const SliverFillRemaining(child: Center(child: CircularProgressIndicator()))
                 : filteredMembers.isEmpty
-                  ? const SliverFillRemaining(child: Center(child: Text("No members found.", style: TextStyle(color: Colors.white))))
+                  ? SliverFillRemaining(child: Center(child: Text("No members found.", style: TextStyle(color: ObsidianTheme.textVibrant))))
                   : SliverList(
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {
@@ -85,7 +85,7 @@ class _MembersScreenState extends State<MembersScreen> {
                               backgroundColor: ObsidianTheme.primaryCrimson.withValues(alpha: 0.2),
                               child: Text(
                                 member.name[0],
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: ObsidianTheme.primaryCrimson,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -115,7 +115,7 @@ class _MembersScreenState extends State<MembersScreen> {
                                 ],
                               ),
                             ),
-                            const Icon(Icons.more_vert, color: ObsidianTheme.textMuted),
+                            Icon(Icons.more_vert, color: ObsidianTheme.textMuted),
                           ],
                         ),
                       ),
