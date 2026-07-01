@@ -1,0 +1,37 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rtc_mobile/providers/members_provider.dart';
+import 'package:rtc_mobile/providers/application_provider.dart';
+import 'package:rtc_mobile/providers/prayer_provider.dart';
+import 'package:rtc_mobile/providers/financial_provider.dart';
+import 'package:rtc_mobile/providers/events_provider.dart';
+import 'package:rtc_mobile/providers/care_provider.dart';
+import 'package:rtc_mobile/providers/insights_provider.dart';
+import 'package:rtc_mobile/providers/groups_provider.dart';
+import 'package:rtc_mobile/providers/children_provider.dart';
+import 'package:rtc_mobile/providers/leadership_provider.dart';
+import 'package:rtc_mobile/providers/bible_studies_provider.dart';
+import 'package:rtc_mobile/providers/bible_provider.dart';
+import 'package:rtc_mobile/providers/gallery_provider.dart';
+import 'package:rtc_mobile/providers/attendance_provider.dart';
+import 'package:rtc_mobile/providers/broadcast_provider.dart';
+
+export 'package:rtc_mobile/providers/members_provider.dart';
+export 'package:rtc_mobile/providers/application_provider.dart';
+export 'package:rtc_mobile/providers/prayer_provider.dart';
+export 'package:rtc_mobile/providers/financial_provider.dart';
+export 'package:rtc_mobile/providers/events_provider.dart';
+export 'package:rtc_mobile/providers/care_provider.dart';
+export 'package:rtc_mobile/providers/insights_provider.dart';
+export 'package:rtc_mobile/providers/groups_provider.dart';
+export 'package:rtc_mobile/providers/children_provider.dart';
+export 'package:rtc_mobile/providers/leadership_provider.dart';
+export 'package:rtc_mobile/providers/bible_studies_provider.dart';
+export 'package:rtc_mobile/providers/bible_provider.dart';
+export 'package:rtc_mobile/providers/gallery_provider.dart';
+export 'package:rtc_mobile/providers/attendance_provider.dart';
+export 'package:rtc_mobile/providers/broadcast_provider.dart';
+
+final membersProvider = ChangeNotifierProvider((ref) => MembersProvider());
+final applicationProvider = ChangeNotifierProvider((ref) => ApplicationProvider());
+final prayerProvider = ChangeNotifierProvider((ref) => PrayerProvider());
+final financialProvider = ChangeNotifierProvider((ref) => FinancialProvider());
