@@ -56,11 +56,42 @@ class MenuScreen extends ConsumerWidget {
                     ),
                   ),
                   centerTitle: false,
+                  titlePadding: const EdgeInsets.only(left: 16, bottom: 16),
                 ),
               ),
-              background: Container(
-                decoration: const BoxDecoration(
-                  border: Border(bottom: BorderSide(color: ObsidianTheme.borderHairline)),
+              SliverPadding(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                sliver: SliverList(
+                  delegate: SliverChildListDelegate([
+                    // Profile Section
+                    _buildGroupedSection([
+                      _buildProfileTile(context, user),
+                    ]),
+                    
+                    const SizedBox(height: 32),
+                    
+                    _buildSectionHeader("Spiritual & Community"),
+                    _buildGroupedSection([
+                      _buildMenuTile(
+                        context,
+                        title: 'Prayer Wall',
+                        icon: Icons.favorite_rounded,
+                        iconColor: AppTheme.systemPink,
+                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PrayerRequestsScreen())),
+                      ),
+                      _buildMenuTile(
+                        context,
+                        title: 'Service Gallery',
+                        icon: Icons.photo_library_rounded,
+                        iconColor: AppTheme.systemGreen,
+                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const GalleryScreen())),
+                      ),
+                      _buildMenuTile(
+                        context,
+                        title: 'Bible Studies',
+                        icon: Icons.auto_stories_rounded,
+                        iconColor: AppTheme.systemBlue,
+                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const BibleStudiesScreen())),
                 ),
               ),
             ),
