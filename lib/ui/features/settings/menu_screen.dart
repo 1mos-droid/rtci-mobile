@@ -247,43 +247,6 @@ class MenuScreen extends ConsumerWidget {
                     child: OutlinedButton(
                       child: const Text("Cancel"),
                       onPressed: () => Navigator.pop(context),
-                    icon: Icons.security_outlined,
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const LeadershipScreen())),
-                  ),
-                  
-                  if (auth.isDeptHead) ...[
-                    const SizedBox(height: 24),
-                    _buildSectionHeader('Administration (Dept Head)'),
-                    _buildMenuCard(
-                      context,
-                      title: 'Member Directory',
-                      subtitle: 'Congregation Registry',
-                      icon: Icons.people_outline,
-                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const MembersScreen())),
-                    ),
-                    _buildMenuCard(
-                      context,
-                      title: 'Cell Groups',
-                      subtitle: 'Manage Fellowships',
-                      icon: Icons.diversity_3_outlined,
-                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const GroupsScreen())),
-                    ),
-                    _buildMenuCard(
-                      context,
-                      title: "Children's Ministry",
-                      subtitle: 'Secure Check-in',
-                      icon: Icons.child_care_outlined,
-                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ChildrenScreen())),
-                    ),
-                    _buildMenuCard(
-                      context,
-                      title: 'Attendance',
-                      subtitle: 'Headcount & Roster',
-                      icon: Icons.how_to_reg_outlined,
-                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const AttendanceScreen())),
-                    ),
-                    _buildMenuCard(
-                      context,
                       title: 'Financial Ledger',
                       subtitle: 'Revenue & Pledges',
                       icon: Icons.account_balance_wallet_outlined,
