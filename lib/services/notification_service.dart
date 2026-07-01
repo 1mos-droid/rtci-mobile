@@ -72,3 +72,32 @@ class NotificationService {
     }
   }
 
+  Future<void> _showLocalNotification(RemoteMessage message) async {
+    RemoteNotification? notification = message.notification;
+    AndroidNotification? android = message.notification?.android;
+
+    if (notification != null && android != null) {
+      await _localNotifications.show(
+        notification.hashCode,
+        notification.title,
+        notification.body,
+        const NotificationDetails(
+          android: AndroidNotificationDetails(
+            'high_importance_channel', // id
+            'High Importance Notifications', // name
+            importance: Importance.max,
+            priority: Priority.high,
+            icon: '@mipmap/ic_launcher',
+          ),
+          iOS: DarwinNotificationDetails(),
+        ),
+      );
+    }
+  }
+}
+
+@pragma('vm:entry-point')
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+  if (kDebugMode) print("Handling a background message: ${message.messageId}");
+}
