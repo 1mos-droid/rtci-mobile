@@ -1,30 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class Member {
+class ChurchMember {
   final String id;
-  final String name;
+  final String fullName;
   final String email;
+  final String role;
   final String? department;
-  final String? phone;
-  final String? status;
+  final String? avatarUrl;
 
-  Member({
+  ChurchMember({
     required this.id,
-    required this.name,
+    required this.fullName,
     required this.email,
+    required this.role,
     this.department,
-    this.phone,
-    this.status,
+    this.avatarUrl,
   });
 
-  factory Member.fromMap(Map<String, dynamic> map) {
-    return Member(
-      id: map['id']?.toString() ?? '',
-      name: map['name'] ?? '',
-      email: map['email'] ?? '',
-      department: map['department'],
-      phone: map['phone'],
+  String get name => fullName; // Support getter name mismatch
+
+  factory ChurchMember.fromFirestore(DocumentSnapshot doc) {
+    final data = doc.data() as Map<String, dynamic>;
+    return ChurchMember(
+      id: doc.id,
+      fullName: data['name'] ?? '',
+      email: data['email'] ?? '',
+      role: data['role'] ?? 'member',
+      department: data['department'],
+      avatarUrl: data['avatar_url'],
       status: map['status'],
     );
   }
