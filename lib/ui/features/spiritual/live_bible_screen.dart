@@ -70,24 +70,35 @@ class _LiveBibleScreenState extends ConsumerState<LiveBibleScreen> {
     if (_noteController.text.isEmpty) return;
     final prefs = await SharedPreferences.getInstance();
     _savedNotes.add(_noteController.text);
-    _savedNotes.insert(0, newNote);
-    await prefs.setStringList('sermon_notes_vault', _savedNotes);
-    if (!mounted) return;
-    setState(() { _noteController.clear(); });
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Note saved!", style: TextStyle(fontSize: 16)), backgroundColor: Colors.green));
+    await prefs.setStringList('bible_notes', _savedNotes);
+    _noteController.clear();
+    if (mounted) {
+      setState(() {});
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Revelation preserved.")),
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    final bibleProv = Provider.of<BibleProvider>(context);
+    final bibleProv = ref.watch(bibleProvider);
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
 
-    return MeshGradientBackground(
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          title: Text(
+    return Scaffold(
+      backgroundColor: theme.scaffoldBackgroundColor,
+      body: CustomScrollView(
+        physics: const BouncingScrollPhysics(),
+        slivers: [
+          SliverAppBar(
+            pinned: true,
+            floating: false,
+            expandedHeight: 120.0,
+            backgroundColor: theme.scaffoldBackgroundColor,
+            surfaceTintColor: Colors.transparent,
+            flexibleSpace: FlexibleSpaceBar(
+              title: Text(
             "Bible",
             style: GoogleFonts.cinzel(fontWeight: FontWeight.bold, fontSize: 24, color: ObsidianTheme.textVibrant),
           ),
