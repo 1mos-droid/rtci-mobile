@@ -389,31 +389,22 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
                     )
                   : images.isEmpty
                       ? SliverFillRemaining(
-                    return GlassCard(
-                      padding: EdgeInsets.zero,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Expanded(
-                            child: Image.network(
-                              img.url,
-                              fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) => Container(
-                                color: ObsidianTheme.borderHairline,
-                                child: const Icon(Icons.broken_image, color: ObsidianTheme.textMuted),
-                              ),
+                          child: Center(
+                            child: Text(
+                              "No gallery images found.",
+                              style: TextStyle(color: ObsidianTheme.textVibrant),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  img.description ?? "Worship Service",
-                                  style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 12),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
+                        )
+                      : SliverGrid(
+                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 16.0,
+                            crossAxisSpacing: 16.0,
+                            childAspectRatio: 0.8,
+                          ),
+                          delegate: SliverChildBuilderDelegate(
+                            (context, index) {
                                 ),
                                 Text(
                                   DateFormat('MMM dd, yyyy').format(img.serviceDate),
