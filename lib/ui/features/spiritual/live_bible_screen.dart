@@ -502,43 +502,6 @@ class _LiveBibleScreenState extends ConsumerState<LiveBibleScreen> {
       ),
     );
   }
-          ),
-          const SizedBox(height: 16),
-          TextField(
-            controller: _noteController,
-            maxLines: 4,
-            style: const TextStyle(color: Colors.white, fontSize: 18),
-            decoration: InputDecoration(
-              hintText: "Write your thoughts here...", 
-              hintStyle: const TextStyle(color: ObsidianTheme.textMuted, fontSize: 18), 
-              filled: true,
-              fillColor: ObsidianTheme.backgroundDark,
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide.none),
-            ),
-          ),
-          const SizedBox(height: 16),
-          ElevatedButton(
-            onPressed: _saveNote, 
-            style: ElevatedButton.styleFrom(
-              backgroundColor: ObsidianTheme.primaryCrimson,
-              foregroundColor: Colors.white,
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-            ),
-            child: const Text("SAVE NOTE", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16))
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildNotesList() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text("YOUR SAVED NOTES", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16, letterSpacing: 1.0)),
-        const SizedBox(height: 16),
-        ..._savedNotes.map((n) => Padding(
           padding: const EdgeInsets.only(bottom: 12),
           child: GlassCard(padding: const EdgeInsets.all(20), child: Text(n, style: const TextStyle(color: ObsidianTheme.textVibrant, fontSize: 16, height: 1.4))),
         )),
