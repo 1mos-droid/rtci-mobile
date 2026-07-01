@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:rtc_mobile/theme/app_theme.dart';
 
 enum GradientButtonType { crimson, gold, outline }
 
 class GradientButton extends StatefulWidget {
   final String text;
   final VoidCallback? onPressed;
+  final bool isLoading;
   final GradientButtonType type;
   final IconData? icon;
-  final bool isLoading;
+  final double? width;
+  final double height;
 
   const GradientButton({
     super.key,
     required this.text,
-    required this.onPressed,
+    this.onPressed,
+    this.isLoading = false,
     this.type = GradientButtonType.crimson,
     this.icon,
-    this.isLoading = false,
+    this.width,
+    this.height = 52, // Standard iOS Button Height
   });
 
   @override
@@ -29,42 +32,40 @@ class _GradientButtonState extends State<GradientButton> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final isDark = theme.brightness == Brightness.dark;
     bool isEnabled = widget.onPressed != null && !widget.isLoading;
     
     Gradient gradient;
     Color borderCol = Colors.transparent;
-    Color textCol = ObsidianTheme.textVibrant;
-    Color glowCol = Colors.transparent;
+    Color textCol = Colors.white;
     
     switch (widget.type) {
       case GradientButtonType.gold:
         gradient = const LinearGradient(
-          colors: [ObsidianTheme.secondaryGold, Color(0xFFAA843B)],
+          colors: [Color(0xFFFFD700), Color(0xFFB8860B)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         );
-        glowCol = ObsidianTheme.secondaryGold.withValues(alpha: 0.2);
-        textCol = ObsidianTheme.backgroundDark;
+        textCol = Colors.black;
         break;
       case GradientButtonType.outline:
         gradient = const LinearGradient(colors: [Colors.transparent, Colors.transparent]);
-        borderCol = ObsidianTheme.borderHairline;
-        textCol = ObsidianTheme.textVibrant;
+        borderCol = colorScheme.primary.withOpacity(isDark ? 0.5 : 0.8);
+        textCol = colorScheme.primary;
         break;
       case GradientButtonType.crimson:
-        gradient = const LinearGradient(
-          colors: [ObsidianTheme.primaryCrimson, Color(0xFF6B1724)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
+        gradient = LinearGradient(
+          colors: [colorScheme.primary, colorScheme.primary.withOpacity(0.9)],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
         );
-        glowCol = ObsidianTheme.primaryCrimson.withValues(alpha: 0.18);
         textCol = Colors.white;
         break;
     }
 
     if (!isEnabled) {
-      gradient = const LinearGradient(colors: [Color(0xFF222222), Color(0xFF111111)]);
-      textCol = ObsidianTheme.textMuted;
       glowCol = Colors.transparent;
       borderCol = Colors.transparent;
     }
