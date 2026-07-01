@@ -227,6 +227,43 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
             onPressed: () => Navigator.pop(context),
           ),
           TextButton(
+            style: TextButton.styleFrom(foregroundColor: Colors.red),
+            child: const Text("Delete"),
+            onPressed: () async {
+              Navigator.pop(context); // Close dialog
+              final success = await provider.deleteGalleryItem(item.id, item.imageUrl);
+              if (success && context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text("Moment deleted successfully.")),
+                );
+              }
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _viewFullImage(BuildContext context, GalleryProvider provider, GalleryItem item, bool canManage) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          backgroundColor: Colors.transparent,
+          insetPadding: const EdgeInsets.all(15),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Align(
+                alignment: Alignment.topRight,
+                child: IconButton(
+                  icon: const Icon(Icons.close, color: Colors.white, size: 28),
+                  onPressed: () => Navigator.pop(context),
+                ),
+              ),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: Image.network(
 
   @override
   Widget build(BuildContext context) {
