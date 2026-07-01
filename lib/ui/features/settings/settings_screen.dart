@@ -169,4 +169,41 @@ class SettingsScreen extends ConsumerWidget {
     );
   }
 
+  void _showThemeSelector(BuildContext context, WidgetRef ref) {
+    final currentTheme = ref.read(themeNotifierProvider);
+    final isIOS = Theme.of(context).platform == TargetPlatform.iOS || Theme.of(context).platform == TargetPlatform.macOS;
+
+    if (isIOS) {
+      showCupertinoModalPopup(
+        context: context,
+        builder: (ctx) => CupertinoActionSheet(
+          title: const Text("Select Theme Mode"),
+          actions: [
+            CupertinoActionSheetAction(
+              onPressed: () {
+                ref.read(themeNotifierProvider.notifier).setThemeMode(ThemeMode.system);
+                Navigator.pop(ctx);
+              },
+              child: Text("System Default", style: TextStyle(fontWeight: currentTheme == ThemeMode.system ? FontWeight.bold : FontWeight.normal)),
+            ),
+            CupertinoActionSheetAction(
+              onPressed: () {
+                ref.read(themeNotifierProvider.notifier).setThemeMode(ThemeMode.light);
+                Navigator.pop(ctx);
+              },
+              child: Text("Light", style: TextStyle(fontWeight: currentTheme == ThemeMode.light ? FontWeight.bold : FontWeight.normal)),
+            ),
+            CupertinoActionSheetAction(
+              onPressed: () {
+                ref.read(themeNotifierProvider.notifier).setThemeMode(ThemeMode.dark);
+                Navigator.pop(ctx);
+              },
+              child: Text("Dark", style: TextStyle(fontWeight: currentTheme == ThemeMode.dark ? FontWeight.bold : FontWeight.normal)),
+            ),
+          ],
+          cancelButton: CupertinoActionSheetAction(
+            isDefaultAction: true,
+            onPressed: () => Navigator.pop(ctx),
+            child: const Text("Cancel"),
+          ),
 }
