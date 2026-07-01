@@ -301,6 +301,43 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                             ),
+                          ),
+                        ),
+                        if (canManage)
+                          IconButton(
+                            icon: const Icon(Icons.delete_outline, color: Colors.redAccent),
+                            onPressed: () {
+                              Navigator.pop(context); // Close view image dialog
+                              _showDeleteConfirmation(context, provider, item);
+                            },
+                          ),
+                      ],
+                    ),
+                    if (item.description != null && item.description!.isNotEmpty) ...[
+                      const SizedBox(height: 8),
+                      Text(
+                        item.description!,
+                        style: TextStyle(color: ObsidianTheme.textMuted, fontSize: 13),
+                      ),
+                    ],
+                    Divider(color: ObsidianTheme.borderHairline, height: 24),
+                    Row(
+                      children: [
+                        Icon(Icons.calendar_today_outlined, size: 12, color: ObsidianTheme.textMuted),
+                        const SizedBox(width: 8),
+                        Text(
+                          DateFormat('MMMM dd, yyyy').format(item.date),
+                          style: TextStyle(color: ObsidianTheme.textMuted, fontSize: 11),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      },
 
   @override
   Widget build(BuildContext context) {
