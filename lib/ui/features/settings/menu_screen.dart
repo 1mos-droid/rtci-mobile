@@ -241,39 +241,12 @@ class MenuScreen extends ConsumerWidget {
                 ),
               ),
               const SizedBox(height: 24),
-          ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              Row(
                 children: [
-                  _buildSectionHeader('Spiritual & Community'),
-                  _buildMenuCard(
-                    context,
-                    title: 'Prayer Requests',
-                    subtitle: 'Intercession Wall',
-                    icon: Icons.volunteer_activism_outlined,
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PrayerRequestsScreen())),
-                  ),
-                  _buildMenuCard(
-                    context,
-                    title: 'Service Gallery',
-                    subtitle: 'Worship Moments',
-                    icon: Icons.image_outlined,
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const GalleryScreen())),
-                  ),
-                  _buildMenuCard(
-                    context,
-                    title: 'Ministerial Library',
-                    subtitle: 'Study Modules',
-                    icon: Icons.library_books_outlined,
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const BibleStudiesScreen())),
-                  ),
-                  _buildMenuCard(
-                    context,
-                    title: 'Church Leadership',
-                    subtitle: 'Directory of Officials',
+                  Expanded(
+                    child: OutlinedButton(
+                      child: const Text("Cancel"),
+                      onPressed: () => Navigator.pop(context),
                     icon: Icons.security_outlined,
                     onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const LeadershipScreen())),
                   ),
