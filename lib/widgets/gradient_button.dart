@@ -124,10 +124,6 @@ class _GradientButtonState extends State<GradientButton> {
             gradient: gradient,
             borderRadius: BorderRadius.circular(12),
             border: borderCol != Colors.transparent ? Border.all(color: borderCol, width: 1.5) : null,
-                      offset: const Offset(0, 5),
-                    )
-                  ]
-                : [],
           ),
           child: Center(child: content),
         ),
