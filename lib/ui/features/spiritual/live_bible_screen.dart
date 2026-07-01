@@ -206,27 +206,30 @@ class _LiveBibleScreenState extends ConsumerState<LiveBibleScreen> {
           ),
           boxShadow: [
             BoxShadow(
+              color: Colors.black.withOpacity(isDark ? 0.2 : 0.02),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+          ],
         ),
-        body: Column(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            _buildSelectors(bibleProv),
             Expanded(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    _buildReader(bibleProv),
-                    const SizedBox(height: 32),
-                    _buildNotePad(),
-                    if (_savedNotes.isNotEmpty) ...[
-                      const SizedBox(height: 32),
-                      _buildNotesList(),
-                    ],
-                    const SizedBox(height: 80),
-                  ],
+              child: Text(
+                label,
+                style: GoogleFonts.inter(
+                  fontWeight: FontWeight.w700, 
+                  fontSize: 15,
+                  color: theme.colorScheme.onSurface,
                 ),
+                overflow: TextOverflow.ellipsis,
               ),
+            ),
+            Icon(
+              Icons.keyboard_arrow_down_rounded, 
+              size: 20, 
+              color: theme.colorScheme.primary,
             ),
           ],
         ),
@@ -234,7 +237,7 @@ class _LiveBibleScreenState extends ConsumerState<LiveBibleScreen> {
     );
   }
 
-  Widget _buildSelectors(BibleProvider bibleProv) {
+  void _showBookPicker(BuildContext context, BibleProvider prov) {
     return Container(
       color: ObsidianTheme.surfaceDark.withValues(alpha: 0.8),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
