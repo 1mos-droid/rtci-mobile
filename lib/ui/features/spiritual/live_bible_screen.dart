@@ -99,10 +99,39 @@ class _LiveBibleScreenState extends ConsumerState<LiveBibleScreen> {
             surfaceTintColor: Colors.transparent,
             flexibleSpace: FlexibleSpaceBar(
               title: Text(
-            "Bible",
-            style: GoogleFonts.cinzel(fontWeight: FontWeight.bold, fontSize: 24, color: ObsidianTheme.textVibrant),
+                "Bible",
+                style: GoogleFonts.inter(
+                  fontWeight: FontWeight.w800,
+                  color: theme.colorScheme.onSurface,
+                  letterSpacing: -0.5,
+                ),
+              ),
+              centerTitle: false,
+              titlePadding: const EdgeInsets.only(left: 16, bottom: 16),
+            ),
           ),
-          centerTitle: true,
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: _buildSelector(
+                      context,
+                      label: _selectedBookId != null 
+                        ? bibleProv.books.firstWhere((b) => b['id'] == _selectedBookId)['name']
+                        : "Book",
+                      onTap: () => _showBookPicker(context, bibleProv),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  SizedBox(
+                    width: 90,
+                    child: _buildSelector(
+                      context,
+                      label: _selectedChapterId != null 
+                        ? bibleProv.chapters.firstWhere((c) => c['id'] == _selectedChapterId)['number'].toString()
+                        : "Ch",
         ),
         body: Column(
           children: [
