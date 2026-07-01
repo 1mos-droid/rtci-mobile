@@ -976,29 +976,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.8"
+  pool:
     dependency: transitive
     description:
-      name: pointycastle
-      sha256: "92aa3841d083cc4b0f4709b5c74fd6409a3e6ba833ffc7dc6a8fee096366acf5"
+      name: pool
+      sha256: "978783255c543aa3586a1b3c21f6e9d720eb315376a915872c61ef8b5c20177d"
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.0"
-  postgrest:
+    version: "1.5.2"
+  posix:
     dependency: transitive
     description:
-      name: postgrest
-      sha256: "9d61b3d4a88fcf9424d400127c54d49ed1b56ec30838fc0a33a64f31d4e694cc"
+      name: posix
+      sha256: "185ef7606574f789b40f289c233efa52e96dead518aed988e040a10737febb07"
       url: "https://pub.dev"
     source: hosted
-    version: "2.7.0"
-  provider:
-    dependency: "direct main"
-    description:
-      name: provider
-      sha256: "4e82183fa20e5ca25703ead7e05de9e4cceed1fbd1eadc1ac3cb6f565a09f272"
-      url: "https://pub.dev"
-    source: hosted
-    version: "6.1.5+1"
+    version: "6.5.0"
   pub_semver:
     dependency: transitive
     description:
@@ -1007,14 +1000,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.0"
-  realtime_client:
+  pubspec_parse:
     dependency: transitive
     description:
-      name: realtime_client
-      sha256: "7dfccf372d2f55aacfeefb6186f65a06f3ffae383fe042dbeef9d85d33487576"
+      name: pubspec_parse
+      sha256: "0560ba233314abbed0a48a2956f7f022cce7c3e1e73df540277da7544cad4082"
       url: "https://pub.dev"
     source: hosted
-    version: "2.7.3"
+    version: "1.5.0"
   record_use:
     dependency: transitive
     description:
@@ -1023,10 +1016,10 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.6.0"
-  retry:
+  riverpod:
     dependency: transitive
     description:
-      name: retry
+      name: riverpod
       sha256: "822e118d5b3aafed083109c72d5f484c6dc66707885e07c0fbcb8b986bba7efc"
       url: "https://pub.dev"
     source: hosted
