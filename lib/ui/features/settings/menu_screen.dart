@@ -267,43 +267,6 @@ class MenuScreen extends ConsumerWidget {
                         }
                       },
                       child: const Text("Sign Out"),
-  Widget _buildSectionHeader(String title) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 16.0, left: 4.0),
-      child: Text(
-        title.toUpperCase(),
-        style: GoogleFonts.plusJakartaSans(
-          fontSize: 12,
-          fontWeight: FontWeight.w900,
-          color: ObsidianTheme.secondaryGold,
-          letterSpacing: 2.0,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildMenuCard(BuildContext context, {required String title, required String subtitle, required IconData icon, required VoidCallback onTap}) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12.0),
-      child: GlassCard(
-        padding: const EdgeInsets.all(16),
-        onTap: onTap,
-        child: Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: ObsidianTheme.primaryCrimson.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: ObsidianTheme.primaryCrimson.withValues(alpha: 0.2), width: 1),
-              ),
-              child: Icon(icon, color: ObsidianTheme.primaryCrimson, size: 24),
-            ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
                   Text(
                     title,
                     style: GoogleFonts.plusJakartaSans(
