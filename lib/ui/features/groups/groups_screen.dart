@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rtc_mobile/theme/app_theme.dart';
 import 'package:rtc_mobile/widgets/glass_card.dart';
 import 'package:rtc_mobile/widgets/mesh_gradient_background.dart';
-import 'package:rtc_mobile/providers/groups_provider.dart';
+import 'package:rtc_mobile/providers/riverpod_providers.dart';
 
-class GroupsScreen extends StatefulWidget {
+class GroupsScreen extends ConsumerStatefulWidget {
   const GroupsScreen({super.key});
 
   @override
-  State<GroupsScreen> createState() => _GroupsScreenState();
+  ConsumerState<GroupsScreen> createState() => _GroupsScreenState();
 }
 
-class _GroupsScreenState extends State<GroupsScreen> {
+class _GroupsScreenState extends ConsumerState<GroupsScreen> {
   String _filterType = 'All';
 
   void _handleJoinToggle(GroupsProvider groupsProv, String groupId, String groupName) async {
@@ -39,7 +39,7 @@ class _GroupsScreenState extends State<GroupsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final groupsProv = Provider.of<GroupsProvider>(context);
+    final groupsProv = ref.watch(groupsProvider);
     final rawList = groupsProv.groups;
     
     final list = _filterType == 'All'
@@ -57,7 +57,7 @@ class _GroupsScreenState extends State<GroupsScreen> {
           backgroundColor: Colors.transparent,
           elevation: 0,
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios_new, color: ObsidianTheme.textVibrant, size: 18),
+            icon: Icon(Icons.arrow_back_ios_new, color: ObsidianTheme.textVibrant, size: 18),
             onPressed: () => Navigator.pop(context),
           ),
           title: Text(
@@ -172,7 +172,7 @@ class _GroupsScreenState extends State<GroupsScreen> {
                                     grp.description ?? 'No description provided.',
                                     style: Theme.of(context).textTheme.bodyMedium,
                                   ),
-                                  const Divider(color: ObsidianTheme.borderHairline, height: 24),
+                                  Divider(color: ObsidianTheme.borderHairline, height: 24),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -182,7 +182,7 @@ class _GroupsScreenState extends State<GroupsScreen> {
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              "LEADER: ${grp.leaderName?.toUpperCase() ?? 'UNASSIGNED'}",
+                                              "LEADER: ${grp.leaderName.toUpperCase() ?? 'UNASSIGNED'}",
                                               style: Theme.of(context).textTheme.labelMedium?.copyWith(
                                                     fontSize: 8.5,
                                                     color: ObsidianTheme.textMuted,
@@ -207,7 +207,7 @@ class _GroupsScreenState extends State<GroupsScreen> {
                                           style: ElevatedButton.styleFrom(
                                             backgroundColor: isJoined ? Colors.transparent : ObsidianTheme.secondaryGold,
                                             foregroundColor: isJoined ? ObsidianTheme.textVibrant : ObsidianTheme.backgroundDark,
-                                            side: isJoined ? const BorderSide(color: ObsidianTheme.borderHairline) : null,
+                                            side: isJoined ? BorderSide(color: ObsidianTheme.borderHairline) : null,
                                             elevation: 0,
                                             padding: const EdgeInsets.symmetric(horizontal: 8),
                                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
