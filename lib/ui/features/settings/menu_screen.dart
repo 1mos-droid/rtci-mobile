@@ -326,5 +326,42 @@ class MenuScreen extends ConsumerWidget {
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       leading: Container(
+        padding: const EdgeInsets.all(2),
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          border: Border.all(color: colorScheme.primary.withOpacity(0.2), width: 1.5),
+        ),
+        child: CircleAvatar(
+          radius: 28,
+          backgroundColor: colorScheme.primary.withOpacity(0.1),
+          backgroundImage: user.avatarUrl != null ? NetworkImage(user.avatarUrl!) : null,
+          child: user.avatarUrl == null 
+              ? Text(
+                  user.name.isNotEmpty ? user.name.substring(0, 1) : 'U',
+                  style: TextStyle(color: colorScheme.primary, fontWeight: FontWeight.w700, fontSize: 24),
+                )
+              : null,
+        ),
+      ),
+      title: Text(
+        user.name,
+        style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 20, letterSpacing: -0.5),
+      ),
+      subtitle: Padding(
+        padding: const EdgeInsets.only(top: 2),
+        child: Text(
+          user.email,
+          style: TextStyle(color: AppTheme.systemGray, fontSize: 15, fontWeight: FontWeight.w500),
+        ),
+      ),
+      trailing: Icon(Icons.chevron_right_rounded, size: 20, color: AppTheme.systemGray3),
+      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ProfileEditScreen())),
+    );
+  }
+
+  Widget _buildMenuTile(BuildContext context, {
+    required String title, 
+    required IconData icon, 
+    required Color iconColor,
   }
 }
