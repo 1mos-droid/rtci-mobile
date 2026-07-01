@@ -227,41 +227,48 @@ class DashboardScreen extends ConsumerWidget {
                                     children: [
                                       Row(
                                         mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           Expanded(
                                             child: Text(
                                               item.memberName,
-                                              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 14,
+                                              ),
                                               overflow: TextOverflow.ellipsis,
                                             ),
                                           ),
                                           Container(
-                                            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                                            padding: const EdgeInsets.symmetric(
+                                              horizontal: 6,
+                                              vertical: 2,
+                                            ),
                                             decoration: BoxDecoration(
-                                              color: Colors.red.withValues(alpha: 0.1),
-                                              borderRadius: BorderRadius.circular(4),
+                                              color: Colors.red.withValues(
+                                                alpha: 0.1,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(4),
                                             ),
                                             child: Text(
                                               "${item.absenceCount} MISS",
-                                              style: const TextStyle(color: Colors.red, fontSize: 8, fontWeight: FontWeight.bold),
+                                              style: const TextStyle(
+                                                color: Colors.red,
+                                                fontSize: 8,
+                                                fontWeight: FontWeight.bold,
+                                              ),
                                             ),
                                           ),
                                         ],
                                       ),
-                                      const SizedBox(height: 8),
-                                      Text(
-                                        item.pastoralNotes ?? "Missing from fellowship recently.",
-                                        style: const TextStyle(fontSize: 11, color: ObsidianTheme.textMuted),
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
                                       const Spacer(),
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
                                         children: [
                                           IconButton(
-                                            icon: const Icon(Icons.check_circle_outline, size: 18, color: Colors.green),
-                                            onPressed: () => care.updateCareStatus(item.id, 'Resolved'),
+                                            icon: const Icon(
                                           ),
                                           IconButton(
                                             icon: const Icon(Icons.mail_outline, size: 18, color: Colors.blue),
