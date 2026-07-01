@@ -1,45 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rtc_mobile/models/member_application.dart';
 
 class ApplicationProvider extends ChangeNotifier {
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  
   MemberApplication _application = MemberApplication();
   int _currentStep = 0;
   bool _isLoading = false;
-  String? _pdfExportPath;
 
   MemberApplication get application => _application;
   int get currentStep => _currentStep;
   bool get isLoading => _isLoading;
-  String? get pdfExportPath => _pdfExportPath;
 
-  ApplicationProvider() {
-    _loadApplicationProgress();
-  }
+  String? get pdfExportPath => _application.isSubmitted 
+    ? "RTCI-MEMBER-CERT-${_application.fullName.replaceAll(' ', '_')}.pdf" 
+    : null;
 
-  // Load progress from local disk
-  Future<void> _loadApplicationProgress() async {
-    final prefs = await SharedPreferences.getInstance();
-    final data = prefs.getString('saved_member_application');
-    _currentStep = prefs.getInt('member_application_step') ?? 0;
-    if (data != null) {
-      try {
-        _application = MemberApplication.fromJson(data);
-      } catch (e) {
-        _application = MemberApplication();
-      }
-    }
-    notifyListeners();
-  }
-
-  // Save current progress to local disk
-  Future<void> saveProgress() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('saved_member_application', _application.toJson());
-    await prefs.setInt('member_application_step', _currentStep);
-  }
-
-  // Update Personal Info
   void updatePersonalInfo({
     String? fullName,
     String? email,
