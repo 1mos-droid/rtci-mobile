@@ -1,24 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ObsidianTheme {
-  static const Color backgroundDark = Color(0xFF050505);
-  static const Color surfaceDark = Color(0xFF0F0F11);
-  static const Color primaryCrimson = Color(0xFF8B1E31);
-  static const Color secondaryGold = Color(0xFFEAB308);
-  static const Color textVibrant = Color(0xFFF8F9FA);
-  static const Color textMuted = Color(0xFF88888E);
-  static const Color borderHairline = Color(0x14FFFFFF); // rgba(255,255,255,0.08)
+class AppTheme {
+  // iOS HIG System Colors
+  static const Color systemLightBg = Color(0xFFF2F2F7);
+  static const Color systemDarkBg = Color(0xFF000000);
+  
+  static const Color systemLightGroupedBg = Color(0xFFFFFFFF);
+  static const Color systemDarkGroupedBg = Color(0xFF1C1C1E);
 
-  // Compatibility Mappings for older code
-  static const Color primaryMidnight = primaryCrimson;
-  static const Color crimsonSoft = primaryCrimson;
-  static const Color backgroundLight = backgroundDark;
-  static const Color surfaceWhite = surfaceDark;
-  static const Color borderLight = borderHairline;
-  static const Color textDark = textVibrant;
-  static const Color accentGoldLight = Color(0x25EAB308);
-  static const Color accentSage = secondaryGold;
+  // Vibrant iOS-style Tints
+  static const Color iosPrimaryLight = Color(0xFFC92A3E); // Brand Crimson
+  static const Color iosPrimaryDark = Color(0xFFFF453A);  // Vibrant Apple-style Red
+
+  static const Color systemGray = Color(0xFF8E8E93);
+  static const Color systemGray2 = Color(0xFFAEAEB2);
+  static const Color systemGray3 = Color(0xFFC7C7CC);
+  static const Color systemGray4 = Color(0xFFD1D1D6);
+  static const Color systemGray5 = Color(0xFFE5E5EA);
+  static const Color systemGray6 = Color(0xFFF2F2F7);
+
+  static const Color systemBlue = Color(0xFF007AFF);
+  static const Color systemGreen = Color(0xFF34C759);
 
   static ThemeData get darkTheme {
     return ThemeData(
