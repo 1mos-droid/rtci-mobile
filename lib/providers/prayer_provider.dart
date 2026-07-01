@@ -61,30 +61,37 @@ class PrayerProvider extends ChangeNotifier {
         'category': category ?? 'General',
         'status': 'pending',
         'intercession_count': 0,
+        'created_at': FieldValue.serverTimestamp(),
       });
-      
       await fetchPrayers();
       return true;
     } catch (e) {
       debugPrint('Error submitting prayer: $e');
+      return false;
+    } finally {
       _isLoading = false;
       notifyListeners();
-      return false;
+    }
+  }
+
+  Future<void> supportPrayer(String id) async {
+    try {
+      await _firestore.collection('prayer_requests').doc(id).update({
+        'intercession_count': FieldValue.increment(1),
+      });
+      await fetchPrayers();
+    } catch (e) {
+      debugPrint('Error supporting prayer: $e');
     }
   }
 
   Future<void> updateStatus(String id, String status) async {
     try {
-      await _supabase
-          .from('prayer_requests')
-          .update({'status': status})
-          .eq('id', id);
-      
-      final index = _prayers.indexWhere((p) => p.id == id);
-      if (index != -1) {
-        _prayers[index] = _prayers[index].copyWith(status: status);
-        notifyListeners();
-      }
+      await _firestore.collection('prayer_requests').doc(id).update({
+        'status': status,
+        'updated_at': FieldValue.serverTimestamp(),
+      });
+      await fetchPrayers();
     } catch (e) {
       debugPrint('Error updating prayer status: $e');
     }
