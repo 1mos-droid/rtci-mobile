@@ -373,4 +373,41 @@ class BibleProvider extends ChangeNotifier {
     "thee": "you", 
     "thou": "you", 
     "thy": "your", 
+    "thine": "yours", 
+    "ye": "y'all",
+    "thyself": "your own self",
+    "myself": "my main character",
+    "art": "are",
+    "shalt": "gonna",
+    "wilt": "will",
+    "hath": "has", 
+    "doth": "does", 
+    "hast": "have",
+    "didst": "did",
+    "unto": "to",
+    "upon": "on",
+    "whence": "from where",
+    "hither": "here",
+    "thither": "there",
+    "wherefore": "why",
+    "therefore": "so",
+    "thus": "like this",
+    "moreover": "plus",
+    "nevertheless": "anyways",
+    "yea": "fr fr", 
+    "nay": "nah",
+    "alas": "bruh",
+    "lo": "peep this",
+    "behold": "look bro",
+    "lest": "or else",
+    "forthwith": "ASAP",
+    "hitherto": "up till now",
+    "wherewith": "with what",
+    "therein": "in there"
+  };
+
+  static String translateToGenZ(String text) {
+    if (text.isEmpty) return "";
+    String result = text;
+
 }
