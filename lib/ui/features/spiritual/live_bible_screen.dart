@@ -132,6 +132,43 @@ class _LiveBibleScreenState extends ConsumerState<LiveBibleScreen> {
                       label: _selectedChapterId != null 
                         ? bibleProv.chapters.firstWhere((c) => c['id'] == _selectedChapterId)['number'].toString()
                         : "Ch",
+                      onTap: () => _showChapterPicker(context, bibleProv),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          if (bibleProv.isLoading)
+            const SliverFillRemaining(
+              child: Center(child: CircularProgressIndicator.adaptive()),
+            )
+          else if (bibleProv.verses.isEmpty)
+            const SliverFillRemaining(
+              child: Center(child: Text("Select a chapter to begin reading.")),
+            )
+          else
+            SliverPadding(
+              padding: const EdgeInsets.all(20),
+              sliver: SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) {
+                    final v = bibleProv.verses[index];
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 20),
+                      child: RichText(
+                        text: TextSpan(
+                          style: theme.textTheme.bodyLarge?.copyWith(
+                            height: 1.6,
+                            fontSize: 18,
+                            color: isDark ? Colors.white.withOpacity(0.9) : Colors.black.withOpacity(0.9),
+                          ),
+                          children: [
+                            TextSpan(
+                              text: "${v.verse} ",
+                              style: TextStyle(
+                                color: theme.colorScheme.primary,
+                                fontWeight: FontWeight.w700,
         ),
         body: Column(
           children: [
