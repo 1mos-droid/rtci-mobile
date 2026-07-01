@@ -473,22 +473,35 @@ class _LiveBibleScreenState extends ConsumerState<LiveBibleScreen> {
                       ),
                       child: TextField(
                         controller: _noteController,
+                        style: GoogleFonts.inter(fontSize: 15),
+                        decoration: const InputDecoration(
+                          hintText: "Jot down a revelation...",
+                          border: InputBorder.none,
+                          enabledBorder: InputBorder.none,
+                          focusedBorder: InputBorder.none,
+                          isDense: true,
+                          contentPadding: EdgeInsets.symmetric(vertical: 12),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  IconButton.filled(
+                    icon: const Icon(Icons.arrow_upward_rounded, size: 22),
+                    style: IconButton.styleFrom(
+                      backgroundColor: theme.colorScheme.primary,
+                      foregroundColor: Colors.white,
+                    ),
+                    onPressed: _saveNote,
+                  ),
+                ],
+              ),
+            ),
+          ),
         ),
       ),
     );
   }
-
-  Widget _buildReader(BibleProvider bibleProv) {
-    if (bibleProv.isLoading) return const Center(child: CircularProgressIndicator());
-    if (bibleProv.verses.isEmpty) return const Center(child: Padding(padding: EdgeInsets.all(24.0), child: Text("Select a chapter to read.", style: TextStyle(color: ObsidianTheme.textMuted, fontSize: 18))));
-
-    return GlassCard(
-      padding: const EdgeInsets.all(24),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: bibleProv.verses.map((v) {
-          return Padding(
-            padding: const EdgeInsets.only(bottom: 16),
             child: RichText(
               text: TextSpan(
                 children: [
