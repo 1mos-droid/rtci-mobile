@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class ChurchEvent {
   final String id;
@@ -7,9 +8,10 @@ class ChurchEvent {
   final DateTime date;
   final String time;
   final String location;
+  final String category;
   final bool isOnline;
-  final String description;
   final String? department;
+  final String? description;
 
   ChurchEvent({
     required this.id,
@@ -17,27 +19,32 @@ class ChurchEvent {
     required this.date,
     required this.time,
     required this.location,
-    required this.isOnline,
-    required this.description,
+    required this.category,
+    this.isOnline = false,
     this.department,
+    this.description,
   });
 
-  factory ChurchEvent.fromMap(Map<String, dynamic> map) {
+  factory ChurchEvent.fromFirestore(DocumentSnapshot doc) {
+    final data = doc.data() as Map<String, dynamic>;
     return ChurchEvent(
-      id: map['id']?.toString() ?? '',
-      name: map['name'] ?? '',
-      date: DateTime.parse(map['date'] ?? DateTime.now().toIso8601String()),
-      time: map['time'] ?? '',
-      location: map['location'] ?? '',
-      isOnline: map['is_online'] ?? false,
-      description: map['description'] ?? '',
-      department: map['department']?.toString(),
+      id: doc.id,
+      name: data['name'] ?? '',
+      date: (data['date'] as Timestamp?)?.toDate() ?? DateTime.now(),
+      time: data['time'] ?? '',
+      location: data['location'] ?? '',
+      category: data['category'] ?? 'Service',
+      isOnline: data['is_online'] ?? false,
+      department: data['department'],
+      description: data['description'],
     );
   }
 }
 
 class EventsProvider extends ChangeNotifier {
-  final _supabase = Supabase.instance.client;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  
   List<ChurchEvent> _events = [];
   bool _isLoading = false;
 
@@ -49,7 +56,7 @@ class EventsProvider extends ChangeNotifier {
   }
 
   void _init() {
-    _supabase.auth.onAuthStateChange.listen((data) {
+    _auth.authStateChanges().listen((user) {
       if (data.session != null) {
         fetchEvents();
       } else {
