@@ -19,43 +19,6 @@ class ApplicationProvider extends ChangeNotifier {
     ? "RTCI-MEMBER-CERT-${_application.fullName.replaceAll(' ', '_')}.pdf" 
     : null;
 
-
-  // Update Ministries
-  void toggleMinistry(String ministry) {
-    if (_application.selectedMinistries.contains(ministry)) {
-      _application.selectedMinistries.remove(ministry);
-    } else {
-      _application.selectedMinistries.add(ministry);
-    }
-    _calculateProgress();
-    saveProgress();
-    notifyListeners();
-  }
-
-  void updateTalents(String talents) {
-    _application.talentsAndSkills = talents;
-    _calculateProgress();
-    saveProgress();
-    notifyListeners();
-  }
-
-  // Update Verification
-  void updateCovenantAgreement(bool agreed) {
-    _application.covenantsAgreed = agreed;
-    _calculateProgress();
-    saveProgress();
-    notifyListeners();
-  }
-
-  void updateSignature(List<Offset?> points) {
-    // Save signature coordinates as serialized string list
-    _application.signaturePoints = points.map((p) => p != null ? "${p.dx},${p.dy}" : "null").toList();
-    _calculateProgress();
-    saveProgress();
-    notifyListeners();
-  }
-
-  void _calculateProgress() {
     double totalWeight = 0.0;
     if (_application.fullName.isNotEmpty) totalWeight += 0.25;
     if (_application.email.isNotEmpty) totalWeight += 0.25;
