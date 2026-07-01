@@ -25,30 +25,29 @@ Future<void> main() async {
 
   runApp(
     const ProviderScope(
+      child: RTCIMobileApp(),
+    ),
+  );
 }
 
-class RTCIMobileApp extends StatelessWidget {
+class RTCIMobileApp extends ConsumerWidget {
   const RTCIMobileApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => AuthProvider()),
-        ChangeNotifierProvider(create: (_) => MembersProvider()),
-        ChangeNotifierProvider(create: (_) => ApplicationProvider()),
-        ChangeNotifierProvider(create: (_) => PrayerProvider()),
-        ChangeNotifierProvider(create: (_) => FinancialProvider()),
-        ChangeNotifierProvider(create: (_) => EventsProvider()),
-        ChangeNotifierProvider(create: (_) => CareProvider()),
-        ChangeNotifierProvider(create: (_) => DailyInsightsProvider()),
-        ChangeNotifierProvider(create: (_) => GroupsProvider()),
-        ChangeNotifierProvider(create: (_) => ChildrenProvider()),
-        ChangeNotifierProvider(create: (_) => LeadershipProvider()),
-        ChangeNotifierProvider(create: (_) => BibleStudiesProvider()),
-        ChangeNotifierProvider(create: (_) => BibleProvider()),
-        ChangeNotifierProvider(create: (_) => GalleryProvider()),
-        ChangeNotifierProvider(create: (_) => AttendanceProvider()),
+  Widget build(BuildContext context, WidgetRef ref) {
+    final authState = ref.watch(authNotifierProvider);
+    final themeMode = ref.watch(themeNotifierProvider);
+
+    return MaterialApp(
+      title: 'RTCI Connect',
+      debugShowCheckedModeBanner: false,
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+      themeMode: themeMode,
+      home: authState.when(
+        data: (user) => user != null ? const MainTabScreen() : const WelcomeScreen(),
+        loading: () => const Scaffold(body: Center(child: CircularProgressIndicator())),
+        error: (_, _) => const WelcomeScreen(),
       ],
       child: Consumer<AuthProvider>(
         builder: (context, auth, _) {
