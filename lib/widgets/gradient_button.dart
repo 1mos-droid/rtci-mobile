@@ -66,30 +66,39 @@ class _GradientButtonState extends State<GradientButton> {
     }
 
     if (!isEnabled) {
-      glowCol = Colors.transparent;
+      gradient = LinearGradient(
+        colors: isDark 
+          ? [const Color(0xFF2C2C2E), const Color(0xFF1C1C1E)]
+          : [const Color(0xFFE5E5EA), const Color(0xFFD1D1D6)],
+      );
+      textCol = isDark ? Colors.white24 : Colors.black26;
       borderCol = Colors.transparent;
     }
 
     Widget content = Row(
+      mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        if (widget.isLoading) ...[
-          SizedBox(
-            width: 16,
-            height: 16,
-            child: CircularProgressIndicator(
-              strokeWidth: 2.0,
-              valueColor: AlwaysStoppedAnimation<Color>(textCol),
+        if (widget.isLoading)
+          Padding(
+            padding: const EdgeInsets.only(right: 12),
+            child: SizedBox(
+              width: 18,
+              height: 18,
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+                color: textCol.withOpacity(0.8),
+              ),
             ),
+          )
+        else if (widget.icon != null)
+          Padding(
+            padding: const EdgeInsets.only(right: 8),
+            child: Icon(widget.icon, size: 20, color: textCol),
           ),
-          const SizedBox(width: 10),
-        ] else if (widget.icon != null) ...[
-          Icon(widget.icon, size: 16, color: textCol),
-          const SizedBox(width: 8),
-        ],
         Text(
           widget.text,
-          style: GoogleFonts.plusJakartaSans(
+          style: GoogleFonts.inter(
             fontSize: 13,
             fontWeight: FontWeight.bold,
             letterSpacing: 0.8,
