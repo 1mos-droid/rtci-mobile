@@ -169,6 +169,43 @@ class _LiveBibleScreenState extends ConsumerState<LiveBibleScreen> {
                               style: TextStyle(
                                 color: theme.colorScheme.primary,
                                 fontWeight: FontWeight.w700,
+                                fontSize: 13,
+                              ),
+                            ),
+                            TextSpan(text: v.content),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                  childCount: bibleProv.verses.length,
+                ),
+              ),
+            ),
+          const SliverToBoxAdapter(child: SizedBox(height: 150)),
+        ],
+      ),
+      bottomSheet: _buildNotesPanel(context),
+    );
+  }
+
+  Widget _buildSelector(BuildContext context, {required String label, required VoidCallback onTap}) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+    
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        decoration: BoxDecoration(
+          color: isDark ? const Color(0xFF1E1E1E) : Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(
+            color: isDark ? Colors.white.withOpacity(0.08) : Colors.black.withOpacity(0.05),
+            width: 1.0,
+          ),
+          boxShadow: [
+            BoxShadow(
         ),
         body: Column(
           children: [
