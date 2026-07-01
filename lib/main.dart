@@ -48,16 +48,6 @@ class RTCIMobileApp extends ConsumerWidget {
         data: (user) => user != null ? const MainTabScreen() : const WelcomeScreen(),
         loading: () => const Scaffold(body: Center(child: CircularProgressIndicator())),
         error: (_, _) => const WelcomeScreen(),
-      ],
-      child: Consumer<AuthProvider>(
-        builder: (context, auth, _) {
-          return MaterialApp(
-            title: 'RTCI Connect',
-            debugShowCheckedModeBanner: false,
-            theme: ObsidianTheme.darkTheme,
-            home: auth.isAuthenticated ? const MainTabScreen() : const WelcomeScreen(),
-          );
-        },
       ),
     );
   }
