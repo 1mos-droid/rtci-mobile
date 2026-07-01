@@ -1,37 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class LeaderProfile {
+class LeadershipProfile {
   final String id;
   final String name;
-  final String? title;
-  final String? department;
+  final String title;
+  final String department;
   final String? avatarUrl;
-  final String? campus;
 
-  LeaderProfile({
-    required this.id,
-    required this.name,
-    this.title,
-    this.department,
-    this.avatarUrl,
-    this.campus,
-  });
+  LeadershipProfile({required this.id, required this.name, required this.title, required this.department, this.avatarUrl});
 
-  factory LeaderProfile.fromMap(Map<String, dynamic> map) {
-    return LeaderProfile(
-      id: map['id']?.toString() ?? '',
-      name: map['name'] ?? '',
-      title: map['title'],
-      department: map['department'],
-      avatarUrl: map['avatar_url'],
-      campus: map['campus'],
+  factory LeadershipProfile.fromFirestore(DocumentSnapshot doc) {
+    final data = doc.data() as Map<String, dynamic>;
+    return LeadershipProfile(
+      id: doc.id,
+      name: data['name'] ?? '',
+      title: data['title'] ?? 'Leader',
+      department: data['department'] ?? '',
+      avatarUrl: data['avatar_url'],
     );
   }
 }
 
 class LeadershipProvider extends ChangeNotifier {
-  final _supabase = Supabase.instance.client;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   List<LeaderProfile> _leaders = [];
   bool _isLoading = false;
 
