@@ -1,20 +1,20 @@
+import 'package:rtc_mobile/providers/riverpod_providers.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rtc_mobile/theme/app_theme.dart';
 import 'package:rtc_mobile/widgets/glass_card.dart';
 import 'package:rtc_mobile/widgets/mesh_gradient_background.dart';
-import 'package:rtc_mobile/providers/financial_provider.dart';
-import 'package:rtc_mobile/providers/auth_provider.dart';
+import 'package:rtc_mobile/application/auth/auth_provider.dart';
 
-class GivingScreen extends StatefulWidget {
+class GivingScreen extends ConsumerStatefulWidget {
   const GivingScreen({super.key});
 
   @override
-  State<GivingScreen> createState() => _GivingScreenState();
+  ConsumerState<GivingScreen> createState() => _GivingScreenState();
 }
 
-class _GivingScreenState extends State<GivingScreen> {
+class _GivingScreenState extends ConsumerState<GivingScreen> {
   final _amountController = TextEditingController();
   String _selectedFund = 'Tithe';
   double? _customAmount;
@@ -81,14 +81,14 @@ class _GivingScreenState extends State<GivingScreen> {
                 onPressed: () async {
                   Navigator.pop(ctx);
                   final scaffoldMessenger = ScaffoldMessenger.of(context);
-                  final auth = Provider.of<AuthProvider>(context, listen: false);
-                  final finance = Provider.of<FinancialProvider>(context, listen: false);
+                  final user = ref.read(authNotifierProvider).value;
+                  final finance = ref.read(financialProvider);
                   final success = await finance.processGiving(
                     amount: amt, 
                     type: 'contribution', 
                     description: 'Payment via Apple Pay for $_selectedFund',
                     category: _selectedFund,
-                    memberId: auth.isAuthenticated ? auth.userEmail : null,
+                    memberId: user?.email,
                     campus: 'Main',
                   );
                   if (success && mounted) {
@@ -114,7 +114,7 @@ class _GivingScreenState extends State<GivingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final finance = Provider.of<FinancialProvider>(context);
+    final finance = ref.watch(financialProvider);
 
     return MeshGradientBackground(
       child: Scaffold(
@@ -223,11 +223,11 @@ class _GivingScreenState extends State<GivingScreen> {
                       setState(() => _customAmount = null);
                     }
                   },
-                  style: const TextStyle(color: ObsidianTheme.textVibrant, fontSize: 24, fontWeight: FontWeight.bold),
+                  style: TextStyle(color: ObsidianTheme.textVibrant, fontSize: 24, fontWeight: FontWeight.bold),
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     prefixText: "GHC ",
-                    prefixStyle: const TextStyle(color: ObsidianTheme.textMuted, fontSize: 24, fontWeight: FontWeight.bold),
+                    prefixStyle: TextStyle(color: ObsidianTheme.textMuted, fontSize: 24, fontWeight: FontWeight.bold),
                     hintText: "Custom Amount",
                     hintStyle: TextStyle(color: ObsidianTheme.textMuted.withValues(alpha: 0.4), fontSize: 20),
                   ),
@@ -245,7 +245,7 @@ class _GivingScreenState extends State<GivingScreen> {
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                 ),
                 child: finance.isLoading
-                    ? const SizedBox(height: 24, width: 24, child: CircularProgressIndicator(strokeWidth: 3, color: ObsidianTheme.backgroundDark))
+                    ? SizedBox(height: 24, width: 24, child: CircularProgressIndicator(strokeWidth: 3, color: ObsidianTheme.backgroundDark))
                     : const Text("PROCEED TO PAYMENT", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800, letterSpacing: 1.0)),
               ),
               
