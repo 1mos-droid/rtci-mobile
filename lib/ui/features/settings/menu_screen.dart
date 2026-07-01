@@ -247,43 +247,6 @@ class MenuScreen extends ConsumerWidget {
                     child: OutlinedButton(
                       child: const Text("Cancel"),
                       onPressed: () => Navigator.pop(context),
-                  ),
-                  _buildMenuCard(
-                    context,
-                    title: 'Help & Guidance',
-                    subtitle: 'Platform Documentation',
-                    icon: Icons.help_outline,
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HelpScreen())),
-                  ),
-
-                  const SizedBox(height: 24),
-                  
-                  // Logout Button
-                  GlassCard(
-                    padding: const EdgeInsets.all(16),
-                    onTap: () async {
-                      await auth.logout();
-                      if (context.mounted) {
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(builder: (_) => const WelcomeScreen()),
-                          (route) => false,
-                        );
-                      }
-                    },
-                    child: Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            color: Colors.redAccent.withValues(alpha: 0.1),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: const Icon(Icons.logout_outlined, color: Colors.redAccent),
-                        ),
-                        const SizedBox(width: 16),
-                        Expanded(
-                          child: Text(
                             "Revoke Active Session",
                             style: GoogleFonts.plusJakartaSans(
                               fontSize: 16,
