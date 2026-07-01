@@ -35,3 +35,20 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
+              "client_id": "381753713314-0bjahjac04c2ibr5m7b6a780meni572s.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "381753713314-3h9pkn36m3naqk70ltj367568oanhp9m.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.rtci.app.rtcMobile"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
