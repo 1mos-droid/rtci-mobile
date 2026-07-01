@@ -35,3 +35,31 @@ class LogoBackground extends StatelessWidget {
           child: Opacity(
             opacity: isDark ? 0.1 : 0.02,
             child: Icon(
+              Icons.home_rounded,
+              size: 400,
+              color: isDark ? Colors.white : colorScheme.primary,
+            ),
+          ),
+        ),
+        
+        // Faded Logo - Center
+        Positioned.fill(
+          child: Opacity(
+            opacity: isDark ? 0.08 : 0.04,
+            child: Center(
+              child: Image.asset(
+                'assets/church_logo.png',
+                width: MediaQuery.of(context).size.width * 0.7,
+                fit: BoxFit.contain,
+              ),
+            ),
+          ),
+        ),
+        
+        // Content
+        child,
+      ],
+    );
+  }
+}
+
