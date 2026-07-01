@@ -139,6 +139,17 @@ class WelcomeScreen extends StatelessWidget {
                         backgroundColor: ObsidianTheme.secondaryGold,
                         foregroundColor: ObsidianTheme.backgroundDark,
                       ),
+                    ),
+                    
+                    const SizedBox(height: 12),
+                    
+                    OutlinedButton.icon(
+                      icon: const Icon(Icons.assignment_outlined),
+                      label: const Text("Fill Membership Form"),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (_) => const ApplicationFormScreen()),
                         );
                       },
                     ),
