@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:rtc_mobile/theme/app_theme.dart';
 import 'package:rtc_mobile/widgets/glass_card.dart';
 import 'package:rtc_mobile/widgets/mesh_gradient_background.dart';
-import 'package:rtc_mobile/providers/financial_provider.dart';
+import 'package:rtc_mobile/providers/riverpod_providers.dart';
 
-class FinancialsScreen extends StatelessWidget {
+class FinancialsScreen extends ConsumerWidget {
   const FinancialsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final finance = Provider.of<FinancialProvider>(context);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final finance = ref.watch(financialProvider);
     final transactions = finance.transactions;
 
     return Scaffold(
@@ -83,7 +83,7 @@ class FinancialsScreen extends StatelessWidget {
               sliver: finance.isLoading && transactions.isEmpty
                 ? const SliverFillRemaining(child: Center(child: CircularProgressIndicator()))
                 : transactions.isEmpty
-                  ? const SliverFillRemaining(child: Center(child: Text("No records logged.", style: TextStyle(color: Colors.white))))
+                  ? SliverFillRemaining(child: Center(child: Text("No records logged.", style: TextStyle(color: ObsidianTheme.textVibrant))))
                   : SliverList(
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {
@@ -102,13 +102,13 @@ class FinancialsScreen extends StatelessWidget {
                                 children: [
                                   Text(
                                     tx.description, 
-                                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
+                                    style: TextStyle(color: ObsidianTheme.textVibrant, fontWeight: FontWeight.bold, fontSize: 14),
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                   Text(
                                     DateFormat('MMM dd, yyyy').format(tx.date), 
-                                    style: const TextStyle(color: ObsidianTheme.textMuted, fontSize: 11),
+                                    style: TextStyle(color: ObsidianTheme.textMuted, fontSize: 11),
                                   ),
                                 ],
                               ),
