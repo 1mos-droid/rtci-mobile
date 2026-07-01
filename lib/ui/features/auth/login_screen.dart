@@ -113,43 +113,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                                  label: const Center(child: Text("MEMBER")),
-                                  selected: !_asLeadership,
-                                  selectedColor: ObsidianTheme.surfaceDark,
-                                  backgroundColor: Colors.transparent,
-                                  labelStyle: GoogleFonts.plusJakartaSans(
-                                    fontSize: 11,
-                                    fontWeight: FontWeight.bold,
-                                    color: !_asLeadership ? ObsidianTheme.primaryCrimson : ObsidianTheme.textMuted,
-                                    letterSpacing: 0.5,
-                                  ),
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                  onSelected: (val) {
-                                    if (val) setState(() => _asLeadership = false);
-                                  },
-                                ),
-                              ),
-                              Expanded(
-                                child: ChoiceChip(
-                                  showCheckmark: false,
-                                  label: const Center(child: Text("OFFICIAL")),
-                                  selected: _asLeadership,
-                                  selectedColor: ObsidianTheme.surfaceDark,
-                                  backgroundColor: Colors.transparent,
-                                  labelStyle: GoogleFonts.plusJakartaSans(
-                                    fontSize: 11,
-                                    fontWeight: FontWeight.bold,
-                                    color: _asLeadership ? ObsidianTheme.secondaryGold : ObsidianTheme.textMuted,
-                                    letterSpacing: 0.5,
-                                  ),
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                  onSelected: (val) {
-                                    if (val) setState(() => _asLeadership = true);
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
                         ),
                         
                         const SizedBox(height: 24),
