@@ -1,6 +1,41 @@
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:http/http.dart' as http;
+
+class BibleVerse {
+  final String id;
+  final String book;
+  final int chapter;
+  final int verse;
+  final String content;
+
+  BibleVerse({
+    required this.id,
+    required this.book,
+    required this.chapter,
+    required this.verse,
+    required this.content,
+  });
+
+  factory BibleVerse.fromFirestore(DocumentSnapshot doc) {
+    final data = doc.data() as Map<String, dynamic>;
+    return BibleVerse(
+      id: doc.id,
+      book: data['book'] ?? '',
+      chapter: data['chapter'] ?? 1,
+      verse: data['verse'] ?? 1,
+      content: data['content'] ?? '',
+    );
+  }
+
+  // Support operator [] for compatibility with older Map-based code
+  dynamic operator [](String key) {
+    if (key == 'number') return verse;
+    if (key == 'text') return content;
+    return null;
+  }
+}
 
 class BibleProvider extends ChangeNotifier {
   static const String _apiKey = 'loPsbJCaWjl5ITSeS4WWD';
