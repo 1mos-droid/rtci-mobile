@@ -1,7 +1,5 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:rtc_mobile/theme/app_theme.dart';
 import 'package:rtc_mobile/ui/features/dashboard/dashboard_screen.dart';
 import 'package:rtc_mobile/ui/features/spiritual/live_bible_screen.dart';
 import 'package:rtc_mobile/ui/features/finance/giving_screen.dart';
@@ -26,17 +24,30 @@ class _MainTabScreenState extends State<MainTabScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: ObsidianTheme.backgroundDark,
-      body: IndexedStack(
-        index: _currentIndex,
-        children: _pages,
-      ),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          color: ObsidianTheme.surfaceDark.withValues(alpha: 0.9),
-          border: const Border(
-            top: BorderSide(color: ObsidianTheme.borderHairline, width: 0.5),
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+    final isIOS = theme.platform == TargetPlatform.iOS || theme.platform == TargetPlatform.macOS;
+
+    if (isIOS) {
+      return Scaffold(
+        extendBody: true,
+        body: IndexedStack(
+          index: _currentIndex,
+          children: _pages,
+        ),
+        bottomNavigationBar: SafeArea(
+          top: false,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(20, 0, 20, 16),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(32),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                  decoration: BoxDecoration(
+                    color: (isDark ? const Color(0xFF1E1E1E) : Colors.white).withOpacity(0.85),
+                    borderRadius: BorderRadius.circular(32),
           ),
         ),
         child: ClipRRect(
