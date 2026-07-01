@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class GivingTransaction {
   final String id;
   final double amount;
@@ -42,6 +44,20 @@ class GivingTransaction {
       description: map['description'] ?? '',
       memberId: map['member_id']?.toString(),
       campus: map['campus']?.toString(),
+    );
+  }
+
+  factory GivingTransaction.fromFirestore(DocumentSnapshot doc) {
+    final data = doc.data() as Map<String, dynamic>;
+    return GivingTransaction(
+      id: doc.id,
+      amount: (data['amount'] as num?)?.toDouble() ?? 0.0,
+      type: data['type'] ?? 'contribution',
+      category: data['category'],
+      date: (data['date'] as Timestamp?)?.toDate() ?? DateTime.now(),
+      description: data['description'] ?? '',
+      memberId: data['member_id'],
+      campus: data['campus'],
     );
   }
 }
