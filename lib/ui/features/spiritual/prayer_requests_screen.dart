@@ -72,17 +72,32 @@ class _PrayerRequestsScreenState extends ConsumerState<PrayerRequestsScreen> {
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(16),
                             borderSide: BorderSide(color: ObsidianTheme.borderHairline),
-                      const SizedBox(height: 12),
-                      SwitchListTile(
-                        title: Text(
-                          "Private (Pastors only)",
-                          style: GoogleFonts.plusJakartaSans(fontSize: 13, fontWeight: FontWeight.bold, color: ObsidianTheme.textVibrant),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(16),
+                            borderSide: BorderSide(color: ObsidianTheme.borderHairline),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(16),
+                            borderSide: BorderSide(color: ObsidianTheme.primaryCrimson),
+                          ),
                         ),
+                        validator: (val) {
+                          if (val == null || val.trim().isEmpty) return "Please enter your request";
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 16),
+                      SwitchListTile(
+                        title: Text("Keep Private (Pastors Only)", style: TextStyle(color: ObsidianTheme.textVibrant, fontSize: 14)),
+                        subtitle: Text("Only spiritual leaders will see this.", style: TextStyle(color: ObsidianTheme.textMuted, fontSize: 11)),
                         value: isPrivate,
                         activeThumbColor: ObsidianTheme.secondaryGold,
                         contentPadding: EdgeInsets.zero,
                         onChanged: (val) {
-                          setModalState(() => isPrivate = val);
+                          setModalState(() {
+                            isPrivate = val;
+                          });
                         },
                       ),
                       const SizedBox(height: 16),
@@ -95,12 +110,11 @@ class _PrayerRequestsScreenState extends ConsumerState<PrayerRequestsScreen> {
                         ),
                         onPressed: () async {
                           if (formKey.currentState!.validate()) {
-                            final auth = Provider.of<AuthProvider>(context, listen: false);
-                            final prayerProv = Provider.of<PrayerProvider>(context, listen: false);
+                            final prayerProv = ref.read(prayerProvider);
                             await prayerProv.submitPrayer(
                               contentController.text,
                               isPrivate,
-                              auth.userEmail, // Using email as temp ID or get real profile ID
+                              userEmail,
                             );
                             if (context.mounted) {
                               Navigator.pop(context);
@@ -128,9 +142,10 @@ class _PrayerRequestsScreenState extends ConsumerState<PrayerRequestsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final prayerProv = Provider.of<PrayerProvider>(context);
-    final auth = Provider.of<AuthProvider>(context);
+    final prayerProv = ref.watch(prayerProvider);
+    final user = ref.watch(authNotifierProvider).value;
     final list = prayerProv.prayers;
+
 
     return MeshGradientBackground(
       child: Scaffold(
