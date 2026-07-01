@@ -109,3 +109,40 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                               icon: Icon(Icons.arrow_back_ios_new, size: 18, color: ObsidianTheme.textVibrant),
                               onPressed: () => Navigator.pop(context),
                             ),
+                          ],
+                        ),
+                        const SizedBox(height: 10),
+                        
+                        Text(
+                          "Create Account",
+                          style: Theme.of(context).textTheme.displayMedium,
+                        ).animate().fadeIn(duration: 500.ms).slideY(begin: 0.2, end: 0, curve: Curves.easeOutQuad),
+                        const SizedBox(height: 6),
+                        Text(
+                          "Fill in the fields below to create your account.",
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ).animate().fadeIn(delay: 100.ms, duration: 500.ms).slideY(begin: 0.2, end: 0, curve: Curves.easeOutQuad),
+                        const SizedBox(height: 25),
+
+                        GlassCard(
+                          padding: const EdgeInsets.all(24),
+                          borderType: GlassBorderType.normal,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              TextFormField(
+                                controller: _nameController,
+                                style: TextStyle(color: ObsidianTheme.textVibrant),
+                                decoration: InputDecoration(
+                                  labelText: "Your Full Name",
+                                  hintText: "Enter your name",
+                                  prefixIcon: Icon(Icons.person_outline, color: ObsidianTheme.textMuted, size: 20),
+                                ),
+                                validator: (val) {
+                                  if (val == null || val.isEmpty) return "Please enter your name";
+                                  return null;
+                                },
+                              ),
+                              const SizedBox(height: 16),
+                              
+                              TextFormField(
