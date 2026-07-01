@@ -183,3 +183,40 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
                             _buildSectionHeader("PERSONAL DETAILS"),
                             const SizedBox(height: 12),
                             Form(
+                              key: _formKey,
+                              child: GlassCard(
+                                padding: EdgeInsets.zero,
+                                child: _buildIOSInput(
+                                  controller: _nameController,
+                                  placeholder: "Display Name",
+                                  prefixIcon: Icons.person_outline,
+                                  validator: (val) => val == null || val.trim().isEmpty ? "Required" : null,
+                                ),
+                              ),
+                            ).animate().fadeIn(delay: 200.ms).slideY(begin: 0.05, end: 0),
+
+                            const SizedBox(height: 48),
+
+                            FilledButton(
+                              onPressed: _handleSave,
+                              child: const Text("Save Changes"),
+                            ).animate().fadeIn(delay: 300.ms),
+
+                            const SizedBox(height: 24),
+
+                            Text(
+                              "Your identity is how you are known in the sanctuary community.",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: AppTheme.systemGray,
+                                fontSize: 13,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                              ),
+                            ).animate().fadeIn(delay: 400.ms),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                );
