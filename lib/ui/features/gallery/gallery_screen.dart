@@ -471,6 +471,14 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
         ),
       ),
       floatingActionButton: canManage
+          ? FloatingActionButton(
+              backgroundColor: ObsidianTheme.primaryCrimson,
+              foregroundColor: Colors.white,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+              onPressed: () => _pickAndUploadImage(context, galleryProv),
+              child: const Icon(Icons.add_a_photo_outlined),
+            ).animate().fadeIn(delay: 500.ms).scaleXY(begin: 0.8, end: 1.0, curve: Curves.easeOutBack)
+          : null,
     );
   }
 }
