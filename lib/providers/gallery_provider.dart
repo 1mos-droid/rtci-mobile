@@ -1,31 +1,34 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
-class GalleryImage {
+class GalleryItem {
   final String id;
-  final String url;
+  final String imageUrl;
+  final String title;
   final String? description;
-  final DateTime serviceDate;
+  final DateTime date;
 
-  GalleryImage({
-    required this.id,
-    required this.url,
-    required this.serviceDate,
-    this.description,
-  });
+  GalleryItem({required this.id, required this.imageUrl, required this.title, this.description, required this.date});
 
-  factory GalleryImage.fromMap(Map<String, dynamic> map) {
-    return GalleryImage(
-      id: map['id']?.toString() ?? '',
-      url: map['url'] ?? '',
-      description: map['description'],
-      serviceDate: DateTime.parse(map['service_date'] ?? DateTime.now().toIso8601String()),
+  String get url => imageUrl; // Support getter name mismatch
+
+  factory GalleryItem.fromFirestore(DocumentSnapshot doc) {
+    final data = doc.data() as Map<String, dynamic>;
+    return GalleryItem(
+      id: doc.id,
+      imageUrl: data['image_url'] ?? '',
+      title: data['title'] ?? '',
+      description: data['description'],
+      date: (data['date'] as Timestamp?)?.toDate() ?? DateTime.now(),
     );
   }
 }
 
 class GalleryProvider extends ChangeNotifier {
-  final _supabase = Supabase.instance.client;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   List<GalleryImage> _images = [];
   bool _isLoading = false;
 
