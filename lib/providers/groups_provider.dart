@@ -85,37 +85,28 @@ class GroupsProvider extends ChangeNotifier {
   Future<void> _fetchUserMemberships(String userId) async {
     try {
       final snapshot = await _firestore
-      // 1. Get member ID
-      final memberRes = await _supabase
-          .from('members')
-          .select('id')
-          .eq('email', user.email!)
-          .maybeSingle();
-
-      if (memberRes != null) {
-        final memberId = memberRes['id'];
-        final memberships = await _supabase
-            .from('group_members')
-            .select('group_id')
-            .eq('member_id', memberId);
-        
-        _joinedGroupIds = (memberships as List).map((m) => m['group_id'] as String).toSet();
-        notifyListeners();
-      }
+          .collection('group_memberships')
+          .where('user_id', isEqualTo: userId)
+          .get();
+      _joinedGroupIds = snapshot.docs.map((doc) => doc.data()['group_id'] as String).toSet();
+      notifyListeners();
     } catch (e) {
       debugPrint('Error fetching memberships: $e');
     }
   }
 
   Future<bool> toggleJoin(String groupId) async {
-    final user = _supabase.auth.currentUser;
-    if (user == null) return false;
+    if (_joinedGroupIds.contains(groupId)) {
+      return await leaveGroup(groupId);
+    } else {
+      return await joinGroup(groupId);
+    }
+  }
 
+  Future<bool> joinGroup(String groupId) async {
     try {
-      final memberRes = await _supabase
-          .from('members')
-          .select('id')
-          .eq('email', user.email!)
+      final user = _auth.currentUser;
+      if (user == null) return false;
           .maybeSingle();
 
       if (memberRes == null) return false;
