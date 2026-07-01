@@ -152,23 +152,32 @@ class AppTheme {
         titleTextStyle: GoogleFonts.inter(
           fontSize: 17,
           fontWeight: FontWeight.w600,
+          color: Colors.white,
+          letterSpacing: -0.4,
+        ),
+        iconTheme: const IconThemeData(color: iosPrimaryDark),
       ),
-      bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        backgroundColor: Colors.transparent,
+      cardTheme: CardThemeData(
         elevation: 0,
-        selectedItemColor: primaryCrimson,
-        unselectedItemColor: textMuted,
-        selectedLabelStyle: GoogleFonts.plusJakartaSans(fontSize: 10, fontWeight: FontWeight.bold),
-        unselectedLabelStyle: GoogleFonts.plusJakartaSans(fontSize: 10, fontWeight: FontWeight.w600),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        color: systemDarkGroupedBg,
       ),
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: primaryCrimson,
+      dividerTheme: DividerThemeData(
+        thickness: 0.5,
+        color: Colors.white.withOpacity(0.15),
+        indent: 16,
+        endIndent: 0,
+      ),
+      filledButtonTheme: FilledButtonThemeData(
+        style: FilledButton.styleFrom(
+          backgroundColor: iosPrimaryDark,
           foregroundColor: Colors.white,
-          elevation: 0,
+          minimumSize: const Size.fromHeight(52),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
-          textStyle: GoogleFonts.plusJakartaSans(
+          elevation: 0,
+          textStyle: GoogleFonts.inter(
             fontSize: 14,
             fontWeight: FontWeight.w800,
             letterSpacing: 1.0,
