@@ -269,9 +269,19 @@ class DashboardScreen extends ConsumerWidget {
                                         children: [
                                           IconButton(
                                             icon: const Icon(
+                                              Icons.check_circle_outline,
+                                              size: 18,
+                                              color: Colors.green,
+                                            ),
+                                            onPressed: () =>
+                                                care.resolveTicket(item.id),
                                           ),
                                           IconButton(
-                                            icon: const Icon(Icons.mail_outline, size: 18, color: Colors.blue),
+                                            icon: const Icon(
+                                              Icons.mail_outline,
+                                              size: 18,
+                                              color: Colors.blue,
+                                            ),
                                             onPressed: () {},
                                           ),
                                         ],
@@ -294,27 +304,28 @@ class DashboardScreen extends ConsumerWidget {
                         scrollDirection: Axis.horizontal,
                         children: [
                           _buildMetricCard(
-                            context, 
-                            title: "CONTRIBUTIONS", 
-                            value: "GHC ${finance.totalRevenue.toStringAsFixed(0)}", 
+                            context,
+                            title: "CONTRIBUTIONS",
+                            value:
+                                "GHC ${finance.totalRevenue.toStringAsFixed(0)}",
                             subtitle: "Audit Ledger",
-                            color: ObsidianTheme.primaryCrimson
+                            color: ObsidianTheme.primaryCrimson,
                           ),
                           const SizedBox(width: 12),
                           _buildMetricCard(
-                            context, 
-                            title: "INTERCESSIONS", 
-                            value: "${prayers.prayers.length}", 
+                            context,
+                            title: "INTERCESSIONS",
+                            value: "${prayers.prayers.length}",
                             subtitle: "Active Petitions",
-                            color: ObsidianTheme.secondaryGold
+                            color: ObsidianTheme.secondaryGold,
                           ),
                           const SizedBox(width: 12),
                           _buildMetricCard(
-                            context, 
-                            title: "SERVICES", 
-                            value: "${eventsProv.events.length}", 
+                            context,
+                            title: "SERVICES",
+                            value: "${eventsProv.events.length}",
                             subtitle: "Upcoming Events",
-                            color: Colors.blue
+                            color: Colors.blue,
                           ),
                         ],
                       ),
