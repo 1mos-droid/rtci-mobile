@@ -246,6 +246,43 @@ class AppTheme {
       displaySmall: GoogleFonts.inter(
         color: primaryColor,
         fontSize: 24,
+        fontWeight: FontWeight.bold,
+        letterSpacing: -0.6,
+      ),
+      headlineMedium: GoogleFonts.inter(
+        color: primaryColor,
+        fontSize: 22,
+        fontWeight: FontWeight.w700,
+        letterSpacing: -0.4,
+      ),
+      titleLarge: GoogleFonts.inter(
+        color: primaryColor,
+        fontSize: 20,
+        fontWeight: FontWeight.w600,
+        letterSpacing: -0.4,
+      ),
+      titleMedium: GoogleFonts.inter(
+        color: primaryColor,
+        fontSize: 17,
+        fontWeight: FontWeight.w600,
+        letterSpacing: -0.4,
+      ),
+      bodyLarge: GoogleFonts.inter(
+        color: primaryColor,
+        fontSize: 17,
+        letterSpacing: -0.4,
+      ),
+      bodyMedium: GoogleFonts.inter(
+        color: primaryColor,
+        fontSize: 15,
+        letterSpacing: -0.2,
+      ),
+      bodySmall: GoogleFonts.inter(
+        color: secondaryColor,
+        fontSize: 13,
+        letterSpacing: -0.1,
+      ),
+      labelLarge: GoogleFonts.inter(
       ),
     );
   }
