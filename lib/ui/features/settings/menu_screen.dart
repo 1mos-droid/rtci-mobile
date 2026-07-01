@@ -166,6 +166,43 @@ class MenuScreen extends ConsumerWidget {
                       ]),
                     ],
       
+                    const SizedBox(height: 32),
+                    _buildSectionHeader("Preferences"),
+                    _buildGroupedSection([
+                      _buildMenuTile(
+                        context,
+                        title: 'Settings',
+                        icon: Icons.settings_rounded,
+                        iconColor: AppTheme.systemGray,
+                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SettingsScreen())),
+                      ),
+                      _buildMenuTile(
+                        context,
+                        title: 'Help Center',
+                        icon: Icons.help_outline_rounded,
+                        iconColor: AppTheme.systemBlue,
+                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HelpScreen())),
+                      ),
+                    ]),
+      
+                    const SizedBox(height: 32),
+                    
+                    _buildGroupedSection([
+                      _buildMenuTile(
+                        context,
+                        title: 'Sign Out',
+                        icon: Icons.logout_rounded,
+                        iconColor: const Color(0xFFFF3B30),
+                        showChevron: false,
+                        onTap: () async {
+                          _showSignOutConfirmation(context, ref);
+                        },
+                      ),
+                    ]),
+                    
+                    const SizedBox(height: 120),
+                  ]),
+                ),
                 ),
               ),
             ),
