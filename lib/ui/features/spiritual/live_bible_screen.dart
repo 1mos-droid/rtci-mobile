@@ -386,6 +386,43 @@ class _LiveBibleScreenState extends ConsumerState<LiveBibleScreen> {
               ),
               const SizedBox(height: 16),
               Text(
+                "Select Chapter",
+                style: GoogleFonts.inter(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w800,
+                  color: theme.colorScheme.onSurface,
+                ),
+              ),
+              const SizedBox(height: 20),
+              Expanded(
+                child: GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 5,
+                    crossAxisSpacing: 12,
+                    mainAxisSpacing: 12,
+                  ),
+                  itemCount: prov.chapters.length,
+                  itemBuilder: (context, index) {
+                    final chapter = prov.chapters[index];
+                    final isSelected = chapter['id'] == _selectedChapterId;
+                    return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _selectedChapterId = chapter['id'];
+                        });
+                        _loadContent();
+                        Navigator.pop(context);
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: isSelected 
+                              ? theme.colorScheme.primary 
+                              : (isDark ? Colors.white.withOpacity(0.05) : Colors.black.withOpacity(0.05)),
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        alignment: Alignment.center,
+                        child: Text(
+                          chapter['number'].toString(),
     return Container(
       color: ObsidianTheme.surfaceDark.withValues(alpha: 0.8),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
