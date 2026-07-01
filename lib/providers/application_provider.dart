@@ -19,19 +19,9 @@ class ApplicationProvider extends ChangeNotifier {
     ? "RTCI-MEMBER-CERT-${_application.fullName.replaceAll(' ', '_')}.pdf" 
     : null;
 
-    double totalWeight = 0.0;
-    if (_application.fullName.isNotEmpty) totalWeight += 0.25;
-    if (_application.email.isNotEmpty) totalWeight += 0.25;
-    if (_application.conversionDate.isNotEmpty) totalWeight += 0.25;
-    if (_application.covenantsAgreed && _application.signaturePoints.isNotEmpty) totalWeight += 0.25;
-    _application.progress = totalWeight;
-  }
-
-  // Navigate wizard steps
   void nextStep() {
     if (_currentStep < 3) {
       _currentStep++;
-      saveProgress();
       notifyListeners();
     }
   }
@@ -39,27 +29,20 @@ class ApplicationProvider extends ChangeNotifier {
   void prevStep() {
     if (_currentStep > 0) {
       _currentStep--;
-      saveProgress();
       notifyListeners();
     }
   }
 
-  void setStep(int step) {
-    if (step >= 0 && step <= 3) {
-      _currentStep = step;
-      saveProgress();
-      notifyListeners();
-    }
-  }
-
-  // Clear Form
-  Future<void> resetForm() async {
-    _application = MemberApplication();
-    _currentStep = 0;
-    _pdfExportPath = null;
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.remove('saved_member_application');
-    await prefs.remove('member_application_step');
+  void updatePersonalInfo({
+    required String fullName,
+    required String email,
+    required String phone,
+    required String birthDate,
+    required String address,
+  }) {
+    _application = _application.copyWith(
+      fullName: fullName,
+      email: email,
     notifyListeners();
   }
 
