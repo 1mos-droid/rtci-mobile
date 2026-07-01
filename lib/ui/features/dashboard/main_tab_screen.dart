@@ -106,6 +106,43 @@ class _MainTabScreenState extends State<MainTabScreen> {
               label: 'Menu',
             ),
           ],
+        ),
+      );
+    }
+  }
+
+  Widget _buildNavItem(int index, IconData icon, String label) {
+    final isSelected = _currentIndex == index;
+    final theme = Theme.of(context);
+    final activeColor = theme.colorScheme.primary;
+    final isDark = theme.brightness == Brightness.dark;
+    final inactiveColor = isDark 
+        ? Colors.white.withOpacity(0.45) 
+        : Colors.black.withOpacity(0.45);
+
+    return GestureDetector(
+      onTap: () => setState(() => _currentIndex = index),
+      behavior: HitTestBehavior.opaque,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 250),
+        curve: Curves.easeInOut,
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: BoxDecoration(
+          color: isSelected 
+              ? activeColor.withOpacity(isDark ? 0.15 : 0.08)
+              : Colors.transparent,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            AnimatedScale(
+              scale: isSelected ? 1.15 : 1.0,
+              duration: const Duration(milliseconds: 200),
+              child: Icon(
+                icon,
+                color: isSelected ? activeColor : inactiveColor,
               ),
               unselectedLabelStyle: GoogleFonts.plusJakartaSans(
                 fontSize: 12,
