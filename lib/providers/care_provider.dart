@@ -1,34 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class CareRecommendation {
+class CareTicket {
   final String id;
-  final String memberId;
   final String memberName;
-  final String? department;
+  final String memberId;
   final int absenceCount;
-  final String status; // Pending, Contacted, Resolved, Ignored
-  final String? pastoralNotes;
+  final String status;
+  final DateTime lastChecked;
 
-  CareRecommendation({
+  CareTicket({
     required this.id,
-    required this.memberId,
     required this.memberName,
+    required this.memberId,
     required this.absenceCount,
     required this.status,
-    this.department,
-    this.pastoralNotes,
+    required this.lastChecked,
   });
 
-  factory CareRecommendation.fromMap(Map<String, dynamic> map) {
-    return CareRecommendation(
-      id: map['id']?.toString() ?? '',
-      memberId: map['member_id']?.toString() ?? '',
-      memberName: map['members'] != null ? map['members']['name'] : 'Unknown Disciple',
-      department: map['members'] != null ? map['members']['department'] : null,
-      absenceCount: map['absence_count'] ?? 0,
-      status: map['status'] ?? 'Pending',
-      pastoralNotes: map['pastoral_notes'],
+  factory CareTicket.fromFirestore(DocumentSnapshot doc) {
+    final data = doc.data() as Map<String, dynamic>;
+    return CareTicket(
+      id: doc.id,
+      memberName: data['member_name'] ?? '',
+      memberId: data['member_id'] ?? '',
+      absenceCount: data['absence_count'] ?? 0,
+      status: data['status'] ?? 'pending',
+      lastChecked: (data['last_checked'] as Timestamp?)?.toDate() ?? DateTime.now(),
     );
   }
 }
