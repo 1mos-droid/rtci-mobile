@@ -1,24 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rtc_mobile/theme/app_theme.dart';
 import 'package:rtc_mobile/widgets/glass_card.dart';
 import 'package:rtc_mobile/widgets/mesh_gradient_background.dart';
-import 'package:rtc_mobile/providers/auth_provider.dart';
+import 'package:rtc_mobile/application/auth/auth_provider.dart';
 import 'package:rtc_mobile/ui/features/dashboard/main_tab_screen.dart';
+import 'package:rtc_mobile/ui/features/auth/signup_screen.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  ConsumerState<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends ConsumerState<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  bool _asLeadership = false;
+  bool _showPassword = false;
 
   @override
   void dispose() {
@@ -29,23 +32,35 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<void> _handleLogin() async {
     if (_formKey.currentState!.validate()) {
-      final auth = Provider.of<AuthProvider>(context, listen: false);
-      final success = await auth.login(
-        _emailController.text,
+      final authNotifier = ref.read(authNotifierProvider.notifier);
+      await authNotifier.login(
+        _emailController.text.trim(),
         _passwordController.text,
-        asLeadership: _asLeadership,
       );
 
-      if (success && mounted) {
+      final authState = ref.read(authNotifierProvider);
+      if (!authState.hasError && mounted) {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (_) => const MainTabScreen()),
           (route) => false,
         );
+      } else if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(authState.error?.toString() ?? "Log in failed. Check your email and password."),
+            backgroundColor: Colors.red,
+          ),
+        );
       }
     }
   }
 
+  Future<void> _handleGoogleLogin() async {
+    final authNotifier = ref.read(authNotifierProvider.notifier);
+    await authNotifier.signInWithGoogle();
+
+    final authState = ref.read(authNotifierProvider);
   @override
   Widget build(BuildContext context) {
     return MeshGradientBackground(
