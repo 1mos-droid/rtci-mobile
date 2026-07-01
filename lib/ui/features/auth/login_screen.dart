@@ -194,18 +194,47 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           child: Container(
                             height: 52,
                             decoration: BoxDecoration(
+                              color: isDark ? Colors.white : Colors.black,
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: authState.isLoading
+                                ? const Center(child: CircularProgressIndicator.adaptive(valueColor: AlwaysStoppedAnimation<Color>(Colors.grey)))
+                                : Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      FaIcon(
+                                        FontAwesomeIcons.google, 
+                                        size: 16, 
+                                        color: isDark ? Colors.black : Colors.white,
+                                      ),
+                                      const SizedBox(width: 12),
+                                      Text(
+                                        "Sign In with Google",
+                                        style: TextStyle(
+                                          color: isDark ? Colors.black : Colors.white,
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                          ),
                         ),
                       ],
                     ),
-                  ),
+                  ).animate().fadeIn(delay: 200.ms, duration: 600.ms).scaleXY(begin: 0.95, end: 1.0, curve: Curves.easeOutBack).slideY(begin: 0.1, end: 0, curve: Curves.easeOutQuad),
                   
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 32),
                   
                   Center(
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (_) => const SignupScreen()),
+                        );
+                      },
                       child: Text(
-                        "REQUEST SECURITY PASSPHRASE",
                         style: Theme.of(context).textTheme.labelLarge?.copyWith(
                               decoration: TextDecoration.underline,
                               color: ObsidianTheme.textMuted,
