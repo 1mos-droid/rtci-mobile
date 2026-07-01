@@ -338,19 +338,29 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
           ),
         );
       },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    final galleryProv = Provider.of<GalleryProvider>(context);
+    final authState = ref.watch(authNotifierProvider);
+    final user = authState.value;
+    final isAdmin = user?.isAdmin ?? false;
+    final isDeptHead = user?.isDeptHead ?? false;
+    final canManage = isAdmin || isDeptHead;
+
+    final galleryProv = ref.watch(galleryProvider);
     final images = galleryProv.images;
 
     return Scaffold(
       backgroundColor: ObsidianTheme.backgroundDark,
       body: MeshGradientBackground(
         child: CustomScrollView(
+          physics: const BouncingScrollPhysics(),
           slivers: [
             SliverAppBar(
               backgroundColor: Colors.transparent,
+              elevation: 0,
               pinned: true,
               expandedHeight: 120.0,
               flexibleSpace: FlexibleSpaceBar(
@@ -363,23 +373,22 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
                   ),
                 ),
               ),
+              actions: [
+                if (canManage)
+                  IconButton(
+                    icon: Icon(Icons.add_a_photo_outlined, color: ObsidianTheme.secondaryGold),
+                    onPressed: () => _pickAndUploadImage(context, galleryProv),
+                  ),
+              ],
             ),
             SliverPadding(
               padding: const EdgeInsets.all(20.0),
               sliver: galleryProv.isLoading && images.isEmpty
-                ? const SliverFillRemaining(child: Center(child: CircularProgressIndicator()))
-                : images.isEmpty
-                  ? const SliverFillRemaining(child: Center(child: Text("No gallery images found.", style: TextStyle(color: Colors.white))))
-                  : SliverGrid(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 16.0,
-                  crossAxisSpacing: 16.0,
-                  childAspectRatio: 0.8,
-                ),
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) {
-                    final img = images[index];
+                  ? const SliverFillRemaining(
+                      child: Center(child: CircularProgressIndicator()),
+                    )
+                  : images.isEmpty
+                      ? SliverFillRemaining(
                     return GlassCard(
                       padding: EdgeInsets.zero,
                       child: Column(
