@@ -146,6 +146,8 @@ class _PrayerRequestsScreenState extends ConsumerState<PrayerRequestsScreen> {
     final user = ref.watch(authNotifierProvider).value;
     final list = prayerProv.prayers;
 
+    final isAdmin = user?.isAdmin ?? false;
+    final isDeptHead = user?.isDeptHead ?? false;
 
     return MeshGradientBackground(
       child: Scaffold(
@@ -154,7 +156,7 @@ class _PrayerRequestsScreenState extends ConsumerState<PrayerRequestsScreen> {
           backgroundColor: Colors.transparent,
           elevation: 0,
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios_new, color: ObsidianTheme.textVibrant, size: 18),
+            icon: Icon(Icons.arrow_back_ios_new, color: ObsidianTheme.textVibrant, size: 18),
             onPressed: () => Navigator.pop(context),
           ),
           title: Text(
@@ -201,7 +203,7 @@ class _PrayerRequestsScreenState extends ConsumerState<PrayerRequestsScreen> {
                                           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                                         ),
                                         if (prayer.isPrivate)
-                                          const Icon(Icons.lock_outline, size: 16, color: ObsidianTheme.textMuted),
+                                          Icon(Icons.lock_outline, size: 16, color: ObsidianTheme.textMuted),
                                       ],
                                     ),
                                     const SizedBox(height: 12),
@@ -212,7 +214,7 @@ class _PrayerRequestsScreenState extends ConsumerState<PrayerRequestsScreen> {
                                         fontStyle: FontStyle.italic,
                                       ),
                                     ),
-                                    const Divider(height: 30, color: ObsidianTheme.borderHairline),
+                                    Divider(height: 30, color: ObsidianTheme.borderHairline),
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
@@ -220,16 +222,16 @@ class _PrayerRequestsScreenState extends ConsumerState<PrayerRequestsScreen> {
                                           "BY: ${prayer.memberName?.toUpperCase() ?? 'ANONYMOUS'}",
                                           style: GoogleFonts.plusJakartaSans(fontSize: 9, fontWeight: FontWeight.bold, color: ObsidianTheme.textMuted),
                                         ),
-                                        if (auth.isAdmin || auth.isDeptHead)
+                                        if (isAdmin || isDeptHead)
                                           Row(
                                             children: [
                                               IconButton(
                                                 icon: const Icon(Icons.check_circle_outline, size: 18),
-                                                onPressed: () => prayerProv.updateStatus(prayer.id, 'answered'),
+                                                onPressed: () => ref.read(prayerProvider).updateStatus(prayer.id, 'answered'),
                                               ),
                                               IconButton(
                                                 icon: const Icon(Icons.volunteer_activism_outlined, size: 18),
-                                                onPressed: () => prayerProv.updateStatus(prayer.id, 'praying'),
+                                                onPressed: () => ref.read(prayerProvider).updateStatus(prayer.id, 'praying'),
                                               ),
                                             ],
                                           ),
@@ -246,7 +248,7 @@ class _PrayerRequestsScreenState extends ConsumerState<PrayerRequestsScreen> {
         ),
         floatingActionButton: FloatingActionButton.extended(
           backgroundColor: ObsidianTheme.primaryCrimson,
-          onPressed: () => _showAddPrayerSheet(context),
+          onPressed: () => _showAddPrayerSheet(context, user?.email ?? ''),
           icon: const Icon(Icons.add, color: Colors.white),
           label: const Text("Petition", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
         ),
