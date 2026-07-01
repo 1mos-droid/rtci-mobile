@@ -79,6 +79,43 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
         return StatefulBuilder(
           builder: (context, setSheetState) {
             return Padding(
+              padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom,
+                left: 24,
+                right: 24,
+                top: 24,
+              ),
+              child: SingleChildScrollView(
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text(
+                        "Post Service Moment",
+                        style: GoogleFonts.cinzel(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: ObsidianTheme.textVibrant,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(16),
+                        child: Image.file(
+                          File(image.path),
+                          height: 180,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      TextFormField(
+                        controller: titleController,
+                        style: TextStyle(color: ObsidianTheme.textVibrant),
+                        decoration: const InputDecoration(
+                          labelText: "Title",
 
   @override
   Widget build(BuildContext context) {
