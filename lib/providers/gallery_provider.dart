@@ -116,4 +116,18 @@ class GalleryProvider extends ChangeNotifier {
           await storageRef.delete();
         }
       } catch (e) {
+        debugPrint('Error deleting storage file: $e');
+      }
+
+      // 2. Delete from Firestore
+      await _firestore.collection('gallery').doc(itemId).delete();
+      await fetchGallery();
+      return true;
+    } catch (e) {
+      debugPrint('Error deleting gallery item: $e');
+      _isLoading = false;
+      notifyListeners();
+      return false;
+    }
+  }
 }
