@@ -502,43 +502,6 @@ class _LiveBibleScreenState extends ConsumerState<LiveBibleScreen> {
       ),
     );
   }
-            child: RichText(
-              text: TextSpan(
-                children: [
-                  TextSpan(
-                    text: "${v['number']}  ",
-                    style: GoogleFonts.plusJakartaSans(color: ObsidianTheme.secondaryGold, fontWeight: FontWeight.bold, fontSize: 14),
-                  ),
-                  TextSpan(
-                    text: v['text'],
-                    style: GoogleFonts.plusJakartaSans(color: Colors.white, height: 1.6, fontSize: 20),
-                  ),
-                ],
-              ),
-            ),
-          );
-        }).toList(),
-      ),
-    );
-  }
-
-  Widget _buildNotePad() {
-    return Container(
-      decoration: BoxDecoration(
-        color: ObsidianTheme.surfaceDark.withValues(alpha: 0.8),
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: ObsidianTheme.primaryCrimson.withValues(alpha: 0.5)),
-      ),
-      padding: const EdgeInsets.all(24),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Row(
-            children: [
-              const Icon(Icons.edit_note, color: ObsidianTheme.secondaryGold),
-              const SizedBox(width: 8),
-              Text("TAKE NOTES", style: GoogleFonts.plusJakartaSans(fontSize: 14, fontWeight: FontWeight.bold, letterSpacing: 1.5, color: ObsidianTheme.textVibrant)),
-            ],
           ),
           const SizedBox(height: 16),
           TextField(
