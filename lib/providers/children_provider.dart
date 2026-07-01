@@ -1,29 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class ChildCheckin {
+class ChildCheckIn {
   final String id;
   final String childName;
-  final String parentName;
-  final String parentPhone;
-  final String tagNumber;
+  final String? parentName;
+  final String? parentPhone;
+  final String guardianId;
+  final DateTime checkInTime;
   final String status;
-  final DateTime checkedInAt;
+  final String? tagNumber;
 
-  ChildCheckin({
-    required this.id,
-    required this.childName,
-    required this.parentName,
-    required this.parentPhone,
-    required this.tagNumber,
+  ChildCheckIn({
+    required this.id, 
+    required this.childName, 
+    required this.guardianId, 
+    required this.checkInTime, 
     required this.status,
-    required this.checkedInAt,
+    this.parentName,
+    this.parentPhone,
+    this.tagNumber,
   });
 
-  factory ChildCheckin.fromMap(Map<String, dynamic> map) {
-    return ChildCheckin(
-      id: map['id']?.toString() ?? '',
-      childName: map['child_name'] ?? '',
+  factory ChildCheckIn.fromFirestore(DocumentSnapshot doc) {
+    final data = doc.data() as Map<String, dynamic>;
+    return ChildCheckIn(
+      id: doc.id,
       parentName: map['parent_name'] ?? '',
       parentPhone: map['parent_phone'] ?? '',
       tagNumber: map['tag_number'] ?? '',
