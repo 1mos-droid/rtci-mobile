@@ -60,32 +60,28 @@ class FinancialProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
+      await _firestore.collection('transactions').add({
         'amount': amount,
         'type': type,
-        'description': description,
         'category': category,
-        'member_id': memberId,
-        'campus': campus,
-        'date': DateTime.now().toIso8601String(),
+        'description': description ?? '',
+        'member_id': memberId ?? _auth.currentUser?.uid,
+        'campus': campus ?? 'Main',
+        'date': FieldValue.serverTimestamp(),
+        'logged_by': _auth.currentUser?.uid,
       });
-      
       await fetchTransactions();
       return true;
     } catch (e) {
       debugPrint('Error processing giving: $e');
+      return false;
+    } finally {
       _isLoading = false;
       notifyListeners();
-      return false;
     }
   }
 
-  Future<void> deleteTransaction(String id) async {
-    try {
-      await _supabase.from('transactions').delete().eq('id', id);
-      _transactions.removeWhere((t) => t.id == id);
-      notifyListeners();
-    } catch (e) {
-      debugPrint('Error deleting transaction: $e');
-    }
+  Future<bool> recordTransaction(double amount, String type, String contributor, {String? description, String? campus}) async {
+    return processGiving(amount: amount, type: type, category: contributor, description: description, campus: campus);
   }
 }
