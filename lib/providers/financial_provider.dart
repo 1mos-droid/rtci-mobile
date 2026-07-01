@@ -1,30 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rtc_mobile/models/giving_transaction.dart';
 
 class FinancialProvider extends ChangeNotifier {
-  final _supabase = Supabase.instance.client;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  
   List<GivingTransaction> _transactions = [];
   bool _isLoading = false;
 
   List<GivingTransaction> get transactions => _transactions;
   bool get isLoading => _isLoading;
-
-  double get totalRevenue => _transactions
-      .where((t) => t.type == 'contribution')
-      .fold(0.0, (sum, t) => sum + t.amount);
-
-  double get totalExpense => _transactions
-      .where((t) => t.type == 'expense')
-      .fold(0.0, (sum, t) => sum + t.amount);
+  double get totalRevenue => _transactions.where((t) => t.type == 'contribution').fold(0, (sum, item) => sum + item.amount);
+  double get totalExpense => _transactions.where((t) => t.type == 'expense').fold(0, (sum, item) => sum + item.amount);
 
   FinancialProvider() {
     _init();
   }
 
   void _init() {
-    _supabase.auth.onAuthStateChange.listen((data) {
-      if (data.session != null) {
+    _auth.authStateChanges().listen((user) {
+      if (user != null) {
         fetchTransactions();
       } else {
         _transactions = [];
@@ -38,12 +35,11 @@ class FinancialProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final response = await _supabase
-          .from('transactions')
-          .select()
-          .order('date', ascending: false);
-
-      _transactions = (response as List).map((m) => GivingTransaction.fromMap(m)).toList();
+      final snapshot = await _firestore
+          .collection('transactions')
+          .orderBy('date', descending: true)
+          .get();
+      _transactions = snapshot.docs.map((doc) => GivingTransaction.fromFirestore(doc)).toList();
     } catch (e) {
       debugPrint('Error fetching transactions: $e');
     } finally {
@@ -55,8 +51,8 @@ class FinancialProvider extends ChangeNotifier {
   Future<bool> processGiving({
     required double amount,
     required String type,
-    required String description,
-    String? category,
+    required String category,
+    String? description,
     String? memberId,
     String? campus,
   }) async {
@@ -64,7 +60,6 @@ class FinancialProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      await _supabase.from('transactions').insert({
         'amount': amount,
         'type': type,
         'description': description,
