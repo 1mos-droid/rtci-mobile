@@ -1,31 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class AttendanceRecord {
   final String id;
+  final String serviceName;
   final DateTime date;
-  final int headcount;
+  final int count;
   final String? department;
 
-  AttendanceRecord({
-    required this.id,
-    required this.date,
-    required this.headcount,
-    this.department,
-  });
+  AttendanceRecord({required this.id, required this.serviceName, required this.date, required this.count, this.department});
 
-  factory AttendanceRecord.fromMap(Map<String, dynamic> map) {
+  int get headcount => count; // Support getter name mismatch
+
+  factory AttendanceRecord.fromFirestore(DocumentSnapshot doc) {
+    final data = doc.data() as Map<String, dynamic>;
     return AttendanceRecord(
-      id: map['id']?.toString() ?? '',
-      date: DateTime.parse(map['date'] ?? DateTime.now().toIso8601String()),
-      headcount: map['headcount'] ?? 0,
-      department: map['department'],
+      id: doc.id,
+      serviceName: data['service_name'] ?? '',
+      date: (data['date'] as Timestamp?)?.toDate() ?? DateTime.now(),
+      count: data['count'] ?? 0,
+      department: data['department'],
     );
   }
 }
 
 class AttendanceProvider extends ChangeNotifier {
-  final _supabase = Supabase.instance.client;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  
   List<AttendanceRecord> _records = [];
   bool _isLoading = false;
 
@@ -37,9 +40,9 @@ class AttendanceProvider extends ChangeNotifier {
   }
 
   void _init() {
-    _supabase.auth.onAuthStateChange.listen((data) {
-      if (data.session != null) {
-        fetchRecords();
+    _auth.authStateChanges().listen((user) {
+      if (user != null) {
+        fetchAttendance();
       } else {
         _records = [];
         notifyListeners();
