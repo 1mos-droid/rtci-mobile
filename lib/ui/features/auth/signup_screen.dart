@@ -35,3 +35,40 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
   @override
   void dispose() {
     _nameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _handleSignup() async {
+    setState(() => _errorMessage = null);
+
+    if (_formKey.currentState!.validate()) {
+      if (!_acceptTerms) {
+        setState(() => _errorMessage = "You must agree to the rules to create an account.");
+        return;
+      }
+
+      final authNotifier = ref.read(authNotifierProvider.notifier);
+
+      await authNotifier.register(
+        _nameController.text.trim(),
+        _emailController.text.trim(),
+        _passwordController.text,
+        department: "Member",
+      );
+
+      final authState = ref.read(authNotifierProvider);
+      if (!authState.hasError) {
+        setState(() => _signupSuccess = true);
+      } else {
+        setState(() => _errorMessage = authState.error?.toString() ?? "Registration failed. Try again.");
+      }
+    }
+  }
+
+  Future<void> _handleGoogleSignup() async {
+    final authNotifier = ref.read(authNotifierProvider.notifier);
+    await authNotifier.signInWithGoogle();
+    
