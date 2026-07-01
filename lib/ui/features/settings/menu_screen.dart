@@ -289,5 +289,42 @@ class MenuScreen extends ConsumerWidget {
           color: AppTheme.systemGray,
           letterSpacing: 0.2,
         ),
+      ),
+    );
+  }
+
+  Widget _buildGroupedSection(List<Widget> children) {
+    return GlassCard(
+      padding: EdgeInsets.zero,
+      child: Column(
+        children: children.asMap().entries.map((entry) {
+          final index = entry.key;
+          final widget = entry.value;
+          final isLast = index == children.length - 1;
+          
+          return Column(
+            children: [
+              widget,
+              if (!isLast)
+                Divider(
+                  height: 0.5, 
+                  indent: 56, 
+                  thickness: 0.5, 
+                  color: AppTheme.systemGray3.withOpacity(0.3),
+                ),
+            ],
+          );
+        }).toList(),
+      ),
+    );
+  }
+
+  Widget _buildProfileTile(BuildContext context, AppUser user) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    
+    return ListTile(
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      leading: Container(
   }
 }
