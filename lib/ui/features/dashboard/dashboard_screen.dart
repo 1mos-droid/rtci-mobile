@@ -499,16 +499,39 @@ class DashboardScreen extends ConsumerWidget {
                       event.time,
                       style: Theme.of(
                         context,
+                      ).textTheme.bodyMedium?.copyWith(fontSize: 11),
+                    ),
                     const SizedBox(width: 12),
-                    const Icon(Icons.location_on_outlined, size: 12, color: ObsidianTheme.textMuted),
+                    Icon(
+                      Icons.location_on_outlined,
+                      size: 12,
+                      color: ObsidianTheme.textMuted,
+                    ),
                     const SizedBox(width: 4),
-                    Expanded(child: Text(event.location, style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 11), overflow: TextOverflow.ellipsis)),
+                    Expanded(
+                      child: Text(
+                        event.location,
+                        style: Theme.of(
+                          context,
+                        ).textTheme.bodyMedium?.copyWith(fontSize: 11),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
                   ],
                 ),
               ],
             ),
-          )
+          ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildSermonsList(BuildContext context) {
+    return Center(
+      child: Text(
+        "No recent sermons available.",
+        style: TextStyle(color: ObsidianTheme.textMuted),
       ),
     );
   }
