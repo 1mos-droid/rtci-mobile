@@ -29,10 +29,14 @@ class GalleryItem {
 
 class GalleryProvider extends ChangeNotifier {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  List<GalleryImage> _images = [];
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseStorage _storage = FirebaseStorage.instance;
+  
+  List<GalleryItem> _items = [];
   bool _isLoading = false;
 
-  List<GalleryImage> get images => _images;
+  List<GalleryItem> get items => _items;
+  List<GalleryItem> get images => _items; // Support getter name mismatch
   bool get isLoading => _isLoading;
 
   GalleryProvider() {
@@ -40,27 +44,26 @@ class GalleryProvider extends ChangeNotifier {
   }
 
   void _init() {
-    _supabase.auth.onAuthStateChange.listen((data) {
-      if (data.session != null) {
-        fetchImages();
+    _auth.authStateChanges().listen((user) {
+      if (user != null) {
+        fetchGallery();
       } else {
-        _images = [];
+        _items = [];
         notifyListeners();
       }
     });
   }
 
-  Future<void> fetchImages() async {
+  Future<void> fetchGallery() async {
     _isLoading = true;
     notifyListeners();
 
     try {
-      final response = await _supabase
-          .from('service_images')
-          .select()
-          .order('service_date', ascending: false);
-
-      _images = (response as List).map((m) => GalleryImage.fromMap(m)).toList();
+      final snapshot = await _firestore
+          .collection('gallery')
+          .orderBy('date', descending: true)
+          .get();
+      _items = snapshot.docs.map((doc) => GalleryItem.fromFirestore(doc)).toList();
     } catch (e) {
       debugPrint('Error fetching gallery: $e');
     } finally {
@@ -68,4 +71,12 @@ class GalleryProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  Future<String> uploadImage(File file) async {
+    final fileName = 'gallery_${DateTime.now().millisecondsSinceEpoch}.jpg';
+    final storageRef = _storage.ref().child('gallery').child(fileName);
+    await storageRef.putFile(file);
+    return await storageRef.getDownloadURL();
+  }
+
 }
