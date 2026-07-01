@@ -35,22 +35,27 @@ class MenuScreen extends ConsumerWidget {
       data: (user) {
         if (user == null) return const WelcomeScreen();
         
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            backgroundColor: Colors.transparent,
-            pinned: true,
-            expandedHeight: 140.0,
-            flexibleSpace: FlexibleSpaceBar(
-              titlePadding: const EdgeInsets.only(left: 24, bottom: 16),
-              title: Text(
-                "Command Center",
-                style: GoogleFonts.cinzel(
-                  color: ObsidianTheme.primaryCrimson,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 1.5,
+        return Scaffold(
+          backgroundColor: theme.scaffoldBackgroundColor,
+          body: CustomScrollView(
+            physics: const BouncingScrollPhysics(),
+            slivers: [
+              SliverAppBar(
+                pinned: true,
+                floating: false,
+                expandedHeight: 120.0,
+                backgroundColor: theme.scaffoldBackgroundColor,
+                surfaceTintColor: Colors.transparent,
+                flexibleSpace: FlexibleSpaceBar(
+                  title: Text(
+                    "Hub",
+                    style: GoogleFonts.inter(
+                      fontWeight: FontWeight.w800,
+                      color: theme.colorScheme.onSurface,
+                      letterSpacing: -0.5,
+                    ),
+                  ),
+                  centerTitle: false,
                 ),
               ),
               background: Container(
