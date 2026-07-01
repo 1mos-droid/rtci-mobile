@@ -30,17 +30,18 @@ class ChurchMember {
       role: data['role'] ?? 'member',
       department: data['department'],
       avatarUrl: data['avatar_url'],
-      status: map['status'],
     );
   }
 }
 
 class MembersProvider extends ChangeNotifier {
-  final _supabase = Supabase.instance.client;
-  List<Member> _members = [];
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  
+  List<ChurchMember> _members = [];
   bool _isLoading = false;
 
-  List<Member> get members => _members;
+  List<ChurchMember> get members => _members;
   bool get isLoading => _isLoading;
 
   MembersProvider() {
@@ -48,8 +49,8 @@ class MembersProvider extends ChangeNotifier {
   }
 
   void _init() {
-    _supabase.auth.onAuthStateChange.listen((data) {
-      if (data.session != null) {
+    _auth.authStateChanges().listen((user) {
+      if (user != null) {
         fetchMembers();
       } else {
         _members = [];
@@ -63,12 +64,8 @@ class MembersProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final response = await _supabase
-          .from('members')
-          .select()
-          .order('name', ascending: true);
-
-      _members = (response as List).map((m) => Member.fromMap(m)).toList();
+      final snapshot = await _firestore.collection('profiles').get();
+      _members = snapshot.docs.map((doc) => ChurchMember.fromFirestore(doc)).toList();
     } catch (e) {
       debugPrint('Error fetching members: $e');
     } finally {
@@ -76,22 +73,6 @@ class MembersProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
-
-  Future<bool> registerMember({
-    required String name,
-    required String email,
-    String? phone,
-    String? department,
-  }) async {
-    _isLoading = true;
-    notifyListeners();
-
-    try {
-      await _supabase.from('members').insert({
-        'name': name,
-        'email': email,
-        'phone': phone,
-        'department': department,
         'status': 'active',
       });
       
