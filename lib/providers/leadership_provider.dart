@@ -25,10 +25,12 @@ class LeadershipProfile {
 
 class LeadershipProvider extends ChangeNotifier {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  List<LeaderProfile> _leaders = [];
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  
+  List<LeadershipProfile> _leaders = [];
   bool _isLoading = false;
 
-  List<LeaderProfile> get leaders => _leaders;
+  List<LeadershipProfile> get leaders => _leaders;
   bool get isLoading => _isLoading;
 
   LeadershipProvider() {
@@ -36,8 +38,8 @@ class LeadershipProvider extends ChangeNotifier {
   }
 
   void _init() {
-    _supabase.auth.onAuthStateChange.listen((data) {
-      if (data.session != null) {
+    _auth.authStateChanges().listen((user) {
+      if (user != null) {
         fetchLeaders();
       } else {
         _leaders = [];
@@ -51,13 +53,11 @@ class LeadershipProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final response = await _supabase
-          .from('profiles')
-          .select()
-          .neq('role', 'member')
-          .order('name', ascending: true);
-
-      _leaders = (response as List).map((m) => LeaderProfile.fromMap(m)).toList();
+      final snapshot = await _firestore
+          .collection('profiles')
+          .where('role', whereIn: ['admin', 'department_head', 'developer'])
+          .get();
+      _leaders = snapshot.docs.map((doc) => LeadershipProfile.fromFirestore(doc)).toList();
     } catch (e) {
       debugPrint('Error fetching leaders: $e');
     } finally {
