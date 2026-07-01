@@ -82,16 +82,43 @@ class ApplicationProvider extends ChangeNotifier {
   }
 
   void updateCovenantAgreement(bool agreed) {
+    _application = _application.copyWith(covenantsAgreed: agreed);
+    notifyListeners();
+  }
+
+  void updateSignature(List<Offset?> points) {
+    // Convert Offset list to a format suitable for MemberApplication (List<String>)
+    final stringPoints = points.map((p) => p == null ? "null" : "${p.dx},${p.dy}").toList();
+    _application = _application.copyWith(signaturePoints: stringPoints);
+    notifyListeners();
+  }
+
   Future<bool> submitApplication() async {
     _isLoading = true;
     notifyListeners();
 
-    // Simulate backend network API delay
-    await Future.delayed(const Duration(milliseconds: 2500));
+    try {
+      final user = _auth.currentUser;
+      
+      await _firestore.collection('applications').add({
+        'user_id': user?.uid,
+        'full_name': _application.fullName,
+        'email': _application.email,
+        'phone': _application.phone,
+        'birth_date': _application.birthDate,
+        'address': _application.address,
+        'conversion_date': _application.conversionDate,
+        'previous_church': _application.previousChurch,
+        'is_water_baptized': _application.isWaterBaptized,
+        'is_holy_ghost_baptized': _application.isHolyGhostBaptized,
+        'selected_ministries': _application.selectedMinistries,
+        'talents_and_skills': _application.talentsAndSkills,
+        'covenants_agreed': _application.covenantsAgreed,
+        'signature_points': _application.signaturePoints,
+        'created_at': FieldValue.serverTimestamp(),
+      });
 
-    _application.isSubmitted = true;
-    _currentStep = 3; // Ensure at end
-    await saveProgress();
+      _application = _application.copyWith(isSubmitted: true);
 
     // Simulate exporting membership application as a PDF/Document
     _pdfExportPath = "/exports/rtci_application_${_application.fullName.toLowerCase().replaceAll(' ', '_')}.pdf";
