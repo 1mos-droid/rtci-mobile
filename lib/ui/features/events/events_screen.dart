@@ -135,12 +135,13 @@ class _EventsScreenState extends ConsumerState<EventsScreen> {
                         TextFormField(
                           controller: descController,
                           maxLines: 3,
+                          style: TextStyle(color: ObsidianTheme.textVibrant),
                           decoration: InputDecoration(
                             labelText: "Event Description & Focus",
                             hintText: "Focus of the gathering, scriptures, guidelines...",
-                            labelStyle: const TextStyle(color: ObsidianTheme.textMuted),
-                            enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: ObsidianTheme.borderHairline)),
-                            focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: ObsidianTheme.primaryCrimson)),
+                            labelStyle: TextStyle(color: ObsidianTheme.textMuted),
+                            enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: ObsidianTheme.borderHairline)),
+                            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: ObsidianTheme.primaryCrimson)),
                           ),
                         ),
                         const SizedBox(height: 12),
@@ -160,8 +161,8 @@ class _EventsScreenState extends ConsumerState<EventsScreen> {
                         ElevatedButton(
                           onPressed: () async {
                             if (formKey.currentState!.validate()) {
-                              final eventsProv = Provider.of<EventsProvider>(context, listen: false);
-                              final auth = Provider.of<AuthProvider>(context, listen: false);
+                              final eventsProv = ref.read(eventsProvider);
+                              final auth = ref.read(authNotifierProvider).value!;
                               
                               final success = await eventsProv.scheduleEvent(
                                 name: nameController.text,
@@ -200,8 +201,8 @@ class _EventsScreenState extends ConsumerState<EventsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final auth = Provider.of<AuthProvider>(context);
-    final eventsProv = Provider.of<EventsProvider>(context);
+    final auth = ref.watch(authNotifierProvider).value!;
+    final eventsProv = ref.watch(eventsProvider);
     final isLeader = auth.isDeptHead;
 
     final sortedEvents = eventsProv.events;
@@ -213,7 +214,7 @@ class _EventsScreenState extends ConsumerState<EventsScreen> {
           backgroundColor: Colors.transparent,
           elevation: 0,
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios_new, color: ObsidianTheme.textVibrant, size: 18),
+            icon: Icon(Icons.arrow_back_ios_new, color: ObsidianTheme.textVibrant, size: 18),
             onPressed: () => Navigator.pop(context),
           ),
           title: Text(
@@ -353,7 +354,7 @@ class _EventsScreenState extends ConsumerState<EventsScreen> {
                                             if (event.isOnline)
                                               Row(
                                                 children: [
-                                                  const Icon(Icons.videocam_outlined, size: 14, color: ObsidianTheme.secondaryGold),
+                                                  Icon(Icons.videocam_outlined, size: 14, color: ObsidianTheme.secondaryGold),
                                                   const SizedBox(width: 4),
                                                   Text(
                                                     "ONLINE",
@@ -378,16 +379,16 @@ class _EventsScreenState extends ConsumerState<EventsScreen> {
                                         ),
                                         const SizedBox(height: 4),
                                         Text(
-                                          event.description,
+                                          event.description ?? '',
                                           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                                                 fontSize: 12,
                                                 color: ObsidianTheme.textMuted,
                                               ),
                                         ),
-                                        const Divider(color: ObsidianTheme.borderHairline, height: 20),
+                                        Divider(color: ObsidianTheme.borderHairline, height: 20),
                                         Row(
                                           children: [
-                                            const Icon(Icons.access_time_outlined, size: 13, color: ObsidianTheme.textMuted),
+                                            Icon(Icons.access_time_outlined, size: 13, color: ObsidianTheme.textMuted),
                                             const SizedBox(width: 6),
                                             Expanded(
                                               child: Text(
@@ -404,7 +405,7 @@ class _EventsScreenState extends ConsumerState<EventsScreen> {
                                         const SizedBox(height: 4),
                                         Row(
                                           children: [
-                                            const Icon(Icons.map_outlined, size: 13, color: ObsidianTheme.textMuted),
+                                            Icon(Icons.map_outlined, size: 13, color: ObsidianTheme.textMuted),
                                             const SizedBox(width: 6),
                                             Expanded(
                                               child: Text(
