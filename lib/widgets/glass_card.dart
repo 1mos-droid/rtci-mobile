@@ -63,7 +63,6 @@ class GlassCard extends StatelessWidget {
                 color: borderColor,
                 width: 0.5, // Hairline border characteristic of iOS
               ),
-              ]
             ),
             child: child,
           ),
