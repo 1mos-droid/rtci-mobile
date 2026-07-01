@@ -243,4 +243,21 @@ class SettingsScreen extends ConsumerWidget {
                 onTap: () {
                   ref.read(themeNotifierProvider.notifier).setThemeMode(ThemeMode.light);
                   Navigator.pop(ctx);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.dark_mode_outlined),
+                title: const Text("Dark"),
+                trailing: currentTheme == ThemeMode.dark ? const Icon(Icons.check, color: Colors.green) : null,
+                onTap: () {
+                  ref.read(themeNotifierProvider.notifier).setThemeMode(ThemeMode.dark);
+                  Navigator.pop(ctx);
+                },
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+  }
 }
