@@ -220,3 +220,40 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                     color: ObsidianTheme.textMuted,
                                     fontWeight: FontWeight.w500,
                                   ),
+                                ),
+                                value: _acceptTerms,
+                                activeColor: colorScheme.primary,
+                                checkColor: Colors.white,
+                                contentPadding: EdgeInsets.zero,
+                                controlAffinity: ListTileControlAffinity.leading,
+                                onChanged: (val) => setState(() => _acceptTerms = val ?? false),
+                              ),
+                              
+                              const SizedBox(height: 24),
+
+                              ElevatedButton(
+                                onPressed: authState.isLoading ? null : _handleSignup,
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: ObsidianTheme.primaryCrimson,
+                                  foregroundColor: Colors.white,
+                                ),
+                                child: authState.isLoading
+                                    ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
+                                    : const Text("CREATE ACCOUNT"),
+                              ),
+                              
+                              const SizedBox(height: 16),
+                              
+                              Row(
+                                children: [
+                                  Expanded(child: Divider(color: ObsidianTheme.borderHairline)),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                                    child: Text(
+                                      "OR",
+                                      style: GoogleFonts.plusJakartaSans(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                        color: ObsidianTheme.textMuted,
+                                      ),
+                                    ),
