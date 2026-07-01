@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rtc_mobile/theme/app_theme.dart';
 import 'package:rtc_mobile/widgets/glass_card.dart';
 import 'package:rtc_mobile/widgets/mesh_gradient_background.dart';
-import 'package:rtc_mobile/providers/bible_studies_provider.dart';
+import 'package:rtc_mobile/providers/riverpod_providers.dart';
 
-class BibleStudiesScreen extends StatefulWidget {
+class BibleStudiesScreen extends ConsumerStatefulWidget {
   const BibleStudiesScreen({super.key});
 
   @override
-  State<BibleStudiesScreen> createState() => _BibleStudiesScreenState();
+  ConsumerState<BibleStudiesScreen> createState() => _BibleStudiesScreenState();
 }
 
-class _BibleStudiesScreenState extends State<BibleStudiesScreen> with SingleTickerProviderStateMixin {
+class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -30,7 +30,7 @@ class _BibleStudiesScreenState extends State<BibleStudiesScreen> with SingleTick
 
   @override
   Widget build(BuildContext context) {
-    final libProv = Provider.of<BibleStudiesProvider>(context);
+    final libProv = ref.watch(bibleStudiesProvider);
 
     return MeshGradientBackground(
       child: Scaffold(
@@ -39,7 +39,7 @@ class _BibleStudiesScreenState extends State<BibleStudiesScreen> with SingleTick
           backgroundColor: Colors.transparent,
           elevation: 0,
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios_new, color: ObsidianTheme.textVibrant, size: 18),
+            icon: Icon(Icons.arrow_back_ios_new, color: ObsidianTheme.textVibrant, size: 18),
             onPressed: () => Navigator.pop(context),
           ),
           title: Text(
@@ -79,7 +79,7 @@ class _BibleStudiesScreenState extends State<BibleStudiesScreen> with SingleTick
     }
 
     if (libProv.modules.isEmpty) {
-      return const Center(child: Text("No study modules found.", style: TextStyle(color: Colors.white)));
+      return Center(child: Text("No study modules found.", style: TextStyle(color: ObsidianTheme.textVibrant)));
     }
 
     return ListView.builder(
@@ -97,7 +97,7 @@ class _BibleStudiesScreenState extends State<BibleStudiesScreen> with SingleTick
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Icon(Icons.bookmark, color: ObsidianTheme.secondaryGold),
+                    Icon(Icons.bookmark, color: ObsidianTheme.secondaryGold),
                     Text("${module.progress}%", style: GoogleFonts.plusJakartaSans(color: ObsidianTheme.primaryCrimson, fontWeight: FontWeight.bold)),
                   ],
                 ),
@@ -137,7 +137,7 @@ class _BibleStudiesScreenState extends State<BibleStudiesScreen> with SingleTick
     }
 
     if (libProv.resources.isEmpty) {
-      return const Center(child: Text("No resources found.", style: TextStyle(color: Colors.white)));
+      return Center(child: Text("No resources found.", style: TextStyle(color: ObsidianTheme.textVibrant)));
     }
 
     return ListView.builder(
@@ -152,12 +152,12 @@ class _BibleStudiesScreenState extends State<BibleStudiesScreen> with SingleTick
             child: ListTile(
               leading: CircleAvatar(
                 backgroundColor: ObsidianTheme.secondaryGold.withValues(alpha: 0.1),
-                child: const Icon(Icons.file_present_outlined, color: ObsidianTheme.secondaryGold),
+                child: Icon(Icons.file_present_outlined, color: ObsidianTheme.secondaryGold),
               ),
-              title: Text(res.title, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-              subtitle: Text(res.type?.toUpperCase() ?? 'DOCUMENT', style: const TextStyle(color: ObsidianTheme.textMuted, fontSize: 10)),
+              title: Text(res.title, style: TextStyle(color: ObsidianTheme.textVibrant, fontWeight: FontWeight.bold)),
+              subtitle: Text(res.type.toUpperCase(), style: TextStyle(color: ObsidianTheme.textMuted, fontSize: 10)),
               trailing: IconButton(
-                icon: const Icon(Icons.download, color: ObsidianTheme.textVibrant, size: 20),
+                icon: Icon(Icons.download, color: ObsidianTheme.textVibrant, size: 20),
                 onPressed: () {},
               ),
             ),
