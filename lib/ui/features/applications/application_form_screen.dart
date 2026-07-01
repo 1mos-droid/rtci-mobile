@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:rtc_mobile/theme/app_theme.dart';
 import 'package:rtc_mobile/widgets/glass_card.dart';
 import 'package:rtc_mobile/widgets/mesh_gradient_background.dart';
-import 'package:rtc_mobile/widgets/digital_signature_pad.dart';
-import 'package:rtc_mobile/providers/application_provider.dart';
+import 'package:rtc_mobile/providers/riverpod_providers.dart';
 
-class ApplicationFormScreen extends StatefulWidget {
+class ApplicationFormScreen extends ConsumerStatefulWidget {
   const ApplicationFormScreen({super.key});
 
   @override
-  State<ApplicationFormScreen> createState() => _ApplicationFormScreenState();
+  ConsumerState<ApplicationFormScreen> createState() => _ApplicationFormScreenState();
 }
 
-class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
+class _ApplicationFormScreenState extends ConsumerState<ApplicationFormScreen> {
   final _formKey = GlobalKey<FormState>();
   
   // Step 1 Controllers
@@ -32,22 +31,18 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
   // Step 3 Controllers
   final _talentsController = TextEditingController();
 
-  bool _initialized = false;
-
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    if (!_initialized) {
-      final provider = Provider.of<ApplicationProvider>(context, listen: false);
-      final app = provider.application;
-      
-      _nameController.text = app.fullName;
-      _emailController.text = app.email;
-      _phoneController.text = app.phone;
-      _birthDateController.text = app.birthDate;
-      _addressController.text = app.address;
-      _conversionDateController.text = app.conversionDate;
-      _prevChurchController.text = app.previousChurch;
+  void initState() {
+    super.initState();
+    final provider = ref.read(applicationProvider);
+    final app = provider.application;
+    
+    _nameController.text = app.fullName;
+    _emailController.text = app.email;
+    _phoneController.text = app.phone;
+    _birthDateController.text = app.birthDate;
+    _addressController.text = app.address;
+    _conversionDateController.text = app.conversionDate;
       _talentsController.text = app.talentsAndSkills;
       
       _initialized = true;
