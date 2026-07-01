@@ -153,6 +153,43 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
                               });
                             }
                           },
+                        ),
+                      ),
+                      const SizedBox(height: 24),
+                      ElevatedButton(
+                        onPressed: provider.isLoading
+                            ? null
+                            : () async {
+                                if (formKey.currentState!.validate()) {
+                                  setSheetState(() {});
+                                  try {
+                                    // 1. Upload the image file
+                                    final downloadUrl = await provider.uploadImage(File(image.path));
+                                    
+                                    // 2. Add item to Firestore collection
+                                    final success = await provider.addGalleryItem(
+                                      imageUrl: downloadUrl,
+                                      title: titleController.text.trim(),
+                                      description: descController.text.trim(),
+                                      date: selectedDate,
+                                    );
+
+                                    if (success && context.mounted) {
+                                      Navigator.pop(context); // Close dialog
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(
+                                          content: Text("Moment added to service gallery!"),
+                                          backgroundColor: Colors.green,
+                                        ),
+                                      );
+                                    }
+                                  } catch (e) {
+                                    if (context.mounted) {
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                          content: Text("Upload failed: $e"),
+                                          backgroundColor: Colors.red,
+                                        ),
 
   @override
   Widget build(BuildContext context) {
