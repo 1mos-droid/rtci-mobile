@@ -79,4 +79,41 @@ class GalleryProvider extends ChangeNotifier {
     return await storageRef.getDownloadURL();
   }
 
+  Future<bool> addGalleryItem({
+    required String imageUrl,
+    required String title,
+    required String description,
+    required DateTime date,
+  }) async {
+    _isLoading = true;
+    notifyListeners();
+    try {
+      await _firestore.collection('gallery').add({
+        'image_url': imageUrl,
+        'title': title,
+        'description': description,
+        'date': Timestamp.fromDate(date),
+        'created_at': FieldValue.serverTimestamp(),
+      });
+      await fetchGallery();
+      return true;
+    } catch (e) {
+      debugPrint('Error adding gallery item: $e');
+      _isLoading = false;
+      notifyListeners();
+      return false;
+    }
+  }
+
+  Future<bool> deleteGalleryItem(String itemId, String imageUrl) async {
+    _isLoading = true;
+    notifyListeners();
+    try {
+      // 1. Try to delete from storage
+      try {
+        if (imageUrl.contains('firebasestorage.googleapis.com')) {
+          final storageRef = _storage.refFromURL(imageUrl);
+          await storageRef.delete();
+        }
+      } catch (e) {
 }
