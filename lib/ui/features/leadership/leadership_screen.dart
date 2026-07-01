@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rtc_mobile/theme/app_theme.dart';
 import 'package:rtc_mobile/widgets/glass_card.dart';
 import 'package:rtc_mobile/widgets/mesh_gradient_background.dart';
-import 'package:rtc_mobile/providers/leadership_provider.dart';
+import 'package:rtc_mobile/providers/riverpod_providers.dart';
 
-class LeadershipScreen extends StatelessWidget {
+class LeadershipScreen extends ConsumerWidget {
   const LeadershipScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final leadershipProv = Provider.of<LeadershipProvider>(context);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final leadershipProv = ref.watch(leadershipProvider);
     final leaders = leadershipProv.leaders;
 
     return Scaffold(
@@ -39,7 +39,7 @@ class LeadershipScreen extends StatelessWidget {
               sliver: leadershipProv.isLoading && leaders.isEmpty
                 ? const SliverFillRemaining(child: Center(child: CircularProgressIndicator()))
                 : leaders.isEmpty
-                  ? const SliverFillRemaining(child: Center(child: Text("Leadership directory is currently empty.", style: TextStyle(color: Colors.white))))
+                  ? SliverFillRemaining(child: Center(child: Text("Leadership directory is currently empty.", style: TextStyle(color: ObsidianTheme.textVibrant))))
                   : SliverGrid(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
@@ -61,7 +61,7 @@ class LeadershipScreen extends StatelessWidget {
                             backgroundColor: ObsidianTheme.primaryCrimson.withValues(alpha: 0.2),
                             child: leader.avatarUrl == null ? Text(
                               leader.name[0],
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontSize: 32,
                                 color: ObsidianTheme.primaryCrimson,
                                 fontWeight: FontWeight.bold,
