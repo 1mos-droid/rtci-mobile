@@ -190,6 +190,43 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
                                           content: Text("Upload failed: $e"),
                                           backgroundColor: Colors.red,
                                         ),
+                                      );
+                                    }
+                                  }
+                                }
+                              },
+                        child: provider.isLoading
+                            ? const SizedBox(
+                                width: 20,
+                                height: 20,
+                                child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                              )
+                            : const Text("UPLOAD MOMENT"),
+                      ),
+                      const SizedBox(height: 24),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  void _showDeleteConfirmation(BuildContext context, GalleryProvider provider, GalleryItem item) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog.adaptive(
+        title: const Text("Delete Moment"),
+        content: const Text("Are you sure you want to remove this moment from the service gallery?"),
+        actions: [
+          TextButton(
+            child: const Text("Cancel"),
+            onPressed: () => Navigator.pop(context),
+          ),
+          TextButton(
 
   @override
   Widget build(BuildContext context) {
