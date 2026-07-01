@@ -5,6 +5,7 @@ import 'package:rtc_mobile/theme/app_theme.dart';
 import 'package:rtc_mobile/widgets/glass_card.dart';
 import 'package:rtc_mobile/widgets/mesh_gradient_background.dart';
 import 'package:rtc_mobile/ui/features/auth/login_screen.dart';
+import 'package:rtc_mobile/ui/features/auth/signup_screen.dart';
 import 'package:rtc_mobile/ui/features/applications/application_form_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -38,11 +39,13 @@ class WelcomeScreen extends StatelessWidget {
                       )
                     ],
                   ),
-                  child: const Center(
-                    child: Icon(
-                      Icons.church_outlined,
-                      size: 42,
-                      color: ObsidianTheme.secondaryGold,
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(14.0),
+                      child: Image.asset(
+                        'assets/church_logo.png',
+                        fit: BoxFit.contain,
+                      ),
                     ),
                   ),
                 ),
@@ -94,7 +97,7 @@ class WelcomeScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(
-                      "MEMBER COVENANT PORTAL",
+                      "CHURCH MEMBERS PORTAL",
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.labelMedium?.copyWith(
                             color: ObsidianTheme.textVibrant,
@@ -104,32 +107,38 @@ class WelcomeScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 10),
                     Text(
-                      "Submit your registration to align with local ministries and access the secure community hub.",
+                      "Sign in or register below to connect with the church community.",
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: ObsidianTheme.textMuted),
                     ),
                     const SizedBox(height: 24),
                     
                     ElevatedButton.icon(
-                      icon: const Icon(Icons.assignment_outlined),
-                      label: const Text("Submit Membership Form"),
+                      icon: const Icon(Icons.login_outlined),
+                      label: const Text("Sign In"),
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (_) => const ApplicationFormScreen()),
+                          MaterialPageRoute(builder: (_) => const LoginScreen()),
                         );
                       },
                     ),
                     
                     const SizedBox(height: 12),
                     
-                    OutlinedButton.icon(
-                      icon: const Icon(Icons.login_outlined),
-                      label: const Text("Sign In to Portal"),
+                    ElevatedButton.icon(
+                      icon: const Icon(Icons.person_add_outlined),
+                      label: const Text("Create Account"),
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (_) => const LoginScreen()),
+                          MaterialPageRoute(builder: (_) => const SignupScreen()),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: ObsidianTheme.secondaryGold,
+                        foregroundColor: ObsidianTheme.backgroundDark,
+                      ),
                         );
                       },
                     ),
