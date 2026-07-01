@@ -606,6 +606,7 @@ class _MessagingScreenState extends ConsumerState<MessagingScreen> with SingleTi
                   TextFormField(
                     controller: _bodyController,
                     maxLines: 4,
+                    style: TextStyle(color: ObsidianTheme.textVibrant),
                     decoration: const InputDecoration(
                       labelText: "Message Body",
                       alignLabelWithHint: true,
@@ -658,7 +659,7 @@ class _MessagingScreenState extends ConsumerState<MessagingScreen> with SingleTi
             _simulateOffline
                 ? "Broadcasting console is offline. Deactivate the offline simulator in the 'Compose' tab to retry delivery."
                 : "Deliver this broadcast update to members of ${item.target} now?",
-            style: const TextStyle(color: ObsidianTheme.textMuted),
+            style: TextStyle(color: ObsidianTheme.textMuted),
           ),
           actions: [
             TextButton(
