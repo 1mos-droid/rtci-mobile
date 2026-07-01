@@ -1,21 +1,21 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:rtc_mobile/theme/app_theme.dart';
 import 'package:rtc_mobile/widgets/glass_card.dart';
 import 'package:rtc_mobile/widgets/mesh_gradient_background.dart';
-import 'package:rtc_mobile/providers/auth_provider.dart';
-import 'package:rtc_mobile/providers/events_provider.dart';
+import 'package:rtc_mobile/application/auth/auth_provider.dart';
+import 'package:rtc_mobile/providers/riverpod_providers.dart';
 
-class EventsScreen extends StatefulWidget {
+class EventsScreen extends ConsumerStatefulWidget {
   const EventsScreen({super.key});
 
   @override
-  State<EventsScreen> createState() => _EventsScreenState();
+  ConsumerState<EventsScreen> createState() => _EventsScreenState();
 }
 
-class _EventsScreenState extends State<EventsScreen> {
+class _EventsScreenState extends ConsumerState<EventsScreen> {
 
   void _showAddEventSheet(BuildContext context) {
     final nameController = TextEditingController();
@@ -67,13 +67,13 @@ class _EventsScreenState extends State<EventsScreen> {
                         const SizedBox(height: 16),
                         TextFormField(
                           controller: nameController,
-                          style: const TextStyle(color: ObsidianTheme.textVibrant),
+                          style: TextStyle(color: ObsidianTheme.textVibrant),
                           decoration: InputDecoration(
                             labelText: "Event Title",
                             hintText: "E.g., Midweek Revival",
-                            labelStyle: const TextStyle(color: ObsidianTheme.textMuted),
-                            enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: ObsidianTheme.borderHairline)),
-                            focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: ObsidianTheme.primaryCrimson)),
+                            labelStyle: TextStyle(color: ObsidianTheme.textMuted),
+                            enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: ObsidianTheme.borderHairline)),
+                            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: ObsidianTheme.primaryCrimson)),
                           ),
                           validator: (val) => val == null || val.isEmpty ? "Event title required" : null,
                         ),
@@ -108,26 +108,26 @@ class _EventsScreenState extends State<EventsScreen> {
                         const SizedBox(height: 12),
                         TextFormField(
                           controller: timeController,
-                          style: const TextStyle(color: ObsidianTheme.textVibrant),
+                          style: TextStyle(color: ObsidianTheme.textVibrant),
                           decoration: InputDecoration(
                             labelText: "Service Hours",
                             hintText: "E.g., 09:00 AM - 11:30 AM",
-                            labelStyle: const TextStyle(color: ObsidianTheme.textMuted),
-                            enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: ObsidianTheme.borderHairline)),
-                            focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: ObsidianTheme.primaryCrimson)),
+                            labelStyle: TextStyle(color: ObsidianTheme.textMuted),
+                            enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: ObsidianTheme.borderHairline)),
+                            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: ObsidianTheme.primaryCrimson)),
                           ),
                           validator: (val) => val == null || val.isEmpty ? "Service hours required" : null,
                         ),
                         const SizedBox(height: 12),
                         TextFormField(
                           controller: locationController,
-                          style: const TextStyle(color: ObsidianTheme.textVibrant),
+                          style: TextStyle(color: ObsidianTheme.textVibrant),
                           decoration: InputDecoration(
                             labelText: "Physical / Virtual Location",
                             hintText: "E.g., Main Sanctuary or Zoom",
-                            labelStyle: const TextStyle(color: ObsidianTheme.textMuted),
-                            enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: ObsidianTheme.borderHairline)),
-                            focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: ObsidianTheme.primaryCrimson)),
+                            labelStyle: TextStyle(color: ObsidianTheme.textMuted),
+                            enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: ObsidianTheme.borderHairline)),
+                            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: ObsidianTheme.primaryCrimson)),
                           ),
                           validator: (val) => val == null || val.isEmpty ? "Location required" : null,
                         ),
@@ -135,7 +135,6 @@ class _EventsScreenState extends State<EventsScreen> {
                         TextFormField(
                           controller: descController,
                           maxLines: 3,
-                          style: const TextStyle(color: ObsidianTheme.textVibrant),
                           decoration: InputDecoration(
                             labelText: "Event Description & Focus",
                             hintText: "Focus of the gathering, scriptures, guidelines...",
