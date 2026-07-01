@@ -368,3 +368,22 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
               ),
               const SizedBox(height: 32),
               SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (_) => const MainTabScreen()),
+                      (route) => false,
+                    );
+                  },
+                  child: const Text("CONTINUE TO DASHBOARD"),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
