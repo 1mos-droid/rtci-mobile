@@ -1,17 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rtc_mobile/theme/app_theme.dart';
 import 'package:rtc_mobile/widgets/glass_card.dart';
 import 'package:rtc_mobile/widgets/mesh_gradient_background.dart';
-import 'package:rtc_mobile/providers/auth_provider.dart';
+import 'package:rtc_mobile/application/auth/auth_provider.dart';
+import 'package:rtc_mobile/application/theme/theme_provider.dart';
 
-class SettingsScreen extends StatelessWidget {
+class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final auth = Provider.of<AuthProvider>(context);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final user = ref.watch(authNotifierProvider).value;
+
+    if (user == null) {
+      return Scaffold(
+        backgroundColor: ObsidianTheme.backgroundDark,
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
 
     return Scaffold(
       backgroundColor: ObsidianTheme.backgroundDark,
@@ -48,25 +59,25 @@ class SettingsScreen extends StatelessWidget {
                               CircleAvatar(
                                 radius: 30,
                                 backgroundColor: ObsidianTheme.primaryCrimson.withValues(alpha: 0.1),
-                                child: Text(auth.userName.isNotEmpty ? auth.userName[0] : 'U', style: const TextStyle(fontSize: 24, color: ObsidianTheme.primaryCrimson, fontWeight: FontWeight.bold)),
+                                child: Text(user.name.isNotEmpty ? user.name[0] : 'U', style: TextStyle(fontSize: 24, color: ObsidianTheme.primaryCrimson, fontWeight: FontWeight.bold)),
                               ),
                               const SizedBox(width: 16),
                               Expanded(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(auth.userName, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
-                                    Text(auth.userEmail, style: const TextStyle(fontSize: 12, color: ObsidianTheme.textMuted)),
+                                     Text(user.name, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: ObsidianTheme.textVibrant)),
+                                    Text(user.email, style: TextStyle(fontSize: 12, color: ObsidianTheme.textMuted)),
                                   ],
                                 ),
                               ),
                             ],
                           ),
-                          const Divider(height: 40, color: ObsidianTheme.borderHairline),
+                          Divider(height: 40, color: ObsidianTheme.borderHairline),
                           Text("Official Profile", style: GoogleFonts.cinzel(fontSize: 14, fontWeight: FontWeight.bold, color: ObsidianTheme.secondaryGold)),
                           const SizedBox(height: 16),
-                          _buildInfoRow("Role", auth.role.name.toUpperCase()),
-                          if (auth.department != null) _buildInfoRow("Department", auth.department!),
+                          _buildInfoRow("Role", user.role.name.toUpperCase()),
+                          if (user.department != null) _buildInfoRow("Department", user.department!),
                           const SizedBox(height: 24),
                           SizedBox(
                             width: double.infinity,
@@ -85,6 +96,10 @@ class SettingsScreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          Text("Preferences", style: GoogleFonts.cinzel(fontSize: 14, fontWeight: FontWeight.bold, color: ObsidianTheme.secondaryGold)),
+                          const SizedBox(height: 16),
+                          ListTile(
+                            contentPadding: EdgeInsets.zero,
                           Text("Security & Terminal", style: GoogleFonts.cinzel(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.redAccent)),
                           const SizedBox(height: 16),
                           ListTile(
