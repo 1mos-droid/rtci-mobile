@@ -257,3 +257,40 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                         color: ObsidianTheme.textMuted,
                                       ),
                                     ),
+                                  ),
+                                  Expanded(child: Divider(color: ObsidianTheme.borderHairline)),
+                                ],
+                              ),
+                              
+                              const SizedBox(height: 16),
+                              
+                              GestureDetector(
+                                onTap: authState.isLoading ? null : _handleGoogleSignup,
+                                child: Container(
+                                  height: 52,
+                                  decoration: BoxDecoration(
+                                    color: isDark ? Colors.white : Colors.black,
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  child: authState.isLoading
+                                      ? const Center(child: CircularProgressIndicator.adaptive(valueColor: AlwaysStoppedAnimation<Color>(Colors.grey)))
+                                      : Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            FaIcon(
+                                              FontAwesomeIcons.google, 
+                                              size: 16, 
+                                              color: isDark ? Colors.black : Colors.white,
+                                            ),
+                                            const SizedBox(width: 12),
+                                            Text(
+                                              "Sign Up with Google",
+                                              style: TextStyle(
+                                                color: isDark ? Colors.black : Colors.white,
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: 16,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                ),
