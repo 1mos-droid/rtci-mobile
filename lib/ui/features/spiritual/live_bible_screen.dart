@@ -423,14 +423,37 @@ class _LiveBibleScreenState extends ConsumerState<LiveBibleScreen> {
                         alignment: Alignment.center,
                         child: Text(
                           chapter['number'].toString(),
+                          style: GoogleFonts.inter(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                            color: isSelected ? Colors.white : theme.colorScheme.onSurface,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildNotesPanel(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
     return Container(
-      color: ObsidianTheme.surfaceDark.withValues(alpha: 0.8),
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Row(
-            children: [
+      decoration: BoxDecoration(
+        color: theme.scaffoldBackgroundColor.withOpacity(0.85),
+        border: Border(
+          top: BorderSide(
+            color: isDark ? Colors.white.withOpacity(0.08) : Colors.black.withOpacity(0.05),
+            width: 1.0,
+          ),
+        ),
               Expanded(
                 flex: 2,
                 child: _buildDropdown(
