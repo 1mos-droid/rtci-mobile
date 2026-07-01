@@ -1,0 +1,37 @@
+import 'dart:io';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:google_sign_in/google_sign_in.dart' as gsi;
+import 'package:rtc_mobile/domain/auth/user_model.dart';
+
+class AuthRepository {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseStorage _storage = FirebaseStorage.instance;
+  final gsi.GoogleSignIn _googleSignIn = gsi.GoogleSignIn.instance;
+
+  Stream<User?> authStateChanges() => _auth.authStateChanges();
+
+  Future<AppUser?> fetchUserProfile(String uid) async {
+    try {
+      final doc = await _firestore.collection('profiles').doc(uid).get();
+      if (doc.exists) {
+        return AppUser.fromFirestore(uid, doc.data()!);
+      }
+      return null;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> login(String email, String password) async {
+    await _auth.signInWithEmailAndPassword(email: email, password: password);
+  }
+
+  Future<void> register(String fullName, String email, String password, {String? department}) async {
+    final res = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+    if (res.user != null) {
+      await _firestore.collection('profiles').doc(res.user!.uid).set({
+        'name': fullName,
+        'email': email,
