@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:rtc_mobile/theme/app_theme.dart';
 
 class DigitalSignaturePad extends StatefulWidget {
   final Function(List<Offset?>) onSignatureChanged;
@@ -16,6 +16,10 @@ class _DigitalSignaturePadState extends State<DigitalSignaturePad> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final mutedText = colorScheme.onSurface.withValues(alpha: 0.6);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -24,8 +28,8 @@ class _DigitalSignaturePadState extends State<DigitalSignaturePad> {
           children: [
             Text(
               "DIGITAL SIGNATURE",
-              style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                    color: ObsidianTheme.secondaryGold,
+              style: theme.textTheme.labelMedium?.copyWith(
+                    color: colorScheme.secondary,
                     letterSpacing: 1.0,
                   ),
             ),
@@ -34,13 +38,13 @@ class _DigitalSignaturePadState extends State<DigitalSignaturePad> {
                 setState(() => _points.clear());
                 widget.onSignatureChanged(_points);
               },
-              icon: const Icon(Icons.clear, size: 14, color: ObsidianTheme.primaryCrimson),
+              icon: Icon(CupertinoIcons.clear, size: 14, color: colorScheme.primary),
               label: Text(
                 "CLEAR",
                 style: GoogleFonts.plusJakartaSans(
                   fontSize: 10,
                   fontWeight: FontWeight.bold,
-                  color: ObsidianTheme.primaryCrimson,
+                  color: colorScheme.primary,
                 ),
               ),
             ),
@@ -50,9 +54,9 @@ class _DigitalSignaturePadState extends State<DigitalSignaturePad> {
         Container(
           height: 150,
           decoration: BoxDecoration(
-            color: ObsidianTheme.surfaceDark.withValues(alpha: 0.5),
+            color: colorScheme.surface.withValues(alpha: 0.5),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: ObsidianTheme.borderHairline, width: 1.0),
+            border: Border.all(color: colorScheme.outline.withValues(alpha: 0.1), width: 1.0),
           ),
           child: GestureDetector(
             onPanUpdate: (DragUpdateDetails details) {
@@ -68,7 +72,7 @@ class _DigitalSignaturePadState extends State<DigitalSignaturePad> {
               widget.onSignatureChanged(_points);
             },
             child: CustomPaint(
-              painter: SignaturePainter(points: _points),
+              painter: SignaturePainter(points: _points, strokeColor: colorScheme.primary),
               size: Size.infinite,
             ),
           ),
@@ -76,7 +80,7 @@ class _DigitalSignaturePadState extends State<DigitalSignaturePad> {
         const SizedBox(height: 8),
         Text(
           "Use your finger to sign within the designated area above.",
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 11),
+          style: theme.textTheme.bodyMedium?.copyWith(fontSize: 11, color: mutedText),
           textAlign: TextAlign.center,
         ),
       ],
@@ -85,14 +89,15 @@ class _DigitalSignaturePadState extends State<DigitalSignaturePad> {
 }
 
 class SignaturePainter extends CustomPainter {
-  List<Offset?> points;
+  final List<Offset?> points;
+  final Color strokeColor;
 
-  SignaturePainter({required this.points});
+  SignaturePainter({required this.points, required this.strokeColor});
 
   @override
   void paint(Canvas canvas, Size size) {
     Paint paint = Paint()
-      ..color = ObsidianTheme.primaryCrimson
+      ..color = strokeColor
       ..strokeCap = StrokeCap.round
       ..strokeWidth = 3.0;
 
@@ -104,5 +109,5 @@ class SignaturePainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(SignaturePainter oldDelegate) => oldDelegate.points != points;
+  bool shouldRepaint(SignaturePainter oldDelegate) => oldDelegate.points != points || oldDelegate.strokeColor != strokeColor;
 }
