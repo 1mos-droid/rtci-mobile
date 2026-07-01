@@ -35,3 +35,40 @@ class BroadcastMessage {
       channel: data['channel'] ?? '',
       subject: data['subject'] ?? '',
       body: data['body'] ?? '',
+      createdAt: (data['created_at'] as Timestamp?)?.toDate() ?? DateTime.now(),
+      category: data['category'] ?? '',
+    );
+  }
+}
+
+class BroadcastProvider extends ChangeNotifier {
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  List<BroadcastMessage> _messages = [];
+  bool _isLoading = false;
+
+  List<BroadcastMessage> get messages => _messages;
+  bool get isLoading => _isLoading;
+
+  Future<void> fetchBroadcasts() async {
+    _isLoading = true;
+    notifyListeners();
+
+    try {
+      final snapshot = await _firestore
+          .collection('broadcasts')
+          .orderBy('created_at', descending: true)
+          .get();
+
+      _messages = snapshot.docs.map((doc) => BroadcastMessage.fromFirestore(doc)).toList();
+    } catch (e) {
+      debugPrint('Error fetching broadcasts: $e');
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  Future<bool> sendBroadcast({
+    required String target,
+    required String channel,
