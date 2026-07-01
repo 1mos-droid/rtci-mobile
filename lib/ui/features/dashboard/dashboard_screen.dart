@@ -153,26 +153,33 @@ class DashboardScreen extends ConsumerWidget {
                       style: Theme.of(context).textTheme.labelLarge?.copyWith(
                         color: ObsidianTheme.textVibrant,
                         letterSpacing: 1.5,
-                          ),
+                      ),
                     ),
                     const SizedBox(height: 12),
 
                     GlassCard(
                       padding: const EdgeInsets.all(20),
-                      child: insights.isLoading 
-                        ? const Center(child: CircularProgressIndicator())
-                        : Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            insights.currentInsight != null 
-                              ? "\"${insights.currentInsight!.content}\""
-                              : "\"But grow in the grace and knowledge of our Lord and Savior Jesus Christ.\"",
-                            style: GoogleFonts.plusJakartaSans(
-                              fontSize: 16,
-                              fontStyle: FontStyle.italic,
-                              color: ObsidianTheme.textVibrant,
-                              height: 1.4,
+                      child: insights.isLoading
+                          ? const Center(child: CircularProgressIndicator())
+                          : insights.currentInsight == null
+                          ? Center(
+                              child: Text(
+                                "No revelation available today.",
+                                style: TextStyle(
+                                  color: ObsidianTheme.textMuted,
+                                ),
+                              ),
+                            )
+                          : Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "\"${insights.currentInsight!.content}\"",
+                                  style: GoogleFonts.plusJakartaSans(
+                                    fontSize: 16,
+                                    fontStyle: FontStyle.italic,
+                                    color: ObsidianTheme.textVibrant,
+                                    height: 1.4,
                             ),
                           ),
                           const SizedBox(height: 12),
