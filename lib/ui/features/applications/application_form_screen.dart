@@ -43,10 +43,8 @@ class _ApplicationFormScreenState extends ConsumerState<ApplicationFormScreen> {
     _birthDateController.text = app.birthDate;
     _addressController.text = app.address;
     _conversionDateController.text = app.conversionDate;
-      _talentsController.text = app.talentsAndSkills;
-      
-      _initialized = true;
-    }
+    _prevChurchController.text = app.previousChurch;
+    _talentsController.text = app.talentsAndSkills;
   }
 
   @override
@@ -82,7 +80,7 @@ class _ApplicationFormScreenState extends ConsumerState<ApplicationFormScreen> {
   }
 
   Future<void> _handleSubmit(ApplicationProvider provider) async {
-    if (provider.application.covenantsAgreed && provider.application.signaturePoints.isNotEmpty) {
+    if (provider.application.covenantsAgreed) {
       final success = await provider.submitApplication();
       if (success && mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -94,8 +92,8 @@ class _ApplicationFormScreenState extends ConsumerState<ApplicationFormScreen> {
       }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Please agree to the covenants and sign the form before submitting."),
+        SnackBar(
+          content: Text("Please agree to the covenants before submitting."),
           backgroundColor: ObsidianTheme.primaryCrimson,
         ),
       );
@@ -104,7 +102,7 @@ class _ApplicationFormScreenState extends ConsumerState<ApplicationFormScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<ApplicationProvider>(context);
+    final provider = ref.watch(applicationProvider);
     final app = provider.application;
     final step = provider.currentStep;
 
@@ -119,7 +117,7 @@ class _ApplicationFormScreenState extends ConsumerState<ApplicationFormScreen> {
           backgroundColor: Colors.transparent,
           elevation: 0,
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios_new, color: ObsidianTheme.textVibrant, size: 18),
+            icon: Icon(Icons.arrow_back_ios_new, color: ObsidianTheme.textVibrant, size: 18),
             onPressed: () {
               _saveCurrentStepData(step, provider);
               Navigator.pop(context);
@@ -200,7 +198,7 @@ class _ApplicationFormScreenState extends ConsumerState<ApplicationFormScreen> {
                     ),
                     child: Center(
                       child: isCompleted
-                          ? const Icon(Icons.check, size: 12, color: ObsidianTheme.backgroundDark)
+                          ? Icon(Icons.check, size: 12, color: ObsidianTheme.backgroundDark)
                           : Text(
                               "${index + 1}",
                               style: GoogleFonts.plusJakartaSans(
@@ -254,7 +252,7 @@ class _ApplicationFormScreenState extends ConsumerState<ApplicationFormScreen> {
         const SizedBox(height: 24),
         TextFormField(
           controller: _nameController,
-          style: const TextStyle(color: ObsidianTheme.textVibrant),
+          style: TextStyle(color: ObsidianTheme.textVibrant),
           decoration: const InputDecoration(
             labelText: "Full Legal Name",
             prefixIcon: Icon(Icons.person_outline),
@@ -265,7 +263,7 @@ class _ApplicationFormScreenState extends ConsumerState<ApplicationFormScreen> {
         TextFormField(
           controller: _emailController,
           keyboardType: TextInputType.emailAddress,
-          style: const TextStyle(color: ObsidianTheme.textVibrant),
+          style: TextStyle(color: ObsidianTheme.textVibrant),
           decoration: const InputDecoration(
             labelText: "Contact Email",
             prefixIcon: Icon(Icons.email_outlined),
@@ -276,7 +274,7 @@ class _ApplicationFormScreenState extends ConsumerState<ApplicationFormScreen> {
         TextFormField(
           controller: _phoneController,
           keyboardType: TextInputType.phone,
-          style: const TextStyle(color: ObsidianTheme.textVibrant),
+          style: TextStyle(color: ObsidianTheme.textVibrant),
           decoration: const InputDecoration(
             labelText: "Mobile Connection",
             prefixIcon: Icon(Icons.phone_outlined),
@@ -286,7 +284,7 @@ class _ApplicationFormScreenState extends ConsumerState<ApplicationFormScreen> {
         const SizedBox(height: 16),
         TextFormField(
           controller: _birthDateController,
-          style: const TextStyle(color: ObsidianTheme.textVibrant),
+          style: TextStyle(color: ObsidianTheme.textVibrant),
           decoration: const InputDecoration(
             labelText: "Date of Birth",
             prefixIcon: Icon(Icons.cake_outlined),
@@ -298,7 +296,7 @@ class _ApplicationFormScreenState extends ConsumerState<ApplicationFormScreen> {
         TextFormField(
           controller: _addressController,
           maxLines: 2,
-          style: const TextStyle(color: ObsidianTheme.textVibrant),
+          style: TextStyle(color: ObsidianTheme.textVibrant),
           decoration: const InputDecoration(
             labelText: "Residential Address",
             prefixIcon: Icon(Icons.location_on_outlined),
@@ -330,7 +328,7 @@ class _ApplicationFormScreenState extends ConsumerState<ApplicationFormScreen> {
         const SizedBox(height: 24),
         TextFormField(
           controller: _conversionDateController,
-          style: const TextStyle(color: ObsidianTheme.textVibrant),
+          style: TextStyle(color: ObsidianTheme.textVibrant),
           decoration: const InputDecoration(
             labelText: "Conversion Date",
             prefixIcon: Icon(Icons.favorite_border),
@@ -347,13 +345,13 @@ class _ApplicationFormScreenState extends ConsumerState<ApplicationFormScreen> {
           ),
           subtitle: const Text("Full immersion baptism by water."),
           value: app.isWaterBaptized,
-          activeColor: ObsidianTheme.secondaryGold,
+          activeThumbColor: ObsidianTheme.secondaryGold,
           contentPadding: EdgeInsets.zero,
           onChanged: (val) {
             provider.updateSpiritualJourney(isWaterBaptized: val);
           },
         ),
-        const Divider(color: ObsidianTheme.borderHairline, height: 24),
+        Divider(color: ObsidianTheme.borderHairline, height: 24),
 
         SwitchListTile(
           title: Text(
@@ -362,13 +360,12 @@ class _ApplicationFormScreenState extends ConsumerState<ApplicationFormScreen> {
           ),
           subtitle: const Text("Baptism of the Holy Spirit with gifts."),
           value: app.isHolyGhostBaptized,
-          activeColor: ObsidianTheme.secondaryGold,
+          activeThumbColor: ObsidianTheme.secondaryGold,
           contentPadding: EdgeInsets.zero,
           onChanged: (val) {
             provider.updateSpiritualJourney(isHolyGhostBaptized: val);
           },
         ),
-        const Divider(color: ObsidianTheme.borderHairline, height: 24),
 
         TextFormField(
           controller: _prevChurchController,
