@@ -29,34 +29,33 @@ class StudyResource {
   final String id;
   final String moduleId;
   final String title;
-  final String? type;
-  final String? link;
+  final String type;
+  final String url;
 
-  ResourceItem({
-    required this.id,
-    required this.title,
-    this.type,
-    this.link,
-  });
+  StudyResource({required this.id, required this.moduleId, required this.title, required this.type, required this.url});
 
-  factory ResourceItem.fromMap(Map<String, dynamic> map) {
-    return ResourceItem(
-      id: map['id']?.toString() ?? '',
-      title: map['title'] ?? '',
-      type: map['type'],
-      link: map['link'],
+  factory StudyResource.fromFirestore(DocumentSnapshot doc) {
+    final data = doc.data() as Map<String, dynamic>;
+    return StudyResource(
+      id: doc.id,
+      moduleId: data['module_id'] ?? '',
+      title: data['title'] ?? '',
+      type: data['type'] ?? 'pdf',
+      url: data['url'] ?? '',
     );
   }
 }
 
 class BibleStudiesProvider extends ChangeNotifier {
-  final _supabase = Supabase.instance.client;
-  List<BibleStudyModule> _modules = [];
-  List<ResourceItem> _resources = [];
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  
+  List<StudyModule> _modules = [];
+  List<StudyResource> _resources = [];
   bool _isLoading = false;
 
-  List<BibleStudyModule> get modules => _modules;
-  List<ResourceItem> get resources => _resources;
+  List<StudyModule> get modules => _modules;
+  List<StudyResource> get resources => _resources;
   bool get isLoading => _isLoading;
 
   BibleStudiesProvider() {
