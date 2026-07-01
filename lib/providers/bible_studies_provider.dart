@@ -1,34 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class BibleStudyModule {
+class StudyModule {
   final String id;
   final String title;
-  final String? subtitle;
-  final int sessions;
+  final String description;
+  final String imageUrl;
   final int progress;
+  final String? subtitle;
 
-  BibleStudyModule({
-    required this.id,
-    required this.title,
-    required this.sessions,
-    required this.progress,
-    this.subtitle,
-  });
+  StudyModule({required this.id, required this.title, required this.description, required this.imageUrl, this.progress = 0, this.subtitle});
 
-  factory BibleStudyModule.fromMap(Map<String, dynamic> map) {
-    return BibleStudyModule(
-      id: map['id']?.toString() ?? '',
-      title: map['title'] ?? '',
-      subtitle: map['subtitle'],
-      sessions: map['sessions'] ?? 1,
-      progress: map['progress'] ?? 0,
+  factory StudyModule.fromFirestore(DocumentSnapshot doc) {
+    final data = doc.data() as Map<String, dynamic>;
+    return StudyModule(
+      id: doc.id,
+      title: data['title'] ?? '',
+      description: data['description'] ?? '',
+      imageUrl: data['image_url'] ?? '',
+      progress: data['progress'] ?? 0,
+      subtitle: data['subtitle'],
     );
   }
 }
 
-class ResourceItem {
+class StudyResource {
   final String id;
+  final String moduleId;
   final String title;
   final String? type;
   final String? link;
