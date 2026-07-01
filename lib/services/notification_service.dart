@@ -35,3 +35,40 @@ class NotificationService {
       const InitializationSettings initializationSettings = InitializationSettings(
         android: initializationSettingsAndroid,
         iOS: initializationSettingsIOS,
+      );
+
+      await _localNotifications.initialize(initializationSettings);
+
+      // 3. Listen for Messages
+      FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+        if (kDebugMode) print('Got a message whilst in the foreground!');
+        _showLocalNotification(message);
+      });
+
+      // 4. Handle Background Messages
+      FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
+      // 5. Update Token in Firestore
+      await updateToken();
+    } catch (e) {
+      if (kDebugMode) print('Error initializing notification service: $e');
+    }
+  }
+
+  Future<void> updateToken() async {
+    try {
+      String? token = await _fcm.getToken();
+      if (token != null) {
+        final user = FirebaseAuth.instance.currentUser;
+        if (user != null) {
+          await FirebaseFirestore.instance
+              .collection('profiles')
+              .doc(user.uid)
+              .update({'fcm_token': token});
+        }
+      }
+    } catch (e) {
+      if (kDebugMode) print('Error updating FCM token: $e');
+    }
+  }
+
