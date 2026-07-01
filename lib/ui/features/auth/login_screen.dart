@@ -159,10 +159,41 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         ElevatedButton(
                           onPressed: authState.isLoading ? null : _handleLogin,
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: _asLeadership ? ObsidianTheme.secondaryGold : ObsidianTheme.primaryCrimson,
-                            foregroundColor: _asLeadership ? ObsidianTheme.backgroundDark : Colors.white,
+                            backgroundColor: ObsidianTheme.primaryCrimson,
+                            foregroundColor: Colors.white,
                           ),
-                          child: const Text("AUTHENTICATE ACCESS"),
+                          child: authState.isLoading
+                              ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
+                              : const Text("LOG IN"),
+                        ),
+                        
+                        const SizedBox(height: 16),
+                        
+                        Row(
+                          children: [
+                            Expanded(child: Divider(color: ObsidianTheme.borderHairline)),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 16),
+                              child: Text(
+                                "OR",
+                                style: GoogleFonts.plusJakartaSans(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                  color: ObsidianTheme.textMuted,
+                                ),
+                              ),
+                            ),
+                            Expanded(child: Divider(color: ObsidianTheme.borderHairline)),
+                          ],
+                        ),
+                        
+                        const SizedBox(height: 16),
+                        
+                        GestureDetector(
+                          onTap: authState.isLoading ? null : _handleGoogleLogin,
+                          child: Container(
+                            height: 52,
+                            decoration: BoxDecoration(
                         ),
                       ],
                     ),
