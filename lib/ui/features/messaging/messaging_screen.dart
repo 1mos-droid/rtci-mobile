@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:rtc_mobile/theme/app_theme.dart';
 import 'package:rtc_mobile/widgets/glass_card.dart';
 import 'package:rtc_mobile/widgets/mesh_gradient_background.dart';
-import 'package:rtc_mobile/providers/auth_provider.dart';
+import 'package:rtc_mobile/application/auth/auth_provider.dart';
 
 class BroadcastMessage {
   final String id;
@@ -47,14 +47,14 @@ class OutboxItem {
   });
 }
 
-class MessagingScreen extends StatefulWidget {
+class MessagingScreen extends ConsumerStatefulWidget {
   const MessagingScreen({super.key});
 
   @override
-  State<MessagingScreen> createState() => _MessagingScreenState();
+  ConsumerState<MessagingScreen> createState() => _MessagingScreenState();
 }
 
-class _MessagingScreenState extends State<MessagingScreen> with SingleTickerProviderStateMixin {
+class _MessagingScreenState extends ConsumerState<MessagingScreen> with SingleTickerProviderStateMixin {
   late TabController _tabController;
   final _formKey = GlobalKey<FormState>();
   final _subjectController = TextEditingController();
@@ -190,7 +190,7 @@ class _MessagingScreenState extends State<MessagingScreen> with SingleTickerProv
   void _handleRetryOutbox(OutboxItem item, String senderName) async {
     if (_simulateOffline) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+        SnackBar(
           content: Text("Still offline. Sanctuary connection not restored yet. ❌"),
           backgroundColor: ObsidianTheme.primaryCrimson,
         ),
@@ -235,8 +235,8 @@ class _MessagingScreenState extends State<MessagingScreen> with SingleTickerProv
 
   @override
   Widget build(BuildContext context) {
-    final auth = Provider.of<AuthProvider>(context);
-    final isLeader = auth.isDeptHead;
+    final user = ref.watch(authNotifierProvider).value;
+    final isLeader = user?.isDeptHead ?? false;
 
     return MeshGradientBackground(
       child: Scaffold(
@@ -245,7 +245,7 @@ class _MessagingScreenState extends State<MessagingScreen> with SingleTickerProv
           backgroundColor: Colors.transparent,
           elevation: 0,
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios_new, color: ObsidianTheme.textVibrant, size: 18),
+            icon: Icon(Icons.arrow_back_ios_new, color: ObsidianTheme.textVibrant, size: 18),
             onPressed: () => Navigator.pop(context),
           ),
           title: Text(
@@ -298,7 +298,7 @@ class _MessagingScreenState extends State<MessagingScreen> with SingleTickerProv
                   controller: _tabController,
                   children: [
                     _buildFeedTab(),
-                    _buildComposeTab(auth.userName),
+                    _buildComposeTab(user?.name ?? 'Member'),
                   ],
                 )
               : _buildFeedTab(),
@@ -413,7 +413,7 @@ class _MessagingScreenState extends State<MessagingScreen> with SingleTickerProv
                                 letterSpacing: 0.5,
                               ),
                             ),
-                            const Divider(color: ObsidianTheme.borderHairline, height: 20),
+                            Divider(color: ObsidianTheme.borderHairline, height: 20),
                             Text(
                               msg.body,
                               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
@@ -488,7 +488,7 @@ class _MessagingScreenState extends State<MessagingScreen> with SingleTickerProv
                               IconButton(
                                 constraints: const BoxConstraints(),
                                 padding: EdgeInsets.zero,
-                                icon: const Icon(Icons.delete_outline, size: 16, color: ObsidianTheme.primaryCrimson),
+                                icon: Icon(Icons.delete_outline, size: 16, color: ObsidianTheme.primaryCrimson),
                                 onPressed: () {
                                   setState(() {
                                     _outbox.removeAt(idx);
@@ -504,7 +504,7 @@ class _MessagingScreenState extends State<MessagingScreen> with SingleTickerProv
                           ),
                           Text(
                             "Target: ${item.target} | Mode: ${item.mode}",
-                            style: const TextStyle(fontSize: 10, color: ObsidianTheme.textMuted),
+                            style: TextStyle(fontSize: 10, color: ObsidianTheme.textMuted),
                           ),
                           const SizedBox(height: 10),
                           Row(
@@ -513,7 +513,7 @@ class _MessagingScreenState extends State<MessagingScreen> with SingleTickerProv
                               SizedBox(
                                 height: 32,
                                 child: TextButton.icon(
-                                  icon: const Icon(Icons.sync_outlined, size: 14, color: ObsidianTheme.secondaryGold),
+                                  icon: Icon(Icons.sync_outlined, size: 14, color: ObsidianTheme.secondaryGold),
                                   label: Text(
                                     "RETRY DELIVERY",
                                     style: GoogleFonts.plusJakartaSans(
@@ -553,7 +553,7 @@ class _MessagingScreenState extends State<MessagingScreen> with SingleTickerProv
                   DropdownButtonFormField<String>(
                     initialValue: _selectedCategory,
                     dropdownColor: ObsidianTheme.surfaceDark,
-                    style: const TextStyle(color: ObsidianTheme.textVibrant),
+                    style: TextStyle(color: ObsidianTheme.textVibrant),
                     decoration: const InputDecoration(labelText: "Category"),
                     items: _categories.map((c) {
                       return DropdownMenuItem(value: c, child: Text(c));
@@ -567,7 +567,7 @@ class _MessagingScreenState extends State<MessagingScreen> with SingleTickerProv
                   DropdownButtonFormField<String>(
                     initialValue: _selectedTarget,
                     dropdownColor: ObsidianTheme.surfaceDark,
-                    style: const TextStyle(color: ObsidianTheme.textVibrant),
+                    style: TextStyle(color: ObsidianTheme.textVibrant),
                     decoration: const InputDecoration(labelText: "Target"),
                     items: _targets.map((t) {
                       return DropdownMenuItem(value: t, child: Text(t));
@@ -581,7 +581,7 @@ class _MessagingScreenState extends State<MessagingScreen> with SingleTickerProv
                   DropdownButtonFormField<String>(
                     initialValue: _selectedMode,
                     dropdownColor: ObsidianTheme.surfaceDark,
-                    style: const TextStyle(color: ObsidianTheme.textVibrant),
+                    style: TextStyle(color: ObsidianTheme.textVibrant),
                     decoration: const InputDecoration(labelText: "Channel"),
                     items: _modes.map((m) {
                       return DropdownMenuItem(value: m, child: Text(m));
@@ -594,7 +594,7 @@ class _MessagingScreenState extends State<MessagingScreen> with SingleTickerProv
 
                   TextFormField(
                     controller: _subjectController,
-                    style: const TextStyle(color: ObsidianTheme.textVibrant),
+                    style: TextStyle(color: ObsidianTheme.textVibrant),
                     decoration: const InputDecoration(
                       labelText: "Subject",
                       hintText: "E.g., Pastoral Greetings",
@@ -606,7 +606,6 @@ class _MessagingScreenState extends State<MessagingScreen> with SingleTickerProv
                   TextFormField(
                     controller: _bodyController,
                     maxLines: 4,
-                    style: const TextStyle(color: ObsidianTheme.textVibrant),
                     decoration: const InputDecoration(
                       labelText: "Message Body",
                       alignLabelWithHint: true,
