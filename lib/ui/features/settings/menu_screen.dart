@@ -129,6 +129,43 @@ class MenuScreen extends ConsumerWidget {
                         ),
                         _buildMenuTile(
                           context,
+                          title: 'Attendance',
+                          icon: Icons.check_circle_rounded,
+                          iconColor: AppTheme.systemTeal,
+                          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const AttendanceScreen())),
+                        ),
+                        _buildMenuTile(
+                          context,
+                          title: 'Ledger',
+                          icon: Icons.credit_card_rounded,
+                          iconColor: AppTheme.systemBlue,
+                          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const FinancialsScreen())),
+                        ),
+                        _buildMenuTile(
+                          context,
+                          title: 'Broadcasts',
+                          icon: Icons.volume_up_rounded,
+                          iconColor: AppTheme.systemPurple,
+                          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const MessagingScreen())),
+                        ),
+                        _buildMenuTile(
+                          context,
+                          title: 'Reports',
+                          icon: Icons.bar_chart_rounded,
+                          iconColor: AppTheme.systemYellow,
+                          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ReportsScreen())),
+                        ),
+                        if (user.isAdmin)
+                          _buildMenuTile(
+                            context,
+                            title: 'User Access',
+                            icon: Icons.admin_panel_settings_rounded,
+                            iconColor: colorScheme.primary,
+                            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const UserManagementScreen())),
+                          ),
+                      ]),
+                    ],
+      
                 ),
               ),
             ),
