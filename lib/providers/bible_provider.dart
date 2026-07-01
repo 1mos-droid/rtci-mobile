@@ -74,6 +74,8 @@ class BibleProvider extends ChangeNotifier {
           'name': item['name'] as String,
           'nameLong': item['nameLong'] as String? ?? '',
         }).toList();
+      } else {
+        debugPrint('Failed to load books: ${response.statusCode}');
       }
     } catch (e) {
       debugPrint('Error fetching books: $e');
@@ -83,17 +85,28 @@ class BibleProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> fetchChapters(String versionId, String bookId) async {
+  Future<void> fetchChapters(String version, String bookId) async {
     _isLoading = true;
     notifyListeners();
     try {
-      final bibleId = versionMap[versionId] ?? versionMap['KJV']!;
-      final response = await http.get(
-        Uri.parse('$_baseUrl/bibles/$bibleId/books/$bookId/chapters'),
-        headers: {'api-key': _apiKey},
-      );
+      final bibleId = versionMap[version] ?? versionMap['KJV']!;
+      final url = Uri.parse('$baseUrl/bibles/$bibleId/books/$bookId/chapters');
+      final response = await http.get(url, headers: {'api-key': apiKey});
       if (response.statusCode == 200) {
-        _chapters = json.decode(response.body)['data'];
+        final Map<String, dynamic> data = json.decode(response.body);
+        final List<dynamic> list = data['data'] ?? [];
+        _chapters = list
+            .map((item) {
+              final String numStr = item['number'] as String;
+              return {
+                'id': item['id'] as String,
+                'number': int.tryParse(numStr) ?? numStr,
+              };
+            })
+            .where((item) => item['number'] != 'intro')
+            .toList();
+      } else {
+        debugPrint('Failed to load chapters: ${response.statusCode}');
       }
     } catch (e) {
       debugPrint('Error fetching chapters: $e');
@@ -103,15 +116,13 @@ class BibleProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> fetchChapterContent(String versionId, String chapterId) async {
+  Future<void> fetchChapterContent(String version, String chapterId) async {
     _isLoading = true;
-    _verses = [];
     notifyListeners();
     try {
-      final bibleId = versionMap[versionId] ?? versionMap['KJV']!;
-      final response = await http.get(
-        Uri.parse('$_baseUrl/bibles/$bibleId/chapters/$chapterId?content-type=json&include-notes=false&include-titles=true&include-chapter-numbers=false&include-verse-numbers=true'),
-        headers: {'api-key': _apiKey},
+      final bibleId = versionMap[version] ?? versionMap['KJV']!;
+      final url = Uri.parse(
+        '$baseUrl/bibles/$bibleId/chapters/$chapterId'
       );
       if (response.statusCode == 200) {
         final data = json.decode(response.body)['data'];
