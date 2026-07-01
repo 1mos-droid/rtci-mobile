@@ -123,26 +123,31 @@ class BibleProvider extends ChangeNotifier {
       final bibleId = versionMap[version] ?? versionMap['KJV']!;
       final url = Uri.parse(
         '$baseUrl/bibles/$bibleId/chapters/$chapterId'
+        '?content-type=json&include-notes=false&include-titles=true'
+        '&include-chapter-numbers=false&include-verse-numbers=true',
       );
+      final response = await http.get(url, headers: {'api-key': apiKey});
       if (response.statusCode == 200) {
-        final data = json.decode(response.body)['data'];
-        final List<Map<String, String>> extractedVerses = [];
+        final Map<String, dynamic> responseData = json.decode(response.body);
+        final Map<String, dynamic> data = responseData['data'] ?? {};
         
-        void walk(dynamic item) {
-          if (item is Map) {
-            if (item['type'] == 'text' && item['attrs'] != null && item['attrs']['verseId'] != null) {
-              final vId = item['attrs']['verseId'] as String;
-              final vNum = vId.split('.').last;
-              final vText = item['text'] as String;
-              
-              final existingIndex = extractedVerses.indexWhere((v) => v['number'] == vNum);
-              if (existingIndex != -1) {
-                extractedVerses[existingIndex]['text'] = (extractedVerses[existingIndex]['text'] ?? '') + vText;
-              } else {
-                extractedVerses.add({'number': vNum, 'text': vText});
+        final Map<String, Map<String, dynamic>> verseMap = {};
+        final List<String> verseOrder = [];
+
+        void walk(List<dynamic>? items) {
+          if (items == null) return;
+          for (var item in items) {
+            if (item is Map<String, dynamic>) {
+              if (item['type'] == 'text' && item['attrs'] is Map && item['attrs']['verseId'] != null) {
+                final String vId = item['attrs']['verseId'];
+                final String vNumStr = vId.split('.').last;
+                if (!verseMap.containsKey(vId)) {
+                  verseMap[vId] = {'number': vNumStr, 'text': ''};
+                  verseOrder.add(vId);
+                }
+                verseMap[vId]!['text'] = (verseMap[vId]!['text'] as String) + (item['text'] ?? '');
               }
-            }
-            if (item['items'] != null) {
+              if (item['items'] is List) {
               walk(item['items']);
             }
           } else if (item is List) {
