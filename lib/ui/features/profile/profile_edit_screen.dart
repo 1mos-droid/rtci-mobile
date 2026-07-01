@@ -146,3 +146,40 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
                                       shape: BoxShape.circle,
                                       border: Border.all(color: colorScheme.primary.withOpacity(0.3), width: 2),
                                     ),
+                                    child: CircleAvatar(
+                                      radius: 60,
+                                      backgroundColor: AppTheme.systemGray6,
+                                      backgroundImage: user.avatarUrl != null ? NetworkImage(user.avatarUrl!) : null,
+                                      child: user.avatarUrl == null
+                                          ? const Icon(Icons.person_outline, size: 50, color: AppTheme.systemGray2)
+                                          : null,
+                                    ),
+                                  ).animate().scale(duration: 600.ms, curve: Curves.easeOutBack),
+                                  Positioned(
+                                    bottom: 4,
+                                    right: 4,
+                                    child: GestureDetector(
+                                      onTap: () => _showImageSourceActionSheet(context),
+                                      child: Container(
+                                        padding: const EdgeInsets.all(10),
+                                        decoration: BoxDecoration(
+                                          color: colorScheme.primary,
+                                          shape: BoxShape.circle,
+                                          border: Border.all(color: theme.scaffoldBackgroundColor, width: 3),
+                                          boxShadow: [
+                                            BoxShadow(color: Colors.black.withOpacity(0.15), blurRadius: 10, offset: const Offset(0, 4)),
+                                          ],
+                                        ),
+                                        child: const Icon(CupertinoIcons.camera_fill, size: 18, color: Colors.white),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+
+                            const SizedBox(height: 48),
+
+                            _buildSectionHeader("PERSONAL DETAILS"),
+                            const SizedBox(height: 12),
+                            Form(
