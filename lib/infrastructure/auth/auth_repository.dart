@@ -35,3 +35,40 @@ class AuthRepository {
       await _firestore.collection('profiles').doc(res.user!.uid).set({
         'name': fullName,
         'email': email,
+        'department': department,
+        'role': 'member',
+        'created_at': FieldValue.serverTimestamp(),
+      });
+    }
+  }
+
+  Future<void> logout() async {
+    await _googleSignIn.signOut();
+    await _auth.signOut();
+  }
+
+  Future<void> updateProfile(String uid, Map<String, dynamic> data) async {
+    await _firestore.collection('profiles').doc(uid).set(data, SetOptions(merge: true));
+  }
+
+  Future<String> uploadAvatar(String uid, File imageFile) async {
+    final fileName = 'avatar_$uid.jpg';
+    final ref = _storage.ref().child('avatars').child(fileName);
+    await ref.putFile(imageFile);
+    return await ref.getDownloadURL();
+  }
+
+  Future<UserCredential> signInWithGoogle() async {
+    try {
+      // Ensure Google Sign In is initialized with serverClientId
+      await _googleSignIn.initialize(
+        serverClientId: '381753713314-0bjahjac04c2ibr5m7b6a780meni572s.apps.googleusercontent.com',
+      );
+
+      final gsi.GoogleSignInAccount googleUser = await _googleSignIn.authenticate();
+      final gsi.GoogleSignInAuthentication googleAuth = googleUser.authentication;
+      
+      // Retrieve access token via authorizationClient
+      final authorization = await googleUser.authorizationClient.authorizeScopes([
+        'email',
+        'https://www.googleapis.com/auth/userinfo.profile',
