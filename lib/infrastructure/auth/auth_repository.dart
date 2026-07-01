@@ -72,3 +72,33 @@ class AuthRepository {
       final authorization = await googleUser.authorizationClient.authorizeScopes([
         'email',
         'https://www.googleapis.com/auth/userinfo.profile',
+        'openid',
+      ]);
+
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: authorization.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      return await _auth.signInWithCredential(credential);
+    } catch (e) {
+      // On Android 14+ Credential Manager may throw GetCredentialException if no saved accounts exist.
+      // In this case, we catch the error to prevent app crash and let the UI handle it.
+      print('Google Sign-In Error: $e');
+      rethrow;
+    }
+  }
+
+  Future<void> createProfileIfMissing(User user) async {
+    final doc = await _firestore.collection('profiles').doc(user.uid).get();
+    if (!doc.exists) {
+      await _firestore.collection('profiles').doc(user.uid).set({
+        'name': user.displayName ?? 'Member',
+        'email': user.email,
+        'role': 'member',
+        'avatar_url': user.photoURL,
+        'created_at': FieldValue.serverTimestamp(),
+      });
+    }
+  }
+}
