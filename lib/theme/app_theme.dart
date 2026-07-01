@@ -324,3 +324,14 @@ class ObsidianTheme {
   static Color get textVibrant => isDark ? const Color(0xFFF8F9FA) : const Color(0xFF1C1C1E);
   static Color get textMuted => isDark ? const Color(0xFF88888E) : const Color(0xFF6C6C70);
   static Color get borderHairline => isDark ? const Color(0x14FFFFFF) : const Color(0x1F000000);
+
+  // Compatibility Mappings for older code
+  static Color get primaryMidnight => primaryCrimson;
+  static Color get crimsonSoft => primaryCrimson;
+  static Color get backgroundLight => backgroundDark;
+  static Color get surfaceWhite => surfaceDark;
+  static Color get borderLight => borderHairline;
+  static Color get textDark => textVibrant;
+  static Color get accentGoldLight => isDark ? const Color(0x14FFFFFF) : const Color(0x25EAB308);
+  static Color get accentSage => secondaryGold;
+}
