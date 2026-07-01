@@ -235,13 +235,14 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         );
                       },
                       child: Text(
+                        "Don't have an account? Create one here",
                         style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                              decoration: TextDecoration.underline,
-                              color: ObsidianTheme.textMuted,
+                              color: ObsidianTheme.secondaryGold,
+                              fontWeight: FontWeight.bold,
                             ),
                       ),
                     ),
-                  ),
+                  ).animate().fadeIn(delay: 450.ms, duration: 500.ms),
                 ],
               ),
             ),
