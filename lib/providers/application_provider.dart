@@ -119,12 +119,14 @@ class ApplicationProvider extends ChangeNotifier {
       });
 
       _application = _application.copyWith(isSubmitted: true);
-
-    // Simulate exporting membership application as a PDF/Document
-    _pdfExportPath = "/exports/rtci_application_${_application.fullName.toLowerCase().replaceAll(' ', '_')}.pdf";
-
-    _isLoading = false;
-    notifyListeners();
-    return true;
+      _isLoading = false;
+      notifyListeners();
+      return true;
+    } catch (e) {
+      debugPrint('Error submitting application: $e');
+      _isLoading = false;
+      notifyListeners();
+      return false;
+    }
   }
 }
