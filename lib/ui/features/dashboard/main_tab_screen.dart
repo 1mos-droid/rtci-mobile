@@ -143,36 +143,19 @@ class _MainTabScreenState extends State<MainTabScreen> {
               child: Icon(
                 icon,
                 color: isSelected ? activeColor : inactiveColor,
+                size: 24,
               ),
-              unselectedLabelStyle: GoogleFonts.plusJakartaSans(
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-              ),
-              iconSize: 28,
-              items: const [
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.home_outlined),
-                  activeIcon: Icon(Icons.home),
-                  label: 'Home',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.menu_book_outlined),
-                  activeIcon: Icon(Icons.menu_book),
-                  label: 'Bible',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.volunteer_activism_outlined),
-                  activeIcon: Icon(Icons.volunteer_activism),
-                  label: 'Give',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.menu_rounded),
-                  activeIcon: Icon(Icons.menu_open_rounded),
-                  label: 'Menu',
-                ),
-              ],
             ),
-          ),
+            const SizedBox(height: 4),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 10,
+                fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+                color: isSelected ? activeColor : inactiveColor,
+                letterSpacing: -0.2,
+              ),
+            ),
         ),
       ),
     );
