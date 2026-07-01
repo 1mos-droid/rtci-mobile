@@ -59,6 +59,43 @@ class AppTheme {
       ),
       cardTheme: CardThemeData(
         elevation: 0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        color: systemLightGroupedBg,
+      ),
+      dividerTheme: DividerThemeData(
+        thickness: 0.5,
+        color: systemGray3.withOpacity(0.5),
+        indent: 16,
+        endIndent: 0,
+      ),
+      filledButtonTheme: FilledButtonThemeData(
+        style: FilledButton.styleFrom(
+          backgroundColor: iosPrimaryLight,
+          foregroundColor: Colors.white,
+          minimumSize: const Size.fromHeight(52),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          elevation: 0,
+          textStyle: GoogleFonts.inter(
+            fontWeight: FontWeight.w600,
+            fontSize: 17,
+            letterSpacing: -0.4,
+          ),
+        ),
+      ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          foregroundColor: iosPrimaryLight,
+          side: const BorderSide(color: iosPrimaryLight, width: 1.5),
+          minimumSize: const Size.fromHeight(52),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          elevation: 0,
+          textStyle: GoogleFonts.inter(
+            fontWeight: FontWeight.w600,
+            fontSize: 17,
+            letterSpacing: -0.4,
+          ),
 
   static ThemeData get darkTheme {
     return ThemeData(
