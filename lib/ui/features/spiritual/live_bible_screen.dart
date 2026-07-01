@@ -312,6 +312,43 @@ class _LiveBibleScreenState extends ConsumerState<LiveBibleScreen> {
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16),
                           borderSide: BorderSide(color: theme.colorScheme.primary, width: 1.0),
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: filteredBooks.length,
+                        itemBuilder: (context, index) {
+                          final book = filteredBooks[index];
+                          final isSelected = book['id'] == _selectedBookId;
+                          return ListTile(
+                            onTap: () {
+                              setState(() {
+                                _selectedBookId = book['id'];
+                                _selectedChapterId = null;
+                              });
+                              _loadChapters();
+                              Navigator.pop(context);
+                            },
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                            title: Text(
+                              book['name'],
+                              style: GoogleFonts.inter(
+                                fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+                                color: isSelected ? theme.colorScheme.primary : theme.colorScheme.onSurface,
+                              ),
+                            ),
+                            trailing: isSelected 
+                                ? Icon(Icons.check_circle_rounded, color: theme.colorScheme.primary)
+                                : null,
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
     return Container(
       color: ObsidianTheme.surfaceDark.withValues(alpha: 0.8),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
