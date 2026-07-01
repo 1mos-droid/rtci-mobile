@@ -72,3 +72,17 @@ class DefaultFirebaseOptions {
     appId: '1:381753713314:ios:b00529bef257e1cb266dfb',
     messagingSenderId: '381753713314',
     projectId: 'rtci-22582',
+    storageBucket: 'rtci-22582.firebasestorage.app',
+    iosBundleId: 'com.rtci.app.rtcMobile',
+  );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyC0EzT9z5kqp0itmAhdhArpqJMiJWEAIfY',
+    appId: '1:381753713314:web:b4495f6db524730f266dfb',
+    messagingSenderId: '381753713314',
+    projectId: 'rtci-22582',
+    authDomain: 'rtci-22582.firebaseapp.com',
+    storageBucket: 'rtci-22582.firebasestorage.app',
+    measurementId: 'G-R39N2B3CYN',
+  );
+}
