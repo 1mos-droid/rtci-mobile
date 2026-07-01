@@ -294,3 +294,40 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                           ],
                                         ),
                                 ),
+                              ),
+                            ],
+                          ),
+                        ).animate().fadeIn(delay: 200.ms, duration: 600.ms).scaleXY(begin: 0.95, end: 1.0, curve: Curves.easeOutBack).slideY(begin: 0.1, end: 0, curve: Curves.easeOutQuad),
+
+                        if (_errorMessage != null) ...[
+                          const SizedBox(height: 16),
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                            decoration: BoxDecoration(
+                              color: Colors.red.withOpacity(0.1),
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(color: Colors.red.withOpacity(0.3)),
+                            ),
+                            child: Text(
+                              _errorMessage!,
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(color: Colors.redAccent, fontSize: 13, fontWeight: FontWeight.w500),
+                            ),
+                          ),
+                        ],
+                        
+                        const SizedBox(height: 32),
+                        
+                        Center(
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(builder: (_) => const LoginScreen()),
+                              );
+                            },
+                            child: Text(
+                              "Already have an account? Sign In here",
+                              style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                                    color: ObsidianTheme.secondaryGold,
+                                    fontWeight: FontWeight.bold,
