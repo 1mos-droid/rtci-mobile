@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rtc_mobile/models/prayer_request.dart';
 
 class PrayerProvider extends ChangeNotifier {
-  final _supabase = Supabase.instance.client;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  
   List<PrayerRequest> _prayers = [];
   bool _isLoading = false;
 
@@ -15,8 +18,8 @@ class PrayerProvider extends ChangeNotifier {
   }
 
   void _init() {
-    _supabase.auth.onAuthStateChange.listen((data) {
-      if (data.session != null) {
+    _auth.authStateChanges().listen((user) {
+      if (user != null) {
         fetchPrayers();
       } else {
         _prayers = [];
@@ -30,12 +33,11 @@ class PrayerProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final response = await _supabase
-          .from('prayer_requests')
-          .select('*, members(name)')
-          .order('created_at', ascending: false);
-
-      _prayers = (response as List).map((m) => PrayerRequest.fromMap(m)).toList();
+      final snapshot = await _firestore
+          .collection('prayer_requests')
+          .orderBy('created_at', descending: true)
+          .get();
+      _prayers = snapshot.docs.map((doc) => PrayerRequest.fromFirestore(doc)).toList();
     } catch (e) {
       debugPrint('Error fetching prayers: $e');
     } finally {
@@ -44,16 +46,21 @@ class PrayerProvider extends ChangeNotifier {
     }
   }
 
-  Future<bool> submitPrayer(String request, bool isPrivate, String? memberId) async {
+  // Handle both named and positional arguments for UI flexibility
+  Future<bool> submitPrayer(String content, [bool isPrivate = false, String? category]) async {
     _isLoading = true;
     notifyListeners();
 
     try {
-      await _supabase.from('prayer_requests').insert({
-        'request': request,
-        'is_private': isPrivate,
-        'member_id': memberId,
+      final user = _auth.currentUser;
+      await _firestore.collection('prayer_requests').add({
+        'content': content,
+        'user_id': user?.uid,
+        'user_name': isPrivate ? 'Anonymous' : (user?.displayName ?? 'Member'),
+        'is_anonymous': isPrivate,
+        'category': category ?? 'General',
         'status': 'pending',
+        'intercession_count': 0,
       });
       
       await fetchPrayers();
