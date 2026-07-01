@@ -71,11 +71,11 @@ class ChildrenProvider extends ChangeNotifier {
     try {
       final snapshot = await _firestore
           .collection('child_checkins')
-          .order('checked_in_at', ascending: false);
-
-      _checkins = (response as List).map((m) => ChildCheckin.fromMap(m)).toList();
+          .where('status', isEqualTo: 'checked_in')
+          .get();
+      _activeCheckIns = snapshot.docs.map((doc) => ChildCheckIn.fromFirestore(doc)).toList();
     } catch (e) {
-      debugPrint('Error fetching checkins: $e');
+      debugPrint('Error fetching children check-ins: $e');
     } finally {
       _isLoading = false;
       notifyListeners();
@@ -91,36 +91,35 @@ class ChildrenProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final tag = (1000 + (DateTime.now().millisecondsSinceEpoch % 9000)).toString();
-      await _supabase.from('child_checkins').insert({
+      await _firestore.collection('child_checkins').add({
         'child_name': childName,
         'parent_name': parentName,
         'parent_phone': parentPhone,
-        'tag_number': tag,
+        'guardian_id': _auth.currentUser?.uid,
+        'check_in_time': FieldValue.serverTimestamp(),
         'status': 'checked_in',
+        'tag_number': 'T-${DateTime.now().millisecondsSinceEpoch.toString().substring(7)}',
       });
-      
-      await fetchCheckins();
+      await fetchActiveCheckIns();
       return true;
     } catch (e) {
-      debugPrint('Error checking in: $e');
+      debugPrint('Error checking in child: $e');
+      return false;
+    } finally {
       _isLoading = false;
       notifyListeners();
-      return false;
     }
   }
 
   Future<void> checkOut(String id) async {
     try {
-      await _supabase
-          .from('child_checkins')
-          .update({'status': 'checked_out', 'checked_out_at': DateTime.now().toIso8601String()})
-          .eq('id', id);
-      
-      _checkins.removeWhere((c) => c.id == id);
-      notifyListeners();
+      await _firestore.collection('child_checkins').doc(id).update({
+        'status': 'checked_out',
+        'check_out_time': FieldValue.serverTimestamp(),
+      });
+      await fetchActiveCheckIns();
     } catch (e) {
-      debugPrint('Error checking out: $e');
+      debugPrint('Error checking out child: $e');
     }
   }
 }
