@@ -31,19 +31,22 @@ class CellGroup {
       leaderName: data['leader_name'] ?? '',
       location: data['location'] ?? '',
       memberCount: data['member_count'] ?? 0,
-      leaderName: map['leader'] != null ? map['leader']['name'] : null,
-      campus: map['campus'],
+      type: data['type'],
+      description: data['description'],
+      campus: data['campus'],
     );
   }
 }
 
 class GroupsProvider extends ChangeNotifier {
-  final _supabase = Supabase.instance.client;
-  List<Group> _groups = [];
-  Set<String> _joinedGroupIds = Set();
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  
+  List<CellGroup> _groups = [];
+  Set<String> _joinedGroupIds = {};
   bool _isLoading = false;
 
-  List<Group> get groups => _groups;
+  List<CellGroup> get groups => _groups;
   Set<String> get joinedGroupIds => _joinedGroupIds;
   bool get isLoading => _isLoading;
 
@@ -52,13 +55,13 @@ class GroupsProvider extends ChangeNotifier {
   }
 
   void _init() {
-    _supabase.auth.onAuthStateChange.listen((data) {
-      if (data.session != null) {
+    _auth.authStateChanges().listen((user) {
+      if (user != null) {
         fetchGroups();
-        fetchMyMemberships();
+        _fetchUserMemberships(user.uid);
       } else {
         _groups = [];
-        _joinedGroupIds = Set();
+        _joinedGroupIds = {};
         notifyListeners();
       }
     });
@@ -69,12 +72,8 @@ class GroupsProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final response = await _supabase
-          .from('groups')
-          .select('*, leader:members!leader_id(name)')
-          .order('name', ascending: true);
-
-      _groups = (response as List).map((m) => Group.fromMap(m)).toList();
+      final snapshot = await _firestore.collection('cell_groups').get();
+      _groups = snapshot.docs.map((doc) => CellGroup.fromFirestore(doc)).toList();
     } catch (e) {
       debugPrint('Error fetching groups: $e');
     } finally {
@@ -83,11 +82,9 @@ class GroupsProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> fetchMyMemberships() async {
-    final user = _supabase.auth.currentUser;
-    if (user == null) return;
-
+  Future<void> _fetchUserMemberships(String userId) async {
     try {
+      final snapshot = await _firestore
       // 1. Get member ID
       final memberRes = await _supabase
           .from('members')
