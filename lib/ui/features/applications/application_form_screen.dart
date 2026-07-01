@@ -366,10 +366,11 @@ class _ApplicationFormScreenState extends ConsumerState<ApplicationFormScreen> {
             provider.updateSpiritualJourney(isHolyGhostBaptized: val);
           },
         ),
+        Divider(color: ObsidianTheme.borderHairline, height: 24),
 
         TextFormField(
           controller: _prevChurchController,
-          style: const TextStyle(color: ObsidianTheme.textVibrant),
+          style: TextStyle(color: ObsidianTheme.textVibrant),
           decoration: const InputDecoration(
             labelText: "Previous Ministry Affiliation",
             prefixIcon: Icon(Icons.location_city_outlined),
@@ -450,7 +451,7 @@ class _ApplicationFormScreenState extends ConsumerState<ApplicationFormScreen> {
         TextFormField(
           controller: _talentsController,
           maxLines: 3,
-          style: const TextStyle(color: ObsidianTheme.textVibrant),
+          style: TextStyle(color: ObsidianTheme.textVibrant),
           decoration: const InputDecoration(
             labelText: "Talents, Skills, & Artistic Gifts",
             hintText: "E.g., instrument playing, graphic design...",
@@ -479,7 +480,7 @@ class _ApplicationFormScreenState extends ConsumerState<ApplicationFormScreen> {
         ),
         const SizedBox(height: 6),
         Text(
-          "Review our local church covenants. Personal agreement and signature are required.",
+          "Review our local church covenants. Personal agreement is required.",
           style: Theme.of(context).textTheme.bodyMedium,
         ),
         const SizedBox(height: 18),
@@ -527,14 +528,6 @@ class _ApplicationFormScreenState extends ConsumerState<ApplicationFormScreen> {
             provider.updateCovenantAgreement(val ?? false);
           },
         ),
-        
-        const Divider(color: ObsidianTheme.borderHairline, height: 24),
-        
-        DigitalSignaturePad(
-          onSignatureChanged: (points) {
-            provider.updateSignature(points);
-          },
-        ),
       ],
     );
   }
@@ -544,7 +537,7 @@ class _ApplicationFormScreenState extends ConsumerState<ApplicationFormScreen> {
       padding: const EdgeInsets.only(left: 24, right: 24, bottom: 24, top: 10),
       decoration: BoxDecoration(
         color: ObsidianTheme.surfaceDark.withValues(alpha: 0.8),
-        border: const Border(top: BorderSide(color: ObsidianTheme.borderHairline, width: 0.5)),
+        border: Border(top: BorderSide(color: ObsidianTheme.borderHairline, width: 0.5)),
       ),
       child: Row(
         children: [
@@ -655,7 +648,7 @@ class _ApplicationFormScreenState extends ConsumerState<ApplicationFormScreen> {
                         "Covenant Membership Verification",
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 11),
                       ),
-                      const Divider(color: ObsidianTheme.borderHairline, height: 24),
+                      Divider(color: ObsidianTheme.borderHairline, height: 24),
                       Text(
                         app.fullName.toUpperCase(),
                         style: GoogleFonts.cinzel(
@@ -669,7 +662,7 @@ class _ApplicationFormScreenState extends ConsumerState<ApplicationFormScreen> {
                         "Member Code: #RTCI-26-${app.fullName.hashCode.abs() % 10000}",
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 10.5),
                       ),
-                      const Divider(color: ObsidianTheme.borderHairline, height: 24),
+                      Divider(color: ObsidianTheme.borderHairline, height: 24),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
