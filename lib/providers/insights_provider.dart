@@ -1,34 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class DailyInsight {
   final String id;
   final String content;
   final String? reference;
   final String? author;
-  final String type; // verse, quote
+  final DateTime date;
 
-  DailyInsight({
-    required this.id,
-    required this.content,
-    required this.type,
-    this.reference,
-    this.author,
-  });
+  DailyInsight({required this.id, required this.content, this.reference, this.author, required this.date});
 
-  factory DailyInsight.fromMap(Map<String, dynamic> map) {
+  factory DailyInsight.fromFirestore(DocumentSnapshot doc) {
+    final data = doc.data() as Map<String, dynamic>;
     return DailyInsight(
-      id: map['id']?.toString() ?? '',
-      content: map['content'] ?? '',
-      type: map['type'] ?? 'verse',
-      reference: map['reference'],
-      author: map['author'],
+      id: doc.id,
+      content: data['content'] ?? '',
+      reference: data['reference'],
+      author: data['author'],
+      date: (data['date'] as Timestamp?)?.toDate() ?? DateTime.now(),
     );
   }
 }
 
 class DailyInsightsProvider extends ChangeNotifier {
-  final _supabase = Supabase.instance.client;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  
   DailyInsight? _currentInsight;
   bool _isLoading = false;
 
@@ -40,8 +38,8 @@ class DailyInsightsProvider extends ChangeNotifier {
   }
 
   void _init() {
-    _supabase.auth.onAuthStateChange.listen((data) {
-      if (data.session != null) {
+    _auth.authStateChanges().listen((user) {
+      if (user != null) {
         fetchLatestInsight();
       } else {
         _currentInsight = null;
@@ -55,7 +53,8 @@ class DailyInsightsProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final response = await _supabase
+      final snapshot = await _firestore
+          .collection('insights')
           .from('daily_insights')
           .select()
           .eq('is_active', true)
