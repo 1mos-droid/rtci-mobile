@@ -365,6 +365,15 @@ class DashboardScreen extends ConsumerWidget {
                         : Column(
                             children: eventsProv.events
                                 .take(3)
+                                .map(
+                                  (e) => Padding(
+                                    padding: const EdgeInsets.only(bottom: 12),
+                                    child: _buildEventCard(context, e),
+                                  ),
+                                )
+                                .toList(),
+                          ).animate().fadeIn(delay: 450.ms, duration: 500.ms),
+
                     const SizedBox(height: 80), // Padding for BottomNav
                   ],
                 ),
@@ -376,7 +385,13 @@ class DashboardScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildMetricCard(BuildContext context, {required String title, required String value, required String subtitle, required Color color}) {
+  Widget _buildMetricCard(
+    BuildContext context, {
+    required String title,
+    required String value,
+    required String subtitle,
+    required Color color,
+  }) {
     return Container(
       width: 160,
       decoration: BoxDecoration(
@@ -410,7 +425,10 @@ class DashboardScreen extends ConsumerWidget {
           const SizedBox(height: 2),
           Text(
             subtitle,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 10, color: ObsidianTheme.textMuted),
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              fontSize: 10,
+              color: ObsidianTheme.textMuted,
+            ),
           ),
         ],
       ),
@@ -430,7 +448,9 @@ class DashboardScreen extends ConsumerWidget {
             decoration: BoxDecoration(
               color: ObsidianTheme.secondaryGold.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: ObsidianTheme.secondaryGold.withValues(alpha: 0.3)),
+              border: Border.all(
+                color: ObsidianTheme.secondaryGold.withValues(alpha: 0.3),
+              ),
             ),
             child: Column(
               children: [
@@ -469,9 +489,16 @@ class DashboardScreen extends ConsumerWidget {
                 const SizedBox(height: 4),
                 Row(
                   children: [
-                    const Icon(Icons.access_time, size: 12, color: ObsidianTheme.textMuted),
+                    Icon(
+                      Icons.access_time,
+                      size: 12,
+                      color: ObsidianTheme.textMuted,
+                    ),
                     const SizedBox(width: 4),
-                    Text(event.time, style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 11)),
+                    Text(
+                      event.time,
+                      style: Theme.of(
+                        context,
                     const SizedBox(width: 12),
                     const Icon(Icons.location_on_outlined, size: 12, color: ObsidianTheme.textMuted),
                     const SizedBox(width: 4),
