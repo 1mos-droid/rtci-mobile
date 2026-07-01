@@ -247,43 +247,6 @@ class MenuScreen extends ConsumerWidget {
                     child: OutlinedButton(
                       child: const Text("Cancel"),
                       onPressed: () => Navigator.pop(context),
-                      title: 'Financial Ledger',
-                      subtitle: 'Revenue & Pledges',
-                      icon: Icons.account_balance_wallet_outlined,
-                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const FinancialsScreen())),
-                    ),
-                    _buildMenuCard(
-                      context,
-                      title: 'Pastoral Broadcasts',
-                      subtitle: 'Sanctuary Messages',
-                      icon: Icons.podcasts_outlined,
-                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const MessagingScreen())),
-                    ),
-                    _buildMenuCard(
-                      context,
-                      title: 'Audit Reports',
-                      subtitle: 'Export Analytics',
-                      icon: Icons.summarize_outlined,
-                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ReportsScreen())),
-                    ),
-                    if (auth.isAdmin)
-                      _buildMenuCard(
-                        context,
-                        title: 'User Management',
-                        subtitle: 'Control Access Levels',
-                        icon: Icons.admin_panel_settings_outlined,
-                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const UserManagementScreen())),
-                      ),
-                  ],
-
-                  const SizedBox(height: 24),
-                  _buildSectionHeader('System'),
-                  _buildMenuCard(
-                    context,
-                    title: 'Account Settings',
-                    subtitle: 'Preferences & Security',
-                    icon: Icons.settings_outlined,
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SettingsScreen())),
                   ),
                   _buildMenuCard(
                     context,
