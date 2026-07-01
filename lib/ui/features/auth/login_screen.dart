@@ -61,8 +61,21 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     await authNotifier.signInWithGoogle();
 
     final authState = ref.read(authNotifierProvider);
+    if (!authState.hasError && mounted) {
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (_) => const MainTabScreen()),
+        (route) => false,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final authState = ref.watch(authNotifierProvider);
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
     return MeshGradientBackground(
       child: Scaffold(
         backgroundColor: Colors.transparent,
@@ -70,7 +83,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           backgroundColor: Colors.transparent,
           elevation: 0,
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios_new, color: ObsidianTheme.textVibrant, size: 18),
+            icon: Icon(Icons.arrow_back_ios_new, color: ObsidianTheme.textVibrant, size: 18),
             onPressed: () => Navigator.pop(context),
           ),
         ),
@@ -84,34 +97,22 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 children: [
                   const SizedBox(height: 20),
                   Text(
-                    "Sign In",
+                    "Log In",
                     style: Theme.of(context).textTheme.displayMedium,
-                  ),
+                  ).animate().fadeIn(duration: 500.ms).slideY(begin: 0.2, end: 0, curve: Curves.easeOutQuad),
                   const SizedBox(height: 6),
                   Text(
-                    "Authenticate your church credentials to access your local hubs.",
+                    "Type in your email and password to open the app.",
                     style: Theme.of(context).textTheme.bodyMedium,
-                  ),
+                  ).animate().fadeIn(delay: 100.ms, duration: 500.ms).slideY(begin: 0.2, end: 0, curve: Curves.easeOutQuad),
                   const SizedBox(height: 35),
                   
                   GlassCard(
                     padding: const EdgeInsets.all(24),
-                    borderType: _asLeadership ? GlassBorderType.gold : GlassBorderType.normal,
+                    borderType: GlassBorderType.normal,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        // Leader / Member Toggle
-                        Container(
-                          padding: const EdgeInsets.all(4),
-                          decoration: BoxDecoration(
-                            color: ObsidianTheme.backgroundDark,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: ChoiceChip(
-                                  showCheckmark: false,
                                   label: const Center(child: Text("MEMBER")),
                                   selected: !_asLeadership,
                                   selectedColor: ObsidianTheme.surfaceDark,
