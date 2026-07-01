@@ -146,3 +146,40 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                               const SizedBox(height: 16),
                               
                               TextFormField(
+                                controller: _emailController,
+                                keyboardType: TextInputType.emailAddress,
+                                style: TextStyle(color: ObsidianTheme.textVibrant),
+                                decoration: InputDecoration(
+                                  labelText: "Email Address",
+                                  hintText: "your@email.com",
+                                  prefixIcon: Icon(Icons.email_outlined, color: ObsidianTheme.textMuted, size: 20),
+                                ),
+                                validator: (val) {
+                                  if (val == null || val.isEmpty) return "Please enter your email";
+                                  if (!val.contains('@')) return "Please enter a valid email";
+                                  return null;
+                                },
+                              ),
+                              const SizedBox(height: 16),
+
+                              TextFormField(
+                                controller: _passwordController,
+                                obscureText: !_showPassword,
+                                style: TextStyle(color: ObsidianTheme.textVibrant),
+                                decoration: InputDecoration(
+                                  labelText: "Choose a Password",
+                                  hintText: "Min 6 characters",
+                                  prefixIcon: Icon(Icons.lock_outline, color: ObsidianTheme.textMuted, size: 20),
+                                  suffixIcon: IconButton(
+                                    icon: Icon(
+                                      _showPassword ? Icons.visibility_off_rounded : Icons.visibility_rounded,
+                                      color: ObsidianTheme.textMuted,
+                                      size: 20,
+                                    ),
+                                    onPressed: () => setState(() => _showPassword = !_showPassword),
+                                  ),
+                                ),
+                                validator: (val) {
+                                  if (val == null || val.isEmpty) return "Please enter a password";
+                                  if (val.length < 6) return "Password must be at least 6 characters";
+                                  return null;
