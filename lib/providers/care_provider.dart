@@ -81,12 +81,10 @@ class CareProvider extends ChangeNotifier {
         'status': 'resolved',
         'resolved_at': FieldValue.serverTimestamp(),
         'resolved_by': _auth.currentUser?.uid,
-          .eq('id', id);
-      
-      _careQueue.removeWhere((item) => item.id == id && (status == 'Resolved' || status == 'Ignored'));
-      notifyListeners();
+      });
+      await fetchCareQueue();
     } catch (e) {
-      debugPrint('Error updating care status: $e');
+      debugPrint('Error resolving ticket: $e');
     }
   }
 }
