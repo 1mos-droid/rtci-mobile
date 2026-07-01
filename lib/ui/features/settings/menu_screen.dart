@@ -92,6 +92,43 @@ class MenuScreen extends ConsumerWidget {
                         icon: Icons.auto_stories_rounded,
                         iconColor: AppTheme.systemBlue,
                         onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const BibleStudiesScreen())),
+                      ),
+                      _buildMenuTile(
+                        context,
+                        title: 'Leadership',
+                        icon: Icons.shield_rounded,
+                        iconColor: AppTheme.systemPurple,
+                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const LeadershipScreen())),
+                      ),
+                    ]),
+                    
+                    if (user.isDeptHead) ...[
+                      const SizedBox(height: 32),
+                      _buildSectionHeader("Administration"),
+                      _buildGroupedSection([
+                        _buildMenuTile(
+                          context,
+                          title: 'Directory',
+                          icon: Icons.people_alt_rounded,
+                          iconColor: AppTheme.systemGray,
+                          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const MembersScreen())),
+                        ),
+                        _buildMenuTile(
+                          context,
+                          title: 'Cell Groups',
+                          icon: Icons.groups_rounded,
+                          iconColor: AppTheme.systemOrange,
+                          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const GroupsScreen())),
+                        ),
+                        _buildMenuTile(
+                          context,
+                          title: "Children",
+                          icon: Icons.face_rounded,
+                          iconColor: AppTheme.systemPink,
+                          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ChildrenScreen())),
+                        ),
+                        _buildMenuTile(
+                          context,
                 ),
               ),
             ),
