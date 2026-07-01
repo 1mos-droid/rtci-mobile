@@ -67,7 +67,7 @@ class HelpScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(20),
                   child: Column(
                     children: [
-                      const Icon(Icons.support_agent, size: 48, color: ObsidianTheme.primaryCrimson),
+                      Icon(Icons.support_agent, size: 48, color: ObsidianTheme.primaryCrimson),
                       const SizedBox(height: 16),
                       Text("Still need help?", style: Theme.of(context).textTheme.headlineMedium),
                       const SizedBox(height: 8),
