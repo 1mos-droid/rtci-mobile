@@ -220,3 +220,40 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
                     ),
                   ],
                 );
+              },
+              loading: () => const CustomLogoLoader(message: "Loading Profile..."),
+              error: (e, _) => Center(child: Text("Error: $e")),
+            ),
+    );
+  }
+
+  Widget _buildSectionHeader(String title) {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Text(
+        title,
+        style: TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w700,
+          color: AppTheme.systemGray,
+          letterSpacing: 0.5,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildIOSInput({
+    required TextEditingController controller,
+    required String placeholder,
+    required IconData prefixIcon,
+    String? Function(String?)? validator,
+  }) {
+    final theme = Theme.of(context);
+    return TextFormField(
+      controller: controller,
+      validator: validator,
+      style: GoogleFonts.inter(
+        fontSize: 17,
+        fontWeight: FontWeight.w600,
+        color: theme.colorScheme.onSurface,
+      ),
