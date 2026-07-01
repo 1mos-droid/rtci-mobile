@@ -209,6 +209,43 @@ class AppTheme {
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide.none,
         ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: const BorderSide(color: iosPrimaryDark, width: 1.0),
+        ),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        labelStyle: TextStyle(color: systemGray, fontSize: 17),
+        hintStyle: TextStyle(color: systemGray2, fontSize: 17),
+      ),
+      pageTransitionsTheme: const PageTransitionsTheme(
+        builders: {
+          TargetPlatform.android: ZoomPageTransitionsBuilder(),
+          TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+          TargetPlatform.linux: ZoomPageTransitionsBuilder(),
+          TargetPlatform.macOS: CupertinoPageTransitionsBuilder(),
+          TargetPlatform.windows: ZoomPageTransitionsBuilder(),
+        },
+      ),
+    );
+  }
+
+  static TextTheme _textTheme(Color primaryColor, Color secondaryColor) {
+    return TextTheme(
+      displayLarge: GoogleFonts.inter(
+        color: primaryColor,
+        fontSize: 34,
+        fontWeight: FontWeight.bold,
+        letterSpacing: -1.0,
+      ),
+      displayMedium: GoogleFonts.inter(
+        color: primaryColor,
+        fontSize: 28,
+        fontWeight: FontWeight.bold,
+        letterSpacing: -0.8,
+      ),
+      displaySmall: GoogleFonts.inter(
+        color: primaryColor,
+        fontSize: 24,
       ),
     );
   }
