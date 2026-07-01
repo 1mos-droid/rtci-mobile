@@ -203,9 +203,44 @@ class MenuScreen extends ConsumerWidget {
                     const SizedBox(height: 120),
                   ]),
                 ),
+              )
+            ],
+          ),
+        );
+      },
+      loading: () => const Scaffold(body: Center(child: CircularProgressIndicator.adaptive())),
+      error: (e, _) => Scaffold(body: Center(child: Text("Error: $e"))),
+    );
+  }
+
+  void _showSignOutConfirmation(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: theme.cardTheme.color ?? theme.cardColor,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
+      builder: (context) {
+        return Container(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                "Sign Out",
+                style: GoogleFonts.inter(fontSize: 20, fontWeight: FontWeight.w800),
+              ),
+              const SizedBox(height: 12),
+              Text(
+                "Are you sure you want to sign out of Sanctuary?",
+                textAlign: TextAlign.center,
+                style: GoogleFonts.inter(
+                  fontSize: 16, 
+                  color: theme.colorScheme.onSurface.withOpacity(0.7),
                 ),
               ),
-            ),
+              const SizedBox(height: 24),
           ),
           SliverToBoxAdapter(
             child: Padding(
