@@ -183,3 +183,40 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                   if (val == null || val.isEmpty) return "Please enter a password";
                                   if (val.length < 6) return "Password must be at least 6 characters";
                                   return null;
+                                },
+                              ),
+                              const SizedBox(height: 16),
+
+                              TextFormField(
+                                controller: _confirmPasswordController,
+                                obscureText: !_showConfirmPassword,
+                                style: TextStyle(color: ObsidianTheme.textVibrant),
+                                decoration: InputDecoration(
+                                  labelText: "Type Password Again",
+                                  hintText: "Confirm your password",
+                                  prefixIcon: Icon(Icons.lock_outline, color: ObsidianTheme.textMuted, size: 20),
+                                  suffixIcon: IconButton(
+                                    icon: Icon(
+                                      _showConfirmPassword ? Icons.visibility_off_rounded : Icons.visibility_rounded,
+                                      color: ObsidianTheme.textMuted,
+                                      size: 20,
+                                    ),
+                                    onPressed: () => setState(() => _showConfirmPassword = !_showConfirmPassword),
+                                  ),
+                                ),
+                                validator: (val) {
+                                  if (val == null || val.isEmpty) return "Please confirm your password";
+                                  if (val != _passwordController.text) return "Passwords do not match";
+                                  return null;
+                                },
+                              ),
+                              const SizedBox(height: 24),
+
+                              CheckboxListTile(
+                                title: Text(
+                                  "I agree to the rules and terms of the church.",
+                                  style: GoogleFonts.plusJakartaSans(
+                                    fontSize: 12,
+                                    color: ObsidianTheme.textMuted,
+                                    fontWeight: FontWeight.w500,
+                                  ),
