@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rtc_mobile/theme/app_theme.dart';
 import 'package:rtc_mobile/widgets/glass_card.dart';
 import 'package:rtc_mobile/widgets/mesh_gradient_background.dart';
-import 'package:rtc_mobile/providers/prayer_provider.dart';
-import 'package:rtc_mobile/providers/auth_provider.dart';
+import 'package:rtc_mobile/providers/riverpod_providers.dart';
+import 'package:rtc_mobile/application/auth/auth_provider.dart';
 
-class PrayerRequestsScreen extends StatefulWidget {
+class PrayerRequestsScreen extends ConsumerStatefulWidget {
   const PrayerRequestsScreen({super.key});
 
   @override
-  State<PrayerRequestsScreen> createState() => _PrayerRequestsScreenState();
+  ConsumerState<PrayerRequestsScreen> createState() => _PrayerRequestsScreenState();
 }
 
-class _PrayerRequestsScreenState extends State<PrayerRequestsScreen> {
+class _PrayerRequestsScreenState extends ConsumerState<PrayerRequestsScreen> {
 
-  void _showAddPrayerSheet(BuildContext context) {
+  void _showAddPrayerSheet(BuildContext context, String userEmail) {
     final contentController = TextEditingController();
     bool isPrivate = false;
     final formKey = GlobalKey<FormState>();
@@ -49,28 +49,29 @@ class _PrayerRequestsScreenState extends State<PrayerRequestsScreen> {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 24),
                       Text(
                         "File Prayer Petition",
                         style: GoogleFonts.cinzel(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color: ObsidianTheme.primaryCrimson,
+                          color: ObsidianTheme.textVibrant,
                         ),
+                        textAlign: TextAlign.center,
                       ),
-                      const SizedBox(height: 16),
+                      const SizedBox(height: 24),
                       TextFormField(
                         controller: contentController,
                         maxLines: 4,
-                        style: const TextStyle(color: ObsidianTheme.textVibrant),
+                        style: TextStyle(color: ObsidianTheme.textVibrant),
                         decoration: InputDecoration(
-                          labelText: "How can we pray for you?",
-                          labelStyle: const TextStyle(color: ObsidianTheme.textMuted),
-                          enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: ObsidianTheme.borderHairline)),
-                          focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: ObsidianTheme.primaryCrimson)),
-                        ),
-                        validator: (val) => val == null || val.isEmpty ? "Content is required" : null,
-                      ),
+                          hintText: "State your intercession request here...",
+                          hintStyle: TextStyle(color: ObsidianTheme.textMuted),
+                          filled: true,
+                          fillColor: ObsidianTheme.surfaceDark.withValues(alpha: 0.5),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(16),
+                            borderSide: BorderSide(color: ObsidianTheme.borderHairline),
                       const SizedBox(height: 12),
                       SwitchListTile(
                         title: Text(
