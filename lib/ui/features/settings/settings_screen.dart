@@ -100,22 +100,44 @@ class SettingsScreen extends ConsumerWidget {
                           const SizedBox(height: 16),
                           ListTile(
                             contentPadding: EdgeInsets.zero,
+                            leading: Icon(Icons.palette_outlined, color: ObsidianTheme.secondaryGold),
+                            title: Text("Theme Mode", style: TextStyle(color: ObsidianTheme.textVibrant, fontSize: 14)),
+                            subtitle: Text(
+                              ref.watch(themeNotifierProvider) == ThemeMode.system
+                                  ? "System Default"
+                                  : ref.watch(themeNotifierProvider) == ThemeMode.dark
+                                      ? "Dark"
+                                      : "Light",
+                              style: TextStyle(color: ObsidianTheme.textMuted, fontSize: 12),
+                            ),
+                            trailing: Icon(Icons.chevron_right, color: ObsidianTheme.textMuted),
+                            onTap: () => _showThemeSelector(context, ref),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    GlassCard(
+                      padding: const EdgeInsets.all(20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
                           Text("Security & Terminal", style: GoogleFonts.cinzel(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.redAccent)),
                           const SizedBox(height: 16),
                           ListTile(
                             contentPadding: EdgeInsets.zero,
                             leading: const Icon(Icons.lock_outline, color: Colors.redAccent),
-                            title: const Text("Update Credentials", style: TextStyle(color: Colors.white, fontSize: 14)),
-                            trailing: const Icon(Icons.chevron_right, color: ObsidianTheme.textMuted),
+                            title: Text("Update Credentials", style: TextStyle(color: ObsidianTheme.textVibrant, fontSize: 14)),
+                            trailing: Icon(Icons.chevron_right, color: ObsidianTheme.textMuted),
                             onTap: () {},
                           ),
                           ListTile(
                             contentPadding: EdgeInsets.zero,
                             leading: const Icon(Icons.logout, color: Colors.redAccent),
-                            title: const Text("Terminal Shutdown", style: TextStyle(color: Colors.white, fontSize: 14)),
-                            trailing: const Icon(Icons.chevron_right, color: ObsidianTheme.textMuted),
+                            title: Text("Terminal Shutdown", style: TextStyle(color: ObsidianTheme.textVibrant, fontSize: 14)),
+                            trailing: Icon(Icons.chevron_right, color: ObsidianTheme.textMuted),
                             onTap: () async {
-                              await auth.logout();
+                              await ref.read(authNotifierProvider.notifier).logout();
                               if (context.mounted) {
                                 Navigator.of(context).pushNamedAndRemoveUntil('/', (route) => false);
                               }
@@ -140,10 +162,11 @@ class SettingsScreen extends ConsumerWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label, style: const TextStyle(color: ObsidianTheme.textMuted, fontSize: 12)),
-          Text(value, style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold)),
+          Text(label, style: TextStyle(color: ObsidianTheme.textMuted, fontSize: 12)),
+          Text(value, style: TextStyle(color: ObsidianTheme.textVibrant, fontSize: 12, fontWeight: FontWeight.bold)),
         ],
       ),
     );
   }
+
 }
