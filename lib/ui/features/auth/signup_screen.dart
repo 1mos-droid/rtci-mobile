@@ -331,3 +331,40 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                               style: Theme.of(context).textTheme.labelLarge?.copyWith(
                                     color: ObsidianTheme.secondaryGold,
                                     fontWeight: FontWeight.bold,
+                                  ),
+                            ),
+                          ),
+                        ).animate().fadeIn(delay: 450.ms, duration: 500.ms),
+                      ],
+                    ),
+                  ),
+                ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSuccessScreen(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(24.0),
+        child: GlassCard(
+          padding: const EdgeInsets.all(32),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Icon(Icons.check_circle_outline, size: 72, color: Colors.greenAccent),
+              const SizedBox(height: 24),
+              Text(
+                "Welcome to Fellowship",
+                textAlign: TextAlign.center,
+                style: GoogleFonts.cinzel(fontSize: 22, fontWeight: FontWeight.bold, color: ObsidianTheme.textVibrant),
+              ),
+              const SizedBox(height: 12),
+              Text(
+                "Your account has been successfully created. You can now log in to the portal.",
+                textAlign: TextAlign.center,
+                style: TextStyle(color: ObsidianTheme.textMuted, height: 1.5),
+              ),
+              const SizedBox(height: 32),
+              SizedBox(
