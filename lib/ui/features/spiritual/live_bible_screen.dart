@@ -455,25 +455,24 @@ class _LiveBibleScreenState extends ConsumerState<LiveBibleScreen> {
           ),
         ),
       ),
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      decoration: BoxDecoration(
-        color: ObsidianTheme.backgroundDark,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: ObsidianTheme.borderHairline),
-      ),
-      child: DropdownButtonHideUnderline(
-        child: DropdownButton<String>(
-          isExpanded: true,
-          value: items.contains(value) ? value : null,
-          hint: Text(label, style: const TextStyle(color: ObsidianTheme.textMuted, fontSize: 16)),
-          dropdownColor: ObsidianTheme.backgroundDark,
-          iconSize: 32,
-          style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
-          items: List.generate(items.length, (i) {
-            return DropdownMenuItem(value: items[i], child: Text(itemLabels != null ? itemLabels[i] : items[i]));
-          }),
-          onChanged: onChanged,
+      child: ClipRect(
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
+          child: SafeArea(
+            top: false,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      decoration: BoxDecoration(
+                        color: isDark ? Colors.white.withOpacity(0.05) : Colors.black.withOpacity(0.05),
+                        borderRadius: BorderRadius.circular(24),
+                      ),
+                      child: TextField(
+                        controller: _noteController,
         ),
       ),
     );
