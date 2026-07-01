@@ -206,4 +206,41 @@ class SettingsScreen extends ConsumerWidget {
             onPressed: () => Navigator.pop(ctx),
             child: const Text("Cancel"),
           ),
+        ),
+      );
+    } else {
+      showModalBottomSheet(
+        context: context,
+        backgroundColor: Theme.of(context).cardTheme.color ?? Theme.of(context).cardColor,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+        ),
+        builder: (ctx) => Container(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(
+                "Select Theme Mode",
+                style: GoogleFonts.inter(fontSize: 18, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 16),
+              ListTile(
+                leading: const Icon(Icons.settings_suggest_outlined),
+                title: const Text("System Default"),
+                trailing: currentTheme == ThemeMode.system ? const Icon(Icons.check, color: Colors.green) : null,
+                onTap: () {
+                  ref.read(themeNotifierProvider.notifier).setThemeMode(ThemeMode.system);
+                  Navigator.pop(ctx);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.light_mode_outlined),
+                title: const Text("Light"),
+                trailing: currentTheme == ThemeMode.light ? const Icon(Icons.check, color: Colors.green) : null,
+                onTap: () {
+                  ref.read(themeNotifierProvider.notifier).setThemeMode(ThemeMode.light);
+                  Navigator.pop(ctx);
 }
