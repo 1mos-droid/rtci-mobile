@@ -35,3 +35,40 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
     _nameController.dispose();
     super.dispose();
   }
+
+  Future<void> _pickImage(ImageSource source) async {
+    final XFile? image = await _picker.pickImage(
+      source: source,
+      imageQuality: 70,
+      maxWidth: 500,
+    );
+
+    if (image != null && mounted) {
+      final authNotifier = ref.read(authNotifierProvider.notifier);
+      final url = await authNotifier.uploadAvatar(File(image.path));
+      if (url != null && mounted) {
+        _showIOSAlert("Success", "Your sanctuary portrait has been updated successfully!");
+      }
+    }
+  }
+
+  void _showIOSAlert(String title, String message) {
+    showAdaptiveDialog(
+      context: context,
+      builder: (_) => AlertDialog.adaptive(
+        title: Text(title),
+        content: Text(message),
+        actions: [
+          TextButton(
+            child: const Text("OK"),
+            onPressed: () => Navigator.pop(context),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _handleSave() async {
+    if (_formKey.currentState!.validate()) {
+      final authNotifier = ref.read(authNotifierProvider.notifier);
+      await authNotifier.updateProfile(name: _nameController.text.trim());
