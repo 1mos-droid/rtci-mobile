@@ -107,28 +107,31 @@ class GroupsProvider extends ChangeNotifier {
     try {
       final user = _auth.currentUser;
       if (user == null) return false;
-          .maybeSingle();
 
-      if (memberRes == null) return false;
-      final memberId = memberRes['id'];
+      await _firestore.collection('cell_groups').doc(groupId).update({
+        'member_count': FieldValue.increment(1),
+      });
+      
+      await _firestore.collection('group_memberships').add({
+        'group_id': groupId,
+        'user_id': user.uid,
+        'joined_at': FieldValue.serverTimestamp(),
+      });
 
-      if (_joinedGroupIds.contains(groupId)) {
-        await _supabase
-            .from('group_members')
-            .delete()
-            .eq('group_id', groupId)
-            .eq('member_id', memberId);
-        _joinedGroupIds.remove(groupId);
-      } else {
-        await _supabase
-            .from('group_members')
-            .insert({'group_id': groupId, 'member_id': memberId});
-        _joinedGroupIds.add(groupId);
-      }
+      _joinedGroupIds.add(groupId);
       notifyListeners();
       return true;
     } catch (e) {
-      debugPrint('Error toggling group: $e');
+      debugPrint('Error joining group: $e');
+      return false;
+    }
+  }
+
+  Future<bool> leaveGroup(String groupId) async {
+    try {
+      final user = _auth.currentUser;
+      if (user == null) return false;
+
       return false;
     }
   }
