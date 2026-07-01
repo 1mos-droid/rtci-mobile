@@ -99,36 +99,31 @@ class _GradientButtonState extends State<GradientButton> {
         Text(
           widget.text,
           style: GoogleFonts.inter(
-            fontSize: 13,
-            fontWeight: FontWeight.bold,
-            letterSpacing: 0.8,
+            fontSize: 17,
+            fontWeight: FontWeight.w600,
             color: textCol,
+            letterSpacing: -0.4,
           ),
         ),
       ],
     );
 
-    return GestureDetector(
-      onTapDown: isEnabled ? (_) => setState(() => _isPressed = true) : null,
-      onTapUp: isEnabled ? (_) => setState(() => _isPressed = false) : null,
-      onPanEnd: isEnabled ? (_) => setState(() => _isPressed = false) : null,
-      onTapCancel: isEnabled ? () => setState(() => _isPressed = false) : null,
-      onTap: isEnabled ? widget.onPressed : null,
-      child: AnimatedScale(
-        scale: _isPressed ? 0.98 : 1.0,
-        duration: const Duration(milliseconds: 100),
-        curve: Curves.easeOut,
+
+    return AnimatedScale(
+      scale: _isPressed ? 0.96 : 1.0,
+      duration: const Duration(milliseconds: 100),
+      child: GestureDetector(
+        onTapDown: isEnabled ? (_) => setState(() => _isPressed = true) : null,
+        onTapUp: isEnabled ? (_) => setState(() => _isPressed = false) : null,
+        onTapCancel: isEnabled ? () => setState(() => _isPressed = false) : null,
+        onTap: widget.isLoading ? null : widget.onPressed,
         child: Container(
-          height: 52,
+          width: widget.width ?? double.infinity,
+          height: widget.height,
           decoration: BoxDecoration(
             gradient: gradient,
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: borderCol, width: borderCol != Colors.transparent ? 1.0 : 0.0),
-            boxShadow: isEnabled && widget.type != GradientButtonType.outline
-                ? [
-                    BoxShadow(
-                      color: glowCol,
-                      blurRadius: _isPressed ? 8 : 15,
+            borderRadius: BorderRadius.circular(12),
+            border: borderCol != Colors.transparent ? Border.all(color: borderCol, width: 1.5) : null,
                       offset: const Offset(0, 5),
                     )
                   ]
