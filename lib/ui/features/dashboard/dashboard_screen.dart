@@ -1,32 +1,31 @@
+import 'package:rtc_mobile/providers/riverpod_providers.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:rtc_mobile/theme/app_theme.dart';
 import 'package:rtc_mobile/widgets/glass_card.dart';
-import 'package:rtc_mobile/providers/auth_provider.dart';
-import 'package:rtc_mobile/providers/financial_provider.dart';
-import 'package:rtc_mobile/providers/prayer_provider.dart';
-import 'package:rtc_mobile/providers/care_provider.dart';
-import 'package:rtc_mobile/providers/insights_provider.dart';
+import 'package:rtc_mobile/application/auth/auth_provider.dart';
 import 'package:rtc_mobile/providers/events_provider.dart';
 import 'package:rtc_mobile/widgets/mesh_gradient_background.dart';
 
-class DashboardScreen extends StatelessWidget {
+class DashboardScreen extends ConsumerWidget {
   const DashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final auth = Provider.of<AuthProvider>(context);
-    final finance = Provider.of<FinancialProvider>(context);
-    final prayers = Provider.of<PrayerProvider>(context);
-    final care = Provider.of<CareProvider>(context);
-    final insights = Provider.of<DailyInsightsProvider>(context);
-    final eventsProv = Provider.of<EventsProvider>(context);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final user = ref.watch(authNotifierProvider).value;
+    final finance = ref.watch(financialProvider);
+    final prayers = ref.watch(prayerProvider);
+    final care = ref.watch(careProvider);
+    final insights = ref.watch(dailyInsightsProvider);
+    final eventsProv = ref.watch(eventsProvider);
 
-    final isLeader = auth.isDeptHead;
-    final primaryAccent = isLeader ? ObsidianTheme.secondaryGold : ObsidianTheme.primaryCrimson;
+    final isLeader = user?.isDeptHead ?? false;
+    final primaryAccent = isLeader
+        ? ObsidianTheme.secondaryGold
+        : ObsidianTheme.primaryCrimson;
 
     return MeshGradientBackground(
       child: Scaffold(
@@ -39,7 +38,10 @@ class DashboardScreen extends StatelessWidget {
               expandedHeight: 140.0,
               pinned: true,
               flexibleSpace: FlexibleSpaceBar(
-                titlePadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                titlePadding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 16,
+                ),
                 title: Text(
                   "Sanctuary",
                   style: GoogleFonts.cinzel(
@@ -51,7 +53,6 @@ class DashboardScreen extends StatelessWidget {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
