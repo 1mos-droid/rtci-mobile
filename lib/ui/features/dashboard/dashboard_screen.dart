@@ -333,25 +333,38 @@ class DashboardScreen extends ConsumerWidget {
 
                     const SizedBox(height: 24),
 
+                    // Upcoming Sermons
+                    Text(
+                      "RECENT SERMONS",
+                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                        color: ObsidianTheme.textVibrant,
+                        letterSpacing: 1.5,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    _buildSermonsList(context),
+                    const SizedBox(height: 24),
+
                     // Upcoming Events Feed
                     Text(
                       "UPCOMING THIS WEEK",
                       style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                            color: ObsidianTheme.textVibrant,
-                            letterSpacing: 1.5,
-                          ),
+                        color: ObsidianTheme.textVibrant,
+                        letterSpacing: 1.5,
+                      ),
                     ),
                     const SizedBox(height: 12),
 
-                    eventsProv.events.isEmpty 
-                      ? const Center(child: Text("No events scheduled.", style: TextStyle(color: ObsidianTheme.textMuted)))
-                      : Column(
-                        children: eventsProv.events.take(3).map((e) => Padding(
-                          padding: const EdgeInsets.only(bottom: 12),
-                          child: _buildEventCard(context, e),
-                        )).toList(),
-                      ).animate().fadeIn(delay: 450.ms, duration: 500.ms),
-                    
+                    eventsProv.events.isEmpty
+                        ? Center(
+                            child: Text(
+                              "No events scheduled.",
+                              style: TextStyle(color: ObsidianTheme.textMuted),
+                            ),
+                          )
+                        : Column(
+                            children: eventsProv.events
+                                .take(3)
                     const SizedBox(height: 80), // Padding for BottomNav
                   ],
                 ),
