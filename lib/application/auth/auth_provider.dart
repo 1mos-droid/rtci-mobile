@@ -72,3 +72,31 @@ class AuthNotifier extends _$AuthNotifier {
 
   Future<void> updateProfile({String? name, String? avatarUrl}) async {
     final user = state.value;
+    if (user == null) return;
+
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async {
+      final updates = <String, dynamic>{};
+      if (name != null) updates['name'] = name;
+      if (avatarUrl != null) updates['avatar_url'] = avatarUrl;
+
+      await ref.read(authRepositoryProvider).updateProfile(user.id, updates);
+      return user.copyWith(name: name, avatarUrl: avatarUrl);
+    });
+  }
+
+  Future<String?> uploadAvatar(File imageFile) async {
+    final user = state.value;
+    if (user == null) return null;
+
+    state = const AsyncValue.loading();
+    try {
+      final url = await ref.read(authRepositoryProvider).uploadAvatar(user.id, imageFile);
+      await updateProfile(avatarUrl: url);
+      return url;
+    } catch (e, st) {
+      state = AsyncValue.error(e, st);
+      return null;
+    }
+  }
+}
