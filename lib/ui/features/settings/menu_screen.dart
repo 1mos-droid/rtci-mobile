@@ -363,5 +363,23 @@ class MenuScreen extends ConsumerWidget {
     required String title, 
     required IconData icon, 
     required Color iconColor,
+    required VoidCallback onTap,
+    bool showChevron = true,
+  }) {
+    return ListTile(
+      leading: Container(
+        padding: const EdgeInsets.all(7),
+        decoration: BoxDecoration(
+          color: iconColor,
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Icon(icon, size: 18, color: Colors.white),
+      ),
+      title: Text(title, style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 17, letterSpacing: -0.3)),
+      trailing: showChevron 
+          ? Icon(Icons.chevron_right_rounded, size: 20, color: AppTheme.systemGray3)
+          : null,
+      onTap: onTap,
+    );
   }
 }
