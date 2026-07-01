@@ -116,6 +116,43 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
                         style: TextStyle(color: ObsidianTheme.textVibrant),
                         decoration: const InputDecoration(
                           labelText: "Title",
+                          hintText: "e.g. Sunday Service",
+                        ),
+                        validator: (val) => val == null || val.isEmpty ? "Title is required" : null,
+                      ),
+                      const SizedBox(height: 16),
+                      TextFormField(
+                        controller: descController,
+                        style: TextStyle(color: ObsidianTheme.textVibrant),
+                        decoration: const InputDecoration(
+                          labelText: "Description / Caption",
+                          hintText: "e.g. Worship team pop off fr",
+                        ),
+                        validator: (val) => val == null || val.isEmpty ? "Description is required" : null,
+                      ),
+                      const SizedBox(height: 16),
+                      ListTile(
+                        contentPadding: EdgeInsets.zero,
+                        title: Text("Service Date", style: TextStyle(color: ObsidianTheme.textVibrant, fontSize: 14)),
+                        subtitle: Text(
+                          DateFormat('yyyy-MM-dd').format(selectedDate),
+                          style: TextStyle(color: ObsidianTheme.secondaryGold, fontWeight: FontWeight.bold),
+                        ),
+                        trailing: IconButton(
+                          icon: Icon(Icons.calendar_month, color: ObsidianTheme.secondaryGold),
+                          onPressed: () async {
+                            final picked = await showDatePicker(
+                              context: context,
+                              initialDate: selectedDate,
+                              firstDate: DateTime(2020),
+                              lastDate: DateTime.now(),
+                            );
+                            if (picked != null) {
+                              setSheetState(() {
+                                selectedDate = picked;
+                              });
+                            }
+                          },
 
   @override
   Widget build(BuildContext context) {
