@@ -267,28 +267,27 @@ class MenuScreen extends ConsumerWidget {
                         }
                       },
                       child: const Text("Sign Out"),
-                  Text(
-                    title,
-                    style: GoogleFonts.plusJakartaSans(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w800,
-                      color: ObsidianTheme.textVibrant,
-                    ),
-                  ),
-                  Text(
-                    subtitle,
-                    style: GoogleFonts.plusJakartaSans(
-                      fontSize: 12,
-                      color: ObsidianTheme.textMuted,
                     ),
                   ),
                 ],
               ),
-            ),
-            const Icon(Icons.chevron_right, color: ObsidianTheme.textMuted),
-          ],
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildSectionHeader(String title) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 16, bottom: 10),
+      child: Text(
+        title.toUpperCase(),
+        style: TextStyle(
+          fontSize: 13,
+          fontWeight: FontWeight.w600,
+          color: AppTheme.systemGray,
+          letterSpacing: 0.2,
         ),
-      ),
-    ).animate().fadeIn(duration: 400.ms).slideX(begin: 0.1, end: 0);
   }
 }
