@@ -257,3 +257,40 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
         fontWeight: FontWeight.w600,
         color: theme.colorScheme.onSurface,
       ),
+      cursorColor: theme.colorScheme.primary,
+      decoration: InputDecoration(
+        hintText: placeholder,
+        hintStyle: GoogleFonts.inter(
+          color: AppTheme.systemGray2,
+          fontSize: 17,
+        ),
+        prefixIcon: Padding(
+          padding: const EdgeInsets.only(left: 16, right: 12),
+          child: Icon(prefixIcon, size: 20, color: AppTheme.systemGray),
+        ),
+        prefixIconConstraints: const BoxConstraints(minWidth: 48),
+        filled: true,
+        fillColor: Colors.transparent,
+        border: InputBorder.none,
+        enabledBorder: InputBorder.none,
+        focusedBorder: InputBorder.none,
+        errorBorder: InputBorder.none,
+        focusedErrorBorder: InputBorder.none,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      ),
+    );
+  }
+
+  void _showImageSourceActionSheet(BuildContext context) {
+    final theme = Theme.of(context);
+    final isIOS = theme.platform == TargetPlatform.iOS || theme.platform == TargetPlatform.macOS;
+
+    if (isIOS) {
+      showCupertinoModalPopup(
+        context: context,
+        builder: (ctx) => CupertinoActionSheet(
+          title: const Text("Update Photo"),
+          message: const Text("Select a photo source to update your sanctuary portrait."),
+          actions: [
+            CupertinoActionSheetAction(
+              onPressed: () {
