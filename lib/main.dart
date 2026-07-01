@@ -1,31 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:rtc_mobile/core/config/supabase_config.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:rtc_mobile/theme/app_theme.dart';
-import 'package:rtc_mobile/providers/auth_provider.dart';
-import 'package:rtc_mobile/providers/members_provider.dart';
-import 'package:rtc_mobile/providers/application_provider.dart';
-import 'package:rtc_mobile/providers/prayer_provider.dart';
-import 'package:rtc_mobile/providers/financial_provider.dart';
-import 'package:rtc_mobile/providers/events_provider.dart';
-import 'package:rtc_mobile/providers/care_provider.dart';
-import 'package:rtc_mobile/providers/insights_provider.dart';
-import 'package:rtc_mobile/providers/groups_provider.dart';
-import 'package:rtc_mobile/providers/children_provider.dart';
-import 'package:rtc_mobile/providers/leadership_provider.dart';
-import 'package:rtc_mobile/providers/bible_studies_provider.dart';
-import 'package:rtc_mobile/providers/bible_provider.dart';
-import 'package:rtc_mobile/providers/gallery_provider.dart';
-import 'package:rtc_mobile/providers/attendance_provider.dart';
+import 'package:rtc_mobile/services/notification_service.dart';
 import 'package:rtc_mobile/ui/features/auth/welcome_screen.dart';
 import 'package:rtc_mobile/ui/features/dashboard/main_tab_screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rtc_mobile/firebase_options.dart';
+import 'package:rtc_mobile/application/auth/auth_provider.dart';
+import 'package:rtc_mobile/application/theme/theme_provider.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   
-  await SupabaseConfig.initialize();
+  try {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    await GoogleSignIn.instance.initialize();
+    await NotificationService().initialize();
+  } catch (e) {
+    debugPrint('Firebase initialization failed: $e');
+  }
 
-  runApp(const RTCIMobileApp());
+  runApp(
+    const ProviderScope(
 }
 
 class RTCIMobileApp extends StatelessWidget {
