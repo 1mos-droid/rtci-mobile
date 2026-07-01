@@ -180,21 +180,19 @@ class DashboardScreen extends ConsumerWidget {
                                     fontStyle: FontStyle.italic,
                                     color: ObsidianTheme.textVibrant,
                                     height: 1.4,
+                                  ),
+                                ),
+                                const SizedBox(height: 12),
+                                Text(
+                                  "— ${insights.currentInsight!.reference ?? insights.currentInsight!.author ?? ''}",
+                                  style: GoogleFonts.plusJakartaSans(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                    color: ObsidianTheme.secondaryGold,
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
-                          const SizedBox(height: 12),
-                          Text(
-                            insights.currentInsight != null 
-                              ? "— ${insights.currentInsight!.reference ?? insights.currentInsight!.author ?? ''}"
-                              : "— 2 Peter 3:18",
-                            style: GoogleFonts.plusJakartaSans(
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                              color: ObsidianTheme.secondaryGold,
-                            ),
-                          ),
-                        ],
-                      ),
                     ).animate().fadeIn(delay: 150.ms, duration: 500.ms),
 
                     const SizedBox(height: 24),
@@ -204,9 +202,9 @@ class DashboardScreen extends ConsumerWidget {
                       Text(
                         "FELLOWSHIP CARE QUEUE",
                         style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                              color: ObsidianTheme.textVibrant,
-                              letterSpacing: 1.5,
-                            ),
+                          color: ObsidianTheme.textVibrant,
+                          letterSpacing: 1.5,
+                        ),
                       ),
                       const SizedBox(height: 12),
                       SizedBox(
@@ -224,10 +222,11 @@ class DashboardScreen extends ConsumerWidget {
                                 child: SizedBox(
                                   width: 220,
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment:
                                         children: [
                                           Expanded(
                                             child: Text(
