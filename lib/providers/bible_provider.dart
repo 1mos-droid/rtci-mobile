@@ -183,9 +183,46 @@ class BibleProvider extends ChangeNotifier {
         _verses = [];
       }
     } catch (e) {
+      debugPrint('Error fetching verses: $e');
+      _verses = [];
     } finally {
       _isLoading = false;
       notifyListeners();
     }
   }
+
+  Future<void> fetchVerses(String book, int chapter) async {
+    _isLoading = true;
+    notifyListeners();
+    try {
+      String bookId = book;
+      if (_books.isNotEmpty) {
+        final found = _books.firstWhere(
+          (b) => b['name'].toString().toLowerCase() == book.toLowerCase() ||
+                 b['id'].toString().toLowerCase() == book.toLowerCase(),
+          orElse: () => <String, dynamic>{},
+        );
+        if (found.isNotEmpty) {
+          bookId = found['id'] as String;
+        }
+      }
+      final chapterId = '$bookId.$chapter';
+      await fetchChapterContent('KJV', chapterId);
+    } catch (e) {
+      debugPrint('Error in fetchVerses: $e');
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  static const Map<String, String> slangDictionary = {
+    // === THE DEEP LORE (Idioms & Phrases) ===
+    "weeping and gnashing of teeth": "malding and coping",
+    "kingdom of heaven": "the W server",
+    "kingdom of god": "the OG's server",
+    "son of man": "bro",
+    "holy spirit": "the ultimate vibe",
+    "holy ghost": "the ultimate vibe",
+    "eye for an eye": "matching energy",
 }
