@@ -132,6 +132,25 @@ class GroupsProvider extends ChangeNotifier {
       final user = _auth.currentUser;
       if (user == null) return false;
 
+      await _firestore.collection('cell_groups').doc(groupId).update({
+        'member_count': FieldValue.increment(-1),
+      });
+      
+      final snapshot = await _firestore
+          .collection('group_memberships')
+          .where('group_id', isEqualTo: groupId)
+          .where('user_id', isEqualTo: user.uid)
+          .get();
+      
+      for (var doc in snapshot.docs) {
+        await doc.reference.delete();
+      }
+
+      _joinedGroupIds.remove(groupId);
+      notifyListeners();
+      return true;
+    } catch (e) {
+      debugPrint('Error leaving group: $e');
       return false;
     }
   }
