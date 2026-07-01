@@ -72,3 +72,40 @@ class BroadcastProvider extends ChangeNotifier {
   Future<bool> sendBroadcast({
     required String target,
     required String channel,
+    required String subject,
+    required String body,
+    required String category,
+  }) async {
+    _isLoading = true;
+    notifyListeners();
+
+    try {
+      final user = _auth.currentUser;
+      if (user == null) return false;
+
+      // Fetch sender name from profiles
+      final profileDoc = await _firestore.collection('profiles').doc(user.uid).get();
+      final senderName = profileDoc.data()?['name'] ?? 'Official';
+
+      await _firestore.collection('broadcasts').add({
+        'sender_id': user.uid,
+        'sender_name': senderName,
+        'target': target,
+        'channel': channel,
+        'subject': subject,
+        'body': body,
+        'category': category,
+        'created_at': FieldValue.serverTimestamp(),
+      });
+
+      await fetchBroadcasts();
+      return true;
+    } catch (e) {
+      debugPrint('Error sending broadcast: $e');
+      return false;
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+}
