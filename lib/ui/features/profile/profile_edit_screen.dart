@@ -72,3 +72,40 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
     if (_formKey.currentState!.validate()) {
       final authNotifier = ref.read(authNotifierProvider.notifier);
       await authNotifier.updateProfile(name: _nameController.text.trim());
+      
+      final authState = ref.read(authNotifierProvider);
+      if (!authState.hasError && mounted) {
+        showAdaptiveDialog(
+          context: context,
+          builder: (_) => AlertDialog.adaptive(
+            title: const Text("Profile Saved"),
+            content: const Text("Your identity has been updated in the sanctuary records."),
+            actions: [
+              TextButton(
+                child: const Text("OK"),
+                onPressed: () {
+                  Navigator.pop(context); // Dismiss dialog
+                  Navigator.pop(context); // Go back to previous screen
+                },
+              ),
+            ],
+          ),
+        );
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final authState = ref.watch(authNotifierProvider);
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
+    return Scaffold(
+      backgroundColor: theme.scaffoldBackgroundColor,
+      body: authState.isLoading
+          ? const CustomLogoLoader(message: "Updating Records...")
+          : authState.when(
+              data: (user) {
+                if (user == null) return const SizedBox.shrink();
+                return CustomScrollView(
