@@ -53,6 +53,10 @@ class DashboardScreen extends ConsumerWidget {
             ),
             SliverToBoxAdapter(
               child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 10,
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
@@ -63,15 +67,22 @@ class DashboardScreen extends ConsumerWidget {
                         children: [
                           CircleAvatar(
                             radius: 30,
-                            backgroundColor: primaryAccent.withValues(alpha: 0.08),
+                            backgroundColor: primaryAccent.withValues(
+                              alpha: 0.08,
+                            ),
                             child: Container(
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                border: Border.all(color: primaryAccent.withValues(alpha: 0.3), width: 1.0),
+                                border: Border.all(
+                                  color: primaryAccent.withValues(alpha: 0.3),
+                                  width: 1.0,
+                                ),
                               ),
                               child: Center(
                                 child: Text(
-                                  auth.userName.isNotEmpty ? auth.userName.substring(0, 1) : 'U',
+                                  (user?.name.isNotEmpty ?? false)
+                                      ? user!.name.substring(0, 1)
+                                      : 'U',
                                   style: GoogleFonts.cinzel(
                                     color: primaryAccent,
                                     fontSize: 24,
@@ -88,14 +99,17 @@ class DashboardScreen extends ConsumerWidget {
                               children: [
                                 Text(
                                   "WELCOME BACK",
-                                  style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                                  style: Theme.of(context).textTheme.labelMedium
+                                      ?.copyWith(
                                         letterSpacing: 1.0,
                                         color: ObsidianTheme.textMuted,
                                         fontSize: 10,
                                       ),
                                 ),
                                 Text(
-                                  auth.userName.isNotEmpty ? auth.userName : 'User',
+                                  (user?.name.isNotEmpty ?? false)
+                                      ? user!.name
+                                      : 'User',
                                   style: GoogleFonts.cinzel(
                                     color: ObsidianTheme.textVibrant,
                                     fontSize: 20,
@@ -104,13 +118,18 @@ class DashboardScreen extends ConsumerWidget {
                                 ),
                                 const SizedBox(height: 4),
                                 Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 8,
+                                    vertical: 4,
+                                  ),
                                   decoration: BoxDecoration(
                                     color: primaryAccent.withValues(alpha: 0.1),
                                     borderRadius: BorderRadius.circular(6),
                                   ),
                                   child: Text(
-                                    isLeader ? auth.role.name.toUpperCase() : "COVENANT MEMBER",
+                                    isLeader
+                                        ? (user?.role.name.toUpperCase() ?? '')
+                                        : "COVENANT MEMBER",
                                     style: GoogleFonts.plusJakartaSans(
                                       fontSize: 9,
                                       fontWeight: FontWeight.bold,
@@ -132,8 +151,8 @@ class DashboardScreen extends ConsumerWidget {
                     Text(
                       "DAILY REVELATION",
                       style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                            color: ObsidianTheme.textVibrant,
-                            letterSpacing: 1.5,
+                        color: ObsidianTheme.textVibrant,
+                        letterSpacing: 1.5,
                           ),
                     ),
                     const SizedBox(height: 12),
