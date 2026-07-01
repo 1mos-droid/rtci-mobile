@@ -410,4 +410,31 @@ class BibleProvider extends ChangeNotifier {
     if (text.isEmpty) return "";
     String result = text;
 
+    // Sort keys by length descending
+    final sortedKeys = slangDictionary.keys.toList()
+      ..sort((a, b) => b.length.compareTo(a.length));
+
+    for (var kjv in sortedKeys) {
+      final slang = slangDictionary[kjv]!;
+      final regExp = RegExp('\\b${RegExp.escape(kjv)}\\b', caseSensitive: false);
+      result = result.replaceAllMapped(regExp, (match) {
+        String matched = match.group(0)!;
+        if (matched == matched.toUpperCase() && matched.length > 1) {
+          return slang.toUpperCase();
+        } else if (matched.isNotEmpty && matched[0] == matched[0].toUpperCase()) {
+          return slang[0].toUpperCase() + slang.substring(1);
+        }
+        return slang;
+      });
+    }
+
+    // Convert archaic suffixes (-eth/-est to -ing)
+    final suffixRegex = RegExp(r'\b(\w+)(eth|est)\b', caseSensitive: false);
+    result = result.replaceAllMapped(suffixRegex, (match) {
+      final rootWord = match.group(1)!;
+      return '${rootWord}ing';
+    });
+
+    return result;
+  }
 }
