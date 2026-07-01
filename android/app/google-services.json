@@ -1,0 +1,37 @@
+{
+  "project_info": {
+    "project_number": "381753713314",
+    "project_id": "rtci-22582",
+    "storage_bucket": "rtci-22582.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:381753713314:android:4d8057ae2c1f232a266dfb",
+        "android_client_info": {
+          "package_name": "com.rtci.app.rtc_mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "381753713314-5pcuat38pb6ns1nfnl74777sscc5nnf4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rtci.app.rtc_mobile",
+            "certificate_hash": "0fcf806289d175541bb10b17d57df8b4146a1949"
+          }
+        },
+        {
+          "client_id": "381753713314-0bjahjac04c2ibr5m7b6a780meni572s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDfQWtE1oc4Y1HcCJS1DDLro0P2Xj7mrm8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
