@@ -72,3 +72,40 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
     final authNotifier = ref.read(authNotifierProvider.notifier);
     await authNotifier.signInWithGoogle();
     
+    final authState = ref.read(authNotifierProvider);
+    if (!authState.hasError && mounted) {
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (_) => const MainTabScreen()),
+        (route) => false,
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final authState = ref.watch(authNotifierProvider);
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final isDark = theme.brightness == Brightness.dark;
+
+    return Scaffold(
+      backgroundColor: theme.scaffoldBackgroundColor,
+      body: MeshGradientBackground(
+        child: SafeArea(
+          child: _signupSuccess
+              ? _buildSuccessScreen(context)
+              : SingleChildScrollView(
+                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        // Back Button
+                        Row(
+                          children: [
+                            IconButton(
+                              icon: Icon(Icons.arrow_back_ios_new, size: 18, color: ObsidianTheme.textVibrant),
+                              onPressed: () => Navigator.pop(context),
+                            ),
