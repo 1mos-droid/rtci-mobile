@@ -57,7 +57,7 @@ class EventsProvider extends ChangeNotifier {
 
   void _init() {
     _auth.authStateChanges().listen((user) {
-      if (data.session != null) {
+      if (user != null) {
         fetchEvents();
       } else {
         _events = [];
@@ -71,12 +71,11 @@ class EventsProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final response = await _supabase
-          .from('events')
-          .select()
-          .order('date', ascending: true);
-
-      _events = (response as List).map((m) => ChurchEvent.fromMap(m)).toList();
+      final snapshot = await _firestore
+          .collection('events')
+          .orderBy('date', descending: false)
+          .get();
+      _events = snapshot.docs.map((doc) => ChurchEvent.fromFirestore(doc)).toList();
     } catch (e) {
       debugPrint('Error fetching events: $e');
     } finally {
@@ -93,28 +92,32 @@ class EventsProvider extends ChangeNotifier {
     bool isOnline = false,
     String? description,
     String? department,
+    String category = 'Service',
   }) async {
     _isLoading = true;
     notifyListeners();
 
     try {
-      await _supabase.from('events').insert({
+      await _firestore.collection('events').add({
         'name': name,
-        'date': date.toIso8601String(),
+        'date': Timestamp.fromDate(date),
         'time': time,
         'location': location,
         'is_online': isOnline,
         'description': description,
         'department': department,
+        'category': category,
+        'created_at': FieldValue.serverTimestamp(),
+        'created_by': _auth.currentUser?.uid,
       });
-      
       await fetchEvents();
       return true;
     } catch (e) {
       debugPrint('Error scheduling event: $e');
+      return false;
+    } finally {
       _isLoading = false;
       notifyListeners();
-      return false;
     }
   }
 }
