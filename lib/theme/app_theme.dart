@@ -22,6 +22,43 @@ class AppTheme {
 
   static const Color systemBlue = Color(0xFF007AFF);
   static const Color systemGreen = Color(0xFF34C759);
+  static const Color systemOrange = Color(0xFFFF9500);
+  static const Color systemPink = Color(0xFFFF2D55);
+  static const Color systemPurple = Color(0xFFAF52DE);
+  static const Color systemTeal = Color(0xFF5AC8FA);
+  static const Color systemYellow = Color(0xFFFFCC00);
+  static const Color systemRed = Color(0xFFFF3B30);
+
+  static ThemeData get lightTheme {
+    return ThemeData(
+      useMaterial3: true,
+      brightness: Brightness.light,
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: iosPrimaryLight,
+        brightness: Brightness.light,
+        primary: iosPrimaryLight,
+        surface: systemLightGroupedBg,
+        surfaceContainerHighest: systemGray6,
+        onSurface: Colors.black,
+        error: const Color(0xFFFF3B30),
+      ),
+      scaffoldBackgroundColor: systemLightBg,
+      textTheme: _textTheme(Colors.black, systemGray),
+      appBarTheme: AppBarTheme(
+        centerTitle: true,
+        backgroundColor: systemLightBg.withOpacity(0.8),
+        surfaceTintColor: Colors.transparent,
+        elevation: 0,
+        titleTextStyle: GoogleFonts.inter(
+          fontSize: 17,
+          fontWeight: FontWeight.w600,
+          color: Colors.black,
+          letterSpacing: -0.4,
+        ),
+        iconTheme: const IconThemeData(color: iosPrimaryLight),
+      ),
+      cardTheme: CardThemeData(
+        elevation: 0,
 
   static ThemeData get darkTheme {
     return ThemeData(
