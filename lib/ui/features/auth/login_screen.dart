@@ -113,22 +113,18 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        ),
-                        
-                        const SizedBox(height: 24),
-                        
                         TextFormField(
                           controller: _emailController,
                           keyboardType: TextInputType.emailAddress,
-                          style: const TextStyle(color: ObsidianTheme.textVibrant),
-                          decoration: const InputDecoration(
+                          style: TextStyle(color: ObsidianTheme.textVibrant),
+                          decoration: InputDecoration(
                             labelText: "Email Address",
-                            hintText: "member@rtci.org",
+                            hintText: "e.g. name@email.com",
                             prefixIcon: Icon(Icons.email_outlined, color: ObsidianTheme.textMuted, size: 20),
                           ),
                           validator: (val) {
-                            if (val == null || val.isEmpty) return "Email is required";
-                            if (!val.contains('@')) return "Enter a valid email";
+                            if (val == null || val.isEmpty) return "Please enter your email";
+                            if (!val.contains('@')) return "Please enter a valid email";
                             return null;
                           },
                         ),
@@ -137,16 +133,23 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         
                         TextFormField(
                           controller: _passwordController,
-                          obscureText: true,
-                          style: const TextStyle(color: ObsidianTheme.textVibrant),
-                          decoration: const InputDecoration(
-                            labelText: "Security Key",
-                            hintText: "••••••••",
+                          obscureText: !_showPassword,
+                          style: TextStyle(color: ObsidianTheme.textVibrant),
+                          decoration: InputDecoration(
+                            labelText: "Password",
+                            hintText: "Enter your password",
                             prefixIcon: Icon(Icons.lock_outline, color: ObsidianTheme.textMuted, size: 20),
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                _showPassword ? Icons.visibility_off_rounded : Icons.visibility_rounded,
+                                color: ObsidianTheme.textMuted,
+                                size: 20,
+                              ),
+                              onPressed: () => setState(() => _showPassword = !_showPassword),
+                            ),
                           ),
                           validator: (val) {
-                            if (val == null || val.isEmpty) return "Password is required";
-                            if (val.length < 6) return "Password too short";
+                            if (val == null || val.isEmpty) return "Please enter your password";
                             return null;
                           },
                         ),
@@ -154,7 +157,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         const SizedBox(height: 32),
                         
                         ElevatedButton(
-                          onPressed: _handleLogin,
+                          onPressed: authState.isLoading ? null : _handleLogin,
                           style: ElevatedButton.styleFrom(
                             backgroundColor: _asLeadership ? ObsidianTheme.secondaryGold : ObsidianTheme.primaryCrimson,
                             foregroundColor: _asLeadership ? ObsidianTheme.backgroundDark : Colors.white,
