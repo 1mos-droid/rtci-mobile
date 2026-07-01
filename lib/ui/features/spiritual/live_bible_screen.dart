@@ -454,44 +454,7 @@ class _LiveBibleScreenState extends ConsumerState<LiveBibleScreen> {
             width: 1.0,
           ),
         ),
-              Expanded(
-                flex: 2,
-                child: _buildDropdown(
-                  label: "Book",
-                  value: _selectedBookId,
-                  items: bibleProv.books.map((b) => b['id'] as String).toList(),
-                  itemLabels: bibleProv.books.map((b) => b['name'] as String).toList(),
-                  onChanged: (val) {
-                    if (val != null) {
-                      setState(() { _selectedBookId = val; });
-                      _loadChapters();
-                    }
-                  },
-                ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: _buildDropdown(
-                  label: "Ch.",
-                  value: _selectedChapterId,
-                  items: bibleProv.chapters.map((c) => c['id'] as String).toList(),
-                  itemLabels: bibleProv.chapters.map((c) => c['number'] as String).toList(),
-                  onChanged: (val) {
-                    if (val != null) {
-                      setState(() { _selectedChapterId = val; });
-                      _loadContent();
-                    }
-                  },
-                ),
-              ),
-            ],
-          ),
-        ],
       ),
-    );
-  }
-
-  Widget _buildDropdown({required String label, required dynamic value, required List<String> items, List<String>? itemLabels, required Function(String?) onChanged}) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
