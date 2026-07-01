@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rtc_mobile/theme/app_theme.dart';
 import 'package:rtc_mobile/widgets/glass_card.dart';
 import 'package:rtc_mobile/widgets/mesh_gradient_background.dart';
-import 'package:rtc_mobile/providers/children_provider.dart';
+import 'package:rtc_mobile/providers/riverpod_providers.dart';
 
-class ChildrenScreen extends StatefulWidget {
+class ChildrenScreen extends ConsumerStatefulWidget {
   const ChildrenScreen({super.key});
 
   @override
-  State<ChildrenScreen> createState() => _ChildrenScreenState();
+  ConsumerState<ChildrenScreen> createState() => _ChildrenScreenState();
 }
 
-class _ChildrenScreenState extends State<ChildrenScreen> {
+class _ChildrenScreenState extends ConsumerState<ChildrenScreen> {
   
   void _showCheckinSheet(BuildContext context) {
     final childController = TextEditingController();
@@ -48,14 +48,14 @@ class _ChildrenScreenState extends State<ChildrenScreen> {
                   const SizedBox(height: 16),
                   TextFormField(
                     controller: childController,
-                    style: const TextStyle(color: ObsidianTheme.textVibrant),
+                    style: TextStyle(color: ObsidianTheme.textVibrant),
                     decoration: const InputDecoration(labelText: "Child's Full Name"),
                     validator: (val) => val == null || val.isEmpty ? "Required" : null,
                   ),
                   const SizedBox(height: 12),
                   TextFormField(
                     controller: parentController,
-                    style: const TextStyle(color: ObsidianTheme.textVibrant),
+                    style: TextStyle(color: ObsidianTheme.textVibrant),
                     decoration: const InputDecoration(labelText: "Parent/Guardian Name"),
                     validator: (val) => val == null || val.isEmpty ? "Required" : null,
                   ),
@@ -63,7 +63,7 @@ class _ChildrenScreenState extends State<ChildrenScreen> {
                   TextFormField(
                     controller: phoneController,
                     keyboardType: TextInputType.phone,
-                    style: const TextStyle(color: ObsidianTheme.textVibrant),
+                    style: TextStyle(color: ObsidianTheme.textVibrant),
                     decoration: const InputDecoration(labelText: "Contact Phone"),
                     validator: (val) => val == null || val.isEmpty ? "Required" : null,
                   ),
@@ -71,7 +71,7 @@ class _ChildrenScreenState extends State<ChildrenScreen> {
                   ElevatedButton(
                     onPressed: () async {
                       if (formKey.currentState!.validate()) {
-                        final prov = Provider.of<ChildrenProvider>(context, listen: false);
+                        final prov = ref.read(childrenProvider);
                         final success = await prov.checkIn(
                           childName: childController.text,
                           parentName: parentController.text,
@@ -98,7 +98,7 @@ class _ChildrenScreenState extends State<ChildrenScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final childrenProv = Provider.of<ChildrenProvider>(context);
+    final childrenProv = ref.watch(childrenProvider);
 
     return Scaffold(
       backgroundColor: ObsidianTheme.backgroundDark,
@@ -131,7 +131,7 @@ class _ChildrenScreenState extends State<ChildrenScreen> {
               sliver: childrenProv.isLoading && childrenProv.checkins.isEmpty
                 ? const SliverFillRemaining(child: Center(child: CircularProgressIndicator()))
                 : childrenProv.checkins.isEmpty
-                  ? const SliverFillRemaining(child: Center(child: Text("No children checked in.", style: TextStyle(color: Colors.white))))
+                  ? SliverFillRemaining(child: Center(child: Text("No children checked in.", style: TextStyle(color: ObsidianTheme.textVibrant))))
                   : SliverList(
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {
@@ -154,7 +154,7 @@ class _ChildrenScreenState extends State<ChildrenScreen> {
                                   const SizedBox(height: 4),
                                   Row(
                                     children: [
-                                      const Icon(Icons.person_outline, size: 14, color: ObsidianTheme.textMuted),
+                                      Icon(Icons.person_outline, size: 14, color: ObsidianTheme.textMuted),
                                       const SizedBox(width: 4),
                                       Expanded(
                                         child: Text(
