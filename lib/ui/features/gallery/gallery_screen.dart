@@ -442,26 +442,35 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
                                                   ),
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
+                                            ),
+                                            const SizedBox(height: 4),
+                                            Text(
+                                              DateFormat('MMM dd, yyyy').format(img.date),
+                                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                                    fontSize: 9,
+                                                    color: ObsidianTheme.textMuted,
+                                                  ),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                 ),
-                                Text(
-                                  DateFormat('MMM dd, yyyy').format(img.serviceDate),
-                                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 9, color: ObsidianTheme.textMuted),
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    );
-                  },
-                  childCount: images.length,
-                ),
-              ),
+                              )
+                              .animate()
+                              .fadeIn(delay: (index * 50).ms, duration: 400.ms)
+                              .scaleXY(begin: 0.9, end: 1.0, curve: Curves.easeOutBack);
+                            },
+                            childCount: images.length,
+                          ),
+                        ),
             ),
             const SliverToBoxAdapter(child: SizedBox(height: 80)),
           ],
         ),
       ),
+      floatingActionButton: canManage
     );
   }
 }
