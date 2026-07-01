@@ -55,18 +55,15 @@ class DailyInsightsProvider extends ChangeNotifier {
     try {
       final snapshot = await _firestore
           .collection('insights')
-          .from('daily_insights')
-          .select()
-          .eq('is_active', true)
-          .order('created_at', ascending: false)
+          .orderBy('date', descending: true)
           .limit(1)
-          .maybeSingle();
-
-      if (response != null) {
-        _currentInsight = DailyInsight.fromMap(response);
+          .get();
+      
+      if (snapshot.docs.isNotEmpty) {
+        _currentInsight = DailyInsight.fromFirestore(snapshot.docs.first);
       }
     } catch (e) {
-      debugPrint('Error fetching insights: $e');
+      debugPrint('Error fetching latest insight: $e');
     } finally {
       _isLoading = false;
       notifyListeners();
