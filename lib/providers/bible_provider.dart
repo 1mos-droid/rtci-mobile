@@ -38,37 +38,42 @@ class BibleVerse {
 }
 
 class BibleProvider extends ChangeNotifier {
-  static const String _apiKey = 'loPsbJCaWjl5ITSeS4WWD';
-  static const String _baseUrl = 'https://rest.api.bible/v1';
+  static const String apiKey = 'loPsbJCaWjl5ITSeS4WWD';
+  static const String baseUrl = 'https://rest.api.bible/v1';
 
-  final Map<String, String> versionMap = {
+  static const Map<String, String> versionMap = {
     'KJV': 'de4e12af7f28f599-01',
     'NKJV': '179568874c45066f-01',
     'NIV': '65eec8e0b60e656b-01',
     'AMP': '06125adad2d5898a-01',
+    'GENZ': 'de4e12af7f28f599-01',
   };
 
-  List<dynamic> _books = [];
-  List<dynamic> _chapters = [];
-  List<Map<String, String>> _verses = [];
+  List<Map<String, dynamic>> _books = [];
+  List<Map<String, dynamic>> _chapters = [];
+  List<BibleVerse> _verses = [];
   bool _isLoading = false;
 
-  List<dynamic> get books => _books;
-  List<dynamic> get chapters => _chapters;
-  List<Map<String, String>> get verses => _verses;
+  List<Map<String, dynamic>> get books => _books;
+  List<Map<String, dynamic>> get chapters => _chapters;
+  List<BibleVerse> get verses => _verses;
   bool get isLoading => _isLoading;
 
-  Future<void> fetchBooks(String versionId) async {
+  Future<void> fetchBooks(String version) async {
     _isLoading = true;
     notifyListeners();
     try {
-      final bibleId = versionMap[versionId] ?? versionMap['KJV']!;
-      final response = await http.get(
-        Uri.parse('$_baseUrl/bibles/$bibleId/books'),
-        headers: {'api-key': _apiKey},
-      );
+      final bibleId = versionMap[version] ?? versionMap['KJV']!;
+      final url = Uri.parse('$baseUrl/bibles/$bibleId/books');
+      final response = await http.get(url, headers: {'api-key': apiKey});
       if (response.statusCode == 200) {
-        _books = json.decode(response.body)['data'];
+        final Map<String, dynamic> data = json.decode(response.body);
+        final List<dynamic> list = data['data'] ?? [];
+        _books = list.map((item) => {
+          'id': item['id'] as String,
+          'name': item['name'] as String,
+          'nameLong': item['nameLong'] as String? ?? '',
+        }).toList();
       }
     } catch (e) {
       debugPrint('Error fetching books: $e');
