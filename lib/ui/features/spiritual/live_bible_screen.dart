@@ -1,24 +1,23 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rtc_mobile/providers/riverpod_providers.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:rtc_mobile/theme/app_theme.dart';
-import 'package:rtc_mobile/widgets/glass_card.dart';
-import 'package:rtc_mobile/widgets/mesh_gradient_background.dart';
 import 'package:rtc_mobile/providers/bible_provider.dart';
 
-class LiveBibleScreen extends StatefulWidget {
+class LiveBibleScreen extends ConsumerStatefulWidget {
   const LiveBibleScreen({super.key});
 
   @override
-  State<LiveBibleScreen> createState() => _LiveBibleScreenState();
+  ConsumerState<LiveBibleScreen> createState() => _LiveBibleScreenState();
 }
 
-class _LiveBibleScreenState extends State<LiveBibleScreen> {
+class _LiveBibleScreenState extends ConsumerState<LiveBibleScreen> {
   final _noteController = TextEditingController();
   List<String> _savedNotes = [];
 
-  String _selectedVersion = 'KJV';
+  final String _selectedVersion = 'KJV';
   String? _selectedBookId;
   String? _selectedChapterId;
 
@@ -32,9 +31,9 @@ class _LiveBibleScreenState extends State<LiveBibleScreen> {
   }
 
   void _initBible() async {
-    final bibleProv = Provider.of<BibleProvider>(context, listen: false);
+    final bibleProv = ref.read(bibleProvider);
     await bibleProv.fetchBooks(_selectedVersion);
-    if (bibleProv.books.isNotEmpty) {
+    if (bibleProv.books.isNotEmpty && mounted) {
       setState(() {
         _selectedBookId = bibleProv.books[0]['id'];
       });
@@ -44,9 +43,9 @@ class _LiveBibleScreenState extends State<LiveBibleScreen> {
 
   void _loadChapters() async {
     if (_selectedBookId == null) return;
-    final bibleProv = Provider.of<BibleProvider>(context, listen: false);
+    final bibleProv = ref.read(bibleProvider);
     await bibleProv.fetchChapters(_selectedVersion, _selectedBookId!);
-    if (bibleProv.chapters.isNotEmpty) {
+    if (bibleProv.chapters.isNotEmpty && mounted) {
       setState(() {
         _selectedChapterId = bibleProv.chapters[0]['id'];
       });
@@ -56,27 +55,21 @@ class _LiveBibleScreenState extends State<LiveBibleScreen> {
 
   void _loadContent() {
     if (_selectedChapterId == null) return;
-    final bibleProv = Provider.of<BibleProvider>(context, listen: false);
+    final bibleProv = ref.read(bibleProvider);
     bibleProv.fetchChapterContent(_selectedVersion, _selectedChapterId!);
-  }
-
-  @override
-  void dispose() {
-    _noteController.dispose();
-    super.dispose();
   }
 
   Future<void> _loadNotes() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
-      _savedNotes = prefs.getStringList('sermon_notes_vault') ?? [];
+      _savedNotes = prefs.getStringList('bible_notes') ?? [];
     });
   }
 
   Future<void> _saveNote() async {
-    if (_noteController.text.trim().isEmpty) return;
+    if (_noteController.text.isEmpty) return;
     final prefs = await SharedPreferences.getInstance();
-    final newNote = "${DateTime.now().toString().substring(0, 16)}: ${_noteController.text.trim()}";
+    _savedNotes.add(_noteController.text);
     _savedNotes.insert(0, newNote);
     await prefs.setStringList('sermon_notes_vault', _savedNotes);
     if (!mounted) return;
