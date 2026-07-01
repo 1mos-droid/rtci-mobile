@@ -502,10 +502,4 @@ class _LiveBibleScreenState extends ConsumerState<LiveBibleScreen> {
       ),
     );
   }
-          padding: const EdgeInsets.only(bottom: 12),
-          child: GlassCard(padding: const EdgeInsets.all(20), child: Text(n, style: const TextStyle(color: ObsidianTheme.textVibrant, fontSize: 16, height: 1.4))),
-        )),
-      ],
-    );
-  }
 }
