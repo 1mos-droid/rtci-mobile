@@ -33,11 +33,13 @@ class CareTicket {
 }
 
 class CareProvider extends ChangeNotifier {
-  final _supabase = Supabase.instance.client;
-  List<CareRecommendation> _careQueue = [];
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  
+  List<CareTicket> _careQueue = [];
   bool _isLoading = false;
 
-  List<CareRecommendation> get careQueue => _careQueue;
+  List<CareTicket> get careQueue => _careQueue;
   bool get isLoading => _isLoading;
 
   CareProvider() {
@@ -45,8 +47,8 @@ class CareProvider extends ChangeNotifier {
   }
 
   void _init() {
-    _supabase.auth.onAuthStateChange.listen((data) {
-      if (data.session != null) {
+    _auth.authStateChanges().listen((user) {
+      if (user != null) {
         fetchCareQueue();
       } else {
         _careQueue = [];
@@ -60,14 +62,11 @@ class CareProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final response = await _supabase
-          .from('care_recommendations')
-          .select('*, members(name, department)')
-          .neq('status', 'Resolved')
-          .neq('status', 'Ignored')
-          .order('created_at', ascending: false);
-
-      _careQueue = (response as List).map((m) => CareRecommendation.fromMap(m)).toList();
+      final snapshot = await _firestore
+          .collection('care_tickets')
+          .where('status', isEqualTo: 'pending')
+          .get();
+      _careQueue = snapshot.docs.map((doc) => CareTicket.fromFirestore(doc)).toList();
     } catch (e) {
       debugPrint('Error fetching care queue: $e');
     } finally {
@@ -76,14 +75,12 @@ class CareProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> updateCareStatus(String id, String status, {String? notes}) async {
+  Future<void> resolveTicket(String id) async {
     try {
-      await _supabase
-          .from('care_recommendations')
-          .update({
-            'status': status,
-            if (notes != null) 'pastoral_notes': notes,
-          })
+      await _firestore.collection('care_tickets').doc(id).update({
+        'status': 'resolved',
+        'resolved_at': FieldValue.serverTimestamp(),
+        'resolved_by': _auth.currentUser?.uid,
           .eq('id', id);
       
       _careQueue.removeWhere((item) => item.id == id && (status == 'Resolved' || status == 'Ignored'));
