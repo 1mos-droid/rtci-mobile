@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rtc_mobile/theme/app_theme.dart';
 
 class MeshGradientBackground extends StatelessWidget {
   final Widget child;
@@ -7,11 +8,14 @@ class MeshGradientBackground extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
     return Stack(
       children: [
-        // Base OLED Background
+        // Base Background
         Container(
-          color: const Color(0xFF050505),
+          color: theme.scaffoldBackgroundColor,
         ),
         // Crimson Orb (Top Left)
         Positioned(
@@ -20,14 +24,14 @@ class MeshGradientBackground extends StatelessWidget {
           child: Container(
             width: 400,
             height: 400,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               shape: BoxShape.circle,
               gradient: RadialGradient(
                 colors: [
-                  Color(0x258B1E31), // Deep Crimson 15%
+                  ObsidianTheme.primaryCrimson.withValues(alpha: isDark ? 0.15 : 0.06),
                   Colors.transparent,
                 ],
-                stops: [0.0, 1.0],
+                stops: const [0.0, 1.0],
               ),
             ),
           ),
@@ -39,21 +43,34 @@ class MeshGradientBackground extends StatelessWidget {
           child: Container(
             width: 500,
             height: 500,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               shape: BoxShape.circle,
               gradient: RadialGradient(
                 colors: [
-                  Color(0x15EAB308), // Pale Gold 8%
+                  ObsidianTheme.secondaryGold.withValues(alpha: isDark ? 0.08 : 0.03),
                   Colors.transparent,
                 ],
-                stops: [0.0, 1.0],
+                stops: const [0.0, 1.0],
               ),
             ),
           ),
         ),
-        // Noise Texture Overlay (Optional, using a semi-transparent black for depth if no image is available)
+        // Faded Church Logo watermark
+        Positioned.fill(
+          child: Opacity(
+            opacity: isDark ? 0.05 : 0.02,
+            child: Center(
+              child: Image.asset(
+                'assets/church_logo.png',
+                width: MediaQuery.of(context).size.width * 0.65,
+                fit: BoxFit.contain,
+              ),
+            ),
+          ),
+        ),
+        // Overlay for depth
         Container(
-          color: Colors.black.withValues(alpha: 0.1),
+          color: (isDark ? Colors.black : Colors.white).withValues(alpha: isDark ? 0.05 : 0.1),
         ),
         // Content
         SafeArea(
