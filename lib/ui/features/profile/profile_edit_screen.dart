@@ -294,3 +294,40 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
           actions: [
             CupertinoActionSheetAction(
               onPressed: () {
+                Navigator.pop(ctx);
+                _pickImage(ImageSource.gallery);
+              },
+              child: const Text("Choose from Library"),
+            ),
+            CupertinoActionSheetAction(
+              onPressed: () {
+                Navigator.pop(ctx);
+                _pickImage(ImageSource.camera);
+              },
+              child: const Text("Take Photo"),
+            ),
+          ],
+          cancelButton: CupertinoActionSheetAction(
+            onPressed: () => Navigator.pop(ctx),
+            child: const Text("Cancel"),
+          ),
+        ),
+      );
+    } else {
+      showModalBottomSheet(
+        context: context,
+        backgroundColor: theme.scaffoldBackgroundColor,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+        ),
+        builder: (ctx) => SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(height: 8),
+              Container(
+                width: 36,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: AppTheme.systemGray3.withValues(alpha: 0.5),
+                  borderRadius: BorderRadius.circular(2),
