@@ -73,16 +73,4 @@ class MembersProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
-        'status': 'active',
-      });
-      
-      await fetchMembers();
-      return true;
-    } catch (e) {
-      debugPrint('Error registering member: $e');
-      _isLoading = false;
-      notifyListeners();
-      return false;
-    }
-  }
 }
