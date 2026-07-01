@@ -148,41 +148,10 @@ class AppTheme {
         centerTitle: true,
         backgroundColor: systemDarkBg.withOpacity(0.8),
         surfaceTintColor: Colors.transparent,
-        ),
-        headlineMedium: GoogleFonts.plusJakartaSans(
-          color: textVibrant,
-          fontSize: 22,
-          fontWeight: FontWeight.w800,
-          letterSpacing: -0.5,
-        ),
-        titleLarge: GoogleFonts.plusJakartaSans(
-          color: textVibrant,
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-          letterSpacing: -0.3,
-        ),
-        bodyLarge: GoogleFonts.plusJakartaSans(
-          color: textVibrant,
-          fontSize: 16,
-          height: 1.6,
-        ),
-        bodyMedium: GoogleFonts.plusJakartaSans(
-          color: textMuted,
-          fontSize: 14,
-          height: 1.6,
-        ),
-        labelLarge: GoogleFonts.plusJakartaSans(
-          color: textVibrant,
-          fontSize: 12,
-          fontWeight: FontWeight.w800,
-          letterSpacing: 1.5,
-        ),
-      ),
-      appBarTheme: const AppBarTheme(
-        backgroundColor: Colors.transparent,
         elevation: 0,
-        centerTitle: true,
-        iconTheme: IconThemeData(color: textVibrant),
+        titleTextStyle: GoogleFonts.inter(
+          fontSize: 17,
+          fontWeight: FontWeight.w600,
       ),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: Colors.transparent,
