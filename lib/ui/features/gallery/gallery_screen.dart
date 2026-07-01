@@ -1,14 +1,47 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:rtc_mobile/theme/app_theme.dart';
 import 'package:rtc_mobile/widgets/glass_card.dart';
 import 'package:rtc_mobile/widgets/mesh_gradient_background.dart';
+import 'package:rtc_mobile/providers/riverpod_providers.dart';
 import 'package:rtc_mobile/providers/gallery_provider.dart';
+import 'package:rtc_mobile/application/auth/auth_provider.dart';
 
-class GalleryScreen extends StatelessWidget {
+class GalleryScreen extends ConsumerStatefulWidget {
   const GalleryScreen({super.key});
+
+  @override
+  ConsumerState<GalleryScreen> createState() => _GalleryScreenState();
+}
+
+class _GalleryScreenState extends ConsumerState<GalleryScreen> {
+  final ImagePicker _picker = ImagePicker();
+
+  Future<void> _pickAndUploadImage(BuildContext context, GalleryProvider provider) async {
+    final theme = Theme.of(context);
+
+    // Pick source
+    final ImageSource? source = await showModalBottomSheet<ImageSource>(
+      context: context,
+      backgroundColor: ObsidianTheme.surfaceDark,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) => SafeArea(
+        child: Wrap(
+          children: [
+            ListTile(
+              leading: Icon(Icons.camera_alt_outlined, color: ObsidianTheme.secondaryGold),
+              title: Text("Take Photo", style: TextStyle(color: ObsidianTheme.textVibrant)),
+              onTap: () => Navigator.pop(context, ImageSource.camera),
+            ),
+            ListTile(
+              leading: Icon(Icons.photo_library_outlined, color: ObsidianTheme.secondaryGold),
 
   @override
   Widget build(BuildContext context) {
