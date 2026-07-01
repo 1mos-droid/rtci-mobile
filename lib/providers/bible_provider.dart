@@ -148,20 +148,41 @@ class BibleProvider extends ChangeNotifier {
                 verseMap[vId]!['text'] = (verseMap[vId]!['text'] as String) + (item['text'] ?? '');
               }
               if (item['items'] is List) {
-              walk(item['items']);
-            }
-          } else if (item is List) {
-            for (var subItem in item) {
-              walk(subItem);
+                walk(item['items'] as List<dynamic>);
+              }
             }
           }
         }
 
-        walk(data['content']);
-        _verses = extractedVerses;
+        if (data['content'] is List) {
+          walk(data['content'] as List<dynamic>);
+        }
+
+        final List<BibleVerse> versesList = [];
+        for (var id in verseOrder) {
+          final map = verseMap[id]!;
+          final String rawText = map['text'] as String;
+          final String text = version == 'GENZ' ? translateToGenZ(rawText) : rawText;
+          final int? vNum = int.tryParse(map['number'] as String);
+          
+          final parts = chapterId.split('.');
+          final bookName = parts.isNotEmpty ? parts[0] : '';
+          final int chapterNum = parts.length > 1 ? (int.tryParse(parts[1]) ?? 1) : 1;
+
+          versesList.add(BibleVerse(
+            id: id,
+            book: bookName,
+            chapter: chapterNum,
+            verse: vNum ?? 1,
+            content: text,
+          ));
+        }
+        _verses = versesList;
+      } else {
+        debugPrint('Failed to load chapter content: ${response.statusCode}');
+        _verses = [];
       }
     } catch (e) {
-      debugPrint('Error fetching chapter content: $e');
     } finally {
       _isLoading = false;
       notifyListeners();
