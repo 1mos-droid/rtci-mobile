@@ -72,3 +72,18 @@ class CustomLogoLoader extends StatelessWidget {
           ),
           if (message != null) ...[
             const SizedBox(height: 24),
+            Text(
+              message!.toUpperCase(),
+              style: theme.textTheme.labelLarge?.copyWith(
+                color: colorScheme.primary,
+                letterSpacing: 3.0,
+                fontWeight: FontWeight.w900,
+              ),
+            ).animate(onPlay: (controller) => controller.repeat(reverse: true))
+             .fadeIn(duration: 1.seconds),
+          ],
+        ],
+      ),
+    );
+  }
+}
