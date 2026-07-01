@@ -156,9 +156,9 @@ class _MainTabScreenState extends State<MainTabScreen> {
                 letterSpacing: -0.2,
               ),
             ),
+          ],
         ),
       ),
     );
   }
 }
-
