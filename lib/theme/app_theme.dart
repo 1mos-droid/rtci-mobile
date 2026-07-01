@@ -283,7 +283,44 @@ class AppTheme {
         letterSpacing: -0.1,
       ),
       labelLarge: GoogleFonts.inter(
+        color: primaryColor,
+        fontSize: 12,
+        fontWeight: FontWeight.w500,
+        letterSpacing: 0.0,
       ),
     );
   }
 }
+
+class AdaptiveColor extends Color {
+  final int lightValue;
+  final int darkValue;
+
+  const AdaptiveColor(this.lightValue, this.darkValue) : super(lightValue);
+
+  @override
+  int get value => ObsidianTheme.isDark ? darkValue : lightValue;
+}
+
+class ObsidianTheme {
+  static ThemeMode currentThemeMode = ThemeMode.system;
+
+  static bool get isDark {
+    if (currentThemeMode == ThemeMode.dark) return true;
+    if (currentThemeMode == ThemeMode.light) return false;
+    try {
+      final binding = WidgetsBinding.instance;
+      final brightness = binding.platformDispatcher.platformBrightness;
+      return brightness == Brightness.dark;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  static Color get backgroundDark => isDark ? const Color(0xFF050505) : const Color(0xFFF2F2F7);
+  static Color get surfaceDark => isDark ? const Color(0xFF0F0F11) : const Color(0xFFFFFFFF);
+  static Color get primaryCrimson => isDark ? const Color(0xFF8B1E31) : const Color(0xFFC92A3E);
+  static Color get secondaryGold => const Color(0xFFEAB308);
+  static Color get textVibrant => isDark ? const Color(0xFFF8F9FA) : const Color(0xFF1C1C1E);
+  static Color get textMuted => isDark ? const Color(0xFF88888E) : const Color(0xFF6C6C70);
+  static Color get borderHairline => isDark ? const Color(0x14FFFFFF) : const Color(0x1F000000);
