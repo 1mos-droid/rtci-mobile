@@ -48,16 +48,37 @@ class _MainTabScreenState extends State<MainTabScreen> {
                   decoration: BoxDecoration(
                     color: (isDark ? const Color(0xFF1E1E1E) : Colors.white).withOpacity(0.85),
                     borderRadius: BorderRadius.circular(32),
+                    border: Border.all(
+                      color: isDark ? Colors.white.withOpacity(0.08) : Colors.black.withOpacity(0.05),
+                      width: 1.0,
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(isDark ? 0.3 : 0.05),
+                        blurRadius: 20,
+                        offset: const Offset(0, 8),
+                      ),
+                    ],
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      _buildNavItem(0, Icons.home_rounded, "Home"),
+                      _buildNavItem(1, Icons.auto_stories_rounded, "Bible"),
+                      _buildNavItem(2, Icons.favorite_rounded, "Give"),
+                      _buildNavItem(3, Icons.menu_rounded, "Menu"),
+                    ],
+                  ),
+                ),
+              ),
+            ),
           ),
         ),
-        child: ClipRRect(
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
-            child: BottomNavigationBar(
-              currentIndex: _currentIndex,
-              onTap: (index) {
-                setState(() {
-                  _currentIndex = index;
+      );
+    } else {
+      return Scaffold(
+        body: IndexedStack(
+          index: _currentIndex,
                 });
               },
               type: BottomNavigationBarType.fixed,
