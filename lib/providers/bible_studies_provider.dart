@@ -169,4 +169,8 @@ class BibleStudiesProvider extends ChangeNotifier {
       debugPrint('Error adding study resource: $e');
       return false;
     } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
 }
