@@ -304,6 +304,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                   style: GoogleFonts.cinzel(fontSize: 22, fontWeight: FontWeight.bold, color: ObsidianTheme.textVibrant),
                 ),
                 const SizedBox(height: 8),
+                Text(
+                  "Your generous gift of GHC ${amount.toStringAsFixed(0)} has been processed.",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: ObsidianTheme.textMuted, height: 1.4),
   @override
   Widget build(BuildContext context) {
     final finance = ref.watch(financialProvider);
