@@ -344,4 +344,8 @@ class FinancialsScreen extends ConsumerWidget {
                               ),
                             );
                           }
+                        }
+                      },
+                      child: const Text("SAVE TRANSACTION"),
+                    ),
 }
