@@ -252,4 +252,8 @@ class FinancialsScreen extends ConsumerWidget {
                           });
                         }
                       },
+                    ),
+                    const SizedBox(height: 16),
+                    // Category
+                    DropdownButtonFormField<String>(
 }
