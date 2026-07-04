@@ -147,6 +147,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               'assets/church_sanctuary.jpg',
               fit: BoxFit.cover,
             ),
+          ),
+          Positioned.fill(
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 8.0, sigmaY: 8.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
