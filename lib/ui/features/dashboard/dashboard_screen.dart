@@ -1107,6 +1107,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                           labelText: "Cover Image URL (Optional)",
                           prefixIcon: Icon(Icons.image_outlined),
                         ),
+                      ),
+                      const SizedBox(height: 16),
+                      TextFormField(
+                        controller: tagController,
                   ),
                 ),
               ],
