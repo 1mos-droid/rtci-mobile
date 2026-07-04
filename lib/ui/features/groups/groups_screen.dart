@@ -103,6 +103,10 @@ class _GroupsScreenState extends ConsumerState<GroupsScreen> {
                         DropdownMenuItem(value: 'ministry', child: Text("Department")),
                       ],
                       onChanged: (val) {
+                        if (val != null) {
+                          setDialogState(() => selectedType = val);
+                        }
+                      },
   @override
   Widget build(BuildContext context) {
     final groupsProv = ref.watch(groupsProvider);
