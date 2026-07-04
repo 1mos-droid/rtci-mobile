@@ -182,3 +182,7 @@ class ContentCard extends StatelessWidget {
                             return Container(
                               height: 180,
                               color: theme.colorScheme.primary.withOpacity(0.05),
+                              child: Center(
+                                child: Icon(
+                                  Icons.image_not_supported_outlined,
+                                  color: theme.colorScheme.primary.withOpacity(0.4),
