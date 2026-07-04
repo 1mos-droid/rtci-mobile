@@ -212,6 +212,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                   color: ObsidianTheme.textMuted,
                   fontSize: 14,
                   height: 1.4,
+                ),
+              ),
+            ],
+          ),
   @override
   Widget build(BuildContext context) {
     final finance = ref.watch(financialProvider);
