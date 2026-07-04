@@ -131,10 +131,6 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                   height: 1.4,
                                 ),
                               ).animate().fadeIn(delay: 100.ms, duration: 500.ms).slideY(begin: 0.2, end: 0, curve: Curves.easeOutQuad),
-                                    icon: Icon(
-                                      _showConfirmPassword ? Icons.visibility_off_rounded : Icons.visibility_rounded,
-                                      color: ObsidianTheme.textMuted,
-                                      size: 20,
                                     ),
                                     onPressed: () => setState(() => _showConfirmPassword = !_showConfirmPassword),
                                   ),
