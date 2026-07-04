@@ -167,8 +167,8 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                         prefixIcon: Icon(Icons.email_outlined, color: ObsidianTheme.textMuted, size: 20),
                                         filled: true,
                                         fillColor: isDark ? const Color(0xFF151B2C) : Colors.black.withOpacity(0.02),
-                                      : Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
+                                      ),
+                                      validator: (val) {
                                           children: [
                                             FaIcon(
                                               FontAwesomeIcons.google, 
