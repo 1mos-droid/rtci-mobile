@@ -129,6 +129,10 @@ class WelcomeScreen extends StatelessWidget {
                           color: ObsidianTheme.textMuted,
                           height: 1.5,
                         ),
+                      ),
+                      const SizedBox(height: 28),
+                      
+                      CustomPrimaryButton(
                     ],
                   ),
                   child: Center(
