@@ -86,3 +86,7 @@ class _CustomPrimaryButtonState extends State<CustomPrimaryButton> with SingleTi
               ? const SizedBox(
                   width: 24,
                   height: 24,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2.5,
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                  ),
