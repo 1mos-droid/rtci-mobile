@@ -48,3 +48,8 @@ void main() {
           ),
         ),
       );
+
+      expect(find.text('TESTING INITIALIZATION...'), findsOneWidget);
+    });
+  });
+}
