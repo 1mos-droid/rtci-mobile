@@ -500,6 +500,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                     ],
                   ),
                 ),
+
+                const SizedBox(height: 40),
+
+                CustomPrimaryButton(
           ),
         ),
       ),
