@@ -27,8 +27,8 @@ class WelcomeScreen extends StatelessWidget {
               children: [
                 const Spacer(flex: 2),
                 
-              Center(
-                child: Container(
+                // Elegant brand logo with floating glow animation
+                Center(
                   width: 90,
                   height: 90,
                   decoration: BoxDecoration(
