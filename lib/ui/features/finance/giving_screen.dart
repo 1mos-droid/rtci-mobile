@@ -328,8 +328,8 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
 
-    return MeshGradientBackground(
-      child: Scaffold(
+    return Scaffold(
+      extendBodyBehindAppBar: true,
         backgroundColor: Colors.transparent,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
