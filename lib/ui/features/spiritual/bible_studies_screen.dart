@@ -479,6 +479,10 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
                   ),
                   if (isAdmin)
                     IconButton(
+                      icon: const Icon(Icons.delete_outline, color: Colors.redAccent, size: 20),
+                      onPressed: () => ref.read(bibleStudiesProvider).deleteResource(res.id),
+                    ),
+                ],
               ),
             ),
           ),
