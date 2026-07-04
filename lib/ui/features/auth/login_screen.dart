@@ -449,6 +449,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             child: Align(
               alignment: Alignment.topLeft,
               child: Padding(
+                padding: const EdgeInsets.only(left: 12, top: 8),
+                child: CircleAvatar(
+                  backgroundColor: Colors.black.withOpacity(0.3),
+                  child: IconButton(
       ),
     );
   }
