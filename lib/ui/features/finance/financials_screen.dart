@@ -312,4 +312,8 @@ class FinancialsScreen extends ConsumerWidget {
                       ),
                       onPressed: () async {
                         if (formKey.currentState!.validate()) {
+                          final amount = double.parse(amountController.text.trim());
+                          final desc = descController.text.trim();
+                          
+                          Navigator.pop(ctx); // Close sheet
 }
