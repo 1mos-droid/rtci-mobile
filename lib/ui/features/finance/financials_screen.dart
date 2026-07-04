@@ -223,4 +223,8 @@ class FinancialsScreen extends ConsumerWidget {
                         if (val == null || val.isEmpty) return "Please enter amount";
                         if (double.tryParse(val) == null) return "Enter a valid number";
                         return null;
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                    // Transaction Type
 }
