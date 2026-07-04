@@ -28,6 +28,10 @@ class FinancialProvider extends ChangeNotifier {
     // Normal members and dept heads see their own contributions OR shared admin expenses
     return completed.where((t) {
       final isOwn = t.memberId == user.id || t.memberId == user.email;
+      final isShared = t.type == 'expense' || t.isShared;
+      return isOwn || isShared;
+    }).toList();
+  }
   bool get isLoading => _isLoading;
   double get totalRevenue => _transactions.where((t) => t.type == 'contribution').fold(0, (sum, item) => sum + item.amount);
   double get totalExpense => _transactions.where((t) => t.type == 'expense').fold(0, (sum, item) => sum + item.amount);
