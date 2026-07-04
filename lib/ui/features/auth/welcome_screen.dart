@@ -41,6 +41,10 @@ class WelcomeScreen extends StatelessWidget {
                       ),
                       boxShadow: [
                         BoxShadow(
+                          color: AppTheme.accentGold.withOpacity(0.15),
+                          blurRadius: 24,
+                          offset: const Offset(0, 8),
+                        )
                     ],
                   ),
                   child: Center(
