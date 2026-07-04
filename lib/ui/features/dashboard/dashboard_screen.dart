@@ -862,6 +862,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
               if (announcements.isEmpty)
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 40),
+                  child: Center(
+                    child: Column(
+                      children: [
+                        Icon(Icons.notifications_off_outlined, size: 48, color: ObsidianTheme.textMuted),
                   ),
                 ),
                 Text(
