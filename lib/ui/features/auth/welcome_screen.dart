@@ -200,10 +200,6 @@ class WelcomeScreen extends StatelessWidget {
                 ),
               ],
             ),
-                      color: ObsidianTheme.secondaryGold,
-                      fontStyle: FontStyle.italic,
-                    ),
-              ).animate().fadeIn(delay: 400.ms, duration: 600.ms),
               
               const SizedBox(height: 12),
               
