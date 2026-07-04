@@ -39,3 +39,7 @@ class SkeletonContainer extends StatelessWidget {
 
     return container
         .animate(onPlay: (controller) => controller.repeat())
+        .shimmer(
+          color: highlightColor,
+          duration: 1.5.seconds,
+        );
