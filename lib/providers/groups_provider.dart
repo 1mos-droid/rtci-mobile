@@ -200,4 +200,8 @@ class GroupsProvider extends ChangeNotifier {
           .where('group_id', isEqualTo: groupId)
           .get();
       for (final doc in membershipsSnapshot.docs) {
+        await doc.reference.delete();
+      }
+      
+      await fetchGroups();
 }
