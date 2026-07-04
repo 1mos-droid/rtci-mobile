@@ -453,8 +453,8 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                           Row(
                             children: [
                               if (isLeader)
-                                    padding: const EdgeInsets.only(bottom: 12),
-                                    child: _buildEventCard(context, e),
+                                IconButton(
+                                  icon: const Icon(Icons.add_circle_outline_rounded, size: 20),
                                   ),
                                 )
                                 .toList(),
