@@ -173,3 +173,7 @@ class _ExportingDialogState extends State<_ExportingDialog> {
     return AlertDialog(
       backgroundColor: isDark ? const Color(0xFF1E202C) : Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+      content: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
