@@ -200,10 +200,6 @@ class WelcomeScreen extends StatelessWidget {
                 ),
               ],
             ),
-              ).animate().fadeIn(delay: 600.ms, duration: 600.ms),
-              
-              const Spacer(flex: 3),
-              
               // Pure clean white card plate
               GlassCard(
                 padding: const EdgeInsets.all(26),
