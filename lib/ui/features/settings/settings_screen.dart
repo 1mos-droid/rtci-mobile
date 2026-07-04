@@ -167,6 +167,10 @@ class SettingsScreen extends ConsumerWidget {
                                       builder: (_) => AlertDialog.adaptive(
                                         title: const Text("Error"),
                                         content: Text("Unable to trigger password reset: ${e.toString()}"),
+                                        actions: [
+                                          TextButton(
+                                            child: const Text("OK"),
+                                            onPressed: () => Navigator.pop(context),
                           ),
                           ListTile(
                             contentPadding: EdgeInsets.zero,
