@@ -380,4 +380,8 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
+                width: 80,
+                height: 80,
+                decoration: BoxDecoration(
+                  color: Colors.green.withOpacity(0.1),
 }
