@@ -1019,6 +1019,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
               borderRadius: 24,
               padding: EdgeInsets.fromLTRB(24, 24, 24, MediaQuery.of(context).viewInsets.bottom + 24),
               child: Form(
+                key: formKey,
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
                   ),
                 ),
               ],
