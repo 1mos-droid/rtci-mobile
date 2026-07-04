@@ -321,6 +321,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           
                           // Forgot Password link
                           Align(
+                            alignment: Alignment.centerRight,
+                            child: TextButton(
+                              onPressed: _handleForgotPassword,
+                              style: TextButton.styleFrom(
                       ),
                     ),
                   ).animate().fadeIn(delay: 450.ms, duration: 500.ms),
