@@ -293,9 +293,7 @@ class AppTheme {
       ),
       bodyLarge: _getTextStyle(
         color: primaryColor,
-        fontSize: 17,
-        letterSpacing: -0.4,
-      ),
+        fontSize: 16,
       bodyMedium: GoogleFonts.inter(
         color: primaryColor,
         fontSize: 15,
