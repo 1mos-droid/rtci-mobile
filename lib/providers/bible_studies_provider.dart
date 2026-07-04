@@ -189,4 +189,5 @@ class BibleStudiesProvider extends ChangeNotifier {
       _isLoading = false;
       notifyListeners();
     }
+  }
 }

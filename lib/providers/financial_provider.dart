@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rtc_mobile/models/giving_transaction.dart';
+import 'package:rtc_mobile/application/auth/auth_provider.dart';
 
 class FinancialProvider extends ChangeNotifier {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final Ref _ref;
   
   List<GivingTransaction> _transactions = [];
   bool _isLoading = false;
