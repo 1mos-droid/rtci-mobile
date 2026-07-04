@@ -90,13 +90,13 @@ class _MainTabScreenState extends State<MainTabScreen> {
       onTap: () => setState(() => _currentIndex = index),
       behavior: HitTestBehavior.opaque,
       child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
         curve: Curves.easeInOut,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
           color: isSelected 
-              ? activeColor.withOpacity(isDark ? 0.15 : 0.08)
+              ? activeColor.withOpacity(isDark ? 0.12 : 0.08)
               : Colors.transparent,
-          borderRadius: BorderRadius.circular(20),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
