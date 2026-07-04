@@ -121,4 +121,8 @@ class BibleStudiesProvider extends ChangeNotifier {
   }
 
   Future<bool> deleteModule(String moduleId) async {
+    _isLoading = true;
+    notifyListeners();
+
+    try {
 }
