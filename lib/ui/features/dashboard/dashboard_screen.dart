@@ -67,6 +67,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                 title: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    Text(
+                      "Sanctuary",
+                      style: GoogleFonts.cinzel(
+                        fontWeight: FontWeight.bold,
                 ),
               ),
             ),
