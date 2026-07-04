@@ -284,6 +284,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               prefixIcon: Icon(Icons.email_outlined, color: ObsidianTheme.textMuted, size: 20),
                               filled: true,
                               fillColor: isDark ? const Color(0xFF0B0F19) : const Color(0xFFF8FAFC),
+                            ),
+                            validator: (val) {
+                              if (val == null || val.isEmpty) return "Please enter your email";
+                              if (!val.contains('@')) return "Please enter a valid email";
                       ),
                     ),
                   ).animate().fadeIn(delay: 450.ms, duration: 500.ms),
