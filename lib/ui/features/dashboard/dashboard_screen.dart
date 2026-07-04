@@ -179,8 +179,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                     fontWeight: FontWeight.w800,
                                     color: ObsidianTheme.textMuted,
                                     letterSpacing: 1.5,
+                                  ),
+                                ),
+                                const SizedBox(height: 2),
                                 Text(
-                                  (user?.name.isNotEmpty ?? false)
                                       ? user!.name
                                       : 'User',
                                   style: GoogleFonts.cinzel(
