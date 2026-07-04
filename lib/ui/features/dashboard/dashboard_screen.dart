@@ -991,6 +991,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error contacting member: $e')),
+      );
+    }
+  }
+
                   ),
                 ),
               ],
