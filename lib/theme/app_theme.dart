@@ -81,7 +81,8 @@ class AppTheme {
           elevation: 0,
           textStyle: _getTextStyle(
             fontWeight: FontWeight.w700,
-            letterSpacing: -0.4,
+            fontSize: 16,
+            letterSpacing: 0.1,
           ),
         ),
       ),
@@ -89,7 +90,6 @@ class AppTheme {
         style: OutlinedButton.styleFrom(
           foregroundColor: iosPrimaryLight,
           side: const BorderSide(color: iosPrimaryLight, width: 1.5),
-          minimumSize: const Size.fromHeight(52),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           elevation: 0,
           textStyle: GoogleFonts.inter(
