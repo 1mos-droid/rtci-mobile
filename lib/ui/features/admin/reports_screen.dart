@@ -120,3 +120,7 @@ class _ExportingDialog extends StatefulWidget {
     required this.format,
     required this.onComplete,
   });
+
+  @override
+  State<_ExportingDialog> createState() => _ExportingDialogState();
+}
