@@ -882,6 +882,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                   ),
                   child: ListView.builder(
                     shrinkWrap: true,
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: announcements.length,
+                    itemBuilder: (context, index) {
+                      final msg = announcements[index];
                   ),
                 ),
                 Text(
