@@ -68,6 +68,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                     color: AppTheme.accentGold.withOpacity(0.12),
                     shape: BoxShape.circle,
                   ),
+                  child: const Icon(Icons.shield_outlined, color: AppTheme.accentGold, size: 24),
+                ),
+              ),
+              const SizedBox(height: 16),
               Text(
                 "Authorize Giving",
                 textAlign: TextAlign.center,
