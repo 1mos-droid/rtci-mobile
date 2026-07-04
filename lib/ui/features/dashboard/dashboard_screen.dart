@@ -657,16 +657,12 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
           Text(
             subtitle,
             style: theme.textTheme.bodySmall?.copyWith(fontSize: 10),
-              fontSize: 10,
-              color: ObsidianTheme.textMuted,
-            ),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildEventCard(BuildContext context, ChurchEvent event) {
     final day = DateFormat('dd').format(event.date);
     final month = DateFormat('MMM').format(event.date).toUpperCase();
 
