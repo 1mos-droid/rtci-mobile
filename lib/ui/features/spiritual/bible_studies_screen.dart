@@ -335,6 +335,10 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
                                 backgroundColor: isDark ? const Color(0xFF1E202C) : Colors.white,
                                 title: Text(
                                   module.title,
+                                  style: GoogleFonts.cinzel(fontWeight: FontWeight.bold, color: ObsidianTheme.textVibrant),
+                                ),
+                                content: SingleChildScrollView(
+                                  child: Column(
                 )
               ],
             ),
