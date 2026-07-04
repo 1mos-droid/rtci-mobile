@@ -88,6 +88,10 @@ class HelpScreen extends StatelessWidget {
                             if (await canLaunchUrl(emailLaunchUri)) {
                               await launchUrl(emailLaunchUri);
                             } else {
+                              if (context.mounted) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(content: Text("Could not open default mail client.")),
+                                );
                           child: const Text("CONTACT SUPPORT"),
                         ),
                       )
