@@ -1075,6 +1075,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                 prefixIcon: Icon(Icons.category_outlined),
                               ),
                               items: categories.map((c) => DropdownMenuItem(
+                                value: c,
+                                child: Text(c),
+                              )).toList(),
+                              onChanged: (val) {
                   ),
                 ),
               ],
