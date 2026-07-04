@@ -384,4 +384,8 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                 height: 80,
                 decoration: BoxDecoration(
                   color: Colors.green.withOpacity(0.1),
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(Icons.check_circle_outline_rounded, size: 48, color: Colors.green),
+              ).animate().scale(duration: 500.ms, curve: Curves.elasticOut),
 }
