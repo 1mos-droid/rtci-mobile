@@ -305,6 +305,10 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                                   ),
                                                   const SizedBox(width: 12),
                                                   Text(
+                                                    "Google Account",
+                                                    style: TextStyle(
+                                                      color: isDark ? Colors.black : Colors.white,
+                                                      fontWeight: FontWeight.w700,
                                 ),
                               ),
                             ],
