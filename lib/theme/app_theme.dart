@@ -391,3 +391,7 @@ class Neumorphic {
               ? [
                   const Color(0xFF0F1423), 
                   bgColor,
+                ]
+              : [
+                  const Color(0xFFF1F5F9),
+                  bgColor,
