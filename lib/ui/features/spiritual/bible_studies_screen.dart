@@ -339,6 +339,10 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
                                 ),
                                 content: SingleChildScrollView(
                                   child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      if (module.subtitle != null && module.subtitle!.isNotEmpty) ...[
                 )
               ],
             ),
