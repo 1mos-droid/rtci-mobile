@@ -133,6 +133,10 @@ class WelcomeScreen extends StatelessWidget {
                       const SizedBox(height: 28),
                       
                       CustomPrimaryButton(
+                        text: "Sign In",
+                        icon: Icons.login_rounded,
+                        backgroundColor: theme.colorScheme.primary,
+                        onPressed: () {
                     ],
                   ),
                   child: Center(
