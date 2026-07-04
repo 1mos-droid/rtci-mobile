@@ -995,6 +995,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
     }
   }
 
+  void _showAddSermonSheet(BuildContext context) {
+    final formKey = GlobalKey<FormState>();
+    final titleController = TextEditingController();
+    final speakerController = TextEditingController();
                   ),
                 ),
               ],
