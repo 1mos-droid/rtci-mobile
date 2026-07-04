@@ -327,6 +327,10 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
                     Expanded(
                       child: OutlinedButton(
                         onPressed: () {
+                          showAdaptiveDialog(
+                            context: context,
+                            builder: (dialogCtx) {
+                              final isDark = Theme.of(context).brightness == Brightness.dark;
                 )
               ],
             ),
