@@ -93,6 +93,10 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
                   Navigator.pop(dialogContext);
                   final success = await ref.read(bibleStudiesProvider).addModule(
                     title: title,
+                    subtitle: subtitle.isEmpty ? "" : subtitle,
+                    description: desc,
+                    imageUrl: img.isEmpty ? "https://images.unsplash.com/photo-1504052434569-70ad58c6744a" : img,
+                  );
   @override
   Widget build(BuildContext context) {
     final libProv = ref.watch(bibleStudiesProvider);
