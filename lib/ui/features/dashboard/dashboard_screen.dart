@@ -248,8 +248,8 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                     style: TextStyle(color: ObsidianTheme.textMuted),
                                   ),
                                 )
-                          : Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              : Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   "\"${insights.currentInsight!.content}\"",
