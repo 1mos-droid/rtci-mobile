@@ -403,6 +403,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
 
                     const SizedBox(height: 28),
 
+                    // Feed Filter Tabs
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      physics: const BouncingScrollPhysics(),
                       ),
                     ),
                     const SizedBox(height: 12),
