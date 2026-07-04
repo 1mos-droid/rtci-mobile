@@ -178,3 +178,7 @@ class StartupLoaderScreen extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: isDark ? const Color(0xFF151B2C).withOpacity(0.5) : Colors.black.withOpacity(0.01),
                     shape: BoxShape.circle,
+                    border: Border.all(
+                      color: isDark ? Colors.white.withOpacity(0.04) : Colors.black.withOpacity(0.02),
+                      width: 1.0,
+                    ),
