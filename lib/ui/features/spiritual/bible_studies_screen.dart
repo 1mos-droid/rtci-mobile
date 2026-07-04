@@ -309,6 +309,7 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
                 ),
                 const SizedBox(height: 16),
                 Text(module.title, style: Theme.of(context).textTheme.headlineMedium),
+                if (module.subtitle != null && module.subtitle!.isNotEmpty) ...[
                   const SizedBox(height: 4),
                   Text(module.subtitle!, style: Theme.of(context).textTheme.bodyMedium),
                 ],
@@ -321,8 +322,7 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
                   borderRadius: BorderRadius.circular(4),
                 ),
                 const SizedBox(height: 24),
-                SizedBox(
-                  width: double.infinity,
+                Row(
                   child: OutlinedButton(
                     onPressed: () {},
                     child: const Text("VIEW SYLLABUS"),
