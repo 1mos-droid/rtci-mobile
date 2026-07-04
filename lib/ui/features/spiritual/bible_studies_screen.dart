@@ -416,6 +416,10 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
           padding: EdgeInsets.only(bottom: 12.0),
           child: GlassCard(
             padding: EdgeInsets.all(16),
+            child: Row(
+              children: [
+                SkeletonContainer(width: 40, height: 40, borderRadius: 20),
+                SizedBox(width: 16),
     }
 
     if (libProv.resources.isEmpty) {
