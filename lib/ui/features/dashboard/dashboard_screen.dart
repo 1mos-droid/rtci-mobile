@@ -878,6 +878,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
               else
                 ConstrainedBox(
                   constraints: BoxConstraints(
+                    maxHeight: MediaQuery.of(context).size.height * 0.6,
+                  ),
+                  child: ListView.builder(
+                    shrinkWrap: true,
                   ),
                 ),
                 Text(
