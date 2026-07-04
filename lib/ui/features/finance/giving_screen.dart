@@ -288,6 +288,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
             padding: const EdgeInsets.all(32),
             child: Column(
               mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: 72,
+                  height: 72,
   @override
   Widget build(BuildContext context) {
     final finance = ref.watch(financialProvider);
