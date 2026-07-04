@@ -624,9 +624,9 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
       width: 150,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: ObsidianTheme.surfaceDark.withValues(alpha: 0.6),
+        color: isDark ? const Color(0xFF1E293B) : Colors.white,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: ObsidianTheme.borderHairline),
+        border: Border.all(
       ),
       padding: const EdgeInsets.all(16),
       child: Column(
