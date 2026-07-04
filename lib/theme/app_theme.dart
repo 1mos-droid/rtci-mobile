@@ -228,6 +228,10 @@ class AppTheme {
     FontWeight? fontWeight,
     double? letterSpacing,
     FontStyle? fontStyle,
+    double? height,
+  }) {
+    try {
+      if (Platform.environment.containsKey('FLUTTER_TEST')) {
     );
   }
 
