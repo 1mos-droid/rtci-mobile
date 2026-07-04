@@ -701,6 +701,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                               speaker,
                               style: const TextStyle(color: AppTheme.accentGold, fontSize: 13, fontWeight: FontWeight.w500),
                             ),
+                          ],
+                        ),
+                      ),
+                      IconButton(
               ),
             ),
             child: Column(
