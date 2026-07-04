@@ -387,7 +387,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                             title: "INTERCESSIONS",
                             value: "${prayers.prayers.length}",
                             subtitle: "Active Petitions",
-                            color: ObsidianTheme.secondaryGold,
+                            color: AppTheme.accentGold,
                           ),
                           const SizedBox(width: 12),
                           _buildMetricCard(
@@ -399,7 +399,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                           ),
                         ],
                       ),
-                    ).animate().fadeIn(delay: 300.ms, duration: 500.ms),
+                    ).animate().fadeIn(delay: 200.ms, duration: 500.ms),
 
                     const SizedBox(height: 24),
 
