@@ -1063,6 +1063,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                         validator: (val) => val == null || val.trim().isEmpty ? "Speaker is required" : null,
                       ),
                       const SizedBox(height: 16),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: DropdownButtonFormField<String>(
                   ),
                 ),
               ],
