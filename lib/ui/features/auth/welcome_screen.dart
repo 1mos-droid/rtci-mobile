@@ -89,6 +89,10 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                 ).animate().fadeIn(delay: 400.ms, duration: 600.ms),
                 
+                const SizedBox(height: 14),
+                
+                Text(
+                  "CONNECTING SOULS • SERVING COMMUNITIES",
                     ],
                   ),
                   child: Center(
