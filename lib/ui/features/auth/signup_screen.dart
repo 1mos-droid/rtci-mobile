@@ -102,7 +102,9 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                     icon: Icon(Icons.arrow_back_ios_new_rounded, color: ObsidianTheme.textVibrant, size: 20),
                     onPressed: () => Navigator.pop(context),
                   ),
-                        
+                ),
+              ),
+              Expanded(
                         Text(
                           "Create Account",
                           style: Theme.of(context).textTheme.displayMedium,
