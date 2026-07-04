@@ -663,10 +663,6 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
     );
   }
 
-    final day = DateFormat('dd').format(event.date);
-    final month = DateFormat('MMM').format(event.date).toUpperCase();
-
-    return GlassCard(
       padding: const EdgeInsets.all(20),
       child: Row(
         children: [
