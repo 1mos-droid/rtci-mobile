@@ -146,3 +146,7 @@ class ContentCard extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 8),
       decoration: BoxDecoration(
         color: isDark ? const Color(0xFF1E293B) : Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: isDark ? Colors.white.withOpacity(0.06) : Colors.black.withOpacity(0.04),
+          width: 1.0,
