@@ -693,6 +693,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            Text(
+                              title,
+                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: ObsidianTheme.textVibrant),
+                            ),
               ),
             ),
             child: Column(
