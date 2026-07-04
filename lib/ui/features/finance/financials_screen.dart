@@ -308,4 +308,8 @@ class FinancialsScreen extends ConsumerWidget {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: ObsidianTheme.primaryCrimson,
                         foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                      ),
+                      onPressed: () async {
+                        if (formKey.currentState!.validate()) {
 }
