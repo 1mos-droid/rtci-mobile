@@ -177,7 +177,7 @@ class _GroupsScreenState extends ConsumerState<GroupsScreen> {
             onPressed: () => Navigator.pop(context),
           ),
           title: Text(
-            "Church Directory",
+            "Groups Directory",
             style: GoogleFonts.cinzel(
               fontWeight: FontWeight.bold,
               fontSize: 18,
@@ -186,6 +186,8 @@ class _GroupsScreenState extends ConsumerState<GroupsScreen> {
           ),
           centerTitle: true,
         ),
+        floatingActionButton: isAdmin ? FloatingActionButton(
+          backgroundColor: ObsidianTheme.primaryCrimson,
         body: SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
