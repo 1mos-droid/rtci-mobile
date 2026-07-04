@@ -274,6 +274,10 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                         ),
                                         Expanded(child: Divider(color: ObsidianTheme.borderHairline)),
                                       ],
+                                    ),
+                                    
+                                    const SizedBox(height: 20),
+                                    
                                             ),
                                           ],
                                         ),
