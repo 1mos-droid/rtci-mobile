@@ -224,6 +224,10 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                       ),
                                       validator: (val) {
                                         if (val == null || val.isEmpty) return "Please confirm your password";
+                                        if (val != _passwordController.text) return "Passwords do not match";
+                                        return null;
+                                      },
+                                    ),
                                             ),
                                             const SizedBox(width: 12),
                                             Text(
