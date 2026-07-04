@@ -161,3 +161,6 @@ class _ExportingDialogState extends State<_ExportingDialog> {
         }
         return false;
       }
+      return true;
+    });
+  }
