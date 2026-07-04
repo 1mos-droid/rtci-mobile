@@ -143,10 +143,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         children: [
           // 1. Background (Upper Section) Image with Blur
           Positioned.fill(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios_new, color: ObsidianTheme.textVibrant, size: 18),
             onPressed: () => Navigator.pop(context),
           ),
         ),
