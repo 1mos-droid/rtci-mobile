@@ -490,6 +490,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                 )
                               : ListView.builder(
                                   shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: sermonsProv.sermons.length,
+                                  itemBuilder: (context, index) {
+                                    final s = sermonsProv.sermons[index];
                   ],
                 ),
               ),
