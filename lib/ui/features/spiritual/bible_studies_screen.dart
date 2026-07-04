@@ -121,6 +121,10 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
     showDialog(
       context: context,
       builder: (dialogContext) {
+        final isDark = Theme.of(context).brightness == Brightness.dark;
+        return AlertDialog(
+          backgroundColor: isDark ? const Color(0xFF1E202C) : const Color(0xFFE0E5EC),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
   @override
   Widget build(BuildContext context) {
     final libProv = ref.watch(bibleStudiesProvider);
