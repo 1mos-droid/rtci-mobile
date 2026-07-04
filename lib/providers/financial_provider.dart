@@ -135,5 +135,9 @@ class FinancialProvider extends ChangeNotifier {
       await fetchTransactions();
       return true;
     } catch (e) {
+      debugPrint('Error updating transaction status: $e');
+      return false;
+    } finally {
+      _isLoading = false;
   }
 }
