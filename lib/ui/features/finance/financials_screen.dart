@@ -105,6 +105,8 @@ class FinancialsScreen extends ConsumerWidget {
                         ),
                       ),
                       childCount: 4,
+                    ),
+                  )
                 : transactions.isEmpty
                   ? SliverFillRemaining(child: Center(child: Text("No records logged.", style: TextStyle(color: ObsidianTheme.textVibrant))))
                   : SliverList(
@@ -159,4 +161,6 @@ class FinancialsScreen extends ConsumerWidget {
       ),
     );
   }
+
+  void _showAddTransactionSheet(BuildContext context, WidgetRef ref) {
 }
