@@ -61,6 +61,10 @@ class WelcomeScreen extends StatelessWidget {
                 .animate()
                 .fadeIn(duration: 800.ms)
                 .scaleXY(begin: 0.8, end: 1.0, curve: Curves.easeOutBack),
+                
+                const SizedBox(height: 28),
+                
+                // Church Name Heading
                     ],
                   ),
                   child: Center(
