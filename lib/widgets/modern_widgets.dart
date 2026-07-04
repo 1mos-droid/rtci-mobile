@@ -322,3 +322,8 @@ class DonationChip extends StatelessWidget {
     
     final selectedBg = theme.colorScheme.primary;
     final unselectedBg = isDark ? const Color(0xFF1E293B) : Colors.white;
+
+    final selectedFg = Colors.white;
+    final unselectedFg = isDark ? Colors.white70 : Colors.black87;
+
+    return AnimatedContainer(
