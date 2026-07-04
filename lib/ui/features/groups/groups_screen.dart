@@ -50,6 +50,10 @@ class _GroupsScreenState extends ConsumerState<GroupsScreen> {
     showDialog(
       context: context,
       builder: (dialogContext) {
+        final isDark = Theme.of(context).brightness == Brightness.dark;
+        return StatefulBuilder(
+          builder: (context, setDialogState) {
+            return AlertDialog(
   @override
   Widget build(BuildContext context) {
     final groupsProv = ref.watch(groupsProvider);
