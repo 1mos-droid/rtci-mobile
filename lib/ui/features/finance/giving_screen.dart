@@ -334,7 +334,9 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: Text(
-            style: GoogleFonts.cinzel(fontWeight: FontWeight.bold, fontSize: 24, color: ObsidianTheme.textVibrant),
+          "Giving Portal",
+          style: GoogleFonts.cinzel(
+            fontWeight: FontWeight.bold,
           ),
           centerTitle: true,
         ),
