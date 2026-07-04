@@ -42,8 +42,8 @@ class _MainTabScreenState extends State<MainTabScreen> {
             borderRadius: BorderRadius.circular(24),
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
-                child: Container(
-                  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
                   decoration: BoxDecoration(
                     color: (isDark ? const Color(0xFF1E1E1E) : Colors.white).withOpacity(0.85),
                     borderRadius: BorderRadius.circular(32),
