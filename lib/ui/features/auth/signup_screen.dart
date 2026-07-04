@@ -240,6 +240,10 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                         ),
                                       ),
                                       value: _acceptTerms,
+                                      activeColor: theme.colorScheme.primary,
+                                      checkColor: Colors.white,
+                                      contentPadding: EdgeInsets.zero,
+                                      controlAffinity: ListTileControlAffinity.leading,
                                             ),
                                             const SizedBox(width: 12),
                                             Text(
