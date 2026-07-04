@@ -438,10 +438,6 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
 
                     // Content Feed List
                     if (_selectedCategory == 'All' || _selectedCategory == 'Sermons') ...[
-                    Text(
-                      "UPCOMING THIS WEEK",
-                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                        color: ObsidianTheme.textVibrant,
                         letterSpacing: 1.5,
                       ),
                     ),
