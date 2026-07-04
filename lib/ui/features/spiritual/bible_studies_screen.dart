@@ -109,6 +109,10 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
             ),
           ],
         );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final libProv = ref.watch(bibleStudiesProvider);
