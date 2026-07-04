@@ -297,7 +297,11 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                             final item = care.careQueue[index];
                             return Padding(
                               padding: const EdgeInsets.only(right: 12),
+                              child: Container(
                                 padding: const EdgeInsets.all(16),
+                                decoration: BoxDecoration(
+                                  color: isDark ? const Color(0xFF1E293B) : Colors.white,
+                                  borderRadius: BorderRadius.circular(16),
                                 borderType: GlassBorderType.crimson,
                                 child: SizedBox(
                                   width: 220,
