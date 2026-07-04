@@ -65,6 +65,10 @@ class WelcomeScreen extends StatelessWidget {
                 const SizedBox(height: 28),
                 
                 // Church Name Heading
+                Text(
+                  "Redeemed Transformation",
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.cinzel(
                     ],
                   ),
                   child: Center(
