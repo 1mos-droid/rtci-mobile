@@ -244,4 +244,8 @@ class FinancialsScreen extends ConsumerWidget {
                           setModalState(() {
                             selectedType = val;
                             // Automatically select sensible category
+                            if (selectedType == 'expense') {
+                              selectedCategory = 'Administrative Expense';
+                            } else {
+                              selectedCategory = 'Tithe';
 }
