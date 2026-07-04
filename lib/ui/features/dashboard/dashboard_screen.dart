@@ -75,6 +75,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                         fontSize: 22,
                       ),
                     ),
+                    GestureDetector(
+                      onTap: () => _showNotificationsBottomSheet(context, broadcasts.messages),
+                      child: Container(
+                        padding: const EdgeInsets.all(8),
                 ),
               ),
             ),
