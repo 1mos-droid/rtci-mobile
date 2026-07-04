@@ -73,6 +73,10 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
                 TextField(
                   controller: imgController, 
                   decoration: const InputDecoration(labelText: "Image URL"),
+                  style: TextStyle(color: ObsidianTheme.textVibrant),
+                ),
+              ],
+            ),
   @override
   Widget build(BuildContext context) {
     final libProv = ref.watch(bibleStudiesProvider);
