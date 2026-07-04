@@ -61,6 +61,10 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
                 TextField(
                   controller: subtitleController, 
                   decoration: const InputDecoration(labelText: "Subtitle"),
+                  style: TextStyle(color: ObsidianTheme.textVibrant),
+                ),
+                const SizedBox(height: 8),
+                TextField(
   @override
   Widget build(BuildContext context) {
     final libProv = ref.watch(bibleStudiesProvider);
