@@ -232,6 +232,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                       behavior: SnackBarBehavior.floating,
                     ),
                   );
+                }
+              },
+              child: Text(
+                "No, Cancel",
   @override
   Widget build(BuildContext context) {
     final finance = ref.watch(financialProvider);
