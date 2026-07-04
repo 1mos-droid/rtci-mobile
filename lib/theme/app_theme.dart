@@ -378,3 +378,8 @@ class Neumorphic {
     final darkShadowColor = isDark 
         ? Colors.black.withOpacity(0.4) 
         : Colors.black.withOpacity(0.03);
+
+    if (isPressed) {
+      return BoxDecoration(
+        color: bgColor,
+        shape: shape,
