@@ -200,10 +200,6 @@ class WelcomeScreen extends StatelessWidget {
                 ),
               ],
             ),
-              
-              const SizedBox(height: 4),
-              
-              Text(
                 "Chapel International",
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.displaySmall?.copyWith(
