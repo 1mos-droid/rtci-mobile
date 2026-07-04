@@ -191,8 +191,8 @@ class AppTheme {
           elevation: 0,
           textStyle: _getTextStyle(
             fontWeight: FontWeight.w700,
-            fontSize: 17,
-            letterSpacing: -0.4,
+            fontSize: 16,
+            letterSpacing: 0.1,
           ),
         ),
       ),
