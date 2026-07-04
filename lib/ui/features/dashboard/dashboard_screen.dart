@@ -586,6 +586,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                           ),
                                           const SizedBox(height: 4),
                                           Text(
+                                            msg.body,
+                                            style: theme.textTheme.bodyMedium?.copyWith(
+                                              color: ObsidianTheme.textMuted,
+                                              height: 1.4,
                   ],
                 ),
               ),
