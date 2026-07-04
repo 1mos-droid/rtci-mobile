@@ -467,10 +467,6 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
                         ),
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    prefixText: "GHC ",
-                    prefixStyle: TextStyle(color: ObsidianTheme.textMuted, fontSize: 24, fontWeight: FontWeight.bold),
                     hintText: "Custom Amount",
                     hintStyle: TextStyle(color: ObsidianTheme.textMuted.withValues(alpha: 0.4), fontSize: 20),
                   ),
