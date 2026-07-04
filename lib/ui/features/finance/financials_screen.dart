@@ -316,4 +316,8 @@ class FinancialsScreen extends ConsumerWidget {
                           final desc = descController.text.trim();
                           
                           Navigator.pop(ctx); // Close sheet
+                          
+                          // Show loading indicator on screen
+                          showDialog(
+                            context: context,
 }
