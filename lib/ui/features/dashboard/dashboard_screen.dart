@@ -737,6 +737,11 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                   if (isPlaying) {
                                     playbackTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
                                       setModalState(() {
+                                        currentSeconds++;
+                                        if (currentSeconds >= 2712) { // 45:12 total duration
+                                          timer.cancel();
+                                          isPlaying = false;
+                                          currentSeconds = 0;
               ),
             ),
             child: Column(
