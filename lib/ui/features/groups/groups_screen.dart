@@ -242,6 +242,10 @@ class _GroupsScreenState extends ConsumerState<GroupsScreen> {
                       itemBuilder: (context, index) => const Padding(
                         padding: EdgeInsets.only(bottom: 14),
                         child: GlassCard(
+                          padding: EdgeInsets.all(18),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
                   : list.isEmpty
                     ? Center(
                         child: Text(
