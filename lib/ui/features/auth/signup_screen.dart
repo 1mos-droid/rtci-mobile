@@ -396,4 +396,8 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
               ),
               const SizedBox(height: 12),
               Text(
+                "Your account was created successfully. Welcome to the Redeemed Transformation Chapel International community portal.",
+                textAlign: TextAlign.center,
+                style: TextStyle(color: ObsidianTheme.textMuted, height: 1.5),
+              ),
 }
