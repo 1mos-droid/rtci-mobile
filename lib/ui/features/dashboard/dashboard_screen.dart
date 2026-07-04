@@ -363,11 +363,11 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                             );
                           },
                         ),
-                      ).animate().fadeIn(delay: 200.ms, duration: 500.ms),
+                      ).animate().fadeIn(delay: 150.ms, duration: 500.ms),
                       const SizedBox(height: 24),
                     ],
 
-                    // Glanceable Metrics
+                    // Glanceable Metrics Horizontal List
                     SizedBox(
                       height: 110,
                       child: ListView(
