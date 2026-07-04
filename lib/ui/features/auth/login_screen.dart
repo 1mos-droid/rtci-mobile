@@ -409,6 +409,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
                           // Don't have an account Option
                           Center(
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.pushReplacement(
+                                  context,
                       ),
                     ),
                   ).animate().fadeIn(delay: 450.ms, duration: 500.ms),
