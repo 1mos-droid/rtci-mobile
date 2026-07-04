@@ -18,3 +18,7 @@ class CustomPrimaryButton extends StatefulWidget {
     this.backgroundColor,
     this.textColor,
   });
+
+  @override
+  State<CustomPrimaryButton> createState() => _CustomPrimaryButtonState();
+}
