@@ -109,12 +109,12 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
               ),
               const SizedBox(height: 28),
               CustomPrimaryButton(
+                text: "Confirm & Open Paystack",
+                icon: Icons.payment_rounded,
                 onPressed: () async {
                   Navigator.pop(ctx);
                   final scaffoldMessenger = ScaffoldMessenger.of(context);
                   final user = ref.read(authNotifierProvider).value;
-                  final finance = ref.read(financialProvider);
-                  final success = await finance.processGiving(
                     amount: amt, 
                     type: 'contribution', 
                     description: 'Payment via Apple Pay for $_selectedFund',
