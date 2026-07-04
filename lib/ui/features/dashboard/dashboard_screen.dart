@@ -450,7 +450,9 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                               letterSpacing: 1.5,
                             ),
                           ),
-                                  (e) => Padding(
+                          Row(
+                            children: [
+                              if (isLeader)
                                     padding: const EdgeInsets.only(bottom: 12),
                                     child: _buildEventCard(context, e),
                                   ),
