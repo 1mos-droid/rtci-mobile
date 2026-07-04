@@ -250,7 +250,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       mediaQuery.padding.bottom + 24
                     ),
                     child: Form(
-                              fontWeight: FontWeight.bold,
+                      key: _formKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
                             ),
                       ),
                     ),
