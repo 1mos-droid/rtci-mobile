@@ -258,9 +258,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                         fontStyle: FontStyle.italic,
                                         color: ObsidianTheme.textVibrant,
                                         height: 1.5,
-                                  ),
-                                ),
-                                const SizedBox(height: 12),
+                                      ),
                                 Text(
                                   "— ${insights.currentInsight!.reference ?? insights.currentInsight!.author ?? ''}",
                                   style: GoogleFonts.plusJakartaSans(
