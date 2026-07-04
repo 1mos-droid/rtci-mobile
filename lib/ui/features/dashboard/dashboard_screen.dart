@@ -974,6 +974,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
           scheme: 'mailto',
           path: email,
           queryParameters: {
+            'subject': 'Fellowship Care Follow-up - Redeemed Transformation Chapel',
+            'body': 'Dear $memberName,\n\nWe missed you at our recent services and wanted to check in on you. Please let us know if there is anything we can support or pray with you for.\n\nBlessings,\nChurch Leadership Team'
+          },
+        );
                   ),
                 ),
               ],
