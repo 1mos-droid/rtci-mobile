@@ -47,3 +47,7 @@ class Sermon {
     return Sermon(
       id: doc.id,
       title: data['title'] ?? '',
+      speaker: data['speaker'] ?? '',
+      category: data['category'] ?? 'Sermon',
+      duration: data['duration'] ?? '00:00',
+      date: (data['date'] as Timestamp?)?.toDate() ?? DateTime.now(),
