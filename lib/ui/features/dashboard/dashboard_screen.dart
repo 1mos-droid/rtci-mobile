@@ -190,9 +190,9 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
+                                const SizedBox(height: 6),
                                 Container(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 8,
+                                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                                     vertical: 4,
                                   ),
                                   decoration: BoxDecoration(
