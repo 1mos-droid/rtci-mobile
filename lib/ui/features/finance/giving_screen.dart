@@ -393,10 +393,6 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                           ),
                         ),
                         alignment: Alignment.center,
-                      setState(() {
-                        _customAmount = val.toDouble();
-                        _amountController.clear();
-                      });
                     },
                     borderRadius: BorderRadius.circular(16),
                     child: Container(
