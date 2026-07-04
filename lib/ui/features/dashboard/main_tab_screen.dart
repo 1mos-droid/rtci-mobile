@@ -57,8 +57,8 @@ class _MainTabScreenState extends State<MainTabScreen> {
                       blurRadius: 20,
                       offset: const Offset(0, 8),
                     ),
-                    ],
-                  ),
+                  ],
+                ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
