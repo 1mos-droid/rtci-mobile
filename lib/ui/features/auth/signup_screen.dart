@@ -119,10 +119,6 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                 "Create Account",
                                 style: theme.textTheme.displayMedium?.copyWith(
                                   fontWeight: FontWeight.w800,
-                                decoration: InputDecoration(
-                                  labelText: "Your Full Name",
-                                  hintText: "Enter your name",
-                                  prefixIcon: Icon(Icons.person_outline, color: ObsidianTheme.textMuted, size: 20),
                                 ),
                                 validator: (val) {
                                   if (val == null || val.isEmpty) return "Please enter your name";
