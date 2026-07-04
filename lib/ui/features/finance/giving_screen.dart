@@ -480,7 +480,9 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                           },
                           style: TextStyle(
                             color: ObsidianTheme.textVibrant,
-                ),
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                          ),
               ),
 
               const SizedBox(height: 48),
