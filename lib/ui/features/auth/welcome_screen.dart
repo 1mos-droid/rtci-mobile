@@ -149,6 +149,10 @@ class WelcomeScreen extends StatelessWidget {
                       CustomPrimaryButton(
                         text: "Create Account",
                         icon: Icons.person_add_rounded,
+                        backgroundColor: isDark ? const Color(0xFF1E293B) : const Color(0xFFF1F5F9),
+                        textColor: isDark ? Colors.white : const Color(0xFF0F172A),
+                        onPressed: () {
+                          Navigator.push(
                     ],
                   ),
                   child: Center(
