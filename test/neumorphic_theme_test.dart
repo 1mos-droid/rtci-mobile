@@ -36,3 +36,7 @@ void main() {
       final pressedDec = Neumorphic.decoration(isDark: false, isPressed: true);
       expect(pressedDec.boxShadow, isNull);
       expect(pressedDec.gradient, isNotNull);
+    });
+  });
+
+  group('StartupLoaderScreen Tests', () {
