@@ -64,10 +64,6 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
               flexibleSpace: FlexibleSpaceBar(
                 background: Container(),
                 titlePadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-                  horizontal: 20,
-                  vertical: 16,
-                ),
-                title: Text(
                   "Sanctuary",
                   style: GoogleFonts.cinzel(
                     fontWeight: FontWeight.bold,
