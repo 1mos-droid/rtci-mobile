@@ -54,6 +54,7 @@ class AppTheme {
         titleTextStyle: _getTextStyle(
           fontSize: 18,
           fontWeight: FontWeight.w700,
+          color: const Color(0xFF0F172A),
           letterSpacing: -0.4,
         ),
         iconTheme: const IconThemeData(color: iosPrimaryLight),
@@ -61,12 +62,11 @@ class AppTheme {
       cardTheme: CardThemeData(
         elevation: 0,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(16),
         ),
         color: systemLightGroupedBg,
       ),
       dividerTheme: DividerThemeData(
-        thickness: 0.5,
         color: systemGray3.withOpacity(0.5),
         indent: 16,
         endIndent: 0,
