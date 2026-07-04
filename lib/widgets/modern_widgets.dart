@@ -263,3 +263,7 @@ class ContentCard extends StatelessWidget {
                           Text(
                             time,
                             style: theme.textTheme.bodySmall?.copyWith(
+                              fontSize: 12,
+                              color: isDark ? Colors.white60 : Colors.black54,
+                            ),
+                          ),
