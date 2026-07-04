@@ -368,4 +368,8 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
     );
   }
 
+  Widget _buildSuccessScreen(BuildContext context) {
+    final theme = Theme.of(context);
+    return Center(
+      child: Padding(
 }
