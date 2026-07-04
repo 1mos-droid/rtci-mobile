@@ -208,4 +208,8 @@ class GroupsProvider extends ChangeNotifier {
     } catch (e) {
       debugPrint('Error deleting group: $e');
       return false;
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
 }
