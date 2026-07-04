@@ -846,6 +846,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                 children: [
                   Text(
                     "Announcements & Alerts",
+                    style: GoogleFonts.cinzel(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: ObsidianTheme.textVibrant,
                   ),
                 ),
                 Text(
