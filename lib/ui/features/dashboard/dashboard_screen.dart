@@ -1184,10 +1184,6 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
           }
         );
       },
-                    color: ObsidianTheme.textVibrant,
-                  ),
-                ),
-                const SizedBox(height: 4),
                 Row(
                   children: [
                     Icon(
