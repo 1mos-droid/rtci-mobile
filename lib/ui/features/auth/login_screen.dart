@@ -361,6 +361,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                   style: GoogleFonts.plusJakartaSans(
                                     fontSize: 9,
                                     fontWeight: FontWeight.w800,
+                                    color: ObsidianTheme.textMuted,
+                                    letterSpacing: 1.0,
+                                  ),
+                                ),
                       ),
                     ),
                   ).animate().fadeIn(delay: 450.ms, duration: 500.ms),
