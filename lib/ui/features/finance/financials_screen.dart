@@ -296,4 +296,8 @@ class FinancialsScreen extends ConsumerWidget {
                     const SizedBox(height: 16),
                     // Description
                     TextFormField(
+                      controller: descController,
+                      style: TextStyle(color: ObsidianTheme.textVibrant),
+                      decoration: const InputDecoration(
+                        labelText: "Description",
 }
