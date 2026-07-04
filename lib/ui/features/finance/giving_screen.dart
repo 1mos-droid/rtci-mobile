@@ -116,10 +116,6 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                   final scaffoldMessenger = ScaffoldMessenger.of(context);
                   final user = ref.read(authNotifierProvider).value;
                   
-                  if (success && mounted) {
-                    _amountController.clear();
-                    setState(() => _customAmount = null);
-                    scaffoldMessenger.showSnackBar(const SnackBar(content: Text("Giving successfully processed!"), backgroundColor: Colors.green));
                   }
                 },
                 child: const Text("CONFIRM PAYMENT", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800, letterSpacing: 1.0)),
