@@ -380,6 +380,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                       borderRadius: BorderRadius.circular(16),
                       child: AnimatedContainer(
                         duration: const Duration(milliseconds: 200),
+                        decoration: BoxDecoration(
+                          color: isSelected 
+                              ? theme.colorScheme.primary.withOpacity(0.08) 
+                              : (isDark ? const Color(0xFF1E293B) : Colors.white),
                         ),
                       ),
                     ),
