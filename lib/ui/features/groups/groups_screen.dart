@@ -119,6 +119,10 @@ class _GroupsScreenState extends ConsumerState<GroupsScreen> {
                 ElevatedButton(
                   onPressed: () async {
                     final name = nameController.text.trim();
+                    final leader = leaderController.text.trim();
+                    final location = locationController.text.trim();
+                    final desc = descController.text.trim();
+                    final campus = campusController.text.trim();
   @override
   Widget build(BuildContext context) {
     final groupsProv = ref.watch(groupsProvider);
