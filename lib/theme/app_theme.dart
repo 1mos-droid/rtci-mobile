@@ -10,7 +10,9 @@ class AppTheme {
   static const Color systemLightGroupedBg = Colors.white;
   static const Color systemDarkGroupedBg = Color(0xFF151B2C); // Deep navy/slate
 
-  static const Color iosPrimaryDark = Color(0xFFFF453A);  // Vibrant Apple-style Red
+  static const Color iosPrimaryLight = Color(0xFFA81D32); // Crimson Red
+  static const Color iosPrimaryDark = Color(0xFFA81D32);  // Crimson Red
+  static const Color accentGold = Color(0xFFD4AF37);      // Warm Gold
 
   static const Color systemGray = Color(0xFF8E8E93);
   static const Color systemGray2 = Color(0xFFAEAEB2);
