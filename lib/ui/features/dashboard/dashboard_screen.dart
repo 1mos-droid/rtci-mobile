@@ -902,6 +902,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                           children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                                  decoration: BoxDecoration(
                   ),
                 ),
                 Text(
