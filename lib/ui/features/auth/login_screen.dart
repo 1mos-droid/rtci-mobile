@@ -333,6 +333,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                 style: TextStyle(
                                   color: AppTheme.accentGold,
                                   fontWeight: FontWeight.bold,
+                                  fontSize: 13,
+                                ),
+                              ),
+                            ),
                       ),
                     ),
                   ).animate().fadeIn(delay: 450.ms, duration: 500.ms),
