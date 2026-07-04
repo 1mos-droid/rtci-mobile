@@ -148,6 +148,11 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                       
                       if (context.mounted) {
                         _showConfirmationDialog(context, transactionId, amt);
+                      }
+                    } else {
+                      scaffoldMessenger.showSnackBar(
+                        const SnackBar(content: Text("Could not launch Paystack payment link."))
+                      );
                   }
                 },
                 child: const Text("CONFIRM PAYMENT", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800, letterSpacing: 1.0)),
