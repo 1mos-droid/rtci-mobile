@@ -870,6 +870,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                         Text(
                           "No new announcements",
                           style: TextStyle(color: ObsidianTheme.textMuted, fontSize: 14),
+                        ),
+                      ],
+                    ),
+                  ),
                   ),
                 ),
                 Text(
