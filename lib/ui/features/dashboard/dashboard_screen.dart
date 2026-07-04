@@ -51,9 +51,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
 
     return Scaffold(
       body: MeshGradientBackground(
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: CustomScrollView(
+        child: CustomScrollView(
           slivers: [
             SliverAppBar(
               backgroundColor: Colors.transparent,
