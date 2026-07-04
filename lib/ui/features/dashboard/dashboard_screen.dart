@@ -174,9 +174,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                               children: [
                                 Text(
                                   "WELCOME BACK",
-                                  style: Theme.of(context).textTheme.labelMedium
-                                      ?.copyWith(
-                                        letterSpacing: 1.0,
+                                  style: GoogleFonts.plusJakartaSans(
                                         color: ObsidianTheme.textMuted,
                                         fontSize: 10,
                                       ),
