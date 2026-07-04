@@ -354,6 +354,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                 const SizedBox(height: 10),
                 Text(
                   "SELECT GIVING CATEGORY",
+                  style: GoogleFonts.plusJakartaSans(
+                    fontWeight: FontWeight.w800,
+                    color: ObsidianTheme.textMuted,
+                    fontSize: 10,
                 runSpacing: 12,
                 children: _funds.map((f) {
                   final isSelected = _selectedFund == f;
