@@ -21,3 +21,7 @@ class StartupLoaderScreen extends StatelessWidget {
     final isTest = Platform.environment.containsKey('FLUTTER_TEST');
 
     final bgColor = isDark ? AppTheme.systemDarkBg : AppTheme.systemLightBg;
+    final primaryAccent = AppTheme.iosPrimaryLight;
+    final secondaryAccent = AppTheme.accentGold;
+
+    // 1. Sweep Ring (Gold)
