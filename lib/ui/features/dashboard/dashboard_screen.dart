@@ -713,6 +713,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                       ),
                     ],
                   ),
+                  const SizedBox(height: 20),
+                  AspectRatio(
+                    aspectRatio: 16 / 9,
+                    child: Container(
               ),
             ),
             child: Column(
