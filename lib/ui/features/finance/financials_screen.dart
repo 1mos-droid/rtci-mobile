@@ -195,4 +195,8 @@ class FinancialsScreen extends ConsumerWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        Text(
+                          "Log Transaction",
+                          style: GoogleFonts.cinzel(
+                            fontSize: 18,
 }
