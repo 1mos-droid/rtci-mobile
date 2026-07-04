@@ -24,6 +24,7 @@ class GivingTransaction {
     this.campus,
     this.status = 'completed',
     this.loggedBy,
+    this.isShared = false,
   });
 
   Map<String, dynamic> toMap() {
@@ -36,6 +37,9 @@ class GivingTransaction {
       'description': description,
       'member_id': memberId,
       'campus': campus,
+      'status': status,
+      'logged_by': loggedBy,
+      'is_shared': isShared,
     };
   }
 
