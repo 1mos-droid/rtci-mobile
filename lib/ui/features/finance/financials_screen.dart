@@ -203,4 +203,8 @@ class FinancialsScreen extends ConsumerWidget {
                             color: ObsidianTheme.textVibrant,
                           ),
                         ),
+                        IconButton(
+                          icon: Icon(Icons.close_rounded, color: ObsidianTheme.textVibrant),
+                          onPressed: () => Navigator.pop(ctx),
+                        ),
 }
