@@ -244,6 +244,10 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                       checkColor: Colors.white,
                                       contentPadding: EdgeInsets.zero,
                                       controlAffinity: ListTileControlAffinity.leading,
+                                      onChanged: (val) => setState(() => _acceptTerms = val ?? false),
+                                    ),
+                                    
+                                    const SizedBox(height: 24),
                                             ),
                                             const SizedBox(width: 12),
                                             Text(
