@@ -223,3 +223,7 @@ class ContentCard extends StatelessWidget {
                             decoration: BoxDecoration(
                               color: Colors.black.withOpacity(0.7),
                               borderRadius: BorderRadius.circular(6),
+                            ),
+                            child: Text(
+                              duration!,
+                              style: const TextStyle(
