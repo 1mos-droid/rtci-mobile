@@ -74,10 +74,6 @@ class _MainTabScreenState extends State<MainTabScreen> {
         ),
       ),
     );
-            NavigationDestination(
-              icon: Icon(Icons.favorite_outline_rounded),
-              selectedIcon: Icon(Icons.favorite_rounded),
-              label: 'Give',
             ),
             NavigationDestination(
               icon: Icon(Icons.menu_outlined),
