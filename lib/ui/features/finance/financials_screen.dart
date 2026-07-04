@@ -300,4 +300,8 @@ class FinancialsScreen extends ConsumerWidget {
                       style: TextStyle(color: ObsidianTheme.textVibrant),
                       decoration: const InputDecoration(
                         labelText: "Description",
+                        prefixIcon: Icon(Icons.description_outlined),
+                      ),
+                    ),
+                    const SizedBox(height: 24),
 }
