@@ -173,6 +173,7 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                   ),
                 ),
               ),
+              const SizedBox(height: 8),
             ],
           ),
         );
@@ -180,6 +181,9 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
     );
   }
 
+  void _showConfirmationDialog(BuildContext context, String transactionId, double amount) {
+    showDialog(
+      context: context,
   @override
   Widget build(BuildContext context) {
     final finance = ref.watch(financialProvider);
