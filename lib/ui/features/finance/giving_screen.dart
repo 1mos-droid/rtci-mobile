@@ -359,9 +359,7 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                     color: ObsidianTheme.textMuted,
                     fontSize: 10,
                     letterSpacing: 1.5,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Text(
+                  ),
                         f.toUpperCase(),
                         style: GoogleFonts.plusJakartaSans(
                           fontSize: 13,
