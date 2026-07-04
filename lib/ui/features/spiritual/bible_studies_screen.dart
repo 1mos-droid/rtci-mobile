@@ -157,6 +157,10 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
               child: Text("CANCEL", style: TextStyle(color: ObsidianTheme.textMuted)),
             ),
             ElevatedButton(
+              onPressed: () async {
+                final title = titleController.text.trim();
+                final type = typeController.text.trim();
+                final url = urlController.text.trim();
   @override
   Widget build(BuildContext context) {
     final libProv = ref.watch(bibleStudiesProvider);
