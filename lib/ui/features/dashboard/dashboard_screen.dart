@@ -149,8 +149,8 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 border: Border.all(
-                                  color: primaryAccent.withValues(alpha: 0.3),
-                                  width: 1.0,
+                                  color: primaryAccent.withOpacity(0.2),
+                                  width: 1.5,
                                 ),
                               ),
                               child: Center(
