@@ -353,10 +353,6 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                           IconButton(
                                             icon: const Icon(Icons.mail_outline_rounded, size: 20, color: Colors.blue),
                                             onPressed: () => _contactMember(context, item.memberId, item.memberName),
-                                              size: 18,
-                                              color: Colors.blue,
-                                            ),
-                                            onPressed: () {},
                                           ),
                                         ],
                                       ),
