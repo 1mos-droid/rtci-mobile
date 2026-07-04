@@ -404,4 +404,8 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
               CustomPrimaryButton(
                 text: "Continue to Dashboard",
                 onPressed: () {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (_) => const MainTabScreen()),
+                    (route) => false,
 }
