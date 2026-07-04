@@ -166,3 +166,7 @@ class ContentCard extends StatelessWidget {
           child: InkWell(
             onTap: onTap,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                if (imageUrl != null)
+                  Stack(
