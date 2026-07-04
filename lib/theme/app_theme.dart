@@ -220,6 +220,10 @@ class AppTheme {
         hintStyle: const TextStyle(color: Colors.white38, fontSize: 15),
       ),
     );
+  }
+
+  static TextStyle _getTextStyle({
+    Color? color,
     );
   }
 
