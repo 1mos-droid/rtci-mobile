@@ -352,4 +352,8 @@ class FinancialsScreen extends ConsumerWidget {
                 ),
               ),
             );
+          }
+        );
+      },
+    );
 }
