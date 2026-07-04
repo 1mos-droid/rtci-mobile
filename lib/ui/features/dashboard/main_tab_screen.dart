@@ -57,10 +57,6 @@ class _MainTabScreenState extends State<MainTabScreen> {
                       blurRadius: 20,
                       offset: const Offset(0, 8),
                     ),
-                        color: Colors.black.withOpacity(isDark ? 0.3 : 0.05),
-                        blurRadius: 20,
-                        offset: const Offset(0, 8),
-                      ),
                     ],
                   ),
                   child: Row(
