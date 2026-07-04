@@ -105,4 +105,8 @@ class BibleStudiesProvider extends ChangeNotifier {
       await _firestore.collection('study_modules').add({
         'title': title,
         'description': description,
+        'image_url': imageUrl,
+        'progress': 0,
+        'subtitle': subtitle,
+      });
 }
