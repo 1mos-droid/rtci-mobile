@@ -461,10 +461,6 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                   child: Row(
                     children: [
                       Text(
-                  onChanged: (v) {
-                    if (v.isNotEmpty && _customAmount != null) {
-                      setState(() => _customAmount = null);
-                    }
                   },
                   style: TextStyle(color: ObsidianTheme.textVibrant, fontSize: 24, fontWeight: FontWeight.bold),
                   decoration: InputDecoration(
