@@ -121,6 +121,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             behavior: SnackBarBehavior.floating,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           ),
+        );
+      }
+    }
+  }
   @override
   Widget build(BuildContext context) {
     final authState = ref.watch(authNotifierProvider);
