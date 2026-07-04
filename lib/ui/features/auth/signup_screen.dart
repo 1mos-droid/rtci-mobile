@@ -92,10 +92,6 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
     return Scaffold(
       body: MeshGradientBackground(
         child: SafeArea(
-              ? _buildSuccessScreen(context)
-              : SingleChildScrollView(
-                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
-                  child: Form(
                     key: _formKey,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
