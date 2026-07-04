@@ -120,6 +120,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                   try {
                     final finance = ref.read(financialProvider);
                     final transactionId = await finance.processGiving(
+                      amount: amt, 
+                      type: 'contribution', 
+                      description: 'Payment via Paystack for $_selectedFund',
+                      category: _selectedFund,
                   }
                 },
                 child: const Text("CONFIRM PAYMENT", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800, letterSpacing: 1.0)),
