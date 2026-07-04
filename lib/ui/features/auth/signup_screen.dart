@@ -392,4 +392,8 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
               Text(
                 "Welcome to fellowship!",
                 textAlign: TextAlign.center,
+                style: GoogleFonts.cinzel(fontSize: 22, fontWeight: FontWeight.bold, color: ObsidianTheme.textVibrant),
+              ),
+              const SizedBox(height: 12),
+              Text(
 }
