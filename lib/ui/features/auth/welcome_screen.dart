@@ -165,6 +165,10 @@ class WelcomeScreen extends StatelessWidget {
                         icon: const Icon(Icons.assignment_outlined, size: 18),
                         label: const Text("Membership Form"),
                         onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (_) => const ApplicationFormScreen()),
+                          );
                     ],
                   ),
                   child: Center(
