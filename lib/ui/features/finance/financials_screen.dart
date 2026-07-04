@@ -320,4 +320,8 @@ class FinancialsScreen extends ConsumerWidget {
                           // Show loading indicator on screen
                           showDialog(
                             context: context,
+                            barrierDismissible: false,
+                            builder: (_) => const Center(child: CircularProgressIndicator()),
+                          );
+                          
 }
