@@ -89,6 +89,10 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
                 final subtitle = subtitleController.text.trim();
                 final desc = descController.text.trim();
                 final img = imgController.text.trim();
+                if (title.isNotEmpty && desc.isNotEmpty) {
+                  Navigator.pop(dialogContext);
+                  final success = await ref.read(bibleStudiesProvider).addModule(
+                    title: title,
   @override
   Widget build(BuildContext context) {
     final libProv = ref.watch(bibleStudiesProvider);
