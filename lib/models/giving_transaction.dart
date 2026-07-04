@@ -53,6 +53,9 @@ class GivingTransaction {
       description: map['description'] ?? '',
       memberId: map['member_id']?.toString(),
       campus: map['campus']?.toString(),
+      status: map['status'] ?? 'completed',
+      loggedBy: map['logged_by']?.toString(),
+      isShared: map['is_shared'] ?? false,
     );
   }
 
@@ -67,6 +70,7 @@ class GivingTransaction {
       description: data['description'] ?? '',
       memberId: data['member_id'],
       campus: data['campus'],
+      status: data['status'] ?? 'completed',
     );
   }
 }
