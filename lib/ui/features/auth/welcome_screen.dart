@@ -81,6 +81,10 @@ class WelcomeScreen extends StatelessWidget {
                 Text(
                   "Chapel International",
                   textAlign: TextAlign.center,
+                  style: GoogleFonts.cinzel(
+                    fontSize: 18,
+                    color: AppTheme.accentGold,
+                    fontWeight: FontWeight.w600,
                     ],
                   ),
                   child: Center(
