@@ -325,6 +325,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             child: TextButton(
                               onPressed: _handleForgotPassword,
                               style: TextButton.styleFrom(
+                                padding: EdgeInsets.zero,
+                                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                              ),
+                              child: Text(
                       ),
                     ),
                   ).animate().fadeIn(delay: 450.ms, duration: 500.ms),
