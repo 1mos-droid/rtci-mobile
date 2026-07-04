@@ -99,6 +99,10 @@ class _GroupsScreenState extends ConsumerState<GroupsScreen> {
                       decoration: const InputDecoration(labelText: "Type"),
                       dropdownColor: isDark ? const Color(0xFF1E202C) : const Color(0xFFE0E5EC),
                       items: const [
+                        DropdownMenuItem(value: 'home_cell', child: Text("Group")),
+                        DropdownMenuItem(value: 'ministry', child: Text("Department")),
+                      ],
+                      onChanged: (val) {
   @override
   Widget build(BuildContext context) {
     final groupsProv = ref.watch(groupsProvider);
