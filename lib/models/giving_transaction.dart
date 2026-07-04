@@ -10,6 +10,8 @@ class GivingTransaction {
   final String? memberId;
   final String? campus;
   final String status; // pending, completed, failed
+  final String? loggedBy;
+  final bool isShared;
 
   GivingTransaction({
     required this.id,
@@ -20,6 +22,8 @@ class GivingTransaction {
     this.category,
     this.memberId,
     this.campus,
+    this.status = 'completed',
+    this.loggedBy,
   });
 
   Map<String, dynamic> toMap() {
