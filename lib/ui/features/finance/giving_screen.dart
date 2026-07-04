@@ -458,10 +458,6 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                       width: 1.0,
                     ),
                   ),
-              ),
-              
-              const SizedBox(height: 16),
-              
               GlassCard(
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                 child: TextField(
