@@ -359,3 +359,6 @@ class DonationChip extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
