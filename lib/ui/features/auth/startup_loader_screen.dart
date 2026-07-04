@@ -81,3 +81,7 @@ class StartupLoaderScreen extends StatelessWidget {
       child: Container(
         decoration: const BoxDecoration(
           color: Colors.white,
+          shape: BoxShape.circle,
+        ),
+        padding: const EdgeInsets.all(8),
+        child: Image.asset(
