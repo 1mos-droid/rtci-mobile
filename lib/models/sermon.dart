@@ -55,3 +55,7 @@ class Sermon {
       tag: data['tag'] ?? '',
       audioUrl: data['audio_url'],
       videoUrl: data['video_url'],
+      loggedBy: data['logged_by'],
+    );
+  }
+}
