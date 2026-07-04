@@ -457,6 +457,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     onPressed: () => Navigator.pop(context),
                   ),
                 ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
