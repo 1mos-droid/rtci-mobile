@@ -193,10 +193,8 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                 const SizedBox(height: 6),
                                 Container(
                                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                                    vertical: 4,
-                                  ),
                                   decoration: BoxDecoration(
-                                    color: primaryAccent.withValues(alpha: 0.1),
+                                    color: primaryAccent.withOpacity(0.08),
                                     borderRadius: BorderRadius.circular(6),
                                   ),
                                   child: Text(
