@@ -814,9 +814,9 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                     ],
                   ),
                   const SizedBox(height: 24),
+                ],
               ),
-            ),
-            child: Column(
+            );
               children: [
                 Text(
                   day,
