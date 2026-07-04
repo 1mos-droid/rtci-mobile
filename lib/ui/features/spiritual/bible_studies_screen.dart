@@ -117,6 +117,10 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
     final titleController = TextEditingController();
     final typeController = TextEditingController();
     final urlController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (dialogContext) {
   @override
   Widget build(BuildContext context) {
     final libProv = ref.watch(bibleStudiesProvider);
