@@ -71,6 +71,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                       "Sanctuary",
                       style: GoogleFonts.cinzel(
                         fontWeight: FontWeight.bold,
+                        color: ObsidianTheme.textVibrant,
+                        fontSize: 22,
+                      ),
+                    ),
                 ),
               ),
             ),
