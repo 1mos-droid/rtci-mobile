@@ -26,6 +26,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
   @override
   void initState() {
     super.initState();
+    // Fetch broadcasts and sermons on startup
+    Future.microtask(() {
+      ref.read(broadcastProvider.notifier).fetchBroadcasts();
+      ref.read(sermonProvider.notifier).fetchSermons();
     final user = ref.watch(authNotifierProvider).value;
     final finance = ref.watch(financialProvider);
     final prayers = ref.watch(prayerProvider);
