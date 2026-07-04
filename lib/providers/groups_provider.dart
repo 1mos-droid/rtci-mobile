@@ -180,4 +180,8 @@ class GroupsProvider extends ChangeNotifier {
       return true;
     } catch (e) {
       debugPrint('Error adding group: $e');
+      return false;
+    } finally {
+      _isLoading = false;
+      notifyListeners();
 }
