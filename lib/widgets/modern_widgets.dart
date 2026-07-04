@@ -275,3 +275,7 @@ class ContentCard extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Text(
+                              title,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: theme.textTheme.titleMedium?.copyWith(
