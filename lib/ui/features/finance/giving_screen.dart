@@ -100,7 +100,11 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
               ),
               const SizedBox(height: 4),
               Text(
+                "allocated to $_selectedFund",
                 textAlign: TextAlign.center,
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color: AppTheme.accentGold,
+                  fontWeight: FontWeight.w600,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: ObsidianTheme.textMuted),
               ),
               const SizedBox(height: 32),
