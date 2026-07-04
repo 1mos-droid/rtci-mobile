@@ -28,3 +28,6 @@ void main() {
       expect(lightDec.boxShadow![1].offset, const Offset(-6, -6)); // Light shadow offset
 
       final darkDec = Neumorphic.decoration(isDark: true);
+      expect(darkDec.boxShadow, isNotNull);
+      expect(darkDec.boxShadow!.length, equals(2));
+    });
