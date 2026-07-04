@@ -145,4 +145,8 @@ class BibleStudiesProvider extends ChangeNotifier {
       _isLoading = false;
       notifyListeners();
     }
+  }
+
+  Future<bool> addResource({
+    required String moduleId,
 }
