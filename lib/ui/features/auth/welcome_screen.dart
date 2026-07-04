@@ -200,10 +200,6 @@ class WelcomeScreen extends StatelessWidget {
                 ),
               ],
             ),
-                "CONNECTING SOULS • SERVING COMMUNITIES",
-                textAlign: TextAlign.center,
-                style: GoogleFonts.plusJakartaSans(
-                  fontSize: 10.5,
                   letterSpacing: 2.0,
                   color: ObsidianTheme.textMuted,
                   fontWeight: FontWeight.bold,
