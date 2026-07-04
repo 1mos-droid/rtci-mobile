@@ -639,12 +639,12 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
             title,
             style: GoogleFonts.plusJakartaSans(
               fontSize: 9,
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w800,
               color: ObsidianTheme.textMuted,
               letterSpacing: 1.0,
             ),
           ),
-          const SizedBox(height: 4),
+          const SizedBox(height: 6),
           Text(
             value,
             style: GoogleFonts.plusJakartaSans(
