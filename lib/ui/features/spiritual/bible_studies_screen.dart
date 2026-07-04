@@ -355,6 +355,10 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
                                       ),
                                       const SizedBox(height: 20),
                                       Text(
+                                        "SYLLABUS OUTLINE",
+                                        style: GoogleFonts.plusJakartaSans(
+                                          fontWeight: FontWeight.w800,
+                                          color: ObsidianTheme.textMuted,
                 )
               ],
             ),
