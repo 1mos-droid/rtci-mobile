@@ -35,3 +35,7 @@ class SermonProvider extends ChangeNotifier {
   Future<bool> addSermon({
     required String title,
     required String speaker,
+    required String category,
+    required String duration,
+    required String imageUrl,
+    required String tag,
