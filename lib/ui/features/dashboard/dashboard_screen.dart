@@ -619,8 +619,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
   }) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
+
     return Container(
-      width: 160,
+      width: 150,
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: ObsidianTheme.surfaceDark.withValues(alpha: 0.6),
         borderRadius: BorderRadius.circular(20),
