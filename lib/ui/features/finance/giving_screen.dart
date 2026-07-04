@@ -284,6 +284,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
           backgroundColor: Colors.transparent,
           insetPadding: const EdgeInsets.symmetric(horizontal: 32),
           child: GlassCard(
+            borderRadius: 24,
+            padding: const EdgeInsets.all(32),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
   @override
   Widget build(BuildContext context) {
     final finance = ref.watch(financialProvider);
