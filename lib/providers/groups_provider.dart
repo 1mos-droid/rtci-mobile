@@ -188,4 +188,8 @@ class GroupsProvider extends ChangeNotifier {
   }
 
   Future<bool> deleteGroup(String groupId) async {
+    _isLoading = true;
+    notifyListeners();
+
+    try {
 }
