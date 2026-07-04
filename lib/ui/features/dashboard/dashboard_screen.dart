@@ -79,6 +79,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                       onTap: () => _showNotificationsBottomSheet(context, broadcasts.messages),
                       child: Container(
                         padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: isDark ? const Color(0xFF151B2C) : Colors.white,
+                          shape: BoxShape.circle,
+                          border: Border.all(
                 ),
               ),
             ),
