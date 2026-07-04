@@ -80,6 +80,10 @@ class HelpScreen extends StatelessWidget {
                           onPressed: () async {
                             final Uri emailLaunchUri = Uri(
                               scheme: 'mailto',
+                              path: 'support@rtci.org',
+                              queryParameters: {
+                                'subject': 'RTCI Connect App Support Request',
+                              },
                           child: const Text("CONTACT SUPPORT"),
                         ),
                       )
