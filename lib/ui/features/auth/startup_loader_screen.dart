@@ -182,3 +182,7 @@ class StartupLoaderScreen extends StatelessWidget {
                       color: isDark ? Colors.white.withOpacity(0.04) : Colors.black.withOpacity(0.02),
                       width: 1.0,
                     ),
+                  ),
+                ),
+
+                // Inset circle
