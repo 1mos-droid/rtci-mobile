@@ -75,6 +75,10 @@ class _GroupsScreenState extends ConsumerState<GroupsScreen> {
                       decoration: const InputDecoration(labelText: "Leader Name"),
                       style: TextStyle(color: ObsidianTheme.textVibrant),
                     ),
+                    const SizedBox(height: 8),
+                    TextField(
+                      controller: locationController, 
+                      decoration: const InputDecoration(labelText: "Location/Meeting Point"),
   @override
   Widget build(BuildContext context) {
     final groupsProv = ref.watch(groupsProvider);
