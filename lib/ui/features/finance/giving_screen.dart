@@ -224,6 +224,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                 Navigator.pop(dialogCtx);
                 final finance = ref.read(financialProvider);
                 await finance.updateTransactionStatus(transactionId, 'failed');
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("Donation marked as failed or cancelled."),
   @override
   Widget build(BuildContext context) {
     final finance = ref.watch(financialProvider);
