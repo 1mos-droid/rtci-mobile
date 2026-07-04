@@ -134,6 +134,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                         ),
                         boxShadow: [
                           BoxShadow(
+                            color: Colors.black.withOpacity(isDark ? 0.3 : 0.03),
+                            blurRadius: 20,
+                            offset: const Offset(0, 8),
+                          ),
                       child: Row(
                         children: [
                           CircleAvatar(
