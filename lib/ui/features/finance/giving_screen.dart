@@ -264,6 +264,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
               },
               child: Text(
                 "Yes, Completed",
+                style: GoogleFonts.plusJakartaSans(
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 0.5,
+                ),
   @override
   Widget build(BuildContext context) {
     final finance = ref.watch(financialProvider);
