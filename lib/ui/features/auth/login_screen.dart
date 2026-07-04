@@ -317,6 +317,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               if (val == null || val.isEmpty) return "Please enter your password";
                               return null;
                             },
+                          ),
+                          
+                          // Forgot Password link
+                          Align(
                       ),
                     ),
                   ).animate().fadeIn(delay: 450.ms, duration: 500.ms),
