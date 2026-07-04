@@ -484,9 +484,11 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                       Text(
                                         "No sermons posted yet.",
                                         style: TextStyle(color: ObsidianTheme.textMuted),
+                                      ),
+                                    ],
                                   ),
                                 )
-                                .toList(),
+                              : ListView.builder(
                           ).animate().fadeIn(delay: 450.ms, duration: 500.ms),
 
                     const SizedBox(height: 80), // Padding for BottomNav
