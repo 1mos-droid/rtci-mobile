@@ -250,8 +250,8 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                 )
                               : Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
+                                  children: [
+                                    Text(
                                   "\"${insights.currentInsight!.content}\"",
                                   style: GoogleFonts.plusJakartaSans(
                                     fontSize: 16,
