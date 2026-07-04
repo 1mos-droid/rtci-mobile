@@ -248,6 +248,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                 foregroundColor: Colors.white,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
+                ),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                elevation: 0,
+              ),
   @override
   Widget build(BuildContext context) {
     final finance = ref.watch(financialProvider);
