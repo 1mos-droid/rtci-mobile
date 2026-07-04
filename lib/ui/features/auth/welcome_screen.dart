@@ -45,6 +45,10 @@ class WelcomeScreen extends StatelessWidget {
                           blurRadius: 24,
                           offset: const Offset(0, 8),
                         )
+                      ],
+                    ),
+                    child: Center(
+                      child: Padding(
                     ],
                   ),
                   child: Center(
