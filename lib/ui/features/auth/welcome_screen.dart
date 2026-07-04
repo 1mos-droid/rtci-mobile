@@ -200,10 +200,6 @@ class WelcomeScreen extends StatelessWidget {
                 ),
               ],
             ),
-                          context,
-                          MaterialPageRoute(builder: (_) => const SignupScreen()),
-                        );
-                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: ObsidianTheme.secondaryGold,
                         foregroundColor: ObsidianTheme.backgroundDark,
