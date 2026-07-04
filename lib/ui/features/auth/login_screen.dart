@@ -139,6 +139,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
+      body: Stack(
+        children: [
+          // 1. Background (Upper Section) Image with Blur
+          Positioned.fill(
     return MeshGradientBackground(
       child: Scaffold(
         backgroundColor: Colors.transparent,
