@@ -93,3 +93,7 @@ class StartupLoaderScreen extends StatelessWidget {
     if (!isTest) {
       logoContainer = logoContainer
           .animate(onPlay: (controller) => controller.repeat(reverse: true))
+          .scaleXY(
+            begin: 0.96,
+            end: 1.04,
+            duration: 1.2.seconds,
