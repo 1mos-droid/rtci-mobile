@@ -970,6 +970,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
 
       final email = profileDoc.data()?['email'] as String?;
       if (email != null && email.isNotEmpty) {
+        final Uri emailLaunchUri = Uri(
+          scheme: 'mailto',
+          path: email,
+          queryParameters: {
                   ),
                 ),
               ],
