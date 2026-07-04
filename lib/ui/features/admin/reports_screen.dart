@@ -185,3 +185,7 @@ class _ExportingDialogState extends State<_ExportingDialog> {
                 backgroundColor: ObsidianTheme.borderHairline,
               ),
               const SizedBox(height: 24),
+              Text(
+                "Compiling ${widget.title} in ${widget.format}...",
+                textAlign: TextAlign.center,
+                style: GoogleFonts.plusJakartaSans(
