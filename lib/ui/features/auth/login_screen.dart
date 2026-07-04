@@ -151,6 +151,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           Positioned.fill(
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 8.0, sigmaY: 8.0),
+              child: Container(
+                color: Colors.black.withOpacity(isDark ? 0.45 : 0.25),
+              ),
+            ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
