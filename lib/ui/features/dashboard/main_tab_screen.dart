@@ -74,11 +74,9 @@ class _MainTabScreenState extends State<MainTabScreen> {
         ),
       ),
     );
-      );
-    }
   }
 
-  Widget _buildNavItem(int index, IconData icon, String label) {
+  Widget _buildNavItem(int index, IconData activeIcon, IconData inactiveIcon, String label) {
     final isSelected = _currentIndex == index;
     final theme = Theme.of(context);
     final activeColor = theme.colorScheme.primary;
