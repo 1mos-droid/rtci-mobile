@@ -958,6 +958,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
 
   Future<void> _contactMember(BuildContext context, String memberId, String memberName) async {
     try {
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) => const Center(child: CircularProgressIndicator()),
                   ),
                 ),
               ],
