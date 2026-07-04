@@ -308,6 +308,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                   "Your generous gift of GHC ${amount.toStringAsFixed(0)} has been processed.",
                   textAlign: TextAlign.center,
                   style: TextStyle(color: ObsidianTheme.textMuted, height: 1.4),
+                ),
+                const SizedBox(height: 24),
+                CustomPrimaryButton(
+                  text: "Done",
   @override
   Widget build(BuildContext context) {
     final finance = ref.watch(financialProvider);
