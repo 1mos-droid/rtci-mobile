@@ -24,6 +24,10 @@ class RTCIMobileApp extends ConsumerStatefulWidget {
   const RTCIMobileApp({super.key});
 
   @override
+  ConsumerState<RTCIMobileApp> createState() => _RTCIMobileAppState();
+}
+
+class _RTCIMobileAppState extends ConsumerState<RTCIMobileApp> {
     final authState = ref.watch(authNotifierProvider);
     final themeMode = ref.watch(themeNotifierProvider);
 
