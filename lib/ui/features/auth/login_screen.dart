@@ -381,6 +381,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                 color: isDark ? const Color(0xFF0B0F19) : const Color(0xFFF8FAFC),
                                 borderRadius: BorderRadius.circular(16),
                                 border: Border.all(
+                                  color: isDark ? Colors.white.withOpacity(0.08) : Colors.black.withOpacity(0.05),
+                                ),
+                              ),
+                              child: Row(
                       ),
                     ),
                   ).animate().fadeIn(delay: 450.ms, duration: 500.ms),
