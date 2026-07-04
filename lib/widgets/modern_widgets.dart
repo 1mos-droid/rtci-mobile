@@ -110,3 +110,7 @@ class _CustomPrimaryButtonState extends State<CustomPrimaryButton> with SingleTi
                   ],
                 ),
         ),
+      ),
+    );
+  }
+}
