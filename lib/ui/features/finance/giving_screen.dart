@@ -256,6 +256,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                 Navigator.pop(dialogCtx);
                 final finance = ref.read(financialProvider);
                 final success = await finance.updateTransactionStatus(transactionId, 'completed');
+                if (success && context.mounted) {
+                  _amountController.clear();
+                  setState(() => _customAmount = null);
+                  _showSuccessOverlay(context, amount);
   @override
   Widget build(BuildContext context) {
     final finance = ref.watch(financialProvider);
