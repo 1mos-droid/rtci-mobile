@@ -139,6 +139,10 @@ class SettingsScreen extends ConsumerWidget {
                                 try {
                                   showDialog(
                                     context: context,
+                                    barrierDismissible: false,
+                                    builder: (_) => const Center(child: CircularProgressIndicator()),
+                                  );
+                                  await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
                           ),
                           ListTile(
                             contentPadding: EdgeInsets.zero,
