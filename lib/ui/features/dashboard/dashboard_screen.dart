@@ -122,8 +122,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    GlassCard(
+                    // Member Profile Overview Card
+                    Container(
                       padding: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
                       child: Row(
                         children: [
                           CircleAvatar(
