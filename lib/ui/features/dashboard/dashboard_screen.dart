@@ -269,7 +269,9 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                         color: AppTheme.accentGold,
                                       ),
                                     ),
-                    ).animate().fadeIn(delay: 150.ms, duration: 500.ms),
+                                  ],
+                                ),
+                    ).animate().fadeIn(delay: 100.ms, duration: 500.ms),
 
                     const SizedBox(height: 24),
 
