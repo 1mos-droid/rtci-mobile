@@ -105,6 +105,10 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                 ),
               ),
               Expanded(
+                child: _signupSuccess
+                    ? _buildSuccessScreen(context)
+                    : SingleChildScrollView(
+                        physics: const ClampingScrollPhysics(),
                         Text(
                           "Create Account",
                           style: Theme.of(context).textTheme.displayMedium,
