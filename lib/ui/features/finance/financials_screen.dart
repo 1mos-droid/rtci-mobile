@@ -292,4 +292,8 @@ class FinancialsScreen extends ConsumerWidget {
                           setModalState(() => selectedCampus = val);
                         }
                       },
+                    ),
+                    const SizedBox(height: 16),
+                    // Description
+                    TextFormField(
 }
