@@ -431,6 +431,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                   itemCount: _presetAmounts.length,
                   itemBuilder: (context, index) {
                     final val = _presetAmounts[index];
+                    final isSelected = _customAmount == val.toDouble();
+                    return DonationChip(
+                      label: "GHC $val",
+                      isSelected: isSelected,
                     ),
                   );
                 }).toList(),
