@@ -118,3 +118,7 @@ class _CustomPrimaryButtonState extends State<CustomPrimaryButton> with SingleTi
 class ContentCard extends StatelessWidget {
   final String title;
   final String category;
+  final String time;
+  final String? imageUrl;
+  final String? duration;
+  final VoidCallback? onTap;
