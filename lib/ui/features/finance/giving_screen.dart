@@ -144,6 +144,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                           enableJavaScript: true,
                           enableDomStorage: true,
                         ),
+                      );
+                      
+                      if (context.mounted) {
+                        _showConfirmationDialog(context, transactionId, amt);
                   }
                 },
                 child: const Text("CONFIRM PAYMENT", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800, letterSpacing: 1.0)),
