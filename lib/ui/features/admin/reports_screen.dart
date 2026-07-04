@@ -56,7 +56,7 @@ class ReportsScreen extends StatelessWidget {
                               children: [
                                 Expanded(
                                   child: ElevatedButton.icon(
-                                    onPressed: () {},
+                                    onPressed: () => _exportReport(context, report['title'] as String, "PDF"),
                                     icon: const Icon(Icons.picture_as_pdf),
                                     label: const Text("PDF"),
                                   ),
