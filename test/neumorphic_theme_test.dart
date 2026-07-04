@@ -16,3 +16,6 @@ void main() {
     });
 
     test('Dark theme background matches Neumorphic soft slate', () {
+      final theme = AppTheme.darkTheme;
+      expect(theme.scaffoldBackgroundColor, const Color(0xFF0B0F19));
+    });
