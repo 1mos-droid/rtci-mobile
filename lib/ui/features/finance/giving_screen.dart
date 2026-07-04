@@ -337,9 +337,11 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
           "Giving Portal",
           style: GoogleFonts.cinzel(
             fontWeight: FontWeight.bold,
+            fontSize: 20,
+            color: ObsidianTheme.textVibrant,
           ),
-          centerTitle: true,
         ),
+        centerTitle: true,
         body: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
           child: Column(
