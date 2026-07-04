@@ -260,6 +260,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                   _amountController.clear();
                   setState(() => _customAmount = null);
                   _showSuccessOverlay(context, amount);
+                }
+              },
+              child: Text(
+                "Yes, Completed",
   @override
   Widget build(BuildContext context) {
     final finance = ref.watch(financialProvider);
