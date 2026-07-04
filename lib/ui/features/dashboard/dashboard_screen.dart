@@ -590,6 +590,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                             style: theme.textTheme.bodyMedium?.copyWith(
                                               color: ObsidianTheme.textMuted,
                                               height: 1.4,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                   ],
                 ),
               ),
