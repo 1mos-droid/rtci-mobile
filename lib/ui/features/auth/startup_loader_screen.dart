@@ -194,3 +194,7 @@ class StartupLoaderScreen extends StatelessWidget {
                     shape: BoxShape.circle,
                   ),
                 ),
+
+                sweepRing,
+                crimsonRing,
+                logoContainer,
