@@ -43,3 +43,5 @@ class SkeletonContainer extends StatelessWidget {
           color: highlightColor,
           duration: 1.5.seconds,
         );
+  }
+}
