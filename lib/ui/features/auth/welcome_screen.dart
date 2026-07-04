@@ -200,10 +200,6 @@ class WelcomeScreen extends StatelessWidget {
                 ),
               ],
             ),
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                            color: ObsidianTheme.textVibrant,
-                            fontWeight: FontWeight.bold,
                             letterSpacing: 1.0,
                           ),
                     ),
