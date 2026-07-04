@@ -121,10 +121,8 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                   fontWeight: FontWeight.w800,
                                 ),
                               ).animate().fadeIn(duration: 500.ms).slideY(begin: 0.2, end: 0, curve: Curves.easeOutQuad),
-                                },
-                              ),
-                              const SizedBox(height: 16),
                               
+                              const SizedBox(height: 6),
                               TextFormField(
                                 controller: _emailController,
                                 keyboardType: TextInputType.emailAddress,
