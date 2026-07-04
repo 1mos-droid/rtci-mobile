@@ -405,6 +405,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               ),
                             ),
                           ),
+                          const SizedBox(height: 32),
+
+                          // Don't have an account Option
+                          Center(
                       ),
                     ),
                   ).animate().fadeIn(delay: 450.ms, duration: 500.ms),
