@@ -175,10 +175,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             width: 84,
                             height: 84,
                             padding: const EdgeInsets.all(12),
-                            hintText: "Enter your password",
-                            prefixIcon: Icon(Icons.lock_outline, color: ObsidianTheme.textMuted, size: 20),
-                            suffixIcon: IconButton(
-                              icon: Icon(
                                 _showPassword ? Icons.visibility_off_rounded : Icons.visibility_rounded,
                                 color: ObsidianTheme.textMuted,
                                 size: 20,
