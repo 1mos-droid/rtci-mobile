@@ -116,6 +116,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                   final scaffoldMessenger = ScaffoldMessenger.of(context);
                   final user = ref.read(authNotifierProvider).value;
                   
+                  final url = Uri.parse('https://paystack.shop/pay/gl0eh2twa-');
+                  try {
+                    final finance = ref.read(financialProvider);
+                    final transactionId = await finance.processGiving(
                   }
                 },
                 child: const Text("CONFIRM PAYMENT", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800, letterSpacing: 1.0)),
