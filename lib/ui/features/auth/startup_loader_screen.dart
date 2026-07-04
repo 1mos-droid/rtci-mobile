@@ -113,3 +113,7 @@ class StartupLoaderScreen extends StatelessWidget {
     );
     if (!isTest) {
       primaryText = primaryText.animate().fadeIn(duration: 600.ms);
+    }
+
+    Widget secondaryText = Text(
+      "CHAPEL INTERNATIONAL",
