@@ -169,7 +169,9 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                         fillColor: isDark ? const Color(0xFF151B2C) : Colors.black.withOpacity(0.02),
                                       ),
                                       validator: (val) {
-                                          children: [
+                                        if (val == null || val.isEmpty) return "Please enter your email";
+                                        if (!val.contains('@')) return "Please enter a valid email";
+                                        return null;
                                             FaIcon(
                                               FontAwesomeIcons.google, 
                                               size: 16, 
