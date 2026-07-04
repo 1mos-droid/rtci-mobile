@@ -175,10 +175,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             width: 84,
                             height: 84,
                             padding: const EdgeInsets.all(12),
-                            if (val == null || val.isEmpty) return "Please enter your password";
-                            return null;
-                          },
-                        ),
                         
                         const SizedBox(height: 32),
                         
