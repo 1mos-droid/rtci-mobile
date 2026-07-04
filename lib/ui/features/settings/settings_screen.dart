@@ -171,6 +171,10 @@ class SettingsScreen extends ConsumerWidget {
                                           TextButton(
                                             child: const Text("OK"),
                                             onPressed: () => Navigator.pop(context),
+                                          ),
+                                        ],
+                                      ),
+                                    );
                           ),
                           ListTile(
                             contentPadding: EdgeInsets.zero,
