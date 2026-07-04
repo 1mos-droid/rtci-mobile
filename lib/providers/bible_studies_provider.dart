@@ -137,4 +137,8 @@ class BibleStudiesProvider extends ChangeNotifier {
       }
       
       await fetchStudies();
+      return true;
+    } catch (e) {
+      debugPrint('Error deleting study module: $e');
+      return false;
 }
