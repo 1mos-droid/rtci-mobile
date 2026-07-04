@@ -161,3 +161,7 @@ class StartupLoaderScreen extends StatelessWidget {
           .animate(onPlay: (controller) => controller.repeat(reverse: true))
           .fadeIn(duration: 1.seconds);
     }
+
+    return Scaffold(
+      backgroundColor: bgColor,
+      body: Center(
