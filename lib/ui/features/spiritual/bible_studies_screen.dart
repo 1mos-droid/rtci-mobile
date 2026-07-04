@@ -149,6 +149,10 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
                 decoration: const InputDecoration(labelText: "Resource URL"),
                 style: TextStyle(color: ObsidianTheme.textVibrant),
               ),
+            ],
+          ),
+          actions: [
+            TextButton(
   @override
   Widget build(BuildContext context) {
     final libProv = ref.watch(bibleStudiesProvider);
