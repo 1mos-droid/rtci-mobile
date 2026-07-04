@@ -331,6 +331,10 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
                             context: context,
                             builder: (dialogCtx) {
                               final isDark = Theme.of(context).brightness == Brightness.dark;
+                              return AlertDialog.adaptive(
+                                backgroundColor: isDark ? const Color(0xFF1E202C) : Colors.white,
+                                title: Text(
+                                  module.title,
                 )
               ],
             ),
