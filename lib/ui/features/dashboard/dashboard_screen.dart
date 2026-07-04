@@ -894,6 +894,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                           borderRadius: BorderRadius.circular(16),
                           border: Border.all(
                             color: isDark ? Colors.white.withOpacity(0.06) : Colors.black.withOpacity(0.04),
+                            width: 1.0,
+                          ),
+                        ),
+                        child: Column(
                   ),
                 ),
                 Text(
