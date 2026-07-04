@@ -245,9 +245,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                               ? Center(
                                   child: Text(
                                     "No revelation available today.",
-                                style: TextStyle(
-                                  color: ObsidianTheme.textMuted,
-                                ),
+                                    style: TextStyle(color: ObsidianTheme.textMuted),
                               ),
                             )
                           : Column(
