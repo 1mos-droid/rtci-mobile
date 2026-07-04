@@ -161,6 +161,10 @@ class WelcomeScreen extends StatelessWidget {
                       
                       const SizedBox(height: 14),
                       
+                      OutlinedButton.icon(
+                        icon: const Icon(Icons.assignment_outlined, size: 18),
+                        label: const Text("Membership Form"),
+                        onPressed: () {
                     ],
                   ),
                   child: Center(
