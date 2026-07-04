@@ -184,6 +184,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
   void _showConfirmationDialog(BuildContext context, String transactionId, double amount) {
     showDialog(
       context: context,
+      barrierDismissible: false,
+      builder: (BuildContext dialogCtx) {
+        final theme = Theme.of(context);
+        final isDark = theme.brightness == Brightness.dark;
   @override
   Widget build(BuildContext context) {
     final finance = ref.watch(financialProvider);
