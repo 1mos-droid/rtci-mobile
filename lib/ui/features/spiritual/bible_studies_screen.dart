@@ -347,6 +347,10 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
                                           module.subtitle!,
                                           style: TextStyle(fontWeight: FontWeight.bold, color: ObsidianTheme.secondaryGold, fontSize: 14),
                                         ),
+                                        const SizedBox(height: 12),
+                                      ],
+                                      Text(
+                                        module.description,
                 )
               ],
             ),
