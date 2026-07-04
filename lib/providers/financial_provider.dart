@@ -120,6 +120,8 @@ class FinancialProvider extends ChangeNotifier {
   }
 
   Future<bool> recordTransaction(double amount, String type, String contributor, {String? description, String? campus}) async {
-    return processGiving(amount: amount, type: type, category: contributor, description: description, campus: campus);
+    final docId = await processGiving(amount: amount, type: type, category: contributor, description: description, campus: campus);
+    return docId != null;
+  }
   }
 }
