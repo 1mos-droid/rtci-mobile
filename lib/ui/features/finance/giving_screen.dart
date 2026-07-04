@@ -75,7 +75,9 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
               Text(
                 "Authorize Giving",
                 textAlign: TextAlign.center,
-                style: GoogleFonts.cinzel(fontSize: 22, fontWeight: FontWeight.bold, color: ObsidianTheme.textVibrant),
+                style: GoogleFonts.cinzel(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
               ),
               const SizedBox(height: 16),
               Text(
