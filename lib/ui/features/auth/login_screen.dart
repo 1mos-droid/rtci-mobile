@@ -246,7 +246,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     padding: EdgeInsets.fromLTRB(
                       24, 
                       32, 
-                      child: Text(
+                      24, 
+                      mediaQuery.padding.bottom + 24
+                    ),
                         "Don't have an account? Create one here",
                         style: Theme.of(context).textTheme.labelLarge?.copyWith(
                               color: ObsidianTheme.secondaryGold,
