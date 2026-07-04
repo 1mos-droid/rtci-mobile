@@ -192,4 +192,8 @@ class GroupsProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
+      await _firestore.collection('cell_groups').doc(groupId).delete();
+      
+      // Clean up memberships belonging to this group
+      final membershipsSnapshot = await _firestore
 }
