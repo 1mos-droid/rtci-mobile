@@ -8,3 +8,7 @@ void main() {
   setUpAll(() {
     GoogleFonts.config.allowRuntimeFetching = false;
   });
+
+  group('Neumorphic Theme Tests', () {
+    test('Light theme background matches Neumorphic soft grey', () {
+      final theme = AppTheme.lightTheme;
