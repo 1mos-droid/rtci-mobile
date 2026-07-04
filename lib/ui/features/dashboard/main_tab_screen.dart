@@ -50,6 +50,10 @@ class _MainTabScreenState extends State<MainTabScreen> {
                   border: Border.all(
                     color: isDark ? Colors.white.withOpacity(0.08) : Colors.black.withOpacity(0.05),
                     width: 1.0,
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(isDark ? 0.3 : 0.04),
                     ),
                     boxShadow: [
                       BoxShadow(
