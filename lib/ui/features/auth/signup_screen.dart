@@ -97,8 +97,8 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
               Align(
                 alignment: Alignment.topLeft,
                 child: Padding(
-                            IconButton(
-                              icon: Icon(Icons.arrow_back_ios_new, size: 18, color: ObsidianTheme.textVibrant),
+                  padding: const EdgeInsets.only(left: 12, top: 8),
+                  child: IconButton(
                               onPressed: () => Navigator.pop(context),
                             ),
                           ],
