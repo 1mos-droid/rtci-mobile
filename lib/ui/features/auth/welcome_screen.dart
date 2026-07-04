@@ -105,6 +105,10 @@ class WelcomeScreen extends StatelessWidget {
                 const Spacer(flex: 3),
                 
                 // Premium white/dark translucent card plate
+                GlassCard(
+                  borderRadius: 24,
+                  padding: const EdgeInsets.all(28),
+                  child: Column(
                     ],
                   ),
                   child: Center(
