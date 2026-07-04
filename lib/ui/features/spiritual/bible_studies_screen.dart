@@ -412,6 +412,10 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
       return ListView.builder(
         padding: const EdgeInsets.all(20),
         itemCount: 4,
+        itemBuilder: (context, index) => const Padding(
+          padding: EdgeInsets.only(bottom: 12.0),
+          child: GlassCard(
+            padding: EdgeInsets.all(16),
     }
 
     if (libProv.resources.isEmpty) {
