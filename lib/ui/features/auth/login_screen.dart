@@ -417,6 +417,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                 );
                               },
                               child: RichText(
+                                text: TextSpan(
+                                  style: theme.textTheme.bodyMedium?.copyWith(
+                                    color: ObsidianTheme.textMuted,
+                                  ),
                       ),
                     ),
                   ).animate().fadeIn(delay: 450.ms, duration: 500.ms),
