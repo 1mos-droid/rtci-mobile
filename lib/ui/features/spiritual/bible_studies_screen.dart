@@ -388,6 +388,10 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
                       const SizedBox(width: 12),
                       Expanded(
                         child: ElevatedButton(
+                          onPressed: () => _showAddResourceDialog(module.id),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: ObsidianTheme.primaryCrimson,
+                            foregroundColor: Colors.white,
                 )
               ],
             ),
