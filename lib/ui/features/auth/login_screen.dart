@@ -175,10 +175,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             width: 84,
                             height: 84,
                             padding: const EdgeInsets.all(12),
-                          decoration: InputDecoration(
-                            labelText: "Email Address",
-                            hintText: "e.g. name@email.com",
-                            prefixIcon: Icon(Icons.email_outlined, color: ObsidianTheme.textMuted, size: 20),
                           ),
                           validator: (val) {
                             if (val == null || val.isEmpty) return "Please enter your email";
