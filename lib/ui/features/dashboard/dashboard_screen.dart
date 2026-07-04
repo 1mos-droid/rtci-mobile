@@ -263,6 +263,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                     const SizedBox(height: 12),
                                     Text(
                                       "— ${insights.currentInsight!.reference ?? insights.currentInsight!.author ?? ''}",
+                                      style: GoogleFonts.plusJakartaSans(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                        color: AppTheme.accentGold,
                               ],
                             ),
                     ).animate().fadeIn(delay: 150.ms, duration: 500.ms),
