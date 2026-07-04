@@ -578,6 +578,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                           ),
                                           const SizedBox(height: 8),
                                           Text(
+                                            msg.subject,
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15,
                   ],
                 ),
               ),
