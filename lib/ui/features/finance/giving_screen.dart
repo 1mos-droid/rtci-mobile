@@ -359,10 +359,6 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                     color: ObsidianTheme.textMuted,
                     fontSize: 10,
                     letterSpacing: 1.5,
-                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
-                      decoration: BoxDecoration(
-                        color: isSelected ? ObsidianTheme.primaryCrimson.withValues(alpha: 0.2) : ObsidianTheme.surfaceDark.withValues(alpha: 0.5),
-                        border: Border.all(color: isSelected ? ObsidianTheme.primaryCrimson : ObsidianTheme.borderHairline, width: isSelected ? 2 : 1),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Text(
