@@ -310,7 +310,7 @@ class _GroupsScreenState extends ConsumerState<GroupsScreen> {
                                           borderRadius: BorderRadius.circular(6),
                                         ),
                                         child: Text(
-                                          (grp.type ?? 'General').toUpperCase().replaceAll('_', ' '),
+                                          (grp.type == 'home_cell' ? 'GROUP' : (grp.type ?? 'General')).toUpperCase().replaceAll('_', ' '),
                                           style: GoogleFonts.plusJakartaSans(
                                             fontSize: 9,
                                             fontWeight: FontWeight.bold,
@@ -318,6 +318,8 @@ class _GroupsScreenState extends ConsumerState<GroupsScreen> {
                                           ),
                                         ),
                                       ),
+                                      if (isAdmin)
+                                        IconButton(
                                     ],
                                   ),
                                   const SizedBox(height: 12),
