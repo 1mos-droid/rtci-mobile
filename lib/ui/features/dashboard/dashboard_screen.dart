@@ -770,6 +770,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                 ),
                               ),
                             ),
+                            const SizedBox(height: 16),
+                            Text(
+                              isPlaying ? "Playing Sermon Media..." : "Sermon Media Paused",
+                              style: const TextStyle(color: Colors.white, fontSize: 13, fontWeight: FontWeight.bold),
               ),
             ),
             child: Column(
