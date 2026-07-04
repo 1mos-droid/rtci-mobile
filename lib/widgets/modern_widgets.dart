@@ -126,3 +126,7 @@ class ContentCard extends StatelessWidget {
   final Widget? trailing;
 
   const ContentCard({
+    super.key,
+    required this.title,
+    required this.category,
+    required this.time,
