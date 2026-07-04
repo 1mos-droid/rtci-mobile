@@ -461,6 +461,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                   child: Row(
                     children: [
                       Text(
+                        "GHC",
+                        style: GoogleFonts.plusJakartaSans(
+                          color: ObsidianTheme.textVibrant,
+                          fontSize: 22,
                   },
                   style: TextStyle(color: ObsidianTheme.textVibrant, fontSize: 24, fontWeight: FontWeight.bold),
                   decoration: InputDecoration(
