@@ -1175,9 +1175,11 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                           }
                         },
                         child: const Text("POST SERMON"),
+                      ),
+                    ],
                   ),
                 ),
-              ],
+              ),
             ),
           ),
           const SizedBox(width: 16),
