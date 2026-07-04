@@ -51,3 +51,7 @@ class SermonProvider extends ChangeNotifier {
 
       await _firestore.collection('sermons').add({
         'title': title,
+        'speaker': speaker,
+        'category': category,
+        'duration': duration,
+        'image_url': imageUrl.isEmpty ? 'https://images.unsplash.com/photo-1507692049790-de58290a4334?w=500&q=80' : imageUrl,
