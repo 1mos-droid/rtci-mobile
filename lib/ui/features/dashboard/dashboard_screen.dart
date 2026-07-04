@@ -1,10 +1,14 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:rtc_mobile/theme/app_theme.dart';
 import 'package:rtc_mobile/widgets/glass_card.dart';
+import 'package:rtc_mobile/widgets/mesh_gradient_background.dart';
 import 'package:rtc_mobile/application/auth/auth_provider.dart';
 import 'package:rtc_mobile/providers/events_provider.dart';
 import 'package:rtc_mobile/widgets/mesh_gradient_background.dart';
