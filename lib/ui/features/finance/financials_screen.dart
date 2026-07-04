@@ -219,4 +219,8 @@ class FinancialsScreen extends ConsumerWidget {
                         labelText: "Amount (GHC)",
                         prefixIcon: Icon(Icons.attach_money),
                       ),
+                      validator: (val) {
+                        if (val == null || val.isEmpty) return "Please enter amount";
+                        if (double.tryParse(val) == null) return "Enter a valid number";
+                        return null;
 }
