@@ -182,7 +182,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                 BoxShadow(
                                   color: Colors.black.withOpacity(0.15),
                                   blurRadius: 20,
-                                      Text(
+                                  offset: const Offset(0, 8),
+                                ),
+                              ],
                                         "Sign In with Google",
                                         style: TextStyle(
                                           color: isDark ? Colors.black : Colors.white,
