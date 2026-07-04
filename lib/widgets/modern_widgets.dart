@@ -122,3 +122,7 @@ class ContentCard extends StatelessWidget {
   final String? imageUrl;
   final String? duration;
   final VoidCallback? onTap;
+  final String? tag;
+  final Widget? trailing;
+
+  const ContentCard({
