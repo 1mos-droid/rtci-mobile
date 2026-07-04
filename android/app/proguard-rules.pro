@@ -22,3 +22,7 @@
 -dontwarn com.google.android.play.core.splitinstall.SplitInstallManagerFactory
 -dontwarn com.google.android.play.core.splitinstall.SplitInstallRequest$Builder
 -dontwarn com.google.android.play.core.splitinstall.SplitInstallRequest
+-dontwarn com.google.android.play.core.splitinstall.SplitInstallSessionState
+-dontwarn com.google.android.play.core.splitinstall.SplitInstallStateUpdatedListener
+-dontwarn com.google.android.play.core.tasks.OnFailureListener
+-dontwarn com.google.android.play.core.tasks.OnSuccessListener
