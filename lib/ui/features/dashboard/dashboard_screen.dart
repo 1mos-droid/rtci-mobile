@@ -310,10 +310,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                 child: SizedBox(
                                   width: 220,
                                   child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
                                           Expanded(
                                             child: Text(
