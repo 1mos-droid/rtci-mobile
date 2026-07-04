@@ -360,10 +360,6 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                           ),
                         ),
                       ),
-        child: GlassCard(
-          padding: const EdgeInsets.all(32),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
             children: [
               const Icon(Icons.check_circle_outline, size: 72, color: Colors.greenAccent),
               const SizedBox(height: 24),
