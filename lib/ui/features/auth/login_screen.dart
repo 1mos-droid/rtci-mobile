@@ -93,6 +93,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         builder: (_) => const Center(child: CircularProgressIndicator()),
       );
       
+      await ref.read(authRepositoryProvider).sendPasswordReset(email);
+      
+      if (mounted) {
+        Navigator.pop(context); // Dismiss loading
   @override
   Widget build(BuildContext context) {
     final authState = ref.watch(authNotifierProvider);
