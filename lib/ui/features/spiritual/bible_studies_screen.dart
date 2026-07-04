@@ -326,9 +326,7 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
                   children: [
                     Expanded(
                       child: OutlinedButton(
-                    onPressed: () {},
-                    child: const Text("VIEW SYLLABUS"),
-                  ),
+                        onPressed: () {
                 )
               ],
             ),
