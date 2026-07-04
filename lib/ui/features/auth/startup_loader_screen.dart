@@ -173,3 +173,8 @@ class StartupLoaderScreen extends StatelessWidget {
               children: [
                 // Outer ring track
                 Container(
+                  width: 170,
+                  height: 170,
+                  decoration: BoxDecoration(
+                    color: isDark ? const Color(0xFF151B2C).withOpacity(0.5) : Colors.black.withOpacity(0.01),
+                    shape: BoxShape.circle,
