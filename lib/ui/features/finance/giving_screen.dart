@@ -312,6 +312,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                 const SizedBox(height: 24),
                 CustomPrimaryButton(
                   text: "Done",
+                  onPressed: () => Navigator.pop(ctx),
+                )
+              ],
+            ),
   @override
   Widget build(BuildContext context) {
     final finance = ref.watch(financialProvider);
