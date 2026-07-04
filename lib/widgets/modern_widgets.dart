@@ -307,3 +307,7 @@ class DonationChip extends StatelessWidget {
   final String label;
   final bool isSelected;
   final VoidCallback onTap;
+
+  const DonationChip({
+    super.key,
+    required this.label,
