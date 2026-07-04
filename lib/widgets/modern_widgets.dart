@@ -30,3 +30,7 @@ class _CustomPrimaryButtonState extends State<CustomPrimaryButton> with SingleTi
   @override
   void initState() {
     super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 100),
+    );
