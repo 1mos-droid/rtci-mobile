@@ -415,6 +415,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                             child: ChoiceChip(
                               label: Text(
                                 cat,
+                                style: GoogleFonts.plusJakartaSans(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 13,
+                                  color: isSelected ? Colors.white : ObsidianTheme.textVibrant,
                       ),
                     ),
                     const SizedBox(height: 12),
