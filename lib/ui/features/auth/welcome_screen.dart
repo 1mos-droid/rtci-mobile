@@ -199,9 +199,7 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                 ),
               ],
-              
-              // Brand Sacred Heading
-              Text(
+            ),
                 "Redeemed Transformation",
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.displayLarge?.copyWith(fontSize: 26, color: ObsidianTheme.textVibrant),
