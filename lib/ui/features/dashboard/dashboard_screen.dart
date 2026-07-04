@@ -232,15 +232,17 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                             letterSpacing: 1.5,
                           ),
                         ),
+                      ],
                     ),
                     const SizedBox(height: 12),
 
                     GlassCard(
+                      borderRadius: 20,
                       padding: const EdgeInsets.all(20),
                       child: insights.isLoading
                           ? const Center(child: CircularProgressIndicator())
                           : insights.currentInsight == null
-                          ? Center(
+                              ? Center(
                               child: Text(
                                 "No revelation available today.",
                                 style: TextStyle(
