@@ -264,6 +264,11 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                           padding: const EdgeInsets.symmetric(horizontal: 16),
                                           child: Text(
                                             "OR SIGN UP WITH",
+                                            style: GoogleFonts.plusJakartaSans(
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.w800,
+                                              color: ObsidianTheme.textMuted,
+                                              letterSpacing: 1.0,
                                             ),
                                             const SizedBox(width: 12),
                                             Text(
