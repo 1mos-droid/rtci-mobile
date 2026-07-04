@@ -204,6 +204,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
           ),
           content: Column(
             mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                "Did you successfully complete your donation of GHC ${amount.toStringAsFixed(0)} on the Paystack checkout page?",
+                textAlign: TextAlign.center,
   @override
   Widget build(BuildContext context) {
     final finance = ref.watch(financialProvider);
