@@ -215,7 +215,11 @@ class AppTheme {
           borderRadius: BorderRadius.circular(16),
           borderSide: const BorderSide(color: Color(0xFFEF4444), width: 1.0),
         ),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+        labelStyle: const TextStyle(color: Colors.white70, fontSize: 15, fontWeight: FontWeight.w500),
+        hintStyle: const TextStyle(color: Colors.white38, fontSize: 15),
       ),
+    );
     );
   }
 
