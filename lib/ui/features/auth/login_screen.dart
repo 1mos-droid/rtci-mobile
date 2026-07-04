@@ -296,6 +296,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           // Password field
                           TextFormField(
                             controller: _passwordController,
+                            obscureText: !_showPassword,
+                            style: TextStyle(color: ObsidianTheme.textVibrant, fontSize: 15),
+                            decoration: InputDecoration(
+                              labelText: "Password",
                       ),
                     ),
                   ).animate().fadeIn(delay: 450.ms, duration: 500.ms),
