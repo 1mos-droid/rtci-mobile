@@ -159,6 +159,10 @@ class SettingsScreen extends ConsumerWidget {
                                       ),
                                     );
                                   }
+                                } catch (e) {
+                                  if (context.mounted) {
+                                    Navigator.pop(context); // Dismiss loading
+                                    showAdaptiveDialog(
                           ),
                           ListTile(
                             contentPadding: EdgeInsets.zero,
