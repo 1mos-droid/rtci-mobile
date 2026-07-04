@@ -798,6 +798,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 24),
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "$minutes:$seconds",
               ),
             ),
             child: Column(
