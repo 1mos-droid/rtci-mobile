@@ -43,3 +43,7 @@ class SermonProvider extends ChangeNotifier {
     String? videoUrl,
   }) async {
     _isLoading = true;
+    notifyListeners();
+
+    try {
+      final user = _auth.currentUser;
