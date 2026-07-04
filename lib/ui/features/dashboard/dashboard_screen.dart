@@ -782,6 +782,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                   ),
                   const SizedBox(height: 20),
                   // Progress Bar & Timer
+                  Column(
+                    children: [
+                      Slider(
+                        value: currentSeconds.toDouble(),
               ),
             ),
             child: Column(
