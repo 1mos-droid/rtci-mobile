@@ -55,6 +55,8 @@ class FinancialProvider extends ChangeNotifier {
     }
 
     // Listen for auth notifier changes (e.g. logging in as a different account)
+    _ref.listen<AsyncValue>(authNotifierProvider, (previous, next) {
+      final user = next.value;
       if (user != null) {
         fetchTransactions();
       } else {
@@ -82,7 +84,7 @@ class FinancialProvider extends ChangeNotifier {
     }
   }
 
-  Future<bool> processGiving({
+  Future<String?> processGiving({
     required double amount,
     required String type,
     required String category,
