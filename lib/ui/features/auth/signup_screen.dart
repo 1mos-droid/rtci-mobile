@@ -360,10 +360,6 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                           ),
                         ),
                       ),
-                "Welcome to Fellowship",
-                textAlign: TextAlign.center,
-                style: GoogleFonts.cinzel(fontSize: 22, fontWeight: FontWeight.bold, color: ObsidianTheme.textVibrant),
-              ),
               const SizedBox(height: 12),
               Text(
                 "Your account has been successfully created. You can now log in to the portal.",
