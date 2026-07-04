@@ -419,6 +419,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                   ),
                 ),
                 const SizedBox(height: 12),
+                GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     ),
                   );
                 }).toList(),
