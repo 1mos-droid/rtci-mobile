@@ -491,9 +491,7 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                             hintStyle: TextStyle(
                               color: ObsidianTheme.textMuted.withOpacity(0.4),
                               fontSize: 16,
-              ),
-
-              const SizedBox(height: 48),
+                              fontWeight: FontWeight.normal,
 
               ElevatedButton(
                 onPressed: finance.isLoading ? null : () => _confirmPayment(context),
