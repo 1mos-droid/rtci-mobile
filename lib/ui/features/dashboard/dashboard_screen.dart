@@ -369,14 +369,14 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
 
                     // Glanceable Metrics Horizontal List
                     SizedBox(
-                      height: 110,
+                      height: 100,
                       child: ListView(
                         scrollDirection: Axis.horizontal,
+                        physics: const BouncingScrollPhysics(),
                         children: [
                           _buildMetricCard(
                             context,
                             title: "CONTRIBUTIONS",
-                            value:
                                 "GHC ${finance.totalRevenue.toStringAsFixed(0)}",
                             subtitle: "Audit Ledger",
                             color: ObsidianTheme.primaryCrimson,
