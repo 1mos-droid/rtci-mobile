@@ -1184,10 +1184,6 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
           }
         );
       },
-    );
-  }
-
-  Widget _buildSermonsList(BuildContext context) {
     return Center(
       child: Text(
         "No recent sermons available.",
