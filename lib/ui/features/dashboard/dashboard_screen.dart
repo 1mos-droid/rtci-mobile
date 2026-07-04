@@ -1035,6 +1035,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                               fontWeight: FontWeight.bold,
                               color: ObsidianTheme.textVibrant,
                             ),
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.close_rounded, color: ObsidianTheme.textVibrant),
+                            onPressed: () => Navigator.pop(ctx),
                   ),
                 ),
               ],
