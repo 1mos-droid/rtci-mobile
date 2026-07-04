@@ -360,10 +360,6 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                           ),
                         ),
                       ),
-                              style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                                    color: ObsidianTheme.secondaryGold,
-                                    fontWeight: FontWeight.bold,
-                                  ),
                             ),
                           ),
                         ).animate().fadeIn(delay: 450.ms, duration: 500.ms),
