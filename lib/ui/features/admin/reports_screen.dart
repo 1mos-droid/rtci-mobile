@@ -137,3 +137,7 @@ class _ExportingDialogState extends State<_ExportingDialog> {
 
   void _startExport() {
     const duration = Duration(milliseconds: 150);
+    const steps = 10;
+    int currentStep = 0;
+    
+    // Simulate step progress
