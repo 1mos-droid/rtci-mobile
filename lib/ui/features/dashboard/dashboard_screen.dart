@@ -598,6 +598,8 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                   },
                                 ).animate().fadeIn(duration: 400.ms),
                     ],
+
+                    const SizedBox(height: 100), // Space for navigation bar
                   ],
                 ),
               ),
@@ -615,6 +617,8 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
     required String subtitle,
     required Color color,
   }) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
     return Container(
       width: 160,
       decoration: BoxDecoration(
