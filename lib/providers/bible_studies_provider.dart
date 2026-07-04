@@ -113,4 +113,8 @@ class BibleStudiesProvider extends ChangeNotifier {
       return true;
     } catch (e) {
       debugPrint('Error adding study module: $e');
+      return false;
+    } finally {
+      _isLoading = false;
+      notifyListeners();
 }
