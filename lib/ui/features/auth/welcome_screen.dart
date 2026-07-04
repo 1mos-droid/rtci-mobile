@@ -37,6 +37,10 @@ class WelcomeScreen extends StatelessWidget {
                       shape: BoxShape.circle,
                       border: Border.all(
                         color: AppTheme.accentGold.withOpacity(0.3),
+                        width: 1.5,
+                      ),
+                      boxShadow: [
+                        BoxShadow(
                     ],
                   ),
                   child: Center(
