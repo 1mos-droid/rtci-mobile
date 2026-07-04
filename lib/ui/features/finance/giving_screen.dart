@@ -167,7 +167,9 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                 child: Text(
                   "Cancel",
                   style: TextStyle(
-              ),
+                    color: ObsidianTheme.textMuted,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
               const SizedBox(height: 12),
             ],
           ),
