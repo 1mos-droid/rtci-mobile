@@ -280,6 +280,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
     showDialog(
       context: context,
       builder: (ctx) {
+        return Dialog(
+          backgroundColor: Colors.transparent,
+          insetPadding: const EdgeInsets.symmetric(horizontal: 32),
+          child: GlassCard(
   @override
   Widget build(BuildContext context) {
     final finance = ref.watch(financialProvider);
