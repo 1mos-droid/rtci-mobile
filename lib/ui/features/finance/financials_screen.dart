@@ -236,4 +236,8 @@ class FinancialsScreen extends ConsumerWidget {
                         prefixIcon: Icon(Icons.swap_horiz),
                       ),
                       items: types.map((t) => DropdownMenuItem(
+                        value: t,
+                        child: Text(t.toUpperCase()),
+                      )).toList(),
+                      onChanged: (val) {
 }
