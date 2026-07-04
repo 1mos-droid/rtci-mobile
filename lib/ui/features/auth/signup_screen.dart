@@ -408,4 +408,8 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                     context,
                     MaterialPageRoute(builder: (_) => const MainTabScreen()),
                     (route) => false,
+                  );
+                },
+              ),
+            ],
 }
