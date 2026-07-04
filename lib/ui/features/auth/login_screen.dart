@@ -175,10 +175,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             width: 84,
                             height: 84,
                             padding: const EdgeInsets.all(12),
-                              padding: const EdgeInsets.symmetric(horizontal: 16),
-                              child: Text(
-                                "OR",
-                                style: GoogleFonts.plusJakartaSans(
                                   fontSize: 12,
                                   fontWeight: FontWeight.bold,
                                   color: ObsidianTheme.textMuted,
