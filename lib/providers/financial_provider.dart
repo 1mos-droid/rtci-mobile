@@ -20,6 +20,10 @@ class FinancialProvider extends ChangeNotifier {
 
     final completed = _transactions.where((t) => t.status == 'completed').toList();
 
+    // Admins and developers see all completed transactions
+    if (user.isAdmin) {
+      return completed;
+    }
   bool get isLoading => _isLoading;
   double get totalRevenue => _transactions.where((t) => t.type == 'contribution').fold(0, (sum, item) => sum + item.amount);
   double get totalExpense => _transactions.where((t) => t.type == 'expense').fold(0, (sum, item) => sum + item.amount);
