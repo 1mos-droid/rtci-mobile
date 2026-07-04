@@ -189,3 +189,7 @@ class _ExportingDialogState extends State<_ExportingDialog> {
                 "Compiling ${widget.title} in ${widget.format}...",
                 textAlign: TextAlign.center,
                 style: GoogleFonts.plusJakartaSans(
+                  fontWeight: FontWeight.bold,
+                  color: ObsidianTheme.textVibrant,
+                ),
+              ),
