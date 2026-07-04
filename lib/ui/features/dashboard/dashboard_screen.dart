@@ -1055,6 +1055,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                       const SizedBox(height: 16),
                       TextFormField(
                         controller: speakerController,
+                        style: TextStyle(color: ObsidianTheme.textVibrant),
+                        decoration: const InputDecoration(
+                          labelText: "Speaker",
+                          prefixIcon: Icon(Icons.person_outline),
                   ),
                 ),
               ],
