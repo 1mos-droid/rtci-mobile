@@ -34,7 +34,9 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
   void _confirmPayment(BuildContext context) {
     final amt = _customAmount ?? double.tryParse(_amountController.text) ?? 0;
     if (amt <= 0) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Please enter a valid amount")));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text("Please enter a valid amount"),
       return;
     }
 
