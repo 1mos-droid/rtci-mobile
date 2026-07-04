@@ -113,6 +113,10 @@ class WelcomeScreen extends StatelessWidget {
                     children: [
                       Text(
                         "MEMBERS PORTAL",
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.plusJakartaSans(
+                          color: ObsidianTheme.textVibrant,
+                          fontWeight: FontWeight.w800,
                     ],
                   ),
                   child: Center(
