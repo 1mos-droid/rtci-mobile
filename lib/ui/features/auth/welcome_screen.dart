@@ -169,6 +169,10 @@ class WelcomeScreen extends StatelessWidget {
                             context,
                             MaterialPageRoute(builder: (_) => const ApplicationFormScreen()),
                           );
+                        },
+                        style: OutlinedButton.styleFrom(
+                          side: BorderSide(
+                            color: isDark ? Colors.white24 : Colors.black12,
                     ],
                   ),
                   child: Center(
