@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rtc_mobile/theme/app_theme.dart';
 import 'package:rtc_mobile/widgets/glass_card.dart';
 import 'package:rtc_mobile/widgets/mesh_gradient_background.dart';
 import 'package:rtc_mobile/providers/riverpod_providers.dart';
+import 'package:rtc_mobile/application/auth/auth_provider.dart';
+import 'package:rtc_mobile/widgets/skeleton_loader.dart';
 
 class BibleStudiesScreen extends ConsumerStatefulWidget {
   const BibleStudiesScreen({super.key});
@@ -28,6 +31,7 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
     super.dispose();
   }
 
+  void _showAddModuleDialog() {
   @override
   Widget build(BuildContext context) {
     final libProv = ref.watch(bibleStudiesProvider);
