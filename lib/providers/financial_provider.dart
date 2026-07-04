@@ -50,6 +50,11 @@ class FinancialProvider extends ChangeNotifier {
   void _init() {
     // Initial fetch if user already logged in
     final initialUser = _ref.read(authNotifierProvider).value;
+    if (initialUser != null) {
+      fetchTransactions();
+    }
+
+    // Listen for auth notifier changes (e.g. logging in as a different account)
       if (user != null) {
         fetchTransactions();
       } else {
