@@ -127,9 +127,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                               Text(
                                 "Join the fellowship by creating your digital member profile.",
                                 style: theme.textTheme.bodyMedium?.copyWith(
-                                decoration: InputDecoration(
-                                  labelText: "Email Address",
-                                  hintText: "your@email.com",
+                                  color: ObsidianTheme.textMuted,
                                   prefixIcon: Icon(Icons.email_outlined, color: ObsidianTheme.textMuted, size: 20),
                                 ),
                                 validator: (val) {
