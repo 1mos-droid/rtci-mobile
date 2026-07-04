@@ -498,4 +498,8 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
+            "$week: ",
+            style: const TextStyle(fontWeight: FontWeight.bold, color: AppTheme.accentGold, fontSize: 13),
+          ),
+          Expanded(
 }
