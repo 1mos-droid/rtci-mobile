@@ -25,9 +25,8 @@ class WelcomeScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-              const Spacer(flex: 2),
-              
-              // Serene Golden Cross Emblem representing Faith
+                const Spacer(flex: 2),
+                
               Center(
                 child: Container(
                   width: 90,
