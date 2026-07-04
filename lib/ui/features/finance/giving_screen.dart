@@ -415,6 +415,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                     fontWeight: FontWeight.w800,
                     color: ObsidianTheme.textMuted,
                     fontSize: 10,
+                    letterSpacing: 1.5,
+                  ),
+                ),
+                const SizedBox(height: 12),
                     ),
                   );
                 }).toList(),
