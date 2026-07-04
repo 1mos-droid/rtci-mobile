@@ -69,3 +69,7 @@ class StartupLoaderScreen extends StatelessWidget {
         border: Border.all(
           color: secondaryAccent.withOpacity(0.2),
           width: 1.0,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(isDark ? 0.4 : 0.04),
