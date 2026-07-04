@@ -293,6 +293,10 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                             ),
                                           ],
                                         ),
+                                        child: authState.isLoading
+                                            ? const Center(child: CircularProgressIndicator.adaptive())
+                                            : Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
                                 ),
                               ),
                             ],
