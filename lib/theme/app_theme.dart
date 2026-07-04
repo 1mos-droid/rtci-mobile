@@ -306,6 +306,10 @@ class AppTheme {
         fontSize: 12,
         letterSpacing: 0.0,
       ),
+      labelLarge: _getTextStyle(
+        color: primaryColor,
+        fontSize: 12,
+      ),
     );
   }
 }
