@@ -131,10 +131,6 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                   height: 1.4,
                                 ),
                               ).animate().fadeIn(delay: 100.ms, duration: 500.ms).slideY(begin: 0.2, end: 0, curve: Curves.easeOutQuad),
-                                validator: (val) {
-                                  if (val == null || val.isEmpty) return "Please confirm your password";
-                                  if (val != _passwordController.text) return "Passwords do not match";
-                                  return null;
                                 },
                               ),
                               const SizedBox(height: 24),
