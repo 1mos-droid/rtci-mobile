@@ -153,6 +153,10 @@ class WelcomeScreen extends StatelessWidget {
                         textColor: isDark ? Colors.white : const Color(0xFF0F172A),
                         onPressed: () {
                           Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (_) => const SignupScreen()),
+                          );
+                        },
                     ],
                   ),
                   child: Center(
