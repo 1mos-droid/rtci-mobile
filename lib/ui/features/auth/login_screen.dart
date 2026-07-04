@@ -276,6 +276,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           // Email field
                           TextFormField(
                             controller: _emailController,
+                            keyboardType: TextInputType.emailAddress,
+                            style: TextStyle(color: ObsidianTheme.textVibrant, fontSize: 15),
+                            decoration: InputDecoration(
+                              labelText: "Email Address",
                       ),
                     ),
                   ).animate().fadeIn(delay: 450.ms, duration: 500.ms),
