@@ -143,6 +143,10 @@ class _GroupsScreenState extends ConsumerState<GroupsScreen> {
                   style: ElevatedButton.styleFrom(backgroundColor: ObsidianTheme.primaryCrimson, foregroundColor: Colors.white),
                   child: const Text("CREATE"),
                 ),
+              ],
+            );
+          }
+        );
   @override
   Widget build(BuildContext context) {
     final groupsProv = ref.watch(groupsProvider);
