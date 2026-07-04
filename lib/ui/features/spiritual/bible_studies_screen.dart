@@ -506,4 +506,8 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
               topic,
               style: TextStyle(color: ObsidianTheme.textVibrant, fontSize: 13),
             ),
+          ),
+        ],
+      ),
+    );
 }
