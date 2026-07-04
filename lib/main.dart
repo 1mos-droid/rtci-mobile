@@ -64,6 +64,10 @@ class _RTCIMobileAppState extends ConsumerState<RTCIMobileApp> {
     final themeMode = ref.watch(themeNotifierProvider);
 
     if (!_initialized) {
+      return MaterialApp(
+        title: 'RTCI Connect',
+        debugShowCheckedModeBanner: false,
+        theme: AppTheme.lightTheme,
     final authState = ref.watch(authNotifierProvider);
     final themeMode = ref.watch(themeNotifierProvider);
 
