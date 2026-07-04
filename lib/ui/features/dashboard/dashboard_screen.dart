@@ -348,10 +348,6 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                         children: [
                                           IconButton(
                                             icon: const Icon(Icons.check_circle_outline, size: 20, color: Colors.green),
-                                            icon: const Icon(
-                                              Icons.check_circle_outline,
-                                              size: 18,
-                                              color: Colors.green,
                                             ),
                                             onPressed: () =>
                                                 care.resolveTicket(item.id),
