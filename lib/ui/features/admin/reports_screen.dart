@@ -128,3 +128,8 @@ class _ExportingDialog extends StatefulWidget {
 class _ExportingDialogState extends State<_ExportingDialog> {
   double _progress = 0.0;
   bool _finished = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _startExport();
