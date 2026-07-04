@@ -143,10 +143,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         children: [
           // 1. Background (Upper Section) Image with Blur
           Positioned.fill(
-            onPressed: () => Navigator.pop(context),
-          ),
-        ),
-        body: SafeArea(
           child: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
             child: Form(
