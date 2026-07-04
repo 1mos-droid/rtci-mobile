@@ -11,10 +11,8 @@ import 'package:rtc_mobile/application/auth/auth_provider.dart';
 import 'package:rtc_mobile/application/theme/theme_provider.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-Future<void> main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  
-  try {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
