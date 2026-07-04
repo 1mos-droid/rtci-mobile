@@ -822,6 +822,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
       },
     ).then((value) {
       playbackTimer?.cancel();
+    });
+  }
+
+  void _showNotificationsBottomSheet(BuildContext context, List<BroadcastMessage> announcements) {
                   ),
                 ),
                 Text(
