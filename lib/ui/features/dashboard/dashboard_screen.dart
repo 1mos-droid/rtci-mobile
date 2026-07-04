@@ -407,6 +407,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       physics: const BouncingScrollPhysics(),
+                      child: Row(
+                        children: ['All', 'Sermons', 'Announcements'].map((cat) {
+                          final isSelected = _selectedCategory == cat;
+                          return Padding(
                       ),
                     ),
                     const SizedBox(height: 12),
