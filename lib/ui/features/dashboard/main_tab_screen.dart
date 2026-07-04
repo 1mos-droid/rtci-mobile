@@ -74,10 +74,6 @@ class _MainTabScreenState extends State<MainTabScreen> {
         ),
       ),
     );
-          onDestinationSelected: (index) => setState(() => _currentIndex = index),
-          destinations: const [
-            NavigationDestination(
-              icon: Icon(Icons.home_outlined),
               selectedIcon: Icon(Icons.home_rounded),
               label: 'Home',
             ),
