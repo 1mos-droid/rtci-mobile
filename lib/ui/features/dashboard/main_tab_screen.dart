@@ -30,8 +30,8 @@ class _MainTabScreenState extends State<MainTabScreen> {
 
     return Scaffold(
       extendBody: true,
-        body: IndexedStack(
-          index: _currentIndex,
+      body: IndexedStack(
+        index: _currentIndex,
           children: _pages,
         ),
         bottomNavigationBar: SafeArea(
