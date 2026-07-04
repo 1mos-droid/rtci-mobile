@@ -360,10 +360,6 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                           ),
                         ),
                       ),
-                              );
-                            },
-                            child: Text(
-                              "Already have an account? Sign In here",
                               style: Theme.of(context).textTheme.labelLarge?.copyWith(
                                     color: ObsidianTheme.secondaryGold,
                                     fontWeight: FontWeight.bold,
