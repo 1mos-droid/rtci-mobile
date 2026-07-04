@@ -6,3 +6,6 @@ import 'package:rtc_mobile/models/sermon.dart';
 class SermonProvider extends ChangeNotifier {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  
+  List<Sermon> _sermons = [];
+  bool _isLoading = false;
