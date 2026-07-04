@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - RTCI Connect</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0A0A0A;
+            --bg-card: rgba(18, 18, 18, 0.7);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --primary-crimson: #C8102E;
+            --primary-crimson-hover: #9E0B22;
+            --secondary-gold: #D4AF37;
+            --text-primary: #F3F4F6;
+            --text-secondary: #9CA3AF;
+            --text-muted: #6B7280;
+            --shadow-color: rgba(0, 0, 0, 0.5);
+            --gradient-accent: radial-gradient(circle at top right, rgba(200, 16, 46, 0.15), transparent 45%),
+                              radial-gradient(circle at bottom left, rgba(212, 175, 55, 0.08), transparent 40%);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            background-image: var(--gradient-accent);
+            background-attachment: fixed;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo-placeholder {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 16px auto;
+            background-color: rgba(200, 16, 46, 0.1);
+            border: 2px solid var(--primary-crimson);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 20px rgba(200, 16, 46, 0.2);
+        }
+
+        .logo-placeholder svg {
+            width: 40px;
+            height: 40px;
+            fill: var(--primary-crimson);
+        }
+
+        h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.2rem;
+            color: var(--text-primary);
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .app-name {
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--secondary-gold);
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .effective-date {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 8px 32px 0 var(--shadow-color);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.35rem;
+            color: var(--secondary-gold);
+            margin-top: 32px;
+            margin-bottom: 16px;
+            border-left: 3px solid var(--primary-crimson);
+            padding-left: 12px;
+            font-weight: 600;
+        }
+
+        h2:first-of-type {
+            margin-top: 0;
+        }
+
+        p {
+            font-size: 0.98rem;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            text-align: justify;
+        }
+
+        ul {
+            list-style: none;
+            margin-bottom: 20px;
+            padding-left: 4px;
+        }
+
+        li {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        li::before {
+            content: "•";
+            color: var(--primary-crimson);
+            font-weight: bold;
+            font-size: 1.2rem;
+            position: absolute;
+            left: 0;
+            top: -2px;
+        }
+
+        strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        a {
+            color: var(--primary-crimson);
+            text-decoration: none;
+            transition: color 0.2s ease, border-bottom 0.2s ease;
+            border-bottom: 1px solid transparent;
+            font-weight: 500;
+        }
+
+        a:hover {
+            color: var(--secondary-gold);
+            border-bottom: 1px solid var(--secondary-gold);
+        }
+
+        .highlight-box {
+            background: rgba(200, 16, 46, 0.05);
+            border: 1px dashed rgba(200, 16, 46, 0.3);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 24px 0;
+        }
+
+        .highlight-box p {
+            margin-bottom: 0;
+            color: var(--text-primary);
+        }
+
+        .contact-info {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 24px;
+        }
+
+        .contact-info p {
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        .contact-info p:last-child {
+            margin-bottom: 0;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+        }
+
+        /* Responsive design */
+        @media (max-width: 600px) {
+            body {
+                padding: 20px 12px;
+            }
+            .card {
+                padding: 24px 16px;
+            }
+            h1 {
+                font-size: 1.7rem;
+            }
+            h2 {
+                font-size: 1.15rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo-placeholder">
+                <svg viewBox="0 0 24 24">
+                    <!-- Church Cross Icon -->
+                    <path d="M11 2h2v6h5v2h-5v12h-2v-12h-5v-2h5V2z"/>
+                </svg>
+            </div>
+            <h1>Privacy Policy</h1>
+            <div class="app-name">RTCI Connect Mobile App</div>
+            <div class="effective-date">Effective Date: July 4, 2026</div>
+        </header>
+
+        <main class="card">
+            <p>Redeemed Transformation Chapel International ("we", "us", "our", or "RTCI") operates the <strong>RTCI Connect</strong> mobile application (the "App"). We are committed to protecting the privacy of our members, visitors, and users. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our App, particularly in compliance with Google Play Store developer policies.</p>
+            <p>Please read this Privacy Policy carefully. If you do not agree with the terms of this Privacy Policy, please do not access or use the App.</p>
+
+            <h2>1. Information We Collect</h2>
+            <p>We collect several types of information from and about users of our App, including:</p>
+            
+            <h3>A. Personal Information You Provide to Us</h3>
+            <ul>
+                <li><strong>Account Information:</strong> When you register or log in, we collect your name, email address, and profile picture (especially when authenticating via Google Sign-In or email/password).</li>
+                <li><strong>Ministry & Member Applications:</strong> If you apply to join official church ministries, we collect details such as your full name, email, phone number, birth date, gender, home address, conversion date, water and Holy Spirit baptism status, previous church history, talents/skills, and a digital signature (including signature coordinate points).</li>
+                <li><strong>Prayer Petitions:</strong> When you submit a prayer request, we collect the text of your request, your name (unless marked anonymous), and your campus location.</li>
+                <li><strong>Service Gallery Media:</strong> If you upload images to the public service gallery or update your profile picture, we process and store these images.</li>
+            </ul>
+
+            <h3>B. Special and Sensitive Data (Children's Ministry Check-In)</h3>
+            <p>To facilitate a secure check-in registry during church services, parents or legal guardians may input a child’s name, age/birthdate, and department/classroom group, alongside the parent's contact info. This data is collected <strong>strictly</strong> from parents or legal guardians. The App is not directed at children under the age of 13, and children are not permitted to create accounts or directly use the App. We do not knowingly collect personal data directly from children under 13.</p>
+
+            <h3>C. Financial & Giving Data</h3>
+            <p>The App includes a financial ledger and giving records (contributions, offerings, tithes, and expenses). We record transaction metadata, including the amount, category, date, description, member ID, and campus. <strong>Online donations are completed externally.</strong> When you tap to give, the App opens a secure checkout page operated by <strong>Paystack</strong> (our third-party payment gateway). We do not collect, process, or store bank credentials, debit/credit card numbers, CVVs, or mobile money PINs on our servers.</p>
+
+            <h3>D. Device Permissions & Automatically Collected Data</h3>
+            <p>To support specific features, the App requests permission to access:</p>
+            <ul>
+                <li><strong>Camera & Photo Library:</strong> Required to let you upload profile pictures or submit images to the church service gallery.</li>
+                <li><strong>Push Notifications (Firebase Cloud Messaging):</strong> We request permission to send local and remote push notifications regarding events, announcements, and prayer updates. The App saves your device's unique Firebase Cloud Messaging (FCM) token to Firestore to route these notifications.</li>
+                <li><strong>Internet Access:</strong> Required to communicate with Firebase services and external payment processors.</li>
+            </ul>
+
+            <h2>2. How We Use Your Information</h2>
+            <p>We use the information we collect to run and maintain church operations, including:</p>
+            <ul>
+                <li><strong>Authentication & Role Management:</strong> To verify your identity and assign privileges (Member, Department Head, Admin).</li>
+                <li><strong>Ministry Administration:</strong> To review applications for church service and record attendance counts.</li>
+                <li><strong>Community Engagement:</strong> To share prayer petitions (publicly or privately as requested), display church gallery highlights, and organize home cells/departments.</li>
+                <li><strong>Financial Accounting:</strong> To maintain transparency in church giving and expenses.</li>
+                <li><strong>Notifications:</strong> To send urgent alerts, devotionals, and church updates.</li>
+            </ul>
+
+            <h2>3. Sharing Your Information</h2>
+            <p>We respect your privacy and <strong>do not sell, rent, or trade your personal information</strong> to third parties for marketing or advertising purposes. Your information is only shared under the following conditions:</p>
+            <ul>
+                <li><strong>With Firebase (Google Cloud):</strong> We use Google Firebase to host our App. Your data is stored securely in Cloud Firestore, Firebase Auth, and Firebase Storage.</li>
+                <li><strong>With Paystack:</strong> Payment metadata is transmitted securely to Paystack to complete and verify your donations.</li>
+                <li><strong>Internal Church Administration:</strong> Access to sensitive membership forms, children's check-ins, and financial registries is restricted via strict role-based controls. Only authorized church administrators and department heads can view this information.</li>
+                <li><strong>Legal Requirements:</strong> We may disclose your information if required to do so by law or in response to valid requests by public authorities.</li>
+            </ul>
+
+            <h2>4. Data Security</h2>
+            <p>We implement appropriate technical and organizational security measures to protect your personal data from unauthorized access, alteration, disclosure, or destruction. We secure Firestore data using robust security rules and restrict admin access to verified personnel. However, please remember that no method of transmission over the internet, or method of electronic storage, is 100% secure.</p>
+
+            <h2>5. Account Deletion and Data Retention</h2>
+            <p>Under Google Play policies, you have the right to request the deletion of your account and any associated personal data at any time.</p>
+            <div class="highlight-box">
+                <p><strong>How to Request Deletion:</strong> You can request account deletion by emailing our support team at <a href="mailto:support@rtci.org">support@rtci.org</a>. Please use "Account Deletion Request" as the subject line and specify the email address associated with your account.</p>
+            </div>
+            <p>Upon receiving a verified request, we will delete your user profile, authentication credentials, and personal information from our databases (including Firestore and Firebase Auth) within 30 days, except where we are legally required to retain transaction histories (such as official financial ledger audits).</p>
+
+            <h2>6. Children's Privacy (COPPA Compliance)</h2>
+            <p>Our App does not target children under the age of 13. The Children’s Ministry check-in tool is designed solely for use by parents and adult guardians. We do not knowingly collect, maintain, or use personal information from children under 13. If you believe a child under 13 has provided us with personal information directly, please contact us immediately so we can take steps to remove it.</p>
+
+            <h2>7. Changes to This Privacy Policy</h2>
+            <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy within the App or on our official communications channels. You are advised to review this Privacy Policy periodically for any changes.</p>
+
+            <h2>8. Contact Us</h2>
+            <p>If you have any questions or suggestions about this Privacy Policy, please contact us at:</p>
+            <div class="contact-info">
+                <p><strong>Redeemed Transformation Chapel International (RTCI)</strong></p>
+                <p>Email: <a href="mailto:support@rtci.org">support@rtci.org</a></p>
+                <p>Website: <a href="https://rtci.org" target="_blank">https://rtci.org</a></p>
+            </div>
+        </main>
+
+        <footer>
+            &copy; 2026 Redeemed Transformation Chapel International. All Rights Reserved.
+        </footer>
+    </div>
+</body>
+</html>
