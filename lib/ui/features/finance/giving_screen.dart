@@ -97,9 +97,9 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                   color: theme.colorScheme.primary,
                   letterSpacing: -0.5,
                 ),
-              const SizedBox(height: 8),
+              ),
+              const SizedBox(height: 4),
               Text(
-                "to $_selectedFund",
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: ObsidianTheme.textMuted),
               ),
