@@ -46,3 +46,7 @@ class _CustomPrimaryButtonState extends State<CustomPrimaryButton> with SingleTi
   }
 
   @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+    
