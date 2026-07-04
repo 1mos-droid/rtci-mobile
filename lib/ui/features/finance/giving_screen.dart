@@ -49,8 +49,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
       backgroundColor: Colors.transparent,
       isScrollControlled: true,
       builder: (ctx) {
+        final theme = Theme.of(context);
+        final isDark = theme.brightness == Brightness.dark;
+
         return GlassCard(
-          borderRadius: 24,
           padding: const EdgeInsets.all(32),
           child: Column(
             mainAxisSize: MainAxisSize.min,
