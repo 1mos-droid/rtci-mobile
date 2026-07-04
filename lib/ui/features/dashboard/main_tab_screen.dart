@@ -67,15 +67,11 @@ class _MainTabScreenState extends State<MainTabScreen> {
                     _buildNavItem(2, Icons.favorite_rounded, Icons.favorite_outline_rounded, "Give"),
                     _buildNavItem(3, Icons.menu_rounded, Icons.menu_outlined, "Menu"),
                   ],
-                  ),
                 ),
               ),
             ),
           ),
         ),
-      );
-    } else {
-      return Scaffold(
         body: IndexedStack(
           index: _currentIndex,
           children: _pages,
