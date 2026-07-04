@@ -199,6 +199,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               fontSize: 22,
                               fontWeight: FontWeight.bold,
                               letterSpacing: 2.0,
+                              shadows: [
+                                const Shadow(
+                                  color: Colors.black45,
+                                  offset: Offset(0, 4),
                         ),
                       ],
                     ),
