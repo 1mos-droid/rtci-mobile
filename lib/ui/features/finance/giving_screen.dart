@@ -495,7 +495,9 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                             ),
                             contentPadding: EdgeInsets.zero,
                           ),
-              
+                        ),
+                      ),
+                    ],
               const SizedBox(height: 80), // Padding for BottomNav
             ],
           ),
