@@ -348,8 +348,8 @@ class ObsidianTheme {
   static Color get secondaryGold => const Color(0xFFD4AF37); // Faith Gold
   static Color get textVibrant => isDark ? Colors.white : const Color(0xFF0F172A);
   static Color get textMuted => isDark ? const Color(0xFF94A3B8) : const Color(0xFF64748B);
-
-  // Compatibility Mappings for older code
+  static Color get borderHairline => isDark ? const Color(0x1AFFFFFF) : const Color(0x0E000000);
+ 
   static Color get primaryMidnight => primaryCrimson;
   static Color get crimsonSoft => primaryCrimson;
   static Color get backgroundLight => backgroundDark;
