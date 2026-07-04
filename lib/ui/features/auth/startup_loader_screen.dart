@@ -61,3 +61,7 @@ class StartupLoaderScreen extends StatelessWidget {
     // 3. Central Logo Container
     Widget logoContainer = Container(
       width: 110,
+      height: 110,
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: isDark ? const Color(0xFF151B2C) : Colors.white,
