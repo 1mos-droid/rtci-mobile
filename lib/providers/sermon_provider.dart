@@ -31,3 +31,7 @@ class SermonProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  Future<bool> addSermon({
+    required String title,
+    required String speaker,
