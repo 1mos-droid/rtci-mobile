@@ -45,9 +45,9 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
     final sermonsProv = ref.watch(sermonProvider);
 
     final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
     final isLeader = user?.isDeptHead ?? false;
-    final primaryAccent = isLeader
-        ? ObsidianTheme.secondaryGold
+    final primaryAccent = isLeader ? AppTheme.accentGold : AppTheme.iosPrimaryLight;
         : ObsidianTheme.primaryCrimson;
 
     return MeshGradientBackground(
