@@ -124,6 +124,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                       type: 'contribution', 
                       description: 'Payment via Paystack for $_selectedFund',
                       category: _selectedFund,
+                      memberId: user?.email,
+                      campus: 'Main',
+                      status: 'pending',
+                    );
                   }
                 },
                 child: const Text("CONFIRM PAYMENT", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800, letterSpacing: 1.0)),
