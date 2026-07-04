@@ -1023,6 +1023,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                 child: SingleChildScrollView(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   ),
                 ),
               ],
