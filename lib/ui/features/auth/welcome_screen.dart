@@ -109,6 +109,10 @@ class WelcomeScreen extends StatelessWidget {
                   borderRadius: 24,
                   padding: const EdgeInsets.all(28),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text(
+                        "MEMBERS PORTAL",
                     ],
                   ),
                   child: Center(
