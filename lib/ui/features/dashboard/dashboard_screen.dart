@@ -138,10 +138,12 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                             blurRadius: 20,
                             offset: const Offset(0, 8),
                           ),
+                        ],
+                      ),
                       child: Row(
                         children: [
                           CircleAvatar(
-                            radius: 30,
+                            radius: 28,
                             backgroundColor: primaryAccent.withValues(
                               alpha: 0.08,
                             ),
