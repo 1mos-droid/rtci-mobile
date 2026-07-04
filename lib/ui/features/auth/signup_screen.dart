@@ -236,6 +236,10 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                         style: GoogleFonts.plusJakartaSans(
                                           fontSize: 12,
                                           color: ObsidianTheme.textMuted,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                      value: _acceptTerms,
                                             ),
                                             const SizedBox(width: 12),
                                             Text(
