@@ -54,3 +54,7 @@ class _CustomPrimaryButtonState extends State<CustomPrimaryButton> with SingleTi
     final fg = widget.textColor ?? Colors.white;
 
     return GestureDetector(
+      onTapDown: widget.onPressed == null || widget.isLoading
+          ? null
+          : (_) => _controller.forward(),
+      onTapUp: widget.onPressed == null || widget.isLoading
