@@ -47,3 +47,7 @@ class SermonProvider extends ChangeNotifier {
 
     try {
       final user = _auth.currentUser;
+      if (user == null) return false;
+
+      await _firestore.collection('sermons').add({
+        'title': title,
