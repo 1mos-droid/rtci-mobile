@@ -77,6 +77,10 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
                 ),
               ],
             ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(dialogContext), 
   @override
   Widget build(BuildContext context) {
     final libProv = ref.watch(bibleStudiesProvider);
