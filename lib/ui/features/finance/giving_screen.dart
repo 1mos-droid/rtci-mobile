@@ -60,6 +60,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const SizedBox(height: 8),
+              Center(
+                child: Container(
+                  width: 48,
+                  height: 48,
               Text(
                 "Authorize Giving",
                 textAlign: TextAlign.center,
