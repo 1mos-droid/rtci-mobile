@@ -1151,6 +1151,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                               builder: (_) => const Center(child: CircularProgressIndicator()),
                             );
                             
+                            final success = await ref.read(sermonProvider.notifier).addSermon(
+                              title: title,
+                              speaker: speaker,
+                              category: selectedCategory,
                   ),
                 ),
               ],
