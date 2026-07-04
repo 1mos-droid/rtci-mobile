@@ -1091,6 +1091,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                               controller: durationController,
                               style: TextStyle(color: ObsidianTheme.textVibrant),
                               decoration: const InputDecoration(
+                                labelText: "Duration (e.g. 45:12)",
+                                prefixIcon: Icon(Icons.timer_outlined),
+                              ),
+                              validator: (val) => val == null || val.trim().isEmpty ? "Duration is required" : null,
                   ),
                 ),
               ],
