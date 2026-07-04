@@ -371,6 +371,10 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
                                     ],
                                   ),
                                 ),
+                                actions: [
+                                  TextButton(
+                                    child: const Text("CLOSE"),
+                                    onPressed: () => Navigator.pop(dialogCtx),
                 )
               ],
             ),
