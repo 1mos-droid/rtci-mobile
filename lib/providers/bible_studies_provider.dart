@@ -109,4 +109,8 @@ class BibleStudiesProvider extends ChangeNotifier {
         'progress': 0,
         'subtitle': subtitle,
       });
+      await fetchStudies();
+      return true;
+    } catch (e) {
+      debugPrint('Error adding study module: $e');
 }
