@@ -388,4 +388,8 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                 ),
                 child: const Icon(Icons.check_circle_outline_rounded, size: 48, color: Colors.green),
               ).animate().scale(duration: 500.ms, curve: Curves.elasticOut),
+              const SizedBox(height: 24),
+              Text(
+                "Welcome to fellowship!",
+                textAlign: TextAlign.center,
 }
