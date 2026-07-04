@@ -1184,10 +1184,6 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
           }
         );
       },
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
                   event.name,
                   style: GoogleFonts.plusJakartaSans(
                     fontSize: 16,
