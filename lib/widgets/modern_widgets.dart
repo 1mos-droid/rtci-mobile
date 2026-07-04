@@ -227,3 +227,7 @@ class ContentCard extends StatelessWidget {
                             child: Text(
                               duration!,
                               style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 11,
+                                fontWeight: FontWeight.w500,
+                              ),
