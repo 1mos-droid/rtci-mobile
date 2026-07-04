@@ -91,4 +91,8 @@ class ReportsScreen extends StatelessWidget {
       context: context,
       barrierDismissible: false,
       builder: (dialogContext) {
+        return _ExportingDialog(
+          title: title,
+          format: format,
+          onComplete: () {
 }
