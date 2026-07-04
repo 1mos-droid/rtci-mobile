@@ -1139,6 +1139,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                             final speaker = speakerController.text.trim();
                             final duration = durationController.text.trim();
                             final image = imageController.text.trim();
+                            final tag = tagController.text.trim();
+                            final video = videoController.text.trim();
+                            
+                            Navigator.pop(ctx); // Close sheet
                   ),
                 ),
               ],
