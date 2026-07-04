@@ -721,6 +721,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                         color: Colors.black,
                         borderRadius: BorderRadius.circular(16),
                         image: const DecorationImage(
+                          image: NetworkImage('https://images.unsplash.com/photo-1507692049790-de58290a4334?w=500&q=80'),
+                          fit: BoxFit.cover,
+                          opacity: 0.45,
+                        ),
               ),
             ),
             child: Column(
