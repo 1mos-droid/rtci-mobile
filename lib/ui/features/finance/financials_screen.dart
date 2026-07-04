@@ -227,4 +227,9 @@ class FinancialsScreen extends ConsumerWidget {
                     ),
                     const SizedBox(height: 16),
                     // Transaction Type
+                    DropdownButtonFormField<String>(
+                      value: selectedType,
+                      dropdownColor: isDark ? const Color(0xFF1E202C) : Colors.white,
+                      style: TextStyle(color: ObsidianTheme.textVibrant),
+                      decoration: const InputDecoration(
 }
