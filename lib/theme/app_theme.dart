@@ -240,6 +240,10 @@ class AppTheme {
           letterSpacing: letterSpacing,
           fontStyle: fontStyle,
           height: height,
+        );
+      }
+    } catch (_) {}
+    return GoogleFonts.inter(
     );
   }
 
