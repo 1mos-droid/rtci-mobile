@@ -246,6 +246,10 @@ class _GroupsScreenState extends ConsumerState<GroupsScreen> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  SkeletonContainer(width: 80, height: 16, borderRadius: 6),
                   : list.isEmpty
                     ? Center(
                         child: Text(
