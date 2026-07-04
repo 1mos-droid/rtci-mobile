@@ -190,3 +190,7 @@ class ContentCard extends StatelessWidget {
                                 ),
                               ),
                             );
+                          },
+                        ),
+                      ),
+                      if (tag != null)
