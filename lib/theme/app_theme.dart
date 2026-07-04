@@ -172,8 +172,8 @@ class AppTheme {
         style: FilledButton.styleFrom(
           backgroundColor: iosPrimaryDark,
           foregroundColor: Colors.white,
-          minimumSize: const Size.fromHeight(52),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          minimumSize: const Size.fromHeight(54),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           elevation: 0,
           textStyle: GoogleFonts.inter(
             fontWeight: FontWeight.w600,
