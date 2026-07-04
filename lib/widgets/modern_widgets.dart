@@ -114,3 +114,7 @@ class _CustomPrimaryButtonState extends State<CustomPrimaryButton> with SingleTi
     );
   }
 }
+
+class ContentCard extends StatelessWidget {
+  final String title;
+  final String category;
