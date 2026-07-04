@@ -200,10 +200,6 @@ class WelcomeScreen extends StatelessWidget {
                 ),
               ],
             ),
-                            letterSpacing: 1.0,
-                          ),
-                    ),
-                    const SizedBox(height: 10),
                     Text(
                       "Sign in or register below to connect with the church community.",
                       textAlign: TextAlign.center,
