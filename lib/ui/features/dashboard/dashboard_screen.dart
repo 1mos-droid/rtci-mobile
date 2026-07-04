@@ -709,6 +709,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                         onPressed: () {
                           playbackTimer?.cancel();
                           Navigator.pop(ctx);
+                        },
+                      ),
+                    ],
+                  ),
               ),
             ),
             child: Column(
