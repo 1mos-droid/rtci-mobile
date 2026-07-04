@@ -63,3 +63,7 @@ class SermonProvider extends ChangeNotifier {
       });
 
       await fetchSermons();
+      return true;
+    } catch (e) {
+      debugPrint('Error adding sermon: $e');
+      return false;
