@@ -52,8 +52,8 @@ class AppTheme {
         surfaceTintColor: Colors.transparent,
         elevation: 0,
         titleTextStyle: _getTextStyle(
-          fontWeight: FontWeight.w600,
-          color: Colors.black,
+          fontSize: 18,
+          fontWeight: FontWeight.w700,
           letterSpacing: -0.4,
         ),
         iconTheme: const IconThemeData(color: iosPrimaryLight),
