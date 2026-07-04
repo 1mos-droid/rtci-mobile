@@ -184,6 +184,10 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                         labelText: "Choose a Password",
                                         hintText: "Min 6 characters",
                                         prefixIcon: Icon(Icons.lock_outline_rounded, color: ObsidianTheme.textMuted, size: 20),
+                                        filled: true,
+                                        fillColor: isDark ? const Color(0xFF151B2C) : Colors.black.withOpacity(0.02),
+                                        suffixIcon: IconButton(
+                                          icon: Icon(
                                             ),
                                             const SizedBox(width: 12),
                                             Text(
