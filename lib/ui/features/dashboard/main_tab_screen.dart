@@ -83,13 +83,13 @@ class _MainTabScreenState extends State<MainTabScreen> {
     
     final activeColor = theme.colorScheme.primary;
     final inactiveColor = isDark 
-        : Colors.black.withOpacity(0.45);
+        ? Colors.white.withOpacity(0.4) 
+        : Colors.black.withOpacity(0.4);
 
     return GestureDetector(
       onTap: () => setState(() => _currentIndex = index),
       behavior: HitTestBehavior.opaque,
       child: AnimatedContainer(
-        duration: const Duration(milliseconds: 250),
         curve: Curves.easeInOut,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
