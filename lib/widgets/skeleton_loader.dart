@@ -23,3 +23,7 @@ class SkeletonContainer extends StatelessWidget {
 
     // Disable shimmer timers in test environments to avoid pending timer assertions
     final isTest = Platform.environment.containsKey('FLUTTER_TEST');
+
+    Widget container = Container(
+      width: width,
+      height: height,
