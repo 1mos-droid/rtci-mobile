@@ -1047,6 +1047,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                         controller: titleController,
                         style: TextStyle(color: ObsidianTheme.textVibrant),
                         decoration: const InputDecoration(
+                          labelText: "Sermon Title",
+                          prefixIcon: Icon(Icons.title),
+                        ),
+                        validator: (val) => val == null || val.trim().isEmpty ? "Title is required" : null,
                   ),
                 ),
               ],
