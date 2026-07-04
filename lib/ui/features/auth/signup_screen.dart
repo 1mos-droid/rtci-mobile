@@ -188,6 +188,10 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                         fillColor: isDark ? const Color(0xFF151B2C) : Colors.black.withOpacity(0.02),
                                         suffixIcon: IconButton(
                                           icon: Icon(
+                                            _showPassword ? Icons.visibility_off_rounded : Icons.visibility_rounded,
+                                            color: ObsidianTheme.textMuted,
+                                            size: 20,
+                                          ),
                                             ),
                                             const SizedBox(width: 12),
                                             Text(
