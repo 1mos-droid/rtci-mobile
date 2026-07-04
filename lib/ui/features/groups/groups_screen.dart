@@ -258,6 +258,10 @@ class _GroupsScreenState extends ConsumerState<GroupsScreen> {
                               SkeletonContainer(width: 250, height: 14),
                               SizedBox(height: 4),
                               SkeletonContainer(width: 140, height: 14),
+                              Divider(height: 24),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
                   : list.isEmpty
                     ? Center(
                         child: Text(
