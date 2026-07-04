@@ -71,3 +71,7 @@ class SermonProvider extends ChangeNotifier {
       _isLoading = false;
       notifyListeners();
     }
+  }
+
+  Future<bool> deleteSermon(String sermonId) async {
+    try {
