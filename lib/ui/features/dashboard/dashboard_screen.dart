@@ -440,8 +440,8 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                     if (_selectedCategory == 'All' || _selectedCategory == 'Sermons') ...[
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        ? Center(
-                            child: Text(
+                        children: [
+                          Text(
                               "No events scheduled.",
                               style: TextStyle(color: ObsidianTheme.textMuted),
                             ),
