@@ -202,3 +202,7 @@ class ContentCard extends StatelessWidget {
                             decoration: BoxDecoration(
                               color: theme.colorScheme.primary,
                               borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Text(
+                              tag!.toUpperCase(),
+                              style: const TextStyle(
