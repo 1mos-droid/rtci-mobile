@@ -79,10 +79,10 @@ class _MainTabScreenState extends State<MainTabScreen> {
   Widget _buildNavItem(int index, IconData activeIcon, IconData inactiveIcon, String label) {
     final isSelected = _currentIndex == index;
     final theme = Theme.of(context);
-    final activeColor = theme.colorScheme.primary;
     final isDark = theme.brightness == Brightness.dark;
+    
+    final activeColor = theme.colorScheme.primary;
     final inactiveColor = isDark 
-        ? Colors.white.withOpacity(0.45) 
         : Colors.black.withOpacity(0.45);
 
     return GestureDetector(
