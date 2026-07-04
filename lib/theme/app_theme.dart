@@ -375,3 +375,6 @@ class Neumorphic {
     final lightShadowColor = isDark 
         ? Colors.black.withOpacity(0.2)
         : Colors.white.withOpacity(0.9);
+    final darkShadowColor = isDark 
+        ? Colors.black.withOpacity(0.4) 
+        : Colors.black.withOpacity(0.03);
