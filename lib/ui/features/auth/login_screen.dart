@@ -223,6 +223,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     ),
                   ),
 
+                  // Lower Section (Solid panel flush with screen bottom and sides)
+                  Container(
+                    width: double.infinity,
+                    constraints: BoxConstraints(
                         ),
                       ],
                     ),
