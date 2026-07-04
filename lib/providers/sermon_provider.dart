@@ -75,3 +75,7 @@ class SermonProvider extends ChangeNotifier {
 
   Future<bool> deleteSermon(String sermonId) async {
     try {
+      await _firestore.collection('sermons').doc(sermonId).delete();
+      await fetchSermons();
+      return true;
+    } catch (e) {
