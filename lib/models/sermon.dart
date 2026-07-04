@@ -43,3 +43,7 @@ class Sermon {
   }
 
   factory Sermon.fromFirestore(DocumentSnapshot doc) {
+    final data = doc.data() as Map<String, dynamic>;
+    return Sermon(
+      id: doc.id,
+      title: data['title'] ?? '',
