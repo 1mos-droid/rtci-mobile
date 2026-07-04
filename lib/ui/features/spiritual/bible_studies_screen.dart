@@ -380,6 +380,10 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
                               );
                             },
                           );
+                        },
+                        child: const Text("VIEW SYLLABUS"),
+                      ),
+                    ),
                 )
               ],
             ),
