@@ -181,4 +181,8 @@ class BibleStudiesProvider extends ChangeNotifier {
     try {
       await _firestore.collection('study_resources').doc(resourceId).delete();
       await fetchStudies();
+      return true;
+    } catch (e) {
+      debugPrint('Error deleting study resource: $e');
+      return false;
 }
