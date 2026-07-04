@@ -337,6 +337,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                 ),
                               ),
                             ),
+                          ),
+                          const SizedBox(height: 24),
+
+                          // Action Button
                       ),
                     ),
                   ).animate().fadeIn(delay: 450.ms, duration: 500.ms),
