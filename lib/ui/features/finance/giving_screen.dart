@@ -439,6 +439,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                         setState(() {
                           _customAmount = val.toDouble();
                           _amountController.clear();
+                        });
+                      },
+                    );
+                  },
                     ),
                   );
                 }).toList(),
