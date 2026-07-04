@@ -161,4 +161,8 @@ class BibleStudiesProvider extends ChangeNotifier {
         'module_id': moduleId,
         'title': title,
         'type': type,
+        'url': url,
+      });
+      await fetchStudies();
+      return true;
 }
