@@ -498,6 +498,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                       title: s.title,
                                       category: s.speaker,
                                       time: DateFormat('MMM dd, yyyy').format(s.date),
+                                      duration: s.duration,
+                                      imageUrl: s.imageUrl,
+                                      tag: s.tag.isEmpty ? null : s.tag,
+                                      onTap: () {
                   ],
                 ),
               ),
