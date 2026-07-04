@@ -165,8 +165,8 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                         labelText: "Email Address",
                                         hintText: "your@email.com",
                                         prefixIcon: Icon(Icons.email_outlined, color: ObsidianTheme.textMuted, size: 20),
-                                  child: authState.isLoading
-                                      ? const Center(child: CircularProgressIndicator.adaptive(valueColor: AlwaysStoppedAnimation<Color>(Colors.grey)))
+                                        filled: true,
+                                        fillColor: isDark ? const Color(0xFF151B2C) : Colors.black.withOpacity(0.02),
                                       : Row(
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
