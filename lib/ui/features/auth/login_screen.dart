@@ -280,6 +280,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             style: TextStyle(color: ObsidianTheme.textVibrant, fontSize: 15),
                             decoration: InputDecoration(
                               labelText: "Email Address",
+                              hintText: "your.name@example.com",
+                              prefixIcon: Icon(Icons.email_outlined, color: ObsidianTheme.textMuted, size: 20),
+                              filled: true,
+                              fillColor: isDark ? const Color(0xFF0B0F19) : const Color(0xFFF8FAFC),
                       ),
                     ),
                   ).animate().fadeIn(delay: 450.ms, duration: 500.ms),
