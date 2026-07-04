@@ -48,6 +48,10 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
             "Add Study Module",
             style: GoogleFonts.cinzel(fontWeight: FontWeight.bold, color: ObsidianTheme.textVibrant),
           ),
+          content: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
   @override
   Widget build(BuildContext context) {
     final libProv = ref.watch(bibleStudiesProvider);
