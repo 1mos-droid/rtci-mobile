@@ -204,4 +204,8 @@ class GroupsProvider extends ChangeNotifier {
       }
       
       await fetchGroups();
+      return true;
+    } catch (e) {
+      debugPrint('Error deleting group: $e');
+      return false;
 }
