@@ -125,3 +125,7 @@ class StartupLoaderScreen extends StatelessWidget {
       ),
     );
     if (!isTest) {
+      secondaryText = secondaryText.animate().fadeIn(delay: 200.ms, duration: 600.ms);
+    }
+
+    // 5. Dynamic loading message
