@@ -1261,6 +1261,10 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.4.1"
+  url_launcher_linux:
+    dependency: transitive
+    description:
+      name: url_launcher_linux
   uuid:
     dependency: transitive
     description:
