@@ -85,6 +85,10 @@ class FinancialsScreen extends ConsumerWidget {
                 ? SliverList(
                     delegate: SliverChildBuilderDelegate(
                       (context, index) => const Padding(
+                        padding: EdgeInsets.only(bottom: 12.0),
+                        child: GlassCard(
+                          padding: EdgeInsets.all(16),
+                          child: Row(
                 : transactions.isEmpty
                   ? SliverFillRemaining(child: Center(child: Text("No records logged.", style: TextStyle(color: ObsidianTheme.textVibrant))))
                   : SliverList(
