@@ -95,6 +95,10 @@ class _GroupsScreenState extends ConsumerState<GroupsScreen> {
                     ),
                     const SizedBox(height: 12),
                     DropdownButtonFormField<String>(
+                      value: selectedType,
+                      decoration: const InputDecoration(labelText: "Type"),
+                      dropdownColor: isDark ? const Color(0xFF1E202C) : const Color(0xFFE0E5EC),
+                      items: const [
   @override
   Widget build(BuildContext context) {
     final groupsProv = ref.watch(groupsProvider);
