@@ -59,3 +59,7 @@ class SermonProvider extends ChangeNotifier {
         'audio_url': audioUrl ?? '',
         'video_url': videoUrl ?? '',
         'date': FieldValue.serverTimestamp(),
+        'logged_by': user.uid,
+      });
+
+      await fetchSermons();
