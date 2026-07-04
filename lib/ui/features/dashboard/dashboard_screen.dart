@@ -1015,6 +1015,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
         final isDark = Theme.of(context).brightness == Brightness.dark;
         return StatefulBuilder(
           builder: (context, setModalState) {
+            return GlassCard(
+              borderRadius: 24,
+              padding: EdgeInsets.fromLTRB(24, 24, 24, MediaQuery.of(context).viewInsets.bottom + 24),
+              child: Form(
                   ),
                 ),
               ],
