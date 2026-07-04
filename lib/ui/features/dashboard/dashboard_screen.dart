@@ -438,8 +438,8 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
 
                     // Content Feed List
                     if (_selectedCategory == 'All' || _selectedCategory == 'Sermons') ...[
-                        letterSpacing: 1.5,
-                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     ),
                     const SizedBox(height: 12),
 
