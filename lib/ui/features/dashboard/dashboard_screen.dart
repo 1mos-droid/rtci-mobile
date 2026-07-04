@@ -942,6 +942,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                 fontSize: 13,
                               ),
                             ),
+                          ],
+                        ),
+                      );
+                    },
                   ),
                 ),
                 Text(
