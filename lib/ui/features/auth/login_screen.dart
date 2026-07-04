@@ -175,10 +175,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             width: 84,
                             height: 84,
                             padding: const EdgeInsets.all(12),
-                        
-                        const SizedBox(height: 32),
-                        
-                        ElevatedButton(
                           onPressed: authState.isLoading ? null : _handleLogin,
                           style: ElevatedButton.styleFrom(
                             backgroundColor: ObsidianTheme.primaryCrimson,
