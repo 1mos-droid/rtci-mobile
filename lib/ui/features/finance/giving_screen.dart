@@ -367,6 +367,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                   physics: const NeverScrollableScrollPhysics(),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                    childAspectRatio: 2.5,
+                  ),
                         ),
                       ),
                     ),
