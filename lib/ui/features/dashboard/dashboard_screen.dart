@@ -1059,6 +1059,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                         decoration: const InputDecoration(
                           labelText: "Speaker",
                           prefixIcon: Icon(Icons.person_outline),
+                        ),
+                        validator: (val) => val == null || val.trim().isEmpty ? "Speaker is required" : null,
+                      ),
+                      const SizedBox(height: 16),
                   ),
                 ),
               ],
