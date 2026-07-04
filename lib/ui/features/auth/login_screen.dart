@@ -425,6 +425,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                     const TextSpan(text: "Don't have an account? "),
                                     TextSpan(
                                       text: "Sign Up",
+                                      style: TextStyle(
+                                        color: theme.colorScheme.primary,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                       ),
                     ),
                   ).animate().fadeIn(delay: 450.ms, duration: 500.ms),
