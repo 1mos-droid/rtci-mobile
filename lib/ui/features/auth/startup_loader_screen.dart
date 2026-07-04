@@ -45,3 +45,7 @@ class StartupLoaderScreen extends StatelessWidget {
     Widget crimsonRing = SizedBox(
       width: 136,
       height: 136,
+      child: CircularProgressIndicator(
+        strokeWidth: 2.0,
+        value: isTest ? 0.35 : null,
+        valueColor: AlwaysStoppedAnimation<Color>(primaryAccent),
