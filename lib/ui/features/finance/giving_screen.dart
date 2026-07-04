@@ -495,10 +495,6 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                             ),
                             contentPadding: EdgeInsets.zero,
                           ),
-                child: finance.isLoading
-                    ? SizedBox(height: 24, width: 24, child: CircularProgressIndicator(strokeWidth: 3, color: ObsidianTheme.backgroundDark))
-                    : const Text("PROCEED TO PAYMENT", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800, letterSpacing: 1.0)),
-              ),
               
               const SizedBox(height: 80), // Padding for BottomNav
             ],
