@@ -232,6 +232,10 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
 
                                     CheckboxListTile(
                                       title: Text(
+                                        "I agree to the guidelines and rules of the church fellowship.",
+                                        style: GoogleFonts.plusJakartaSans(
+                                          fontSize: 12,
+                                          color: ObsidianTheme.textMuted,
                                             ),
                                             const SizedBox(width: 12),
                                             Text(
