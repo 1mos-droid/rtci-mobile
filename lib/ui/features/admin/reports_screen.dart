@@ -109,3 +109,7 @@ class ReportsScreen extends StatelessWidget {
     );
   }
 }
+
+class _ExportingDialog extends StatefulWidget {
+  final String title;
+  final String format;
