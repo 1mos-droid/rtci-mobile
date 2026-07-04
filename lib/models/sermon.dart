@@ -51,3 +51,7 @@ class Sermon {
       category: data['category'] ?? 'Sermon',
       duration: data['duration'] ?? '00:00',
       date: (data['date'] as Timestamp?)?.toDate() ?? DateTime.now(),
+      imageUrl: data['image_url'] ?? 'https://images.unsplash.com/photo-1507692049790-de58290a4334?w=500&q=80',
+      tag: data['tag'] ?? '',
+      audioUrl: data['audio_url'],
+      videoUrl: data['video_url'],
