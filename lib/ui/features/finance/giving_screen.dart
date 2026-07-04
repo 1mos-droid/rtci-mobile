@@ -170,7 +170,9 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                     color: ObsidianTheme.textMuted,
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
-              const SizedBox(height: 12),
+                  ),
+                ),
+              ),
             ],
           ),
         );
