@@ -224,6 +224,10 @@ class AppTheme {
 
   static TextStyle _getTextStyle({
     Color? color,
+    required double fontSize,
+    FontWeight? fontWeight,
+    double? letterSpacing,
+    FontStyle? fontStyle,
     );
   }
 
