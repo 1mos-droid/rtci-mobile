@@ -198,6 +198,7 @@ class _GroupsScreenState extends ConsumerState<GroupsScreen> {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: Row(
+                  children: ['All', 'Groups', 'Department'].map((type) {
                     final isSel = type == _filterType;
                     return Expanded(
                       child: Padding(
@@ -235,7 +236,8 @@ class _GroupsScreenState extends ConsumerState<GroupsScreen> {
 
               Expanded(
                 child: groupsProv.isLoading && rawList.isEmpty
-                  ? const Center(child: CircularProgressIndicator())
+                  ? ListView.builder(
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   : list.isEmpty
                     ? Center(
                         child: Text(
