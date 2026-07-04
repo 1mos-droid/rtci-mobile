@@ -177,8 +177,8 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                   style: GoogleFonts.plusJakartaSans(
                                     fontSize: 9,
                                     fontWeight: FontWeight.w800,
-                                      ),
-                                ),
+                                    color: ObsidianTheme.textMuted,
+                                    letterSpacing: 1.5,
                                 Text(
                                   (user?.name.isNotEmpty ?? false)
                                       ? user!.name
