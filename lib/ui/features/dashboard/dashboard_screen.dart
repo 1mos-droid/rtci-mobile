@@ -302,7 +302,9 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                 decoration: BoxDecoration(
                                   color: isDark ? const Color(0xFF1E293B) : Colors.white,
                                   borderRadius: BorderRadius.circular(16),
-                                borderType: GlassBorderType.crimson,
+                                  border: Border.all(
+                                    color: AppTheme.iosPrimaryLight.withOpacity(0.15),
+                                    width: 1.0,
                                 child: SizedBox(
                                   width: 220,
                                   child: Column(
