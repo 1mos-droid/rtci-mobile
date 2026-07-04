@@ -37,3 +37,6 @@ class StartupLoaderScreen extends StatelessWidget {
     );
     if (!isTest) {
       sweepRing = sweepRing
+          .animate(onPlay: (controller) => controller.repeat())
+          .rotate(duration: 1.5.seconds);
+    }
