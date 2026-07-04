@@ -343,3 +343,7 @@ class DonationChip extends StatelessWidget {
               border: Border.all(
                 color: isSelected 
                     ? Colors.transparent 
+                    : (isDark ? Colors.white.withOpacity(0.08) : Colors.black.withOpacity(0.06)),
+                width: 1.0,
+              ),
+            ),
