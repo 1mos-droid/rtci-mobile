@@ -67,10 +67,6 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                 title: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                  style: GoogleFonts.cinzel(
-                    fontWeight: FontWeight.bold,
-                    color: ObsidianTheme.textVibrant,
-                  ),
                 ),
               ),
             ),
