@@ -211,4 +211,8 @@ class FinancialsScreen extends ConsumerWidget {
                     ),
                     const SizedBox(height: 16),
                     // Amount Field
+                    TextFormField(
+                      controller: amountController,
+                      keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                      style: TextStyle(color: ObsidianTheme.textVibrant),
 }
