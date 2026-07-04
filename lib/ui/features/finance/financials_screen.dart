@@ -332,4 +332,8 @@ class FinancialsScreen extends ConsumerWidget {
                             campus: selectedCampus,
                           );
                           
+                          if (context.mounted) {
+                            Navigator.pop(context); // Dismiss loading
+                            
+                            ScaffoldMessenger.of(context).showSnackBar(
 }
