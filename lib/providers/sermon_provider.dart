@@ -27,3 +27,7 @@ class SermonProvider extends ChangeNotifier {
     } catch (e) {
       debugPrint('Error fetching sermons: $e');
     } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
