@@ -754,6 +754,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                 padding: const EdgeInsets.all(16),
                                 decoration: BoxDecoration(
                                   color: AppTheme.iosPrimaryLight,
+                                  shape: BoxShape.circle,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: AppTheme.iosPrimaryLight.withOpacity(0.4),
               ),
             ),
             child: Column(
