@@ -60,8 +60,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
               elevation: 0,
               expandedHeight: 120.0,
               pinned: true,
+              centerTitle: false,
               flexibleSpace: FlexibleSpaceBar(
-                titlePadding: const EdgeInsets.symmetric(
+                background: Container(),
+                titlePadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
                   horizontal: 20,
                   vertical: 16,
                 ),
