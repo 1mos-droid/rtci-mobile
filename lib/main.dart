@@ -48,6 +48,10 @@ class _RTCIMobileAppState extends ConsumerState<RTCIMobileApp> {
       setState(() => _loadingMessage = "Initializing Echoes...");
       await NotificationService().initialize();
       
+      setState(() {
+        _initialized = true;
+      });
+    } catch (e) {
     final authState = ref.watch(authNotifierProvider);
     final themeMode = ref.watch(themeNotifierProvider);
 
