@@ -9,9 +9,9 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:rtc_mobile/theme/app_theme.dart';
 import 'package:rtc_mobile/widgets/glass_card.dart';
 import 'package:rtc_mobile/widgets/mesh_gradient_background.dart';
+import 'package:rtc_mobile/widgets/modern_widgets.dart';
 import 'package:rtc_mobile/application/auth/auth_provider.dart';
-import 'package:rtc_mobile/providers/events_provider.dart';
-import 'package:rtc_mobile/widgets/mesh_gradient_background.dart';
+import 'package:rtc_mobile/providers/riverpod_providers.dart';
 
 class DashboardScreen extends ConsumerWidget {
   const DashboardScreen({super.key});
