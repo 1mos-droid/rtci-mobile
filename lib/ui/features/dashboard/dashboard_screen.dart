@@ -218,9 +218,8 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
 
                     const SizedBox(height: 24),
 
-                    // Daily Revelation
-                    Text(
-                      "DAILY REVELATION",
+                    // Daily Scripture Revelation
+                    Row(
                       style: Theme.of(context).textTheme.labelLarge?.copyWith(
                         color: ObsidianTheme.textVibrant,
                         letterSpacing: 1.5,
