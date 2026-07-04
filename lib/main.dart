@@ -68,6 +68,10 @@ class _RTCIMobileAppState extends ConsumerState<RTCIMobileApp> {
         title: 'RTCI Connect',
         debugShowCheckedModeBanner: false,
         theme: AppTheme.lightTheme,
+        darkTheme: AppTheme.darkTheme,
+        themeMode: themeMode,
+        home: StartupLoaderScreen(message: _loadingMessage),
+      );
     final authState = ref.watch(authNotifierProvider);
     final themeMode = ref.watch(themeNotifierProvider);
 
