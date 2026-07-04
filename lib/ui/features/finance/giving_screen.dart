@@ -316,6 +316,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                 )
               ],
             ),
+          ),
+        );
+      },
+    );
   @override
   Widget build(BuildContext context) {
     final finance = ref.watch(financialProvider);
