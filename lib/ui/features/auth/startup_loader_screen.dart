@@ -121,3 +121,7 @@ class StartupLoaderScreen extends StatelessWidget {
         fontSize: 12,
         fontWeight: FontWeight.w600,
         letterSpacing: 1.5,
+        color: secondaryAccent,
+      ),
+    );
+    if (!isTest) {
