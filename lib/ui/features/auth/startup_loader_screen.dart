@@ -25,3 +25,7 @@ class StartupLoaderScreen extends StatelessWidget {
     final secondaryAccent = AppTheme.accentGold;
 
     // 1. Sweep Ring (Gold)
+    Widget sweepRing = SizedBox(
+      width: 146,
+      height: 146,
+      child: CircularProgressIndicator(
