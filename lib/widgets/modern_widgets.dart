@@ -58,3 +58,7 @@ class _CustomPrimaryButtonState extends State<CustomPrimaryButton> with SingleTi
           ? null
           : (_) => _controller.forward(),
       onTapUp: widget.onPressed == null || widget.isLoading
+          ? null
+          : (_) => _controller.reverse(),
+      onTapCancel: widget.onPressed == null || widget.isLoading
+          ? null
