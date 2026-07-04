@@ -758,6 +758,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                   boxShadow: [
                                     BoxShadow(
                                       color: AppTheme.iosPrimaryLight.withOpacity(0.4),
+                                      blurRadius: 12,
+                                      offset: const Offset(0, 4),
+                                    )
+                                  ]
               ),
             ),
             child: Column(
