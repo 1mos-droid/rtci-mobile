@@ -70,3 +70,7 @@ class _CustomPrimaryButtonState extends State<CustomPrimaryButton> with SingleTi
           height: 54,
           alignment: Alignment.center,
           decoration: BoxDecoration(
+            color: widget.onPressed == null ? bg.withOpacity(0.5) : bg,
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: widget.onPressed == null
+                ? []
