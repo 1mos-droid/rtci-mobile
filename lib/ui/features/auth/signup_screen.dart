@@ -358,8 +358,8 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                               ).animate().fadeIn(delay: 400.ms, duration: 500.ms),
                             ],
                           ),
-                              border: Border.all(color: Colors.red.withOpacity(0.3)),
-                            ),
+                        ),
+                      ),
                             child: Text(
                               _errorMessage!,
                               textAlign: TextAlign.center,
