@@ -329,6 +329,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                 tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                               ),
                               child: Text(
+                                "Forgot Password?",
+                                style: TextStyle(
+                                  color: AppTheme.accentGold,
+                                  fontWeight: FontWeight.bold,
                       ),
                     ),
                   ).animate().fadeIn(delay: 450.ms, duration: 500.ms),
