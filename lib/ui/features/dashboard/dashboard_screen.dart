@@ -962,6 +962,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
         context: context,
         barrierDismissible: false,
         builder: (_) => const Center(child: CircularProgressIndicator()),
+      );
+
+      final profileDoc = await FirebaseFirestore.instance.collection('profiles').doc(memberId).get();
+      if (!context.mounted) return;
                   ),
                 ),
               ],
