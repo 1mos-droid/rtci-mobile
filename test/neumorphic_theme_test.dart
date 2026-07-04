@@ -40,3 +40,7 @@ void main() {
   });
 
   group('StartupLoaderScreen Tests', () {
+    testWidgets('renders loading messages correctly', (WidgetTester tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
