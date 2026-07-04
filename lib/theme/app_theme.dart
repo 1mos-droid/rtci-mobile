@@ -383,3 +383,7 @@ class Neumorphic {
       return BoxDecoration(
         color: bgColor,
         shape: shape,
+        borderRadius: shape == BoxShape.circle ? null : BorderRadius.circular(borderRadius),
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
