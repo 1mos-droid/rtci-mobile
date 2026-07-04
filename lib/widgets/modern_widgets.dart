@@ -10,3 +10,7 @@ class CustomPrimaryButton extends StatefulWidget {
   final Color? textColor;
 
   const CustomPrimaryButton({
+    super.key,
+    required this.text,
+    this.onPressed,
+    this.isLoading = false,
