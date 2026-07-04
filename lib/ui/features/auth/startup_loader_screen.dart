@@ -16,3 +16,8 @@ class StartupLoaderScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
+
+    // Detect if we are running under a widget test
+    final isTest = Platform.environment.containsKey('FLUTTER_TEST');
+
+    final bgColor = isDark ? AppTheme.systemDarkBg : AppTheme.systemLightBg;
