@@ -538,6 +538,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                   itemCount: broadcasts.messages.length,
                                   itemBuilder: (context, index) {
                                     final msg = broadcasts.messages[index];
+                                    return Container(
+                                      margin: const EdgeInsets.symmetric(vertical: 6),
+                                      padding: const EdgeInsets.all(18),
+                                      decoration: BoxDecoration(
                   ],
                 ),
               ),
