@@ -23,3 +23,6 @@ class Sermon {
     required this.imageUrl,
     required this.tag,
     this.audioUrl,
+    this.videoUrl,
+    this.loggedBy,
+  });
