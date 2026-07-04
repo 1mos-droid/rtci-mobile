@@ -94,3 +94,7 @@ class _CustomPrimaryButtonState extends State<CustomPrimaryButton> with SingleTi
               : Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    if (widget.icon != null) ...[
+                      Icon(widget.icon, color: fg, size: 20),
+                      const SizedBox(width: 8),
+                    ],
