@@ -200,10 +200,6 @@ class WelcomeScreen extends StatelessWidget {
                 ),
               ],
             ),
-                      label: const Text("Sign In"),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
                           MaterialPageRoute(builder: (_) => const LoginScreen()),
                         );
                       },
