@@ -15,3 +15,7 @@ class Sermon {
 
   Sermon({
     required this.id,
+    required this.title,
+    required this.speaker,
+    required this.category,
+    required this.duration,
