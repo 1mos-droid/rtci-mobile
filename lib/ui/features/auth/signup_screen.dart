@@ -260,6 +260,10 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                     Row(
                                       children: [
                                         Expanded(child: Divider(color: ObsidianTheme.borderHairline)),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                                          child: Text(
+                                            "OR SIGN UP WITH",
                                             ),
                                             const SizedBox(width: 12),
                                             Text(
