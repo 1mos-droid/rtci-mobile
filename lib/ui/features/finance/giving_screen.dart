@@ -375,6 +375,11 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                   itemBuilder: (context, index) {
                     final f = _funds[index];
                     final isSelected = _selectedFund == f;
+                    return InkWell(
+                      onTap: () => setState(() => _selectedFund = f),
+                      borderRadius: BorderRadius.circular(16),
+                      child: AnimatedContainer(
+                        duration: const Duration(milliseconds: 200),
                         ),
                       ),
                     ),
