@@ -244,6 +244,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
+                backgroundColor: theme.colorScheme.primary,
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
   @override
   Widget build(BuildContext context) {
     final finance = ref.watch(financialProvider);
