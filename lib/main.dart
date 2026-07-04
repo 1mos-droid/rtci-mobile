@@ -56,6 +56,10 @@ class _RTCIMobileAppState extends ConsumerState<RTCIMobileApp> {
       setState(() {
         _initialized = true;
       });
+    }
+  }
+
+  @override
     final authState = ref.watch(authNotifierProvider);
     final themeMode = ref.watch(themeNotifierProvider);
 
