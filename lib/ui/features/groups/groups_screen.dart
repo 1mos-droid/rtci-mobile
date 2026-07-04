@@ -274,6 +274,10 @@ class _GroupsScreenState extends ConsumerState<GroupsScreen> {
                                 ],
                               ),
                             ],
+                          ),
+                        ),
+                      ),
+                    )
                   : list.isEmpty
                     ? Center(
                         child: Text(
