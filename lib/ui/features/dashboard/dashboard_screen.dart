@@ -786,6 +786,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                     children: [
                       Slider(
                         value: currentSeconds.toDouble(),
+                        max: 2712, // 45:12 duration in seconds
+                        activeColor: AppTheme.iosPrimaryLight,
+                        inactiveColor: isDark ? Colors.white24 : Colors.black12,
+                        onChanged: (val) {
               ),
             ),
             child: Column(
