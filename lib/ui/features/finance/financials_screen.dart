@@ -260,4 +260,8 @@ class FinancialsScreen extends ConsumerWidget {
                       dropdownColor: isDark ? const Color(0xFF1E202C) : Colors.white,
                       style: TextStyle(color: ObsidianTheme.textVibrant),
                       decoration: const InputDecoration(
+                        labelText: "Category / Contributor",
+                        prefixIcon: Icon(Icons.category_outlined),
+                      ),
+                      items: categories.map((c) => DropdownMenuItem(
 }
