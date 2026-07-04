@@ -1067,6 +1067,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                         children: [
                           Expanded(
                             child: DropdownButtonFormField<String>(
+                              value: selectedCategory,
+                              dropdownColor: isDark ? const Color(0xFF1E202C) : Colors.white,
+                              style: TextStyle(color: ObsidianTheme.textVibrant),
+                              decoration: const InputDecoration(
                   ),
                 ),
               ],
