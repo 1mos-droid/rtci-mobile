@@ -173,6 +173,10 @@ class WelcomeScreen extends StatelessWidget {
                         style: OutlinedButton.styleFrom(
                           side: BorderSide(
                             color: isDark ? Colors.white24 : Colors.black12,
+                            width: 1.0,
+                          ),
+                          foregroundColor: ObsidianTheme.textVibrant,
+                          shape: RoundedRectangleBorder(
                     ],
                   ),
                   child: Center(
