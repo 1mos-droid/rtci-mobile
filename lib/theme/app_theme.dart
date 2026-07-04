@@ -158,12 +158,13 @@ class AppTheme {
       cardTheme: CardThemeData(
         elevation: 0,
         shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
         ),
         color: systemDarkGroupedBg,
       ),
       dividerTheme: DividerThemeData(
-        thickness: 0.5,
-        color: Colors.white.withOpacity(0.15),
+        thickness: 1.0,
+        color: Colors.white.withOpacity(0.08),
         indent: 16,
         endIndent: 0,
       ),
