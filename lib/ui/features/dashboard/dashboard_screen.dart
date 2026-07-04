@@ -401,10 +401,8 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                       ),
                     ).animate().fadeIn(delay: 200.ms, duration: 500.ms),
 
-                    const SizedBox(height: 24),
+                    const SizedBox(height: 28),
 
-                    // Upcoming Sermons
-                    Text(
                       "RECENT SERMONS",
                       style: Theme.of(context).textTheme.labelLarge?.copyWith(
                         color: ObsidianTheme.textVibrant,
