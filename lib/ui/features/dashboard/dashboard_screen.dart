@@ -119,13 +119,9 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                  horizontal: 20,
-                  vertical: 10,
-                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    // Profile Overview Card
                     GlassCard(
                       padding: const EdgeInsets.all(20),
                       child: Row(
