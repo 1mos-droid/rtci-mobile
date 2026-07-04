@@ -15,3 +15,7 @@ class SermonProvider extends ChangeNotifier {
 
   Future<void> fetchSermons() async {
     _isLoading = true;
+    notifyListeners();
+
+    try {
+      final snapshot = await _firestore
