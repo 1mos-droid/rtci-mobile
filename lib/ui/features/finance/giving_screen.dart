@@ -85,11 +85,11 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
               Text(
                 "You are supporting our church with",
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: ObsidianTheme.textMuted),
+                style: theme.textTheme.bodyMedium?.copyWith(color: ObsidianTheme.textMuted),
               ),
               const SizedBox(height: 8),
               Text(
-                "GHC $amt",
+                "GHC ${amt.toStringAsFixed(2)}",
                 textAlign: TextAlign.center,
                 style: GoogleFonts.plusJakartaSans(fontSize: 48, fontWeight: FontWeight.w800, color: ObsidianTheme.secondaryGold),
               ),
