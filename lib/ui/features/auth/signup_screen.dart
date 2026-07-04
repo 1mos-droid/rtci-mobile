@@ -148,8 +148,10 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                         hintText: "Enter your name",
                                         prefixIcon: Icon(Icons.person_outline_rounded, color: ObsidianTheme.textMuted, size: 20),
                                         filled: true,
+                                        fillColor: isDark ? const Color(0xFF151B2C) : Colors.black.withOpacity(0.02),
                                       ),
-                                    ),
+                                      validator: (val) {
+                                        if (val == null || val.isEmpty) return "Please enter your name";
                                   ),
                                   Expanded(child: Divider(color: ObsidianTheme.borderHairline)),
                                 ],
