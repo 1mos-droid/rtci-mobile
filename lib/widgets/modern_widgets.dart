@@ -319,3 +319,6 @@ class DonationChip extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
+    
+    final selectedBg = theme.colorScheme.primary;
+    final unselectedBg = isDark ? const Color(0xFF1E293B) : Colors.white;
