@@ -333,6 +333,10 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                     _errorMessage!,
                                     textAlign: TextAlign.center,
                                     style: TextStyle(color: theme.colorScheme.error, fontSize: 13, fontWeight: FontWeight.w600),
+                                  ),
+                                ),
+                              ],
+                              
                             ],
                           ),
                         ).animate().fadeIn(delay: 200.ms, duration: 600.ms).scaleXY(begin: 0.95, end: 1.0, curve: Curves.easeOutBack).slideY(begin: 0.1, end: 0, curve: Curves.easeOutQuad),
