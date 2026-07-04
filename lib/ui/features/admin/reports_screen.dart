@@ -181,3 +181,7 @@ class _ExportingDialogState extends State<_ExportingDialog> {
             if (!_finished) ...[
               CircularProgressIndicator(
                 value: _progress,
+                color: ObsidianTheme.primaryCrimson,
+                backgroundColor: ObsidianTheme.borderHairline,
+              ),
+              const SizedBox(height: 24),
