@@ -360,10 +360,6 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                           ),
                         ),
                       ),
-            children: [
-              const Icon(Icons.check_circle_outline, size: 72, color: Colors.greenAccent),
-              const SizedBox(height: 24),
-              Text(
                 "Welcome to Fellowship",
                 textAlign: TextAlign.center,
                 style: GoogleFonts.cinzel(fontSize: 22, fontWeight: FontWeight.bold, color: ObsidianTheme.textVibrant),
