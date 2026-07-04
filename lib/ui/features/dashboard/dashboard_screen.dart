@@ -910,6 +910,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                     borderRadius: BorderRadius.circular(4),
                                   ),
                                   child: Text(
+                                    msg.category.toUpperCase(),
+                                    style: const TextStyle(
+                                      color: AppTheme.accentGold,
+                                      fontSize: 9,
                   ),
                 ),
                 Text(
