@@ -396,6 +396,8 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
                           child: const Text("ADD RESOURCE"),
                         ),
                       ),
+                    ],
+                  ],
                 )
               ],
             ),
@@ -405,7 +407,7 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
     );
   }
 
-  Widget _buildResourcesTab(BibleStudiesProvider libProv) {
+  Widget _buildResourcesTab(BibleStudiesProvider libProv, bool isAdmin) {
     if (libProv.isLoading && libProv.resources.isEmpty) {
       return const Center(child: CircularProgressIndicator());
     }
