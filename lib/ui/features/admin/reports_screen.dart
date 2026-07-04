@@ -193,3 +193,7 @@ class _ExportingDialogState extends State<_ExportingDialog> {
                   color: ObsidianTheme.textVibrant,
                 ),
               ),
+            ] else ...[
+              const Icon(Icons.check_circle_outline, color: Colors.green, size: 48),
+              const SizedBox(height: 16),
+              Text(
