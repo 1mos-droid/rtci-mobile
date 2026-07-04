@@ -117,3 +117,6 @@ class _ExportingDialog extends StatefulWidget {
 
   const _ExportingDialog({
     required this.title,
+    required this.format,
+    required this.onComplete,
+  });
