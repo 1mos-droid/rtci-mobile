@@ -461,7 +461,9 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
               subtitle: Text(res.type.toUpperCase(), style: TextStyle(color: ObsidianTheme.textMuted, fontSize: 10)),
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
-                icon: Icon(Icons.download, color: ObsidianTheme.textVibrant, size: 20),
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.download, color: ObsidianTheme.textVibrant, size: 20),
                 onPressed: () {},
               ),
             ),
