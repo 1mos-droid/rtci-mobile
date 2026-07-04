@@ -156,4 +156,8 @@ class GroupsProvider extends ChangeNotifier {
   }
 
   Future<bool> addGroup({
+    required String name,
+    required String leaderName,
+    required String location,
+    required String type,
 }
