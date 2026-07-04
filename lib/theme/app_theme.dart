@@ -236,6 +236,10 @@ class AppTheme {
           fontFamily: 'Inter',
           color: color,
           fontSize: fontSize,
+          fontWeight: fontWeight,
+          letterSpacing: letterSpacing,
+          fontStyle: fontStyle,
+          height: height,
     );
   }
 
