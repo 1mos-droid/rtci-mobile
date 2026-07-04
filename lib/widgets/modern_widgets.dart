@@ -90,3 +90,7 @@ class _CustomPrimaryButtonState extends State<CustomPrimaryButton> with SingleTi
                     strokeWidth: 2.5,
                     valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                   ),
+                )
+              : Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
