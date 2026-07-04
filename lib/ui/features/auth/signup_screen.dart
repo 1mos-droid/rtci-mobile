@@ -252,6 +252,10 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                     CustomPrimaryButton(
                                       text: "Create Account",
                                       isLoading: authState.isLoading,
+                                      onPressed: _handleSignup,
+                                    ),
+                                    
+                                    const SizedBox(height: 20),
                                             ),
                                             const SizedBox(width: 12),
                                             Text(
