@@ -74,10 +74,6 @@ class _MainTabScreenState extends State<MainTabScreen> {
         ),
       ),
     );
-              icon: Icon(Icons.auto_stories_outlined),
-              selectedIcon: Icon(Icons.auto_stories_rounded),
-              label: 'Bible',
-            ),
             NavigationDestination(
               icon: Icon(Icons.favorite_outline_rounded),
               selectedIcon: Icon(Icons.favorite_rounded),
