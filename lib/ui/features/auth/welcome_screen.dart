@@ -200,10 +200,6 @@ class WelcomeScreen extends StatelessWidget {
                 ),
               ],
             ),
-              
-              const SizedBox(height: 12),
-              
-              Text(
                 "CONNECTING SOULS • SERVING COMMUNITIES",
                 textAlign: TextAlign.center,
                 style: GoogleFonts.plusJakartaSans(
