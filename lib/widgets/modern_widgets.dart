@@ -302,3 +302,8 @@ class ContentCard extends StatelessWidget {
     );
   }
 }
+
+class DonationChip extends StatelessWidget {
+  final String label;
+  final bool isSelected;
+  final VoidCallback onTap;
