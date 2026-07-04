@@ -19,8 +19,8 @@ class WelcomeScreen extends StatelessWidget {
 
     return Scaffold(
       body: MeshGradientBackground(
-      child: SafeArea(
-        child: Padding(
+        child: SafeArea(
+          child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
