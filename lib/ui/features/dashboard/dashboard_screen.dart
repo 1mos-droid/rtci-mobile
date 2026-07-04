@@ -817,9 +817,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                 ],
               ),
             );
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    color: ObsidianTheme.secondaryGold,
+          },
                   ),
                 ),
                 Text(
