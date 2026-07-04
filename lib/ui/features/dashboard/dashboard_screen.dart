@@ -476,6 +476,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                           : sermonsProv.sermons.isEmpty
                               ? Container(
                                   padding: const EdgeInsets.symmetric(vertical: 32),
+                                  alignment: Alignment.center,
+                                  child: Column(
+                                    children: [
+                                      Icon(Icons.video_library_outlined, size: 40, color: ObsidianTheme.textMuted),
                                   ),
                                 )
                                 .toList(),
