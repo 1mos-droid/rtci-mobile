@@ -344,10 +344,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                       ),
                                       const Spacer(),
                                       Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
+                                        mainAxisAlignment: MainAxisAlignment.end,
                                         children: [
                                           IconButton(
+                                            icon: const Icon(Icons.check_circle_outline, size: 20, color: Colors.green),
                                             icon: const Icon(
                                               Icons.check_circle_outline,
                                               size: 18,
