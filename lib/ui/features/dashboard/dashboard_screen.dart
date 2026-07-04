@@ -526,6 +526,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                           : broadcasts.messages.isEmpty
                               ? Container(
                                   padding: const EdgeInsets.symmetric(vertical: 24),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    "No announcements today.",
+                                    style: TextStyle(color: ObsidianTheme.textMuted),
                   ],
                 ),
               ),
