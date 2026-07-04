@@ -296,6 +296,10 @@ class AppTheme {
         fontSize: 16,
         letterSpacing: -0.2,
       ),
+      bodyMedium: _getTextStyle(
+        color: primaryColor,
+        fontSize: 14,
+        letterSpacing: -0.1,
         color: secondaryColor,
         fontSize: 13,
         letterSpacing: -0.1,
