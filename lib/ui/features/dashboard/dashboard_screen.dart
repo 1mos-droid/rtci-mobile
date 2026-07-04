@@ -697,6 +697,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                               title,
                               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: ObsidianTheme.textVibrant),
                             ),
+                            Text(
+                              speaker,
+                              style: const TextStyle(color: AppTheme.accentGold, fontSize: 13, fontWeight: FontWeight.w500),
+                            ),
               ),
             ),
             child: Column(
