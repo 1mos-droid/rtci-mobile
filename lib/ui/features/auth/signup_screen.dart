@@ -282,6 +282,10 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                       onTap: authState.isLoading ? null : _handleGoogleSignup,
                                       child: Container(
                                         height: 52,
+                                        decoration: BoxDecoration(
+                                          color: isDark ? Colors.white : const Color(0xFF0F172A),
+                                          borderRadius: BorderRadius.circular(16),
+                                          boxShadow: [
                                             ),
                                           ],
                                         ),
