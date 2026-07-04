@@ -85,6 +85,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       );
       return;
     }
+
+    try {
+      showDialog(
+        context: context,
   @override
   Widget build(BuildContext context) {
     final authState = ref.watch(authNotifierProvider);
