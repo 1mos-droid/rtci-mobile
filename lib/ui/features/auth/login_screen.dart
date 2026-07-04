@@ -357,6 +357,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 16),
                                 child: Text(
+                                  "OR SIGN IN WITH",
+                                  style: GoogleFonts.plusJakartaSans(
+                                    fontSize: 9,
+                                    fontWeight: FontWeight.w800,
                       ),
                     ),
                   ).animate().fadeIn(delay: 450.ms, duration: 500.ms),
