@@ -6,6 +6,7 @@ import 'package:rtc_mobile/widgets/glass_card.dart';
 import 'package:rtc_mobile/widgets/mesh_gradient_background.dart';
 import 'package:rtc_mobile/providers/riverpod_providers.dart';
 import 'package:rtc_mobile/application/auth/auth_provider.dart';
+import 'package:rtc_mobile/widgets/skeleton_loader.dart';
 
 class GroupsScreen extends ConsumerStatefulWidget {
   const GroupsScreen({super.key});
@@ -38,6 +39,9 @@ class _GroupsScreenState extends ConsumerState<GroupsScreen> {
     }
   }
 
+  void _showAddGroupDialog() {
+    final nameController = TextEditingController();
+    final leaderController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final groupsProv = ref.watch(groupsProvider);
