@@ -999,6 +999,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
     final formKey = GlobalKey<FormState>();
     final titleController = TextEditingController();
     final speakerController = TextEditingController();
+    final durationController = TextEditingController();
+    final imageController = TextEditingController();
+    final tagController = TextEditingController();
+    final videoController = TextEditingController();
                   ),
                 ),
               ],
