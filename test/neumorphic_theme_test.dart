@@ -19,3 +19,8 @@ void main() {
       final theme = AppTheme.darkTheme;
       expect(theme.scaffoldBackgroundColor, const Color(0xFF0B0F19));
     });
+
+    test('Neumorphic decoration returns shadows in normal state', () {
+      final lightDec = Neumorphic.decoration(isDark: false);
+      expect(lightDec.boxShadow, isNotNull);
+      expect(lightDec.boxShadow!.length, equals(2));
