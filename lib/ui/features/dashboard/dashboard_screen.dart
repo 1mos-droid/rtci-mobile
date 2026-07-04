@@ -1143,6 +1143,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                             final video = videoController.text.trim();
                             
                             Navigator.pop(ctx); // Close sheet
+                            
+                            // Show loading dialog
+                            showDialog(
+                              context: context,
                   ),
                 ),
               ],
