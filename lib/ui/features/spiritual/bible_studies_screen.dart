@@ -188,6 +188,8 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
   @override
   Widget build(BuildContext context) {
     final libProv = ref.watch(bibleStudiesProvider);
+    final user = ref.watch(authNotifierProvider).value;
+    final isAdmin = user?.isAdmin ?? false;
 
     return MeshGradientBackground(
       child: Scaffold(
@@ -219,6 +221,8 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
             ],
           ),
         ),
+        floatingActionButton: isAdmin ? FloatingActionButton(
+          backgroundColor: ObsidianTheme.primaryCrimson,
         body: TabBarView(
           controller: _tabController,
           children: [
