@@ -212,6 +212,10 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                         hintText: "Confirm your password",
                                         prefixIcon: Icon(Icons.lock_outline_rounded, color: ObsidianTheme.textMuted, size: 20),
                                         filled: true,
+                                        fillColor: isDark ? const Color(0xFF151B2C) : Colors.black.withOpacity(0.02),
+                                        suffixIcon: IconButton(
+                                          icon: Icon(
+                                            _showConfirmPassword ? Icons.visibility_off_rounded : Icons.visibility_rounded,
                                             ),
                                             const SizedBox(width: 12),
                                             Text(
