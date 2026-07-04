@@ -240,4 +240,8 @@ class FinancialsScreen extends ConsumerWidget {
                         child: Text(t.toUpperCase()),
                       )).toList(),
                       onChanged: (val) {
+                        if (val != null) {
+                          setModalState(() {
+                            selectedType = val;
+                            // Automatically select sensible category
 }
