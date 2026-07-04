@@ -705,6 +705,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                         ),
                       ),
                       IconButton(
+                        icon: Icon(Icons.close_rounded, color: ObsidianTheme.textVibrant),
+                        onPressed: () {
+                          playbackTimer?.cancel();
+                          Navigator.pop(ctx);
               ),
             ),
             child: Column(
