@@ -127,5 +127,9 @@ class FinancialProvider extends ChangeNotifier {
   Future<bool> updateTransactionStatus(String transactionId, String status) async {
     _isLoading = true;
     notifyListeners();
+
+    try {
+      await _firestore.collection('transactions').doc(transactionId).update({
+        'status': status,
   }
 }
