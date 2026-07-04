@@ -918,6 +918,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                     ),
                                   ),
                                 ),
+                                Text(
+                                  DateFormat('MMM dd, yyyy').format(msg.createdAt),
+                                  style: theme.textTheme.bodySmall?.copyWith(fontSize: 11),
+                                ),
                   ),
                 ),
                 Text(
