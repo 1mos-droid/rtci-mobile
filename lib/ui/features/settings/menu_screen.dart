@@ -115,7 +115,7 @@ class MenuScreen extends ConsumerWidget {
                         ),
                         _buildMenuTile(
                           context,
-                          title: 'Cell Groups',
+                          title: 'Groups',
                           icon: Icons.groups_rounded,
                           iconColor: AppTheme.systemOrange,
                           onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const GroupsScreen())),
