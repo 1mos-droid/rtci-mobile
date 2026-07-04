@@ -220,10 +220,6 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
 
                     // Daily Scripture Revelation
                     Row(
-                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                        color: ObsidianTheme.textVibrant,
-                        letterSpacing: 1.5,
-                      ),
                     ),
                     const SizedBox(height: 12),
 
