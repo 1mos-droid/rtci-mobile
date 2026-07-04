@@ -87,4 +87,8 @@ class ReportsScreen extends StatelessWidget {
   }
 
   void _exportReport(BuildContext context, String title, String format) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (dialogContext) {
 }
