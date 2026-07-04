@@ -342,8 +342,8 @@ class ObsidianTheme {
   }
 
   // Soft modern white and obsidian dark backgrounds
-  static Color get surfaceDark => isDark ? const Color(0xFF0F0F11) : const Color(0xFFFFFFFF);
-  static Color get primaryCrimson => isDark ? const Color(0xFF8B1E31) : const Color(0xFFC92A3E);
+  static Color get backgroundDark => isDark ? const Color(0xFF0B0F19) : const Color(0xFFFAFAFC);
+  static Color get surfaceDark => isDark ? const Color(0xFF151B2C) : Colors.white;
   static Color get secondaryGold => const Color(0xFFEAB308);
   static Color get textVibrant => isDark ? const Color(0xFFF8F9FA) : const Color(0xFF1C1C1E);
   static Color get textMuted => isDark ? const Color(0xFF88888E) : const Color(0xFF6C6C70);
