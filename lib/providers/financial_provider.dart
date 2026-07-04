@@ -123,5 +123,9 @@ class FinancialProvider extends ChangeNotifier {
     final docId = await processGiving(amount: amount, type: type, category: contributor, description: description, campus: campus);
     return docId != null;
   }
+
+  Future<bool> updateTransactionStatus(String transactionId, String status) async {
+    _isLoading = true;
+    notifyListeners();
   }
 }
