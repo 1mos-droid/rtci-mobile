@@ -69,6 +69,10 @@ class WelcomeScreen extends StatelessWidget {
                   "Redeemed Transformation",
                   textAlign: TextAlign.center,
                   style: GoogleFonts.cinzel(
+                    fontSize: 26,
+                    fontWeight: FontWeight.bold,
+                    color: ObsidianTheme.textVibrant,
+                    letterSpacing: 0.5,
                     ],
                   ),
                   child: Center(
