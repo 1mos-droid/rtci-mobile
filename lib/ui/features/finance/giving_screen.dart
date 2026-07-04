@@ -330,10 +330,8 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
 
     return Scaffold(
       extendBodyBehindAppBar: true,
+      appBar: AppBar(
         backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
           title: Text(
             "Give",
             style: GoogleFonts.cinzel(fontWeight: FontWeight.bold, fontSize: 24, color: ObsidianTheme.textVibrant),
