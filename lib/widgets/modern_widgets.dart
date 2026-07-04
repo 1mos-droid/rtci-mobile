@@ -106,3 +106,7 @@ class _CustomPrimaryButtonState extends State<CustomPrimaryButton> with SingleTi
                         fontWeight: FontWeight.w700,
                         letterSpacing: 0.2,
                       ),
+                    ),
+                  ],
+                ),
+        ),
