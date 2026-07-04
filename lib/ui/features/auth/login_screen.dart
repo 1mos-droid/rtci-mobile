@@ -288,6 +288,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             validator: (val) {
                               if (val == null || val.isEmpty) return "Please enter your email";
                               if (!val.contains('@')) return "Please enter a valid email";
+                              return null;
+                            },
+                          ),
+                          const SizedBox(height: 16),
                       ),
                     ),
                   ).animate().fadeIn(delay: 450.ms, duration: 500.ms),
