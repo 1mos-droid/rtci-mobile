@@ -117,3 +117,7 @@ class StartupLoaderScreen extends StatelessWidget {
 
     Widget secondaryText = Text(
       "CHAPEL INTERNATIONAL",
+      style: GoogleFonts.cinzel(
+        fontSize: 12,
+        fontWeight: FontWeight.w600,
+        letterSpacing: 1.5,
