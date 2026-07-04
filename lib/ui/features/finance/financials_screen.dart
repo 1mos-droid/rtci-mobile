@@ -175,4 +175,8 @@ class FinancialsScreen extends ConsumerWidget {
     final categories = ['Tithe', 'Offering', 'Special Seeds', 'Building Fund', 'Administrative Expense', 'Welfare Support'];
     final campuses = ['Main', 'Adenta Branch', 'Virtual Sanctuary'];
 
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
 }
