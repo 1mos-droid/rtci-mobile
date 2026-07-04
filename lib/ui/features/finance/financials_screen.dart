@@ -328,4 +328,8 @@ class FinancialsScreen extends ConsumerWidget {
                             amount,
                             selectedType,
                             selectedCategory,
+                            description: desc,
+                            campus: selectedCampus,
+                          );
+                          
 }
