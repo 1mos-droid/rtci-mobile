@@ -46,6 +46,10 @@ class _GroupsScreenState extends ConsumerState<GroupsScreen> {
     final descController = TextEditingController();
     final campusController = TextEditingController();
     String selectedType = 'home_cell'; // home_cell (Group) or ministry (Department)
+
+    showDialog(
+      context: context,
+      builder: (dialogContext) {
   @override
   Widget build(BuildContext context) {
     final groupsProv = ref.watch(groupsProvider);
