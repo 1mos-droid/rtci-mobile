@@ -223,10 +223,12 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
         ),
         floatingActionButton: isAdmin ? FloatingActionButton(
           backgroundColor: ObsidianTheme.primaryCrimson,
+          onPressed: _showAddModuleDialog,
+          child: const Icon(Icons.add, color: Colors.white),
+        ) : null,
         body: TabBarView(
           controller: _tabController,
           children: [
-            _buildModulesTab(libProv),
             _buildResourcesTab(libProv),
           ],
         ),
