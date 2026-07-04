@@ -393,10 +393,6 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                           ),
                         ),
                         alignment: Alignment.center,
-              Text(
-                "CHOOSE AMOUNT",
-                style: Theme.of(context).textTheme.labelLarge?.copyWith(color: ObsidianTheme.textMuted, letterSpacing: 1.5),
-              ),
               const SizedBox(height: 16),
               GridView.count(
                 shrinkWrap: true,
