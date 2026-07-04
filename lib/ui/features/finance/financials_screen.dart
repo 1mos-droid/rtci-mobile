@@ -199,4 +199,8 @@ class FinancialsScreen extends ConsumerWidget {
                           "Log Transaction",
                           style: GoogleFonts.cinzel(
                             fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: ObsidianTheme.textVibrant,
+                          ),
+                        ),
 }
