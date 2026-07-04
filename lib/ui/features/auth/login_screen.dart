@@ -178,10 +178,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             decoration: BoxDecoration(
                               color: isDark ? const Color(0xFF151B2C) : Colors.white,
                               shape: BoxShape.circle,
-                            ),
-                            child: authState.isLoading
-                                ? const Center(child: CircularProgressIndicator.adaptive(valueColor: AlwaysStoppedAnimation<Color>(Colors.grey)))
-                                : Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       FaIcon(
