@@ -340,4 +340,8 @@ class FinancialsScreen extends ConsumerWidget {
                                 content: Text(success 
                                   ? "Transaction logged successfully!" 
                                   : "Failed to log transaction. Try again."),
+                                backgroundColor: success ? Colors.green : Colors.red,
+                              ),
+                            );
+                          }
 }
