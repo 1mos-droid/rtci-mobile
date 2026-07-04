@@ -49,3 +49,7 @@ class StartupLoaderScreen extends StatelessWidget {
         strokeWidth: 2.0,
         value: isTest ? 0.35 : null,
         valueColor: AlwaysStoppedAnimation<Color>(primaryAccent),
+        backgroundColor: Colors.transparent,
+      ),
+    );
+    if (!isTest) {
