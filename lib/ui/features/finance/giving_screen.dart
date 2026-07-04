@@ -504,6 +504,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                 const SizedBox(height: 40),
 
                 CustomPrimaryButton(
+                  text: "Proceed to Secure Paystack Checkout",
+                  isLoading: finance.isLoading,
+                  icon: Icons.lock_outline_rounded,
+                  onPressed: () => _confirmPayment(context),
           ),
         ),
       ),
