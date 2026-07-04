@@ -393,10 +393,6 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                           ),
                         ),
                         alignment: Alignment.center,
-                children: _presetAmounts.map((val) {
-                  final isSelected = _customAmount == val.toDouble();
-                  return InkWell(
-                    onTap: () {
                       setState(() {
                         _customAmount = val.toDouble();
                         _amountController.clear();
