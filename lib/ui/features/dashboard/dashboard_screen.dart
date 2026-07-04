@@ -530,6 +530,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                   child: Text(
                                     "No announcements today.",
                                     style: TextStyle(color: ObsidianTheme.textMuted),
+                                  ),
+                                )
+                              : ListView.builder(
+                                  shrinkWrap: true,
                   ],
                 ),
               ),
