@@ -270,10 +270,6 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                               color: ObsidianTheme.textMuted,
                                               letterSpacing: 1.0,
                                             ),
-                                            const SizedBox(width: 12),
-                                            Text(
-                                              "Sign Up with Google",
-                                              style: TextStyle(
                                                 color: isDark ? Colors.black : Colors.white,
                                                 fontWeight: FontWeight.w700,
                                                 fontSize: 16,
