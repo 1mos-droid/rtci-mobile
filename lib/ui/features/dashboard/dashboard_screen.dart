@@ -1184,10 +1184,6 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
           }
         );
       },
-                    Text(
-                      event.time,
-                      style: Theme.of(
-                        context,
                       ).textTheme.bodyMedium?.copyWith(fontSize: 11),
                     ),
                     const SizedBox(width: 12),
