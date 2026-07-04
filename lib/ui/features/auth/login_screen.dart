@@ -155,6 +155,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 color: Colors.black.withOpacity(isDark ? 0.45 : 0.25),
               ),
             ),
+          ),
+
+          // 2. Main Scrollable content containing upper logo space and the solid bottom panel
+          SafeArea(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
