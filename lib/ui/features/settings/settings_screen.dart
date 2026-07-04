@@ -175,6 +175,10 @@ class SettingsScreen extends ConsumerWidget {
                                         ],
                                       ),
                                     );
+                                  }
+                                }
+                              }
+                            },
                           ),
                           ListTile(
                             contentPadding: EdgeInsets.zero,
