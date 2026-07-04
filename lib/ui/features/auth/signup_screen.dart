@@ -322,7 +322,9 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
 
                               if (_errorMessage != null) ...[
                                 const SizedBox(height: 16),
-                              ),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                                  decoration: BoxDecoration(
                             ],
                           ),
                         ).animate().fadeIn(delay: 200.ms, duration: 600.ms).scaleXY(begin: 0.95, end: 1.0, curve: Curves.easeOutBack).slideY(begin: 0.1, end: 0, curve: Curves.easeOutQuad),
