@@ -359,10 +359,6 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                     color: ObsidianTheme.textMuted,
                     fontSize: 10,
                     letterSpacing: 1.5,
-                  return InkWell(
-                    onTap: () => setState(() => _selectedFund = f),
-                    borderRadius: BorderRadius.circular(12),
-                    child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
                       decoration: BoxDecoration(
                         color: isSelected ? ObsidianTheme.primaryCrimson.withValues(alpha: 0.2) : ObsidianTheme.surfaceDark.withValues(alpha: 0.5),
