@@ -143,10 +143,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         children: [
           // 1. Background (Upper Section) Image with Blur
           Positioned.fill(
-    return MeshGradientBackground(
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
           leading: IconButton(
