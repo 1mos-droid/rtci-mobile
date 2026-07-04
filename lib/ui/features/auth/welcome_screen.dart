@@ -200,10 +200,6 @@ class WelcomeScreen extends StatelessWidget {
                 ),
               ],
             ),
-                    
-                    const SizedBox(height: 12),
-                    
-                    ElevatedButton.icon(
                       icon: const Icon(Icons.person_add_outlined),
                       label: const Text("Create Account"),
                       onPressed: () {
