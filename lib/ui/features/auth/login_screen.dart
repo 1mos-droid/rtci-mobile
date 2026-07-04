@@ -239,11 +239,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         BoxShadow(
                           color: Colors.black.withOpacity(isDark ? 0.4 : 0.15),
                           blurRadius: 30,
+                          offset: const Offset(0, -10),
                         ),
                       ],
                     ),
-                  ).animate().fadeIn(delay: 200.ms, duration: 600.ms).scaleXY(begin: 0.95, end: 1.0, curve: Curves.easeOutBack).slideY(begin: 0.1, end: 0, curve: Curves.easeOutQuad),
-                  
+                    padding: EdgeInsets.fromLTRB(
                   const SizedBox(height: 32),
                   
                   Center(
