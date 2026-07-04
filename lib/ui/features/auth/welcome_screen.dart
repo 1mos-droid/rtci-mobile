@@ -145,6 +145,10 @@ class WelcomeScreen extends StatelessWidget {
                       ),
                       
                       const SizedBox(height: 14),
+                      
+                      CustomPrimaryButton(
+                        text: "Create Account",
+                        icon: Icons.person_add_rounded,
                     ],
                   ),
                   child: Center(
