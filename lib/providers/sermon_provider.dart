@@ -9,3 +9,9 @@ class SermonProvider extends ChangeNotifier {
   
   List<Sermon> _sermons = [];
   bool _isLoading = false;
+
+  List<Sermon> get sermons => _sermons;
+  bool get isLoading => _isLoading;
+
+  Future<void> fetchSermons() async {
+    _isLoading = true;
