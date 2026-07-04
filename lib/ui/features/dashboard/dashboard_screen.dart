@@ -329,9 +329,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                             padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                                             decoration: BoxDecoration(
                                               color: Colors.red.withOpacity(0.1),
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(4),
+                                              borderRadius: BorderRadius.circular(4),
                                             ),
                                             child: Text(
                                               "${item.absenceCount} MISS",
