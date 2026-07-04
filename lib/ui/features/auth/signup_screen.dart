@@ -228,6 +228,10 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                         return null;
                                       },
                                     ),
+                                    const SizedBox(height: 20),
+
+                                    CheckboxListTile(
+                                      title: Text(
                                             ),
                                             const SizedBox(width: 12),
                                             Text(
