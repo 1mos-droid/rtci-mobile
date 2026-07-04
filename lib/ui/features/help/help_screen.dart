@@ -84,6 +84,10 @@ class HelpScreen extends StatelessWidget {
                               queryParameters: {
                                 'subject': 'RTCI Connect App Support Request',
                               },
+                            );
+                            if (await canLaunchUrl(emailLaunchUri)) {
+                              await launchUrl(emailLaunchUri);
+                            } else {
                           child: const Text("CONTACT SUPPORT"),
                         ),
                       )
