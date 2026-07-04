@@ -57,3 +57,7 @@ class StartupLoaderScreen extends StatelessWidget {
           .animate(onPlay: (controller) => controller.repeat())
           .rotate(duration: 2.seconds, begin: 1.0, end: 0.0);
     }
+
+    // 3. Central Logo Container
+    Widget logoContainer = Container(
+      width: 110,
