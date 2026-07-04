@@ -6,3 +6,7 @@ class CustomPrimaryButton extends StatefulWidget {
   final VoidCallback? onPressed;
   final bool isLoading;
   final IconData? icon;
+  final Color? backgroundColor;
+  final Color? textColor;
+
+  const CustomPrimaryButton({
