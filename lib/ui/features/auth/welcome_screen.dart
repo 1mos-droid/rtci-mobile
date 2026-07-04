@@ -200,11 +200,6 @@ class WelcomeScreen extends StatelessWidget {
                 ),
               ],
             ),
-                    Text(
-                      "Sign in or register below to connect with the church community.",
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: ObsidianTheme.textMuted),
-                    ),
                     const SizedBox(height: 24),
                     
                     ElevatedButton.icon(
