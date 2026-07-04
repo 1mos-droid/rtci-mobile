@@ -125,6 +125,10 @@ class WelcomeScreen extends StatelessWidget {
                       Text(
                         "Join our global family to watch sermons, request prayers, and participate in giving.",
                         textAlign: TextAlign.center,
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          color: ObsidianTheme.textMuted,
+                          height: 1.5,
+                        ),
                     ],
                   ),
                   child: Center(
