@@ -498,8 +498,8 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                         ),
                       ),
                     ],
-              const SizedBox(height: 80), // Padding for BottomNav
-            ],
+                  ),
+                ),
           ),
         ),
       ),
