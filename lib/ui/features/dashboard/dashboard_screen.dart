@@ -1123,6 +1123,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                         style: TextStyle(color: ObsidianTheme.textVibrant),
                         decoration: const InputDecoration(
                           labelText: "Video / YouTube URL (Optional)",
+                          prefixIcon: Icon(Icons.video_library_outlined),
+                        ),
+                      ),
+                      const SizedBox(height: 24),
                   ),
                 ),
               ],
