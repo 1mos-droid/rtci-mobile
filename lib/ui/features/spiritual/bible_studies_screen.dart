@@ -97,6 +97,10 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
                     description: desc,
                     imageUrl: img.isEmpty ? "https://images.unsplash.com/photo-1504052434569-70ad58c6744a" : img,
                   );
+                  if (success && mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text("Module added successfully!"))
+                    );
   @override
   Widget build(BuildContext context) {
     final libProv = ref.watch(bibleStudiesProvider);
