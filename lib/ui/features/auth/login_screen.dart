@@ -6,12 +6,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:rtc_mobile/theme/app_theme.dart';
 import 'package:rtc_mobile/widgets/modern_widgets.dart';
-import 'package:rtc_mobile/widgets/mesh_gradient_background.dart';
 import 'package:rtc_mobile/application/auth/auth_provider.dart';
 import 'package:rtc_mobile/ui/features/dashboard/main_tab_screen.dart';
 import 'package:rtc_mobile/ui/features/auth/signup_screen.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -52,7 +49,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(authState.error?.toString() ?? "Log in failed. Check your email and password."),
-            backgroundColor: Colors.red,
           ),
         );
       }
