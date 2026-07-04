@@ -174,3 +174,7 @@ class ContentCard extends StatelessWidget {
                       Hero(
                         tag: 'content_img_$title',
                         child: Image.network(
+                          imageUrl!,
+                          height: 180,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
