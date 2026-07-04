@@ -62,3 +62,7 @@ class _CustomPrimaryButtonState extends State<CustomPrimaryButton> with SingleTi
           : (_) => _controller.reverse(),
       onTapCancel: widget.onPressed == null || widget.isLoading
           ? null
+          : () => _controller.reverse(),
+      onTap: widget.onPressed == null || widget.isLoading ? null : widget.onPressed,
+      child: ScaleTransition(
+        scale: _scaleAnimation,
