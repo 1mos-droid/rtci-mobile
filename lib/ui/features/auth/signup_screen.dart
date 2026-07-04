@@ -153,8 +153,8 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                       validator: (val) {
                                         if (val == null || val.isEmpty) return "Please enter your name";
                                         return null;
-                              ),
-                              
+                                      },
+                                    ),
                               const SizedBox(height: 16),
                               
                               GestureDetector(
