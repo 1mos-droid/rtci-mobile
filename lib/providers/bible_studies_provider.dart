@@ -133,4 +133,8 @@ class BibleStudiesProvider extends ChangeNotifier {
           .where('module_id', isEqualTo: moduleId)
           .get();
       for (final doc in resourcesSnapshot.docs) {
+        await doc.reference.delete();
+      }
+      
+      await fetchStudies();
 }
