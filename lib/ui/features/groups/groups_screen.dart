@@ -188,6 +188,9 @@ class _GroupsScreenState extends ConsumerState<GroupsScreen> {
         ),
         floatingActionButton: isAdmin ? FloatingActionButton(
           backgroundColor: ObsidianTheme.primaryCrimson,
+          onPressed: _showAddGroupDialog,
+          child: const Icon(Icons.add, color: Colors.white),
+        ) : null,
         body: SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -195,7 +198,6 @@ class _GroupsScreenState extends ConsumerState<GroupsScreen> {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: Row(
-                  children: ['All', 'Fellowship', 'Department'].map((type) {
                     final isSel = type == _filterType;
                     return Expanded(
                       child: Padding(
