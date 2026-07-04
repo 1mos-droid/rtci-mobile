@@ -97,4 +97,8 @@ class BibleStudiesProvider extends ChangeNotifier {
     required String description,
     required String imageUrl,
     required String subtitle,
+  }) async {
+    _isLoading = true;
+    notifyListeners();
+
 }
