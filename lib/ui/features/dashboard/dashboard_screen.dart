@@ -1184,10 +1184,6 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
           }
         );
       },
-    return Center(
-      child: Text(
-        "No recent sermons available.",
-        style: TextStyle(color: ObsidianTheme.textMuted),
       ),
     );
   }
