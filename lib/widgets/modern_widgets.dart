@@ -206,3 +206,7 @@ class ContentCard extends StatelessWidget {
                             child: Text(
                               tag!.toUpperCase(),
                               style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 9,
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: 1.0,
