@@ -13,7 +13,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-
   runApp(
     const ProviderScope(
       child: RTCIMobileApp(),
@@ -21,11 +20,10 @@ void main() {
   );
 }
 
-class RTCIMobileApp extends ConsumerWidget {
+class RTCIMobileApp extends ConsumerStatefulWidget {
   const RTCIMobileApp({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
     final authState = ref.watch(authNotifierProvider);
     final themeMode = ref.watch(themeNotifierProvider);
 
