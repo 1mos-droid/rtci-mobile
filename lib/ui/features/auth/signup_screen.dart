@@ -360,10 +360,6 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                           ),
                         ),
                       ),
-                        const SizedBox(height: 32),
-                        
-                        Center(
-                          child: TextButton(
                             onPressed: () {
                               Navigator.pushReplacement(
                                 context,
