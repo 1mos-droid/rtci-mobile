@@ -169,6 +169,10 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
                     type: type.toLowerCase(),
                     url: url,
                   );
+                  if (success && mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text("Resource added successfully!"))
+                    );
   @override
   Widget build(BuildContext context) {
     final libProv = ref.watch(bibleStudiesProvider);
