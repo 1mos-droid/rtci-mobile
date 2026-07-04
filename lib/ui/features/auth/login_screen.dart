@@ -195,6 +195,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           Text(
                             "RTCI CONNECT",
                             style: GoogleFonts.cinzel(
+                              color: Colors.white,
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 2.0,
                         ),
                       ],
                     ),
