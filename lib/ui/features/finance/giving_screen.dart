@@ -447,6 +447,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                 
                 const SizedBox(height: 16),
                 
+                // Modern input box for custom amount
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+                  decoration: BoxDecoration(
                     ),
                   );
                 }).toList(),
