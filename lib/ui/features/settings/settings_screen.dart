@@ -151,6 +151,10 @@ class SettingsScreen extends ConsumerWidget {
                                         title: const Text("Reset Email Sent"),
                                         content: Text("A password reset link has been dispatched to $email. Please check your inbox."),
                                         actions: [
+                                          TextButton(
+                                            child: const Text("OK"),
+                                            onPressed: () => Navigator.pop(context),
+                                          ),
                           ),
                           ListTile(
                             contentPadding: EdgeInsets.zero,
