@@ -331,3 +331,7 @@ class DonationChip extends StatelessWidget {
       curve: Curves.easeInOut,
       child: Material(
         color: isSelected ? selectedBg : unselectedBg,
+        borderRadius: BorderRadius.circular(12),
+        elevation: 0,
+        child: InkWell(
+          onTap: onTap,
