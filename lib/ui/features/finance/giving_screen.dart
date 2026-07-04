@@ -292,6 +292,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                 Container(
                   width: 72,
                   height: 72,
+                  decoration: BoxDecoration(
+                    color: Colors.green.withOpacity(0.12),
+                    shape: BoxShape.circle,
+                  ),
   @override
   Widget build(BuildContext context) {
     final finance = ref.watch(financialProvider);
