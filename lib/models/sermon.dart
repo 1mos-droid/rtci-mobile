@@ -7,3 +7,7 @@ class Sermon {
   final String category; // Sermon, Media
   final String duration;
   final DateTime date;
+  final String imageUrl;
+  final String tag; // Featured, New, Trending, etc.
+  final String? audioUrl;
+  final String? videoUrl;
