@@ -200,10 +200,6 @@ class WelcomeScreen extends StatelessWidget {
                 ),
               ],
             ),
-                "Redeemed Transformation",
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.displayLarge?.copyWith(fontSize: 26, color: ObsidianTheme.textVibrant),
-              ).animate().fadeIn(delay: 200.ms, duration: 600.ms),
               
               const SizedBox(height: 4),
               
