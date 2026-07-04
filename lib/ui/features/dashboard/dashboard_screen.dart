@@ -403,10 +403,6 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
 
                     const SizedBox(height: 28),
 
-                      "RECENT SERMONS",
-                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                        color: ObsidianTheme.textVibrant,
-                        letterSpacing: 1.5,
                       ),
                     ),
                     const SizedBox(height: 12),
