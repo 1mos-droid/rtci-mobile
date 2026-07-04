@@ -140,8 +140,8 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.stretch,
                                   children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                                    TextFormField(
+                                      controller: _nameController,
                                     child: Text(
                                       "OR",
                                       style: GoogleFonts.plusJakartaSans(
