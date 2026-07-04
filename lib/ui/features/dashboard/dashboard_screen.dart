@@ -433,10 +433,8 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                         }).toList(),
                       ),
                     ),
-                    const SizedBox(height: 12),
-                    _buildSermonsList(context),
-                    const SizedBox(height: 24),
 
+                    const SizedBox(height: 16),
                     // Upcoming Events Feed
                     Text(
                       "UPCOMING THIS WEEK",
