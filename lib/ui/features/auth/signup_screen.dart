@@ -400,4 +400,8 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                 textAlign: TextAlign.center,
                 style: TextStyle(color: ObsidianTheme.textMuted, height: 1.5),
               ),
+              const SizedBox(height: 32),
+              CustomPrimaryButton(
+                text: "Continue to Dashboard",
+                onPressed: () {
 }
