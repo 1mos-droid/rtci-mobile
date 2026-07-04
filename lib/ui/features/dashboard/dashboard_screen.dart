@@ -103,6 +103,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                   height: 8,
                                   decoration: const BoxDecoration(
                                     color: AppTheme.iosPrimaryLight,
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                              )
                 ),
               ),
             ),
