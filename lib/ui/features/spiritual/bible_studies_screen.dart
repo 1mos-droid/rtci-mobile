@@ -392,6 +392,10 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
                           style: ElevatedButton.styleFrom(
                             backgroundColor: ObsidianTheme.primaryCrimson,
                             foregroundColor: Colors.white,
+                          ),
+                          child: const Text("ADD RESOURCE"),
+                        ),
+                      ),
                 )
               ],
             ),
