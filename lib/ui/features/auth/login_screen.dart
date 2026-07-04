@@ -453,6 +453,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 child: CircleAvatar(
                   backgroundColor: Colors.black.withOpacity(0.3),
                   child: IconButton(
+                    icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white, size: 18),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                ),
       ),
     );
   }
