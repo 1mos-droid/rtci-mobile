@@ -253,6 +253,10 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     SkeletonContainer(width: 24, height: 24, borderRadius: 12),
+                    SkeletonContainer(width: 40, height: 16),
+                  ],
+                ),
+                SizedBox(height: 16),
     }
 
     if (libProv.modules.isEmpty) {
