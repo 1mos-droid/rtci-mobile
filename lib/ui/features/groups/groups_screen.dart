@@ -62,6 +62,10 @@ class _GroupsScreenState extends ConsumerState<GroupsScreen> {
               ),
               content: SingleChildScrollView(
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    TextField(
+                      controller: nameController, 
   @override
   Widget build(BuildContext context) {
     final groupsProv = ref.watch(groupsProvider);
