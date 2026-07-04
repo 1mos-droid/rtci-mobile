@@ -393,6 +393,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                     color: ObsidianTheme.textVibrant,
                                   ),
                                   const SizedBox(width: 12),
+                                  Text(
+                                    "Continue with Google",
+                                    style: GoogleFonts.plusJakartaSans(
+                                      color: ObsidianTheme.textVibrant,
                       ),
                     ),
                   ).animate().fadeIn(delay: 450.ms, duration: 500.ms),
