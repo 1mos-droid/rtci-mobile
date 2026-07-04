@@ -153,4 +153,8 @@ class BibleStudiesProvider extends ChangeNotifier {
     required String type,
     required String url,
   }) async {
+    _isLoading = true;
+    notifyListeners();
+
+    try {
 }
