@@ -292,6 +292,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             },
                           ),
                           const SizedBox(height: 16),
+
+                          // Password field
+                          TextFormField(
+                            controller: _passwordController,
                       ),
                     ),
                   ).animate().fadeIn(delay: 450.ms, duration: 500.ms),
