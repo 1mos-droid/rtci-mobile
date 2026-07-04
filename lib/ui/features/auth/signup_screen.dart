@@ -131,10 +131,6 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                   height: 1.4,
                                 ),
                               ).animate().fadeIn(delay: 100.ms, duration: 500.ms).slideY(begin: 0.2, end: 0, curve: Curves.easeOutQuad),
-                                  if (val == null || val.isEmpty) return "Please enter a password";
-                                  if (val.length < 6) return "Password must be at least 6 characters";
-                                  return null;
-                                },
                               ),
                               const SizedBox(height: 16),
 
