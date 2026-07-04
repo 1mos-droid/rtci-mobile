@@ -259,3 +259,7 @@ class ContentCard extends StatelessWidget {
                               ),
                             ),
                           ),
+                          const Spacer(),
+                          Text(
+                            time,
+                            style: theme.textTheme.bodySmall?.copyWith(
