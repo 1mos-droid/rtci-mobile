@@ -412,4 +412,8 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                 },
               ),
             ],
+          ),
+        ),
+      ),
+    ).animate().fadeIn(duration: 400.ms);
 }
