@@ -117,8 +117,8 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                             children: [
                               Text(
                                 "Create Account",
-                                controller: _nameController,
-                                style: TextStyle(color: ObsidianTheme.textVibrant),
+                                style: theme.textTheme.displayMedium?.copyWith(
+                                  fontWeight: FontWeight.w800,
                                 decoration: InputDecoration(
                                   labelText: "Your Full Name",
                                   hintText: "Enter your name",
