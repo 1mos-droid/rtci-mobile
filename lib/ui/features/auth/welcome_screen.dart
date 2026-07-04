@@ -101,6 +101,10 @@ class WelcomeScreen extends StatelessWidget {
                     fontWeight: FontWeight.w800,
                   ),
                 ).animate().fadeIn(delay: 500.ms, duration: 600.ms),
+                
+                const Spacer(flex: 3),
+                
+                // Premium white/dark translucent card plate
                     ],
                   ),
                   child: Center(
