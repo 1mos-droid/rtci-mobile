@@ -826,6 +826,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
   }
 
   void _showNotificationsBottomSheet(BuildContext context, List<BroadcastMessage> announcements) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
+    showModalBottomSheet(
                   ),
                 ),
                 Text(
