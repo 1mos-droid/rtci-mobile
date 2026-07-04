@@ -35,3 +35,7 @@ class SkeletonContainer extends StatelessWidget {
 
     if (isTest) {
       return container;
+    }
+
+    return container
+        .animate(onPlay: (controller) => controller.repeat())
