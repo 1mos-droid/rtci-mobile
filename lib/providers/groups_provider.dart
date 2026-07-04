@@ -172,4 +172,8 @@ class GroupsProvider extends ChangeNotifier {
         'leader_name': leaderName,
         'location': location,
         'member_count': 0,
+        'type': type,
+        'description': description ?? '',
+        'campus': campus ?? 'Main',
+      });
 }
