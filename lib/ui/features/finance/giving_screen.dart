@@ -94,7 +94,9 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                 style: GoogleFonts.plusJakartaSans(
                   fontSize: 36,
                   fontWeight: FontWeight.w800,
-              ),
+                  color: theme.colorScheme.primary,
+                  letterSpacing: -0.5,
+                ),
               const SizedBox(height: 8),
               Text(
                 "to $_selectedFund",
