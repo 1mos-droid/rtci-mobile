@@ -858,6 +858,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                   ),
                 ],
               ),
+              const SizedBox(height: 16),
+              if (announcements.isEmpty)
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 40),
                   ),
                 ),
                 Text(
