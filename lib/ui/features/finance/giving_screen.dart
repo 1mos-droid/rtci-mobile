@@ -477,7 +477,9 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                             if (v.isNotEmpty && _customAmount != null) {
                               setState(() => _customAmount = null);
                             }
-                  ),
+                          },
+                          style: TextStyle(
+                            color: ObsidianTheme.textVibrant,
                 ),
               ),
 
