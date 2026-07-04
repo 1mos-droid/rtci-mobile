@@ -145,6 +145,10 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
               ),
               const SizedBox(height: 8),
               TextField(
+                controller: urlController, 
+                decoration: const InputDecoration(labelText: "Resource URL"),
+                style: TextStyle(color: ObsidianTheme.textVibrant),
+              ),
   @override
   Widget build(BuildContext context) {
     final libProv = ref.watch(bibleStudiesProvider);
