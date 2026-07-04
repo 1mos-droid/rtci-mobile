@@ -84,7 +84,6 @@ class LeadershipScreen extends ConsumerWidget {
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: Text(
-                              (leader.title ?? leader.department ?? 'Official').toUpperCase(),
                               style: GoogleFonts.plusJakartaSans(
                                 fontSize: 8,
                                 fontWeight: FontWeight.bold,

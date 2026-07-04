@@ -92,6 +92,9 @@ class HelpScreen extends StatelessWidget {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(content: Text("Could not open default mail client.")),
                                 );
+                              }
+                            }
+                          },
                           child: const Text("CONTACT SUPPORT"),
                         ),
                       )
