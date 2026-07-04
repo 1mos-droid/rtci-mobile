@@ -194,3 +194,7 @@ class ContentCard extends StatelessWidget {
                         ),
                       ),
                       if (tag != null)
+                        Positioned(
+                          top: 12,
+                          left: 12,
+                          child: Container(
