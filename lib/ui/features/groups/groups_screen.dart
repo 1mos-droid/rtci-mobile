@@ -91,6 +91,10 @@ class _GroupsScreenState extends ConsumerState<GroupsScreen> {
                     TextField(
                       controller: campusController, 
                       decoration: const InputDecoration(labelText: "Campus (e.g. Main)"),
+                      style: TextStyle(color: ObsidianTheme.textVibrant),
+                    ),
+                    const SizedBox(height: 12),
+                    DropdownButtonFormField<String>(
   @override
   Widget build(BuildContext context) {
     final groupsProv = ref.watch(groupsProvider);
