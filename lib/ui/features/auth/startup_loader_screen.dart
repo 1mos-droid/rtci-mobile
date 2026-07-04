@@ -165,3 +165,7 @@ class StartupLoaderScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: bgColor,
       body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Stack(
