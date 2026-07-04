@@ -67,3 +67,7 @@ class SermonProvider extends ChangeNotifier {
     } catch (e) {
       debugPrint('Error adding sermon: $e');
       return false;
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
