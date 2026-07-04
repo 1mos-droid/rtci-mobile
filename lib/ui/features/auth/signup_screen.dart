@@ -220,6 +220,10 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                             size: 20,
                                           ),
                                           onPressed: () => setState(() => _showConfirmPassword = !_showConfirmPassword),
+                                        ),
+                                      ),
+                                      validator: (val) {
+                                        if (val == null || val.isEmpty) return "Please confirm your password";
                                             ),
                                             const SizedBox(width: 12),
                                             Text(
