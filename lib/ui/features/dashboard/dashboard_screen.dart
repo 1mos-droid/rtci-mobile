@@ -1184,10 +1184,6 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
           }
         );
       },
-                      size: 12,
-                      color: ObsidianTheme.textMuted,
-                    ),
-                    const SizedBox(width: 4),
                     Text(
                       event.time,
                       style: Theme.of(
