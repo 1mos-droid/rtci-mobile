@@ -302,11 +302,13 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
                             icon: const Icon(Icons.delete_outline, color: Colors.redAccent, size: 20),
                             onPressed: () => ref.read(bibleStudiesProvider).deleteModule(module.id),
                           ),
+                        ]
+                      ],
+                    ),
                   ],
                 ),
                 const SizedBox(height: 16),
                 Text(module.title, style: Theme.of(context).textTheme.headlineMedium),
-                if (module.subtitle != null) ...[
                   const SizedBox(height: 4),
                   Text(module.subtitle!, style: Theme.of(context).textTheme.bodyMedium),
                 ],
