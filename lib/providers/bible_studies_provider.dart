@@ -165,4 +165,8 @@ class BibleStudiesProvider extends ChangeNotifier {
       });
       await fetchStudies();
       return true;
+    } catch (e) {
+      debugPrint('Error adding study resource: $e');
+      return false;
+    } finally {
 }
