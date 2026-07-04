@@ -305,6 +305,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               filled: true,
                               fillColor: isDark ? const Color(0xFF0B0F19) : const Color(0xFFF8FAFC),
                               suffixIcon: IconButton(
+                                icon: Icon(
+                                  _showPassword ? Icons.visibility_off_rounded : Icons.visibility_rounded,
+                                  color: ObsidianTheme.textMuted,
+                                  size: 20,
                       ),
                     ),
                   ).animate().fadeIn(delay: 450.ms, duration: 500.ms),
