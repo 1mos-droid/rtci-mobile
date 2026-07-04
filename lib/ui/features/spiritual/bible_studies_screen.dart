@@ -237,8 +237,10 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
     );
   }
 
+  Widget _buildModulesTab(BibleStudiesProvider libProv, bool isAdmin) {
     if (libProv.isLoading && libProv.modules.isEmpty) {
-      return const Center(child: CircularProgressIndicator());
+      return ListView.builder(
+        padding: const EdgeInsets.all(20),
     }
 
     if (libProv.modules.isEmpty) {
