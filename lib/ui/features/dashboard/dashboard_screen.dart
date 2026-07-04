@@ -220,6 +220,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
 
                     // Daily Scripture Revelation
                     Row(
+                      children: [
+                        const Icon(Icons.menu_book_rounded, color: AppTheme.accentGold, size: 20),
+                        const SizedBox(width: 8),
+                        Text(
                     ),
                     const SizedBox(height: 12),
 
