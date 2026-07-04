@@ -130,3 +130,7 @@ class ContentCard extends StatelessWidget {
     required this.title,
     required this.category,
     required this.time,
+    this.imageUrl,
+    this.duration,
+    this.onTap,
+    this.tag,
