@@ -1182,8 +1182,8 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
               ),
             );
           }
-          const SizedBox(width: 16),
-          Expanded(
+        );
+      },
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
