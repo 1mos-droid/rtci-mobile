@@ -443,9 +443,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                         children: [
                           Text(
                             "RECENT SERMONS",
-                          )
-                        : Column(
-                            children: eventsProv.events
+                            style: GoogleFonts.plusJakartaSans(
                                 .take(3)
                                 .map(
                                   (e) => Padding(
