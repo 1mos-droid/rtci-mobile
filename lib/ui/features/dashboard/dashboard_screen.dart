@@ -305,11 +305,11 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                   border: Border.all(
                                     color: AppTheme.iosPrimaryLight.withOpacity(0.15),
                                     width: 1.0,
+                                  ),
+                                ),
                                 child: SizedBox(
                                   width: 220,
                                   child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
                                     children: [
                                       Row(
                                         mainAxisAlignment:
