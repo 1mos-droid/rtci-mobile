@@ -681,6 +681,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
             
             return GlassCard(
               borderRadius: 24,
+              padding: const EdgeInsets.all(24),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
               ),
             ),
             child: Column(
