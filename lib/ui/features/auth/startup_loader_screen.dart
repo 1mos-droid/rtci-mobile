@@ -77,3 +77,7 @@ class StartupLoaderScreen extends StatelessWidget {
             offset: const Offset(0, 4),
           )
         ],
+      ),
+      child: Container(
+        decoration: const BoxDecoration(
+          color: Colors.white,
