@@ -287,11 +287,11 @@ class AppTheme {
       ),
       titleMedium: _getTextStyle(
         color: primaryColor,
-        fontSize: 17,
+        fontSize: 16,
         fontWeight: FontWeight.w600,
         letterSpacing: -0.4,
       ),
-      bodyLarge: GoogleFonts.inter(
+      bodyLarge: _getTextStyle(
         color: primaryColor,
         fontSize: 17,
         letterSpacing: -0.4,
