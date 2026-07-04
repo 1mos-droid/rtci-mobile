@@ -85,3 +85,7 @@ class StartupLoaderScreen extends StatelessWidget {
         ),
         padding: const EdgeInsets.all(8),
         child: Image.asset(
+          'assets/church_logo.png',
+          fit: BoxFit.contain,
+        ),
+      ),
