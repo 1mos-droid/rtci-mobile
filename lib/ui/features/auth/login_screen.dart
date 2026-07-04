@@ -413,6 +413,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               onTap: () {
                                 Navigator.pushReplacement(
                                   context,
+                                  MaterialPageRoute(builder: (_) => const SignupScreen()),
+                                );
+                              },
+                              child: RichText(
                       ),
                     ),
                   ).animate().fadeIn(delay: 450.ms, duration: 500.ms),
