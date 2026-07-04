@@ -914,6 +914,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                     style: const TextStyle(
                                       color: AppTheme.accentGold,
                                       fontSize: 9,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
                   ),
                 ),
                 Text(
