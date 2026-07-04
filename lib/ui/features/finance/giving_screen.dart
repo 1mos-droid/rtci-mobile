@@ -350,9 +350,7 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text(
-                "SELECT PURPOSE",
+              children: [
                 style: Theme.of(context).textTheme.labelLarge?.copyWith(color: ObsidianTheme.textMuted, letterSpacing: 1.5),
               ),
               const SizedBox(height: 16),
