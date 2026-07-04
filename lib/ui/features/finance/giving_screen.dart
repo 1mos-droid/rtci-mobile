@@ -403,6 +403,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                           ),
                         ),
                       ),
+                    );
+                  },
+                ),
+
                     ),
                   );
                 }).toList(),
