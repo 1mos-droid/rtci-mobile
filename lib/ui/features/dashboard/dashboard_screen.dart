@@ -1027,6 +1027,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Post New Sermon",
+                            style: GoogleFonts.cinzel(
                   ),
                 ),
               ],
