@@ -377,6 +377,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             borderRadius: BorderRadius.circular(16),
                             child: Container(
                               height: 54,
+                              decoration: BoxDecoration(
+                                color: isDark ? const Color(0xFF0B0F19) : const Color(0xFFF8FAFC),
+                                borderRadius: BorderRadius.circular(16),
+                                border: Border.all(
                       ),
                     ),
                   ).animate().fadeIn(delay: 450.ms, duration: 500.ms),
