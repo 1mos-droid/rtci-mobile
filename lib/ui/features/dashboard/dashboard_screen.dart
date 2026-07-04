@@ -930,6 +930,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 14,
+                                color: ObsidianTheme.textVibrant,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
                   ),
                 ),
                 Text(
