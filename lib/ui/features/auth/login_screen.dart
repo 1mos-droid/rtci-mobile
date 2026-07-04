@@ -189,7 +189,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             child: Image.asset(
                               'assets/church_logo.png',
                               fit: BoxFit.contain,
-                                  ),
+                            ),
+                          ).animate().scale(duration: 500.ms, curve: Curves.easeOutBack),
+                          const SizedBox(height: 16),
                           ),
                         ),
                       ],
