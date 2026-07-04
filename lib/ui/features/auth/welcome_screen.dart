@@ -31,8 +31,8 @@ class WelcomeScreen extends StatelessWidget {
                 Center(
                   child: Container(
                     width: 100,
-                  decoration: BoxDecoration(
-                    color: ObsidianTheme.backgroundDark,
+                    height: 100,
+                    decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(color: ObsidianTheme.secondaryGold.withValues(alpha: 0.4), width: 1.5),
                     boxShadow: [
