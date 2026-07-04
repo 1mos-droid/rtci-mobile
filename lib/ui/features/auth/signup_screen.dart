@@ -297,6 +297,10 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                             ? const Center(child: CircularProgressIndicator.adaptive())
                                             : Row(
                                                 mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  FaIcon(
+                                                    FontAwesomeIcons.google, 
+                                                    size: 16, 
                                 ),
                               ),
                             ],
