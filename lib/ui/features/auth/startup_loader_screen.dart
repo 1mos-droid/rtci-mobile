@@ -97,3 +97,6 @@ class StartupLoaderScreen extends StatelessWidget {
             begin: 0.96,
             end: 1.04,
             duration: 1.2.seconds,
+            curve: Curves.easeInOut,
+          );
+    }
