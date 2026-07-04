@@ -353,6 +353,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           // Social Login Divider
                           Row(
                             children: [
+                              Expanded(child: Divider(color: ObsidianTheme.borderHairline)),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 16),
+                                child: Text(
                       ),
                     ),
                   ).animate().fadeIn(delay: 450.ms, duration: 500.ms),
