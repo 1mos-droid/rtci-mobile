@@ -300,6 +300,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                 ).animate().scale(duration: 500.ms, curve: Curves.elasticOut),
                 const SizedBox(height: 24),
                 Text(
+                  "Thank You!",
+                  style: GoogleFonts.cinzel(fontSize: 22, fontWeight: FontWeight.bold, color: ObsidianTheme.textVibrant),
+                ),
+                const SizedBox(height: 8),
   @override
   Widget build(BuildContext context) {
     final finance = ref.watch(financialProvider);
