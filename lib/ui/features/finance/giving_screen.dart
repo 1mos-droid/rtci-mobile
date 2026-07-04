@@ -276,6 +276,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
     );
   }
 
+  void _showSuccessOverlay(BuildContext context, double amount) {
+    showDialog(
+      context: context,
+      builder: (ctx) {
   @override
   Widget build(BuildContext context) {
     final finance = ref.watch(financialProvider);
