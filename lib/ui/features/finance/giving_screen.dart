@@ -358,9 +358,7 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                     fontWeight: FontWeight.w800,
                     color: ObsidianTheme.textMuted,
                     fontSize: 10,
-                runSpacing: 12,
-                children: _funds.map((f) {
-                  final isSelected = _selectedFund == f;
+                    letterSpacing: 1.5,
                   return InkWell(
                     onTap: () => setState(() => _selectedFund = f),
                     borderRadius: BorderRadius.circular(12),
