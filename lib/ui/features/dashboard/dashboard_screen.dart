@@ -224,6 +224,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                         const Icon(Icons.menu_book_rounded, color: AppTheme.accentGold, size: 20),
                         const SizedBox(width: 8),
                         Text(
+                          "DAILY REVELATION",
+                          style: GoogleFonts.plusJakartaSans(
+                            fontWeight: FontWeight.w800,
+                            color: ObsidianTheme.textVibrant,
                     ),
                     const SizedBox(height: 12),
 
