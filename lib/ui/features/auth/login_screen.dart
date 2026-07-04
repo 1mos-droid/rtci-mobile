@@ -178,9 +178,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             decoration: BoxDecoration(
                               color: isDark ? const Color(0xFF151B2C) : Colors.white,
                               shape: BoxShape.circle,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      FaIcon(
+                              boxShadow: [
                                         FontAwesomeIcons.google, 
                                         size: 16, 
                                         color: isDark ? Colors.black : Colors.white,
