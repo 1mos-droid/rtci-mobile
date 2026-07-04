@@ -23,8 +23,8 @@ class WelcomeScreen extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
             child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
               const Spacer(flex: 2),
               
               // Serene Golden Cross Emblem representing Faith
