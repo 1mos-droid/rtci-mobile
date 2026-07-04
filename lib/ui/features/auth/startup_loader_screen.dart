@@ -149,3 +149,7 @@ class StartupLoaderScreen extends StatelessWidget {
       child: Text(
         message.toUpperCase(),
         style: GoogleFonts.plusJakartaSans(
+          fontSize: 10,
+          fontWeight: FontWeight.bold,
+          letterSpacing: 1.5,
+          color: primaryAccent,
