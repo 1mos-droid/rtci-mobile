@@ -129,4 +129,8 @@ class BibleStudiesProvider extends ChangeNotifier {
       
       // Clean up resources belonging to this module
       final resourcesSnapshot = await _firestore
+          .collection('study_resources')
+          .where('module_id', isEqualTo: moduleId)
+          .get();
+      for (final doc in resourcesSnapshot.docs) {
 }
