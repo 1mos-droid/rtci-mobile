@@ -72,8 +72,8 @@ class _MainTabScreenState extends State<MainTabScreen> {
             ),
           ),
         ),
-        bottomNavigationBar: NavigationBar(
-          selectedIndex: _currentIndex,
+      ),
+    );
           onDestinationSelected: (index) => setState(() => _currentIndex = index),
           destinations: const [
             NavigationDestination(
