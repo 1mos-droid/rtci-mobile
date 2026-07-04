@@ -32,6 +32,10 @@ class _RTCIMobileAppState extends ConsumerState<RTCIMobileApp> {
   String _loadingMessage = "Preparing Sanctuary...";
 
   @override
+  void initState() {
+    super.initState();
+    _initialize();
+  }
     final authState = ref.watch(authNotifierProvider);
     final themeMode = ref.watch(themeNotifierProvider);
 
