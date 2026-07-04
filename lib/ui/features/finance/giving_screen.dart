@@ -459,8 +459,8 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                     ),
                   ),
                   child: Row(
-                  controller: _amountController,
-                  keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                    children: [
+                      Text(
                   onChanged: (v) {
                     if (v.isNotEmpty && _customAmount != null) {
                       setState(() => _customAmount = null);
