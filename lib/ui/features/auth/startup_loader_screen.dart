@@ -186,3 +186,7 @@ class StartupLoaderScreen extends StatelessWidget {
                 ),
 
                 // Inset circle
+                Container(
+                  width: 140,
+                  height: 140,
+                  decoration: BoxDecoration(
