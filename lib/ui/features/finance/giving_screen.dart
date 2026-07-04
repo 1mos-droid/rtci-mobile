@@ -64,6 +64,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                 child: Container(
                   width: 48,
                   height: 48,
+                  decoration: BoxDecoration(
+                    color: AppTheme.accentGold.withOpacity(0.12),
+                    shape: BoxShape.circle,
+                  ),
               Text(
                 "Authorize Giving",
                 textAlign: TextAlign.center,
