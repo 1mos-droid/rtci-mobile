@@ -77,7 +77,9 @@ class HelpScreen extends StatelessWidget {
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () async {
+                            final Uri emailLaunchUri = Uri(
+                              scheme: 'mailto',
                           child: const Text("CONTACT SUPPORT"),
                         ),
                       )
