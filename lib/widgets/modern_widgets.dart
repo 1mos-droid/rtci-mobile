@@ -42,3 +42,7 @@ class _CustomPrimaryButtonState extends State<CustomPrimaryButton> with SingleTi
   @override
   void dispose() {
     _controller.dispose();
+    super.dispose();
+  }
+
+  @override
