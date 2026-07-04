@@ -320,6 +320,10 @@ class _GroupsScreenState extends ConsumerState<GroupsScreen> {
                                       ),
                                       if (isAdmin)
                                         IconButton(
+                                          constraints: const BoxConstraints(),
+                                          padding: EdgeInsets.zero,
+                                          icon: const Icon(Icons.delete_outline, color: Colors.redAccent, size: 20),
+                                          onPressed: () => ref.read(groupsProvider).deleteGroup(grp.id),
                                     ],
                                   ),
                                   const SizedBox(height: 12),
