@@ -97,6 +97,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       
       if (mounted) {
         Navigator.pop(context); // Dismiss loading
+        showAdaptiveDialog(
+          context: context,
+          builder: (_) => AlertDialog.adaptive(
+            title: const Text("Password Reset Sent"),
   @override
   Widget build(BuildContext context) {
     final authState = ref.watch(authNotifierProvider);
