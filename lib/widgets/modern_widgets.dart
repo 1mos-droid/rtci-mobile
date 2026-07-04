@@ -170,3 +170,7 @@ class ContentCard extends StatelessWidget {
               children: [
                 if (imageUrl != null)
                   Stack(
+                    children: [
+                      Hero(
+                        tag: 'content_img_$title',
+                        child: Image.network(
