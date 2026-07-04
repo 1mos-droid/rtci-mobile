@@ -244,10 +244,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       ],
                     ),
                     padding: EdgeInsets.fromLTRB(
-                      onPressed: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(builder: (_) => const SignupScreen()),
                         );
                       },
                       child: Text(
