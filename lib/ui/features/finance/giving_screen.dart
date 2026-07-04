@@ -228,6 +228,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
                       content: Text("Donation marked as failed or cancelled."),
+                      backgroundColor: Colors.redAccent,
+                      behavior: SnackBarBehavior.floating,
+                    ),
+                  );
   @override
   Widget build(BuildContext context) {
     final finance = ref.watch(financialProvider);
