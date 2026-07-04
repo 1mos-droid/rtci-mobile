@@ -252,6 +252,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                 elevation: 0,
               ),
+              onPressed: () async {
+                Navigator.pop(dialogCtx);
+                final finance = ref.read(financialProvider);
+                final success = await finance.updateTransactionStatus(transactionId, 'completed');
   @override
   Widget build(BuildContext context) {
     final finance = ref.watch(financialProvider);
