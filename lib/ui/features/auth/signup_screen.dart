@@ -112,11 +112,11 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
                         child: Form(
                           key: _formKey,
-                          borderType: GlassBorderType.normal,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
-                              TextFormField(
+                              Text(
+                                "Create Account",
                                 controller: _nameController,
                                 style: TextStyle(color: ObsidianTheme.textVibrant),
                                 decoration: InputDecoration(
