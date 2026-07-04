@@ -216,6 +216,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
               ),
             ],
           ),
+          actionsAlignment: MainAxisAlignment.spaceEvenly,
+          actionsPadding: const EdgeInsets.only(bottom: 24, left: 16, right: 16, top: 12),
+          actions: [
+            TextButton(
   @override
   Widget build(BuildContext context) {
     final finance = ref.watch(financialProvider);
