@@ -208,8 +208,8 @@ class AppTheme {
           borderSide: BorderSide(color: Colors.white.withOpacity(0.08), width: 1.0),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: iosPrimaryDark, width: 1.0),
+          borderRadius: BorderRadius.circular(16),
+          borderSide: const BorderSide(color: iosPrimaryDark, width: 2.0),
         ),
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         labelStyle: TextStyle(color: systemGray, fontSize: 17),
