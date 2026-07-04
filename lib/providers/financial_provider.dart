@@ -32,9 +32,9 @@ class FinancialProvider extends ChangeNotifier {
       return isOwn || isShared;
     }).toList();
   }
+  
   bool get isLoading => _isLoading;
-  double get totalRevenue => _transactions.where((t) => t.type == 'contribution').fold(0, (sum, item) => sum + item.amount);
-  double get totalExpense => _transactions.where((t) => t.type == 'expense').fold(0, (sum, item) => sum + item.amount);
+  
 
   FinancialProvider() {
     _init();
