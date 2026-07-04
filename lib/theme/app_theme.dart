@@ -367,3 +367,7 @@ class Neumorphic {
     double borderRadius = 16,
     bool isPressed = false,
     BoxShape shape = BoxShape.rectangle,
+    Color? customBgColor,
+  }) {
+    final bgColor = customBgColor ?? (isDark ? const Color(0xFF151B2C) : Colors.white);
+    
