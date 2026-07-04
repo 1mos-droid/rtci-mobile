@@ -35,3 +35,7 @@ class Sermon {
       'duration': duration,
       'date': FieldValue.serverTimestamp(),
       'image_url': imageUrl,
+      'tag': tag,
+      'audio_url': audioUrl,
+      'video_url': videoUrl,
+      'logged_by': loggedBy,
