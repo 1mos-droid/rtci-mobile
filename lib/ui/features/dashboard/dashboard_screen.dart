@@ -427,6 +427,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                               backgroundColor: isDark ? const Color(0xFF1E293B) : const Color(0xFFF1F5F9),
                               side: BorderSide.none,
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                            ),
+                          );
+                        }).toList(),
                       ),
                     ),
                     const SizedBox(height: 12),
