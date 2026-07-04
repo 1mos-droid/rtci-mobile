@@ -154,12 +154,14 @@ class _GroupsScreenState extends ConsumerState<GroupsScreen> {
   @override
   Widget build(BuildContext context) {
     final groupsProv = ref.watch(groupsProvider);
+    final user = ref.watch(authNotifierProvider).value;
+    final isAdmin = user?.isAdmin ?? false;
     final rawList = groupsProv.groups;
     
     final list = _filterType == 'All'
         ? rawList
         : rawList.where((g) {
-            if (_filterType == 'Fellowship') return g.type == 'home_cell';
+            if (_filterType == 'Groups') return g.type == 'home_cell';
             if (_filterType == 'Department') return g.type == 'ministry' || g.type == 'volunteer_rota';
             return true;
           }).toList();
