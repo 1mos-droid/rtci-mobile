@@ -157,3 +157,7 @@ class _ExportingDialogState extends State<_ExportingDialog> {
         await Future.delayed(const Duration(milliseconds: 300));
         if (mounted) {
           Navigator.pop(context);
+          widget.onComplete();
+        }
+        return false;
+      }
