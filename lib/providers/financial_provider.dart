@@ -131,5 +131,9 @@ class FinancialProvider extends ChangeNotifier {
     try {
       await _firestore.collection('transactions').doc(transactionId).update({
         'status': status,
+      });
+      await fetchTransactions();
+      return true;
+    } catch (e) {
   }
 }
