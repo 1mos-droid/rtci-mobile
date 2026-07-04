@@ -115,6 +115,10 @@ class _GroupsScreenState extends ConsumerState<GroupsScreen> {
                 TextButton(
                   onPressed: () => Navigator.pop(dialogContext), 
                   child: Text("CANCEL", style: TextStyle(color: ObsidianTheme.textMuted)),
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    final name = nameController.text.trim();
   @override
   Widget build(BuildContext context) {
     final groupsProv = ref.watch(groupsProvider);
