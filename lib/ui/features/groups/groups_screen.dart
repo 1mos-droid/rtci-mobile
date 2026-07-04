@@ -58,6 +58,10 @@ class _GroupsScreenState extends ConsumerState<GroupsScreen> {
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
               title: Text(
                 "Create New Group",
+                style: GoogleFonts.cinzel(fontWeight: FontWeight.bold, color: ObsidianTheme.textVibrant),
+              ),
+              content: SingleChildScrollView(
+                child: Column(
   @override
   Widget build(BuildContext context) {
     final groupsProv = ref.watch(groupsProvider);
