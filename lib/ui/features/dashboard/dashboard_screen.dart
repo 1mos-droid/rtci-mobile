@@ -480,6 +480,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                   child: Column(
                                     children: [
                                       Icon(Icons.video_library_outlined, size: 40, color: ObsidianTheme.textMuted),
+                                      const SizedBox(height: 8),
+                                      Text(
+                                        "No sermons posted yet.",
+                                        style: TextStyle(color: ObsidianTheme.textMuted),
                                   ),
                                 )
                                 .toList(),
