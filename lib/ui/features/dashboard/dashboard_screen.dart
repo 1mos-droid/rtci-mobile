@@ -502,6 +502,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                       imageUrl: s.imageUrl,
                                       tag: s.tag.isEmpty ? null : s.tag,
                                       onTap: () {
+                                        _showVideoPlayer(context, s.title, s.speaker);
+                                      },
+                                    );
+                                  },
                   ],
                 ),
               ),
