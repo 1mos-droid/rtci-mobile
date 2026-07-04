@@ -227,6 +227,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   Container(
                     width: double.infinity,
                     constraints: BoxConstraints(
+                      minHeight: screenHeight * 0.58,
+                    ),
+                    decoration: BoxDecoration(
+                      color: panelColor,
                         ),
                       ],
                     ),
