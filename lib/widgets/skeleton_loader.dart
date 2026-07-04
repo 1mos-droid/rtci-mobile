@@ -11,3 +11,6 @@ class SkeletonContainer extends StatelessWidget {
   const SkeletonContainer({
     super.key,
     this.width = double.infinity,
+    required this.height,
+    this.borderRadius = 8,
+  });
