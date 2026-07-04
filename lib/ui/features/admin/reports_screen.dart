@@ -64,7 +64,7 @@ class ReportsScreen extends StatelessWidget {
                                 const SizedBox(width: 12),
                                 Expanded(
                                   child: OutlinedButton.icon(
-                                    onPressed: () {},
+                                    onPressed: () => _exportReport(context, report['title'] as String, "EXCEL"),
                                     icon: const Icon(Icons.table_chart),
                                     label: const Text("EXCEL"),
                                   ),
@@ -85,4 +85,6 @@ class ReportsScreen extends StatelessWidget {
       ),
     );
   }
+
+  void _exportReport(BuildContext context, String title, String format) {
 }
