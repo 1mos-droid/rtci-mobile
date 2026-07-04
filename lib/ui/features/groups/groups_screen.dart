@@ -54,6 +54,10 @@ class _GroupsScreenState extends ConsumerState<GroupsScreen> {
         return StatefulBuilder(
           builder: (context, setDialogState) {
             return AlertDialog(
+              backgroundColor: isDark ? const Color(0xFF1E202C) : const Color(0xFFE0E5EC),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+              title: Text(
+                "Create New Group",
   @override
   Widget build(BuildContext context) {
     final groupsProv = ref.watch(groupsProvider);
