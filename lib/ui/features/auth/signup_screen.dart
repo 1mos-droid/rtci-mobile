@@ -376,4 +376,8 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
         child: GlassCard(
           borderRadius: 24,
           padding: const EdgeInsets.all(32),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
 }
