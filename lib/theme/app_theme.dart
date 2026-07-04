@@ -357,5 +357,9 @@ class ObsidianTheme {
   static Color get surfaceWhite => surfaceDark;
   static Color get borderLight => borderHairline;
   static Color get textDark => textVibrant;
+  static Color get accentGoldLight => secondaryGold.withOpacity(0.12);
   static Color get accentSage => secondaryGold;
 }
+
+class Neumorphic {
+  static BoxDecoration decoration({
