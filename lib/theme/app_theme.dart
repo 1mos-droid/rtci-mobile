@@ -90,9 +90,9 @@ class AppTheme {
         style: OutlinedButton.styleFrom(
           foregroundColor: iosPrimaryLight,
           side: const BorderSide(color: iosPrimaryLight, width: 1.5),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          minimumSize: const Size.fromHeight(54),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           elevation: 0,
-          textStyle: GoogleFonts.inter(
             fontWeight: FontWeight.w600,
             fontSize: 17,
             letterSpacing: -0.4,
