@@ -351,9 +351,7 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                style: Theme.of(context).textTheme.labelLarge?.copyWith(color: ObsidianTheme.textMuted, letterSpacing: 1.5),
-              ),
-              const SizedBox(height: 16),
+                const SizedBox(height: 10),
               Wrap(
                 spacing: 12,
                 runSpacing: 12,
