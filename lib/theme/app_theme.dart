@@ -118,10 +118,6 @@ class AppTheme {
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
           borderSide: const BorderSide(color: systemRed, width: 1.0),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-        labelStyle: TextStyle(color: systemGray, fontSize: 17),
-        hintStyle: TextStyle(color: systemGray2, fontSize: 17),
-      ),
       pageTransitionsTheme: const PageTransitionsTheme(
         builders: {
           TargetPlatform.android: ZoomPageTransitionsBuilder(),
