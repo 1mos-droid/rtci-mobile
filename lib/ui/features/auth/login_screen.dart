@@ -176,8 +176,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             height: 84,
                             padding: const EdgeInsets.all(12),
                             decoration: BoxDecoration(
-                              color: isDark ? Colors.white : Colors.black,
-                              borderRadius: BorderRadius.circular(12),
+                              color: isDark ? const Color(0xFF151B2C) : Colors.white,
+                              shape: BoxShape.circle,
                             ),
                             child: authState.isLoading
                                 ? const Center(child: CircularProgressIndicator.adaptive(valueColor: AlwaysStoppedAnimation<Color>(Colors.grey)))
