@@ -255,3 +255,7 @@ class ContentCard extends StatelessWidget {
                                 color: theme.colorScheme.primary,
                                 fontSize: 10,
                                 fontWeight: FontWeight.bold,
+                                letterSpacing: 0.5,
+                              ),
+                            ),
+                          ),
