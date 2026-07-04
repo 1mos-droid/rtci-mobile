@@ -196,6 +196,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
           title: Text(
             "Confirm Payment Status",
             textAlign: TextAlign.center,
+            style: GoogleFonts.cinzel(
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+              color: ObsidianTheme.textVibrant,
   @override
   Widget build(BuildContext context) {
     final finance = ref.watch(financialProvider);
