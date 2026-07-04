@@ -300,9 +300,9 @@ class AppTheme {
         color: primaryColor,
         fontSize: 14,
         letterSpacing: -0.1,
+      ),
+      bodySmall: _getTextStyle(
         color: secondaryColor,
-        fontSize: 13,
-        letterSpacing: -0.1,
       ),
       labelLarge: GoogleFonts.inter(
         color: primaryColor,
