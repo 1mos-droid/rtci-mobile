@@ -147,6 +147,10 @@ class SettingsScreen extends ConsumerWidget {
                                     Navigator.pop(context); // Dismiss loading
                                     showAdaptiveDialog(
                                       context: context,
+                                      builder: (_) => AlertDialog.adaptive(
+                                        title: const Text("Reset Email Sent"),
+                                        content: Text("A password reset link has been dispatched to $email. Please check your inbox."),
+                                        actions: [
                           ),
                           ListTile(
                             contentPadding: EdgeInsets.zero,
