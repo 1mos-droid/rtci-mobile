@@ -100,3 +100,8 @@ class StartupLoaderScreen extends StatelessWidget {
             curve: Curves.easeInOut,
           );
     }
+
+    // 4. Welcome text widgets
+    Widget primaryText = Text(
+      "REDEEMED TRANSFORMATION",
+      style: GoogleFonts.cinzel(
