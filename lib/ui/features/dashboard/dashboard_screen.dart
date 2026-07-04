@@ -95,6 +95,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                               size: 20,
                             ),
                             if (broadcasts.messages.isNotEmpty)
+                              Positioned(
+                                right: 0,
+                                top: 0,
+                                child: Container(
                 ),
               ),
             ),
