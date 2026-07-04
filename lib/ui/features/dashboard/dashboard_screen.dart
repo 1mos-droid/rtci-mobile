@@ -790,6 +790,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                         activeColor: AppTheme.iosPrimaryLight,
                         inactiveColor: isDark ? Colors.white24 : Colors.black12,
                         onChanged: (val) {
+                          setModalState(() {
+                            currentSeconds = val.toInt();
+                          });
+                        },
               ),
             ),
             child: Column(
