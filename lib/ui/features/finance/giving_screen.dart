@@ -492,7 +492,9 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                               color: ObsidianTheme.textMuted.withOpacity(0.4),
                               fontSize: 16,
                               fontWeight: FontWeight.normal,
-                ),
+                            ),
+                            contentPadding: EdgeInsets.zero,
+                          ),
                 child: finance.isLoading
                     ? SizedBox(height: 24, width: 24, child: CircularProgressIndicator(strokeWidth: 3, color: ObsidianTheme.backgroundDark))
                     : const Text("PROCEED TO PAYMENT", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800, letterSpacing: 1.0)),
