@@ -286,6 +286,10 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                           color: isDark ? Colors.white : const Color(0xFF0F172A),
                                           borderRadius: BorderRadius.circular(16),
                                           boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.black.withOpacity(0.05),
+                                              blurRadius: 10,
+                                              offset: const Offset(0, 4),
                                             ),
                                           ],
                                         ),
