@@ -13,11 +13,11 @@ import 'package:rtc_mobile/widgets/modern_widgets.dart';
 import 'package:rtc_mobile/application/auth/auth_provider.dart';
 import 'package:rtc_mobile/providers/riverpod_providers.dart';
 
-class DashboardScreen extends ConsumerWidget {
+class DashboardScreen extends ConsumerStatefulWidget {
   const DashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<DashboardScreen> createState() => _DashboardScreenState();
     final user = ref.watch(authNotifierProvider).value;
     final finance = ref.watch(financialProvider);
     final prayers = ref.watch(prayerProvider);
