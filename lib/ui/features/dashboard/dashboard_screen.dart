@@ -202,8 +202,8 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                         ? (user?.role.name.toUpperCase() ?? '')
                                         : "COVENANT MEMBER",
                                     style: GoogleFonts.plusJakartaSans(
-                                      fontSize: 9,
-                                      fontWeight: FontWeight.bold,
+                                      fontSize: 8.5,
+                                      fontWeight: FontWeight.w800,
                                       color: primaryAccent,
                                       letterSpacing: 0.5,
                                     ),
