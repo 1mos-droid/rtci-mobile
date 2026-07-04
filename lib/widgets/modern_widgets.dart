@@ -198,3 +198,7 @@ class ContentCard extends StatelessWidget {
                           top: 12,
                           left: 12,
                           child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                            decoration: BoxDecoration(
+                              color: theme.colorScheme.primary,
+                              borderRadius: BorderRadius.circular(20),
