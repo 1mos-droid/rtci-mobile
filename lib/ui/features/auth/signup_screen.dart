@@ -92,9 +92,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
     return Scaffold(
       body: MeshGradientBackground(
         child: SafeArea(
-                    key: _formKey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
+          child: Column(
                       children: [
                         // Back Button
                         Row(
