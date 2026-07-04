@@ -111,6 +111,10 @@ class _GroupsScreenState extends ConsumerState<GroupsScreen> {
                   ],
                 ),
               ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(dialogContext), 
+                  child: Text("CANCEL", style: TextStyle(color: ObsidianTheme.textMuted)),
   @override
   Widget build(BuildContext context) {
     final groupsProv = ref.watch(groupsProvider);
