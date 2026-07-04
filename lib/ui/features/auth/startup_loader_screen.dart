@@ -129,3 +129,7 @@ class StartupLoaderScreen extends StatelessWidget {
     }
 
     // 5. Dynamic loading message
+    Widget messageWidget = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+      decoration: BoxDecoration(
+        color: isDark ? const Color(0xFF151B2C) : Colors.white,
