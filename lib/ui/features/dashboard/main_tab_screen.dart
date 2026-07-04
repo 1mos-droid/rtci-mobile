@@ -54,9 +54,9 @@ class _MainTabScreenState extends State<MainTabScreen> {
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withOpacity(isDark ? 0.3 : 0.04),
+                      blurRadius: 20,
+                      offset: const Offset(0, 8),
                     ),
-                    boxShadow: [
-                      BoxShadow(
                         color: Colors.black.withOpacity(isDark ? 0.3 : 0.05),
                         blurRadius: 20,
                         offset: const Offset(0, 8),
