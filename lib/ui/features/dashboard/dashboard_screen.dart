@@ -442,9 +442,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                              "No events scheduled.",
-                              style: TextStyle(color: ObsidianTheme.textMuted),
-                            ),
+                            "RECENT SERMONS",
                           )
                         : Column(
                             children: eventsProv.events
