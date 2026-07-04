@@ -160,4 +160,8 @@ class GroupsProvider extends ChangeNotifier {
     required String leaderName,
     required String location,
     required String type,
+    String? description,
+    String? campus,
+  }) async {
+    _isLoading = true;
 }
