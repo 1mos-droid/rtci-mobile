@@ -512,6 +512,7 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                 
                 const SizedBox(height: 100), // Space for nav bar
               ],
+            ),
           ),
         ),
       ),

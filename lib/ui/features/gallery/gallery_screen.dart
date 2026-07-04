@@ -23,8 +23,6 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
   final ImagePicker _picker = ImagePicker();
 
   Future<void> _pickAndUploadImage(BuildContext context, GalleryProvider provider) async {
-    final theme = Theme.of(context);
-
     // Pick source
     final ImageSource? source = await showModalBottomSheet<ImageSource>(
       context: context,
