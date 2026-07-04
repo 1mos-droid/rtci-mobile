@@ -268,6 +268,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             "Welcome back! Sign in to access your member dashboard.",
                             style: theme.textTheme.bodyMedium?.copyWith(
                               color: ObsidianTheme.textMuted,
+                              height: 1.4,
+                            ),
+                          ).animate().fadeIn(delay: 100.ms, duration: 400.ms),
+                          const SizedBox(height: 28),
                       ),
                     ),
                   ).animate().fadeIn(delay: 450.ms, duration: 500.ms),
