@@ -94,7 +94,9 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
         child: SafeArea(
           child: Column(
             children: [
-                          children: [
+              Align(
+                alignment: Alignment.topLeft,
+                child: Padding(
                             IconButton(
                               icon: Icon(Icons.arrow_back_ios_new, size: 18, color: ObsidianTheme.textVibrant),
                               onPressed: () => Navigator.pop(context),
