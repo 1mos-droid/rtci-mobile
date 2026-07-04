@@ -198,3 +198,6 @@ class StartupLoaderScreen extends StatelessWidget {
                 sweepRing,
                 crimsonRing,
                 logoContainer,
+              ],
+            ),
+            const SizedBox(height: 48),
