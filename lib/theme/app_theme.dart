@@ -42,12 +42,12 @@ class AppTheme {
         surface: systemLightGroupedBg,
         surfaceContainerHighest: systemGray5,
         onSurface: const Color(0xFF0F172A),
+        error: systemRed,
       ),
       scaffoldBackgroundColor: systemLightBg,
-      textTheme: _textTheme(Colors.black, systemGray),
+      textTheme: _textTheme(const Color(0xFF0F172A), systemGray),
       appBarTheme: AppBarTheme(
         centerTitle: true,
-        backgroundColor: systemLightBg.withOpacity(0.8),
         surfaceTintColor: Colors.transparent,
         elevation: 0,
         titleTextStyle: GoogleFonts.inter(
