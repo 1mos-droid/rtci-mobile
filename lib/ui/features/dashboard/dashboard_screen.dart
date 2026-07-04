@@ -440,10 +440,6 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                     if (_selectedCategory == 'All' || _selectedCategory == 'Sermons') ...[
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    ),
-                    const SizedBox(height: 12),
-
-                    eventsProv.events.isEmpty
                         ? Center(
                             child: Text(
                               "No events scheduled.",
