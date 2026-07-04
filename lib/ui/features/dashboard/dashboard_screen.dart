@@ -1071,6 +1071,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                               dropdownColor: isDark ? const Color(0xFF1E202C) : Colors.white,
                               style: TextStyle(color: ObsidianTheme.textVibrant),
                               decoration: const InputDecoration(
+                                labelText: "Category",
+                                prefixIcon: Icon(Icons.category_outlined),
+                              ),
+                              items: categories.map((c) => DropdownMenuItem(
                   ),
                 ),
               ],
