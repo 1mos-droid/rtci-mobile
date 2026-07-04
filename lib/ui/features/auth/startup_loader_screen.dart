@@ -109,3 +109,7 @@ class StartupLoaderScreen extends StatelessWidget {
         fontWeight: FontWeight.bold,
         letterSpacing: 2.0,
         color: isDark ? Colors.white.withOpacity(0.9) : const Color(0xFF0F172A),
+      ),
+    );
+    if (!isTest) {
+      primaryText = primaryText.animate().fadeIn(duration: 600.ms);
