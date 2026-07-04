@@ -444,7 +444,9 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                           Text(
                             "RECENT SERMONS",
                             style: GoogleFonts.plusJakartaSans(
-                                .take(3)
+                              fontWeight: FontWeight.w800,
+                              color: ObsidianTheme.textVibrant,
+                              fontSize: 12,
                                 .map(
                                   (e) => Padding(
                                     padding: const EdgeInsets.only(bottom: 12),
