@@ -1171,6 +1171,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                   backgroundColor: success ? Colors.green : Colors.red,
                                 ),
                               );
+                            }
+                          }
+                        },
+                        child: const Text("POST SERMON"),
                   ),
                 ),
               ],
