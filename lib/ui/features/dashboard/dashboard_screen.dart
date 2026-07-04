@@ -554,6 +554,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                         children: [
                                           Row(
                                             children: [
+                                              Container(
+                                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                                                decoration: BoxDecoration(
+                                                  color: AppTheme.accentGold.withOpacity(0.12),
                   ],
                 ),
               ),
