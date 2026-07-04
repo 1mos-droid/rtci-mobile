@@ -238,6 +238,10 @@ class _GroupsScreenState extends ConsumerState<GroupsScreen> {
                 child: groupsProv.isLoading && rawList.isEmpty
                   ? ListView.builder(
                       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      itemCount: 3,
+                      itemBuilder: (context, index) => const Padding(
+                        padding: EdgeInsets.only(bottom: 14),
+                        child: GlassCard(
                   : list.isEmpty
                     ? Center(
                         child: Text(
