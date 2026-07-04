@@ -9,3 +9,7 @@ class StartupLoaderScreen extends StatelessWidget {
 
   const StartupLoaderScreen({
     super.key,
+    required this.message,
+  });
+
+  @override
