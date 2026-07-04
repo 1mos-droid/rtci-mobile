@@ -874,6 +874,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                       ],
                     ),
                   ),
+                )
+              else
+                ConstrainedBox(
+                  constraints: BoxConstraints(
                   ),
                 ),
                 Text(
