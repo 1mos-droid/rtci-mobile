@@ -733,6 +733,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                             GestureDetector(
                               onTap: () {
                                 setModalState(() {
+                                  isPlaying = !isPlaying;
+                                  if (isPlaying) {
+                                    playbackTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+                                      setModalState(() {
               ),
             ),
             child: Column(
