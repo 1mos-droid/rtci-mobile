@@ -169,3 +169,7 @@ class StartupLoaderScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Stack(
+              alignment: Alignment.center,
+              children: [
+                // Outer ring track
+                Container(
