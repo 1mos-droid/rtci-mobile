@@ -200,10 +200,6 @@ class WelcomeScreen extends StatelessWidget {
                 ),
               ],
             ),
-                    const SizedBox(height: 24),
-                    
-                    ElevatedButton.icon(
-                      icon: const Icon(Icons.login_outlined),
                       label: const Text("Sign In"),
                       onPressed: () {
                         Navigator.push(
