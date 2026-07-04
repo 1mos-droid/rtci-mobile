@@ -435,6 +435,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                     return DonationChip(
                       label: "GHC $val",
                       isSelected: isSelected,
+                      onTap: () {
+                        setState(() {
+                          _customAmount = val.toDouble();
+                          _amountController.clear();
                     ),
                   );
                 }).toList(),
