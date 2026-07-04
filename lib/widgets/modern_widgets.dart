@@ -134,3 +134,7 @@ class ContentCard extends StatelessWidget {
     this.duration,
     this.onTap,
     this.tag,
+    this.trailing,
+  });
+
+  @override
