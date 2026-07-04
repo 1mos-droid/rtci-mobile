@@ -144,9 +144,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                         children: [
                           CircleAvatar(
                             radius: 28,
-                            backgroundColor: primaryAccent.withValues(
-                              alpha: 0.08,
-                            ),
+                            backgroundColor: primaryAccent.withOpacity(0.1),
                             child: Container(
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
