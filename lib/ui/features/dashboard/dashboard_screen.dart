@@ -510,6 +510,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                       const SizedBox(height: 24),
                     ],
 
+                    if (_selectedCategory == 'All' || _selectedCategory == 'Announcements') ...[
+                      Text(
+                        "CHURCH ANNOUNCEMENTS",
+                        style: GoogleFonts.plusJakartaSans(
                   ],
                 ),
               ),
