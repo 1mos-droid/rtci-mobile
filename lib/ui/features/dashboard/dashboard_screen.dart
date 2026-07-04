@@ -1087,6 +1087,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                           ),
                           const SizedBox(width: 12),
                           Expanded(
+                            child: TextFormField(
+                              controller: durationController,
+                              style: TextStyle(color: ObsidianTheme.textVibrant),
+                              decoration: const InputDecoration(
                   ),
                 ),
               ],
