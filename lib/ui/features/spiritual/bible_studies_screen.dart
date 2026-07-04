@@ -32,6 +32,10 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
   }
 
   void _showAddModuleDialog() {
+    final titleController = TextEditingController();
+    final subtitleController = TextEditingController();
+    final descController = TextEditingController();
+    final imgController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final libProv = ref.watch(bibleStudiesProvider);
