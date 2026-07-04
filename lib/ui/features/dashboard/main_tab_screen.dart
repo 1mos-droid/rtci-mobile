@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:rtc_mobile/theme/app_theme.dart';
 import 'package:rtc_mobile/ui/features/dashboard/dashboard_screen.dart';
 import 'package:rtc_mobile/ui/features/spiritual/live_bible_screen.dart';
 import 'package:rtc_mobile/ui/features/finance/giving_screen.dart';
@@ -26,9 +27,7 @@ class _MainTabScreenState extends State<MainTabScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
-    final isIOS = theme.platform == TargetPlatform.iOS || theme.platform == TargetPlatform.macOS;
 
-    if (isIOS) {
       return Scaffold(
         extendBody: true,
         body: IndexedStack(
