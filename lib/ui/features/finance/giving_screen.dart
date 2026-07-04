@@ -360,7 +360,9 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                     fontSize: 10,
                     letterSpacing: 1.5,
                   ),
-                          color: isSelected ? ObsidianTheme.textVibrant : ObsidianTheme.textMuted,
+                ),
+                const SizedBox(height: 12),
+                GridView.builder(
                         ),
                       ),
                     ),
