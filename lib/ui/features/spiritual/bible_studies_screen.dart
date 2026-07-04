@@ -229,14 +229,14 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
         body: TabBarView(
           controller: _tabController,
           children: [
-            _buildResourcesTab(libProv),
+            _buildModulesTab(libProv, isAdmin),
+            _buildResourcesTab(libProv, isAdmin),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildModulesTab(BibleStudiesProvider libProv) {
     if (libProv.isLoading && libProv.modules.isEmpty) {
       return const Center(child: CircularProgressIndicator());
     }
