@@ -134,7 +134,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     final mediaQuery = MediaQuery.of(context);
     final screenHeight = mediaQuery.size.height;
     
+    // Modern solid white panel color or slate dark panel color
+    final panelColor = isDark ? const Color(0xFF151B2C) : Colors.white;
 
+    return Scaffold(
+      resizeToAvoidBottomInset: true,
     return MeshGradientBackground(
       child: Scaffold(
         backgroundColor: Colors.transparent,
