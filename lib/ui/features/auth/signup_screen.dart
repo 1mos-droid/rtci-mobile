@@ -131,10 +131,6 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                   height: 1.4,
                                 ),
                               ).animate().fadeIn(delay: 100.ms, duration: 500.ms).slideY(begin: 0.2, end: 0, curve: Curves.easeOutQuad),
-                              CheckboxListTile(
-                                title: Text(
-                                  "I agree to the rules and terms of the church.",
-                                  style: GoogleFonts.plusJakartaSans(
                                     fontSize: 12,
                                     color: ObsidianTheme.textMuted,
                                     fontWeight: FontWeight.w500,
