@@ -66,3 +66,7 @@ class _CustomPrimaryButtonState extends State<CustomPrimaryButton> with SingleTi
       onTap: widget.onPressed == null || widget.isLoading ? null : widget.onPressed,
       child: ScaleTransition(
         scale: _scaleAnimation,
+        child: Container(
+          height: 54,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
