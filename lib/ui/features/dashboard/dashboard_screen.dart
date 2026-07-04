@@ -1127,6 +1127,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                         ),
                       ),
                       const SizedBox(height: 24),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: ObsidianTheme.primaryCrimson,
+                          foregroundColor: Colors.white,
                   ),
                 ),
               ],
