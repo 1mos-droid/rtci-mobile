@@ -360,10 +360,6 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                           ),
                         ),
                       ),
-                      context,
-                      MaterialPageRoute(builder: (_) => const MainTabScreen()),
-                      (route) => false,
-                    );
                   },
                   child: const Text("CONTINUE TO DASHBOARD"),
                 ),
