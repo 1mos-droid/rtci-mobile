@@ -348,8 +348,8 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
                 "SELECT PURPOSE",
