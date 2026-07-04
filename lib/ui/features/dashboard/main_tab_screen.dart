@@ -72,10 +72,6 @@ class _MainTabScreenState extends State<MainTabScreen> {
             ),
           ),
         ),
-        body: IndexedStack(
-          index: _currentIndex,
-          children: _pages,
-        ),
         bottomNavigationBar: NavigationBar(
           selectedIndex: _currentIndex,
           onDestinationSelected: (index) => setState(() => _currentIndex = index),
