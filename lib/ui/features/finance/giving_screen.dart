@@ -393,10 +393,6 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                           ),
                         ),
                         alignment: Alignment.center,
-                        color: isSelected ? ObsidianTheme.secondaryGold.withValues(alpha: 0.15) : ObsidianTheme.surfaceDark.withValues(alpha: 0.5),
-                        border: Border.all(color: isSelected ? ObsidianTheme.secondaryGold : ObsidianTheme.borderHairline, width: isSelected ? 2 : 1),
-                        borderRadius: BorderRadius.circular(16),
-                      ),
                       child: Center(
                         child: Text(
                           "GHC $val",
