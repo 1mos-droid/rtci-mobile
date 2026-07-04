@@ -118,10 +118,6 @@ class AppTheme {
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
           borderSide: const BorderSide(color: systemRed, width: 1.0),
-          TargetPlatform.linux: ZoomPageTransitionsBuilder(),
-          TargetPlatform.macOS: CupertinoPageTransitionsBuilder(),
-          TargetPlatform.windows: ZoomPageTransitionsBuilder(),
-        },
       ),
     );
   }
