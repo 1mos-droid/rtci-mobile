@@ -522,6 +522,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                       ),
                       const SizedBox(height: 8),
                       broadcasts.isLoading
+                          ? const Center(child: CircularProgressIndicator())
+                          : broadcasts.messages.isEmpty
+                              ? Container(
+                                  padding: const EdgeInsets.symmetric(vertical: 24),
                   ],
                 ),
               ),
