@@ -158,3 +158,7 @@ class ContentCard extends StatelessWidget {
             offset: const Offset(0, 6),
           ),
         ],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(16),
+        child: Material(
