@@ -39,3 +39,7 @@ class Sermon {
       'audio_url': audioUrl,
       'video_url': videoUrl,
       'logged_by': loggedBy,
+    };
+  }
+
+  factory Sermon.fromFirestore(DocumentSnapshot doc) {
