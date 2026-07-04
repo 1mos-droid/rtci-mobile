@@ -121,6 +121,10 @@ class WelcomeScreen extends StatelessWidget {
                           letterSpacing: 1.5,
                         ),
                       ),
+                      const SizedBox(height: 8),
+                      Text(
+                        "Join our global family to watch sermons, request prayers, and participate in giving.",
+                        textAlign: TextAlign.center,
                     ],
                   ),
                   child: Center(
