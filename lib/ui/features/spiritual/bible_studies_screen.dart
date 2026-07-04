@@ -467,6 +467,10 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
                     onPressed: () async {
                       final url = Uri.tryParse(res.url);
                       if (url != null && await canLaunchUrl(url)) {
+                        await launchUrl(url, mode: LaunchMode.externalApplication);
+                      } else {
+                        if (context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
               ),
             ),
           ),
