@@ -232,4 +232,8 @@ class FinancialsScreen extends ConsumerWidget {
                       dropdownColor: isDark ? const Color(0xFF1E202C) : Colors.white,
                       style: TextStyle(color: ObsidianTheme.textVibrant),
                       decoration: const InputDecoration(
+                        labelText: "Transaction Type",
+                        prefixIcon: Icon(Icons.swap_horiz),
+                      ),
+                      items: types.map((t) => DropdownMenuItem(
 }
