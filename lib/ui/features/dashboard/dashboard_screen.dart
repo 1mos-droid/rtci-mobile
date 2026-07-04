@@ -886,6 +886,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                     itemCount: announcements.length,
                     itemBuilder: (context, index) {
                       final msg = announcements[index];
+                      return Container(
+                        margin: const EdgeInsets.symmetric(vertical: 8),
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
                   ),
                 ),
                 Text(
