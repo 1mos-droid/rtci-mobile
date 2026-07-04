@@ -1031,6 +1031,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                           Text(
                             "Post New Sermon",
                             style: GoogleFonts.cinzel(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: ObsidianTheme.textVibrant,
+                            ),
                   ),
                 ),
               ],
