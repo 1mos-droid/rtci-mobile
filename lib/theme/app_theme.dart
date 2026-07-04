@@ -423,3 +423,7 @@ class Neumorphic {
           color: lightShadowColor,
           offset: const Offset(-6, -6),
           blurRadius: 12,
+          spreadRadius: 1,
+        ),
+      ],
+    );
