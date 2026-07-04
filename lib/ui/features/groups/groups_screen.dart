@@ -127,6 +127,10 @@ class _GroupsScreenState extends ConsumerState<GroupsScreen> {
                       Navigator.pop(dialogContext);
                       final success = await ref.read(groupsProvider).addGroup(
                         name: name,
+                        leaderName: leader,
+                        location: location,
+                        type: selectedType,
+                        description: desc.isEmpty ? null : desc,
   @override
   Widget build(BuildContext context) {
     final groupsProv = ref.watch(groupsProvider);
