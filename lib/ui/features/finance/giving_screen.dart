@@ -136,6 +136,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                       return;
                     }
 
+                    if (await canLaunchUrl(url)) {
+                      await launchUrl(
+                        url,
+                        mode: LaunchMode.inAppWebView,
                   }
                 },
                 child: const Text("CONFIRM PAYMENT", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800, letterSpacing: 1.0)),
