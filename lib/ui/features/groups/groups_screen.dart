@@ -270,6 +270,10 @@ class _GroupsScreenState extends ConsumerState<GroupsScreen> {
                                       SkeletonContainer(width: 80, height: 10),
                                     ],
                                   ),
+                                  SkeletonContainer(width: 110, height: 38, borderRadius: 8),
+                                ],
+                              ),
+                            ],
                   : list.isEmpty
                     ? Center(
                         child: Text(
