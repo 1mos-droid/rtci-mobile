@@ -61,8 +61,8 @@ class _MainTabScreenState extends State<MainTabScreen> {
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      _buildNavItem(0, Icons.home_rounded, "Home"),
+                  children: [
+                    _buildNavItem(0, Icons.home_rounded, Icons.home_outlined, "Home"),
                       _buildNavItem(1, Icons.auto_stories_rounded, "Bible"),
                       _buildNavItem(2, Icons.favorite_rounded, "Give"),
                       _buildNavItem(3, Icons.menu_rounded, "Menu"),
