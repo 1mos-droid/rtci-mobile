@@ -131,11 +131,6 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                   height: 1.4,
                                 ),
                               ).animate().fadeIn(delay: 100.ms, duration: 500.ms).slideY(begin: 0.2, end: 0, curve: Curves.easeOutQuad),
-                                  if (val == null || val.isEmpty) return "Please enter your email";
-                                  if (!val.contains('@')) return "Please enter a valid email";
-                                  return null;
-                                },
-                              ),
                               const SizedBox(height: 16),
 
                               TextFormField(
