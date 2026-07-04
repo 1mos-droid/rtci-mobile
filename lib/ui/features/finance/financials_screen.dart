@@ -280,4 +280,8 @@ class FinancialsScreen extends ConsumerWidget {
                       dropdownColor: isDark ? const Color(0xFF1E202C) : Colors.white,
                       style: TextStyle(color: ObsidianTheme.textVibrant),
                       decoration: const InputDecoration(
+                        labelText: "Campus",
+                        prefixIcon: Icon(Icons.location_on_outlined),
+                      ),
+                      items: campuses.map((cp) => DropdownMenuItem(
 }
