@@ -81,6 +81,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           backgroundColor: Theme.of(context).colorScheme.error,
           behavior: SnackBarBehavior.floating,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        ),
+      );
+      return;
+    }
   @override
   Widget build(BuildContext context) {
     final authState = ref.watch(authNotifierProvider);
