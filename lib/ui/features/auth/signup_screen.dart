@@ -142,7 +142,9 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                   children: [
                                     TextFormField(
                                       controller: _nameController,
-                                    child: Text(
+                                      style: TextStyle(color: ObsidianTheme.textVibrant, fontSize: 16),
+                                      decoration: InputDecoration(
+                                        labelText: "Your Full Name",
                                       "OR",
                                       style: GoogleFonts.plusJakartaSans(
                                         fontSize: 12,
