@@ -407,6 +407,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                   },
                 ),
 
+                const SizedBox(height: 32),
+
+                Text(
+                  "CHOOSE AMOUNT",
                     ),
                   );
                 }).toList(),
