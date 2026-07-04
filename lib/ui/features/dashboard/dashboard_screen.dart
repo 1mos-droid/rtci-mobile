@@ -30,6 +30,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
     Future.microtask(() {
       ref.read(broadcastProvider.notifier).fetchBroadcasts();
       ref.read(sermonProvider.notifier).fetchSermons();
+    });
+  }
+
+  @override
     final user = ref.watch(authNotifierProvider).value;
     final finance = ref.watch(financialProvider);
     final prayers = ref.watch(prayerProvider);
