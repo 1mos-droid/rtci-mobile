@@ -28,6 +28,10 @@ class RTCIMobileApp extends ConsumerStatefulWidget {
 }
 
 class _RTCIMobileAppState extends ConsumerState<RTCIMobileApp> {
+  bool _initialized = false;
+  String _loadingMessage = "Preparing Sanctuary...";
+
+  @override
     final authState = ref.watch(authNotifierProvider);
     final themeMode = ref.watch(themeNotifierProvider);
 
