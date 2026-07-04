@@ -152,9 +152,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                       ),
                                       validator: (val) {
                                         if (val == null || val.isEmpty) return "Please enter your name";
-                                  ),
-                                  Expanded(child: Divider(color: ObsidianTheme.borderHairline)),
-                                ],
+                                        return null;
                               ),
                               
                               const SizedBox(height: 16),
