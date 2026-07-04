@@ -173,4 +173,8 @@ class BibleStudiesProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  Future<bool> deleteResource(String resourceId) async {
+    _isLoading = true;
+    notifyListeners();
 }
