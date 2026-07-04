@@ -363,6 +363,10 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
                                           letterSpacing: 1.0,
                                         ),
                                       ),
+                                      const SizedBox(height: 8),
+                                      _buildSyllabusItem("Week 1", "Foundations and Historical Context"),
+                                      _buildSyllabusItem("Week 2", "Core Theological Framework"),
+                                      _buildSyllabusItem("Week 3", "Practical Application in Ministry"),
                 )
               ],
             ),
