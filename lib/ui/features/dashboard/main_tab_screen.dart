@@ -34,8 +34,8 @@ class _MainTabScreenState extends State<MainTabScreen> {
         index: _currentIndex,
         children: _pages,
       ),
-        bottomNavigationBar: SafeArea(
-          top: false,
+      bottomNavigationBar: SafeArea(
+        top: false,
           child: Padding(
             padding: const EdgeInsets.fromLTRB(20, 0, 20, 16),
             child: ClipRRect(
