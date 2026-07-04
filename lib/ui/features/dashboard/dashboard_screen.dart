@@ -1167,6 +1167,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                 SnackBar(
                                   content: Text(success 
                                     ? "Sermon posted successfully!" 
+                                    : "Failed to post sermon. Try again."),
+                                  backgroundColor: success ? Colors.green : Colors.red,
+                                ),
+                              );
                   ),
                 ),
               ],
