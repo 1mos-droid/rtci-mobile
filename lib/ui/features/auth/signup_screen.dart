@@ -360,10 +360,6 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                           ),
                         ),
                       ),
-      ),
-    );
-  }
-
   Widget _buildSuccessScreen(BuildContext context) {
     return Center(
       child: Padding(
