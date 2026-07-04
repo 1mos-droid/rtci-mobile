@@ -55,3 +55,7 @@ class SermonProvider extends ChangeNotifier {
         'category': category,
         'duration': duration,
         'image_url': imageUrl.isEmpty ? 'https://images.unsplash.com/photo-1507692049790-de58290a4334?w=500&q=80' : imageUrl,
+        'tag': tag,
+        'audio_url': audioUrl ?? '',
+        'video_url': videoUrl ?? '',
+        'date': FieldValue.serverTimestamp(),
