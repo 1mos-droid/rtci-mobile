@@ -490,4 +490,8 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
       },
     );
   }
+
+  Widget _buildSyllabusItem(String week, String topic) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4.0),
 }
