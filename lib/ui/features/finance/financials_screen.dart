@@ -324,4 +324,8 @@ class FinancialsScreen extends ConsumerWidget {
                             builder: (_) => const Center(child: CircularProgressIndicator()),
                           );
                           
+                          final success = await ref.read(financialProvider).recordTransaction(
+                            amount,
+                            selectedType,
+                            selectedCategory,
 }
