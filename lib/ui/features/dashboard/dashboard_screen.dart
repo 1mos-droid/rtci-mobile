@@ -978,6 +978,11 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
             'body': 'Dear $memberName,\n\nWe missed you at our recent services and wanted to check in on you. Please let us know if there is anything we can support or pray with you for.\n\nBlessings,\nChurch Leadership Team'
           },
         );
+        if (await canLaunchUrl(emailLaunchUri)) {
+          await launchUrl(emailLaunchUri);
+        } else {
+          throw 'Could not launch email client';
+        }
                   ),
                 ),
               ],
