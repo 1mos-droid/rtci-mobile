@@ -157,3 +157,7 @@ class StartupLoaderScreen extends StatelessWidget {
       ),
     );
     if (!isTest) {
+      messageWidget = messageWidget
+          .animate(onPlay: (controller) => controller.repeat(reverse: true))
+          .fadeIn(duration: 1.seconds);
+    }
