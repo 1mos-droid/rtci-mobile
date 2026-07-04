@@ -145,3 +145,7 @@ class _ExportingDialogState extends State<_ExportingDialog> {
       await Future.delayed(duration);
       if (!mounted) return false;
       
+      currentStep++;
+      setState(() {
+        _progress = currentStep / steps;
+        if (currentStep >= steps) {
