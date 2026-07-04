@@ -200,10 +200,6 @@ class WelcomeScreen extends StatelessWidget {
                 ),
               ],
             ),
-              Text(
-                "SUPPORT & PRIVACY VER. 1.0.0",
-                textAlign: TextAlign.center,
-                style: GoogleFonts.plusJakartaSans(
                   fontSize: 9,
                   color: ObsidianTheme.textMuted,
                   letterSpacing: 1.0,
