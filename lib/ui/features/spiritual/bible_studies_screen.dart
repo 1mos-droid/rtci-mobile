@@ -409,7 +409,9 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
 
   Widget _buildResourcesTab(BibleStudiesProvider libProv, bool isAdmin) {
     if (libProv.isLoading && libProv.resources.isEmpty) {
-      return const Center(child: CircularProgressIndicator());
+      return ListView.builder(
+        padding: const EdgeInsets.all(20),
+        itemCount: 4,
     }
 
     if (libProv.resources.isEmpty) {
