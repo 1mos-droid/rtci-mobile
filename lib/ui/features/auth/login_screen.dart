@@ -373,6 +373,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
                           // Social Logins
                           InkWell(
+                            onTap: authState.isLoading ? null : _handleGoogleLogin,
+                            borderRadius: BorderRadius.circular(16),
+                            child: Container(
+                              height: 54,
                       ),
                     ),
                   ).animate().fadeIn(delay: 450.ms, duration: 500.ms),
