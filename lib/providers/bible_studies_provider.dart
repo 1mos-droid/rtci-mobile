@@ -157,4 +157,8 @@ class BibleStudiesProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
+      await _firestore.collection('study_resources').add({
+        'module_id': moduleId,
+        'title': title,
+        'type': type,
 }
