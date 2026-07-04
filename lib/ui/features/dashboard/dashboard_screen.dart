@@ -627,8 +627,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
         color: isDark ? const Color(0xFF1E293B) : Colors.white,
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
+          color: isDark ? Colors.white.withOpacity(0.06) : Colors.black.withOpacity(0.04),
+          width: 1.0,
+        ),
       ),
-      padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
