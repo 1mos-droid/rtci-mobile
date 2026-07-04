@@ -360,10 +360,6 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                           ),
                         ),
                       ),
-                            onPressed: () {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(builder: (_) => const LoginScreen()),
                               );
                             },
                             child: Text(
