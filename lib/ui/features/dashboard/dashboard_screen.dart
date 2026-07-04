@@ -834,6 +834,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       builder: (ctx) {
+        return GlassCard(
+          borderRadius: 24,
+          padding: const EdgeInsets.all(24),
+          child: Column(
                   ),
                 ),
                 Text(
