@@ -52,6 +52,10 @@ class _RTCIMobileAppState extends ConsumerState<RTCIMobileApp> {
         _initialized = true;
       });
     } catch (e) {
+      debugPrint('Initialization error: $e');
+      setState(() {
+        _initialized = true;
+      });
     final authState = ref.watch(authNotifierProvider);
     final themeMode = ref.watch(themeNotifierProvider);
 
