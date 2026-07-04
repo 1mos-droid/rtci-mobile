@@ -188,6 +188,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
       builder: (BuildContext dialogCtx) {
         final theme = Theme.of(context);
         final isDark = theme.brightness == Brightness.dark;
+        
+        return AlertDialog(
+          backgroundColor: isDark ? const Color(0xFF151B2C) : Colors.white,
+          surfaceTintColor: Colors.transparent,
   @override
   Widget build(BuildContext context) {
     final finance = ref.watch(financialProvider);
