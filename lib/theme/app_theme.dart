@@ -144,10 +144,10 @@ class AppTheme {
       textTheme: _textTheme(Colors.white, systemGray2),
       appBarTheme: AppBarTheme(
         centerTitle: true,
+        backgroundColor: systemDarkBg.withOpacity(0.9),
         surfaceTintColor: Colors.transparent,
         elevation: 0,
-        titleTextStyle: GoogleFonts.inter(
-          fontSize: 17,
+        titleTextStyle: _getTextStyle(
           fontWeight: FontWeight.w600,
           color: Colors.white,
           letterSpacing: -0.4,
