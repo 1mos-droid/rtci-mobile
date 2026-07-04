@@ -138,12 +138,12 @@ class AppTheme {
         surface: systemDarkGroupedBg,
         surfaceContainerHighest: const Color(0xFF1E293B),
         onSurface: Colors.white,
+        error: const Color(0xFFEF4444),
       ),
       scaffoldBackgroundColor: systemDarkBg,
-      textTheme: _textTheme(Colors.white, systemGray),
+      textTheme: _textTheme(Colors.white, systemGray2),
       appBarTheme: AppBarTheme(
         centerTitle: true,
-        backgroundColor: systemDarkBg.withOpacity(0.8),
         surfaceTintColor: Colors.transparent,
         elevation: 0,
         titleTextStyle: GoogleFonts.inter(
