@@ -145,3 +145,7 @@ class StartupLoaderScreen extends StatelessWidget {
             offset: const Offset(0, 4),
           )
         ],
+      ),
+      child: Text(
+        message.toUpperCase(),
+        style: GoogleFonts.plusJakartaSans(
