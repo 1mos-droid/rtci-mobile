@@ -105,10 +105,6 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                 style: theme.textTheme.bodyMedium?.copyWith(
                   color: AppTheme.accentGold,
                   fontWeight: FontWeight.w600,
-                style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: ObsidianTheme.textMuted),
-              ),
-              const SizedBox(height: 32),
-              ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: ObsidianTheme.primaryCrimson,
                   foregroundColor: Colors.white,
