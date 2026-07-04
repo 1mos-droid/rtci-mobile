@@ -156,11 +156,11 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                               child: Center(
                                 child: Text(
                                   (user?.name.isNotEmpty ?? false)
-                                      ? user!.name.substring(0, 1)
+                                      ? user!.name.substring(0, 1).toUpperCase()
                                       : 'U',
                                   style: GoogleFonts.cinzel(
                                     color: primaryAccent,
-                                    fontSize: 24,
+                                    fontSize: 20,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
