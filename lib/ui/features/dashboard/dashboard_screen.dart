@@ -725,6 +725,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                           fit: BoxFit.cover,
                           opacity: 0.45,
                         ),
+                      ),
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
               ),
             ),
             child: Column(
