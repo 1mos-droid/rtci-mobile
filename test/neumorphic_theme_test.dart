@@ -31,3 +31,8 @@ void main() {
       expect(darkDec.boxShadow, isNotNull);
       expect(darkDec.boxShadow!.length, equals(2));
     });
+
+    test('Neumorphic decoration returns gradient/border in pressed state', () {
+      final pressedDec = Neumorphic.decoration(isDark: false, isPressed: true);
+      expect(pressedDec.boxShadow, isNull);
+      expect(pressedDec.gradient, isNotNull);
