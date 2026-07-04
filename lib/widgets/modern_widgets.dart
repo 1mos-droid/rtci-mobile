@@ -210,3 +210,8 @@ class ContentCard extends StatelessWidget {
                                 fontSize: 9,
                                 fontWeight: FontWeight.bold,
                                 letterSpacing: 1.0,
+                              ),
+                            ),
+                          ),
+                        ),
+                      if (duration != null)
