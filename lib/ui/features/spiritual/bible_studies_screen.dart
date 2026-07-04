@@ -510,4 +510,5 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
         ],
       ),
     );
+  }
 }
