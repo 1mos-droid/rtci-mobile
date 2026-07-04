@@ -351,3 +351,7 @@ class DonationChip extends StatelessWidget {
             child: Text(
               label,
               style: GoogleFonts.plusJakartaSans(
+                color: isSelected ? selectedFg : unselectedFg,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
