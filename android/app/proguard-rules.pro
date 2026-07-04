@@ -14,3 +14,7 @@
 
 # Google Fonts
 -keep class com.google.fonts.** { *; }
+
+# Google Play Core (deferred components) dontwarn rules
+-dontwarn com.google.android.play.core.splitcompat.SplitCompatApplication
+-dontwarn com.google.android.play.core.splitinstall.SplitInstallException
