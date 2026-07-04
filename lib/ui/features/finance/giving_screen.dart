@@ -384,6 +384,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                           color: isSelected 
                               ? theme.colorScheme.primary.withOpacity(0.08) 
                               : (isDark ? const Color(0xFF1E293B) : Colors.white),
+                          borderRadius: BorderRadius.circular(16),
+                          border: Border.all(
+                            color: isSelected 
+                                ? theme.colorScheme.primary 
                         ),
                       ),
                     ),
