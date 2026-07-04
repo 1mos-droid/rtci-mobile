@@ -115,10 +115,6 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                   Navigator.pop(ctx);
                   final scaffoldMessenger = ScaffoldMessenger.of(context);
                   final user = ref.read(authNotifierProvider).value;
-                    amount: amt, 
-                    type: 'contribution', 
-                    description: 'Payment via Apple Pay for $_selectedFund',
-                    category: _selectedFund,
                     memberId: user?.email,
                     campus: 'Main',
                   );
