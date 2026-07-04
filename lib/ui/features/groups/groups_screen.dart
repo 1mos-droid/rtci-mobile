@@ -250,6 +250,10 @@ class _GroupsScreenState extends ConsumerState<GroupsScreen> {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   SkeletonContainer(width: 80, height: 16, borderRadius: 6),
+                                ],
+                              ),
+                              SizedBox(height: 12),
+                              SkeletonContainer(width: 180, height: 20),
                   : list.isEmpty
                     ? Center(
                         child: Text(
