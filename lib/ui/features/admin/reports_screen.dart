@@ -100,4 +100,8 @@ class ReportsScreen extends StatelessWidget {
                 content: Text("$title exported as $format successfully!"),
                 backgroundColor: Colors.green,
                 behavior: SnackBarBehavior.floating,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              ),
+            );
+          },
 }
