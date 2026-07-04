@@ -494,6 +494,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                   itemCount: sermonsProv.sermons.length,
                                   itemBuilder: (context, index) {
                                     final s = sermonsProv.sermons[index];
+                                    return ContentCard(
+                                      title: s.title,
+                                      category: s.speaker,
+                                      time: DateFormat('MMM dd, yyyy').format(s.date),
                   ],
                 ),
               ),
