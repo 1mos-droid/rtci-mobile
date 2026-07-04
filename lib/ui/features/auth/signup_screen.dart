@@ -360,9 +360,6 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                           ),
                         ),
                       ),
-                  },
-                  child: const Text("CONTINUE TO DASHBOARD"),
-                ),
               ),
             ],
           ),
@@ -370,4 +367,5 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
       ),
     );
   }
+
 }
