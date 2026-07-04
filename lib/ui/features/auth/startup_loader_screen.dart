@@ -29,3 +29,7 @@ class StartupLoaderScreen extends StatelessWidget {
       width: 146,
       height: 146,
       child: CircularProgressIndicator(
+        strokeWidth: 4.5,
+        value: isTest ? 0.75 : null,
+        valueColor: AlwaysStoppedAnimation<Color>(secondaryAccent),
+        backgroundColor: Colors.transparent,
