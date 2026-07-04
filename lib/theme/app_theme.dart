@@ -244,6 +244,10 @@ class AppTheme {
       }
     } catch (_) {}
     return GoogleFonts.inter(
+      color: color,
+      fontSize: fontSize,
+      fontWeight: fontWeight,
+      letterSpacing: letterSpacing,
     );
   }
 
