@@ -265,6 +265,10 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
                 SizedBox(height: 24),
                 SkeletonContainer(height: 48, borderRadius: 24),
               ],
+            ),
+          ),
+        ),
+      );
     }
 
     if (libProv.modules.isEmpty) {
