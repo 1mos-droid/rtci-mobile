@@ -9,6 +9,7 @@ class GivingTransaction {
   final String description;
   final String? memberId;
   final String? campus;
+  final String status; // pending, completed, failed
 
   GivingTransaction({
     required this.id,
