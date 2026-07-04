@@ -983,6 +983,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
         } else {
           throw 'Could not launch email client';
         }
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('No email address registered for $memberName')),
+        );
                   ),
                 ),
               ],
