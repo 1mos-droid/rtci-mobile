@@ -369,6 +369,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               Expanded(child: Divider(color: ObsidianTheme.borderHairline)),
                             ],
                           ),
+                          const SizedBox(height: 20),
+
+                          // Social Logins
+                          InkWell(
                       ),
                     ),
                   ).animate().fadeIn(delay: 450.ms, duration: 500.ms),
