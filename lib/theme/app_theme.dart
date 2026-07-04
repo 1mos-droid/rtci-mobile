@@ -27,6 +27,8 @@ class AppTheme {
   static const Color systemPink = Color(0xFFDB2777);
   static const Color systemPurple = Color(0xFF7C3AED);
   static const Color systemTeal = Color(0xFF0D9488);
+  static const Color systemYellow = Color(0xFFCA8A04);
+  static const Color systemRed = Color(0xFFDC2626);
 
   static ThemeData get lightTheme {
     return ThemeData(
@@ -36,8 +38,8 @@ class AppTheme {
         seedColor: iosPrimaryLight,
         brightness: Brightness.light,
         primary: iosPrimaryLight,
+        secondary: accentGold,
         surface: systemLightGroupedBg,
-        surfaceContainerHighest: systemGray6,
         onSurface: Colors.black,
         error: const Color(0xFFFF3B30),
       ),
