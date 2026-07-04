@@ -411,3 +411,7 @@ class Neumorphic {
       border: Border.all(
         color: isDark ? Colors.white.withOpacity(0.04) : Colors.black.withOpacity(0.02),
         width: 1.0,
+      ),
+      boxShadow: [
+        BoxShadow(
+          color: darkShadowColor,
