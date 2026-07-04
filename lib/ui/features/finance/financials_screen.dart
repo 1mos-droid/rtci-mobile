@@ -248,4 +248,8 @@ class FinancialsScreen extends ConsumerWidget {
                               selectedCategory = 'Administrative Expense';
                             } else {
                               selectedCategory = 'Tithe';
+                            }
+                          });
+                        }
+                      },
 }
