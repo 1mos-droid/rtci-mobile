@@ -195,11 +195,9 @@ class WelcomeScreen extends StatelessWidget {
                     fontSize: 9,
                     color: ObsidianTheme.textMuted.withOpacity(0.8),
                     fontWeight: FontWeight.w700,
+                    letterSpacing: 1.2,
                   ),
                 ),
-              )
-              .animate()
-              .fadeIn(duration: 800.ms)
               .scaleXY(begin: 0.85, end: 1.0, curve: Curves.easeOutBack),
               
               const SizedBox(height: 32),
