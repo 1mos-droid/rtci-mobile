@@ -38,3 +38,7 @@ class _CustomPrimaryButtonState extends State<CustomPrimaryButton> with SingleTi
       CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
     );
   }
+
+  @override
+  void dispose() {
+    _controller.dispose();
