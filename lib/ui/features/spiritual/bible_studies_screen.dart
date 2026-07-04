@@ -173,6 +173,10 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text("Resource added successfully!"))
                     );
+                  }
+                }
+              },
+              style: ElevatedButton.styleFrom(backgroundColor: ObsidianTheme.primaryCrimson, foregroundColor: Colors.white),
   @override
   Widget build(BuildContext context) {
     final libProv = ref.watch(bibleStudiesProvider);
