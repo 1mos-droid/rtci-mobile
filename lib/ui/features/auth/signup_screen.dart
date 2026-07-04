@@ -146,8 +146,8 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                       decoration: InputDecoration(
                                         labelText: "Your Full Name",
                                         hintText: "Enter your name",
-                                        fontWeight: FontWeight.bold,
-                                        color: ObsidianTheme.textMuted,
+                                        prefixIcon: Icon(Icons.person_outline_rounded, color: ObsidianTheme.textMuted, size: 20),
+                                        filled: true,
                                       ),
                                     ),
                                   ),
