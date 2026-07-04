@@ -212,4 +212,5 @@ class GroupsProvider extends ChangeNotifier {
       _isLoading = false;
       notifyListeners();
     }
+  }
 }

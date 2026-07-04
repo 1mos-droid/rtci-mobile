@@ -14,6 +14,7 @@ import 'package:rtc_mobile/providers/bible_provider.dart';
 import 'package:rtc_mobile/providers/gallery_provider.dart';
 import 'package:rtc_mobile/providers/attendance_provider.dart';
 import 'package:rtc_mobile/providers/broadcast_provider.dart';
+import 'package:rtc_mobile/providers/sermon_provider.dart';
 
 export 'package:rtc_mobile/providers/members_provider.dart';
 export 'package:rtc_mobile/providers/application_provider.dart';
@@ -30,6 +31,8 @@ export 'package:rtc_mobile/providers/bible_provider.dart';
 export 'package:rtc_mobile/providers/gallery_provider.dart';
 export 'package:rtc_mobile/providers/attendance_provider.dart';
 export 'package:rtc_mobile/providers/broadcast_provider.dart';
+export 'package:rtc_mobile/providers/sermon_provider.dart';
+export 'package:rtc_mobile/models/sermon.dart';
 
 final membersProvider = ChangeNotifierProvider((ref) => MembersProvider());
 final applicationProvider = ChangeNotifierProvider((ref) => ApplicationProvider());
