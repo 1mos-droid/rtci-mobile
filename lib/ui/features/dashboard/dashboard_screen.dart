@@ -802,6 +802,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                           children: [
                             Text(
                               "$minutes:$seconds",
+                              style: TextStyle(color: ObsidianTheme.textMuted, fontSize: 12),
+                            ),
+                            const Text(
+                              "45:12",
               ),
             ),
             child: Column(
