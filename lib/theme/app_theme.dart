@@ -95,13 +95,13 @@ class AppTheme {
           elevation: 0,
           textStyle: _getTextStyle(
             fontWeight: FontWeight.w700,
-            letterSpacing: -0.4,
+            fontSize: 16,
+            letterSpacing: 0.1,
           ),
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: systemLightGroupedBg,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide.none,
