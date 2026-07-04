@@ -301,6 +301,10 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                                   FaIcon(
                                                     FontAwesomeIcons.google, 
                                                     size: 16, 
+                                                    color: isDark ? Colors.black : Colors.white,
+                                                  ),
+                                                  const SizedBox(width: 12),
+                                                  Text(
                                 ),
                               ),
                             ],
