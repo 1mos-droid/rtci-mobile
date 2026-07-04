@@ -170,10 +170,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     child: Center(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
-                  Text(
-                    "Type in your email and password to open the app.",
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ).animate().fadeIn(delay: 100.ms, duration: 500.ms).slideY(begin: 0.2, end: 0, curve: Curves.easeOutQuad),
                   const SizedBox(height: 35),
                   
                   GlassCard(
