@@ -147,6 +147,10 @@ class _GroupsScreenState extends ConsumerState<GroupsScreen> {
             );
           }
         );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final groupsProv = ref.watch(groupsProvider);
