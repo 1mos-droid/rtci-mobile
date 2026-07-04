@@ -750,6 +750,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                   }
                                 });
                               },
+                              child: Container(
+                                padding: const EdgeInsets.all(16),
+                                decoration: BoxDecoration(
+                                  color: AppTheme.iosPrimaryLight,
               ),
             ),
             child: Column(
