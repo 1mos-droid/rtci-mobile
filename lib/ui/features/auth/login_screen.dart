@@ -272,6 +272,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             ),
                           ).animate().fadeIn(delay: 100.ms, duration: 400.ms),
                           const SizedBox(height: 28),
+
+                          // Email field
+                          TextFormField(
+                            controller: _emailController,
                       ),
                     ),
                   ).animate().fadeIn(delay: 450.ms, duration: 500.ms),
