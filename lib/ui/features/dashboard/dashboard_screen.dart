@@ -817,10 +817,6 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                 ],
               ),
             );
-              children: [
-                Text(
-                  day,
-                  style: GoogleFonts.cinzel(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
                     color: ObsidianTheme.secondaryGold,
