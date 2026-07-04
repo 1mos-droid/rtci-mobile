@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:rtc_mobile/theme/app_theme.dart';
 import 'package:rtc_mobile/widgets/glass_card.dart';
 import 'package:rtc_mobile/widgets/mesh_gradient_background.dart';
+import 'package:rtc_mobile/widgets/modern_widgets.dart';
 import 'package:rtc_mobile/ui/features/auth/login_screen.dart';
 import 'package:rtc_mobile/ui/features/auth/signup_screen.dart';
 import 'package:rtc_mobile/ui/features/applications/application_form_screen.dart';
@@ -13,6 +14,8 @@ class WelcomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
     return MeshGradientBackground(
       child: SafeArea(
         child: Padding(
@@ -175,4 +178,3 @@ class WelcomeScreen extends StatelessWidget {
     );
   }
 }
-
