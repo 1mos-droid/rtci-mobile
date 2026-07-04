@@ -184,8 +184,8 @@ class AppTheme {
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-          foregroundColor: iosPrimaryDark,
-          side: const BorderSide(color: iosPrimaryDark, width: 1.5),
+          foregroundColor: Colors.white,
+          side: const BorderSide(color: Colors.white30, width: 1.5),
           minimumSize: const Size.fromHeight(52),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           elevation: 0,
