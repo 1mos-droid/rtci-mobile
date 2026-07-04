@@ -141,6 +141,10 @@ class WelcomeScreen extends StatelessWidget {
                             context,
                             MaterialPageRoute(builder: (_) => const LoginScreen()),
                           );
+                        },
+                      ),
+                      
+                      const SizedBox(height: 14),
                     ],
                   ),
                   child: Center(
