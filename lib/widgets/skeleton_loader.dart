@@ -7,3 +7,7 @@ class SkeletonContainer extends StatelessWidget {
   final double width;
   final double height;
   final double borderRadius;
+
+  const SkeletonContainer({
+    super.key,
+    this.width = double.infinity,
