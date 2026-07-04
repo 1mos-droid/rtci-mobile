@@ -135,6 +135,10 @@ class _GroupsScreenState extends ConsumerState<GroupsScreen> {
                       );
                       if (success && mounted) {
                         ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text("Group created successfully!"))
+                        );
+                      }
+                    }
   @override
   Widget build(BuildContext context) {
     final groupsProv = ref.watch(groupsProvider);
