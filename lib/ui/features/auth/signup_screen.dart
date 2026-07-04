@@ -120,9 +120,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                 style: theme.textTheme.displayMedium?.copyWith(
                                   fontWeight: FontWeight.w800,
                                 ),
-                                validator: (val) {
-                                  if (val == null || val.isEmpty) return "Please enter your name";
-                                  return null;
+                              ).animate().fadeIn(duration: 500.ms).slideY(begin: 0.2, end: 0, curve: Curves.easeOutQuad),
                                 },
                               ),
                               const SizedBox(height: 16),
