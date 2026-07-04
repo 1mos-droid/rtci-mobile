@@ -14,8 +14,8 @@ class AppTheme {
   static const Color iosPrimaryDark = Color(0xFFA81D32);  // Crimson Red
   static const Color accentGold = Color(0xFFD4AF37);      // Warm Gold
 
-  static const Color systemGray = Color(0xFF8E8E93);
-  static const Color systemGray2 = Color(0xFFAEAEB2);
+  static const Color systemGray = Color(0xFF64748B); // Slate Gray
+  static const Color systemGray2 = Color(0xFF94A3B8);
   static const Color systemGray3 = Color(0xFFC7C7CC);
   static const Color systemGray4 = Color(0xFFD1D1D6);
   static const Color systemGray5 = Color(0xFFE5E5EA);
