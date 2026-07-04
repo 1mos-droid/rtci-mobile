@@ -268,6 +268,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                   fontWeight: FontWeight.bold,
                   letterSpacing: 0.5,
                 ),
+              ),
+            ),
+          ],
+        );
   @override
   Widget build(BuildContext context) {
     final finance = ref.watch(financialProvider);
