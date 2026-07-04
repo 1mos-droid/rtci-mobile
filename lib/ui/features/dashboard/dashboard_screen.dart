@@ -594,6 +594,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                           ),
                                         ],
                                       ),
+                                    );
+                                  },
+                                ).animate().fadeIn(duration: 400.ms),
+                    ],
                   ],
                 ),
               ),
