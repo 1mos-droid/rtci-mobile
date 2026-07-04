@@ -164,4 +164,8 @@ class GroupsProvider extends ChangeNotifier {
     String? campus,
   }) async {
     _isLoading = true;
+    notifyListeners();
+
+    try {
+      await _firestore.collection('cell_groups').add({
 }
