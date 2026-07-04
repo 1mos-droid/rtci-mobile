@@ -40,6 +40,10 @@ class _RTCIMobileAppState extends ConsumerState<RTCIMobileApp> {
   Future<void> _initialize() async {
     try {
       setState(() => _loadingMessage = "Connecting to Vault...");
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
+      setState(() => _loadingMessage = "Authenticating Gatekeeper...");
     final authState = ref.watch(authNotifierProvider);
     final themeMode = ref.watch(themeNotifierProvider);
 
