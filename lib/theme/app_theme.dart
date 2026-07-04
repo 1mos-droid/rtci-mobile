@@ -148,7 +148,8 @@ class AppTheme {
         surfaceTintColor: Colors.transparent,
         elevation: 0,
         titleTextStyle: _getTextStyle(
-          fontWeight: FontWeight.w600,
+          fontSize: 18,
+          fontWeight: FontWeight.w700,
           color: Colors.white,
           letterSpacing: -0.4,
         ),
@@ -157,7 +158,6 @@ class AppTheme {
       cardTheme: CardThemeData(
         elevation: 0,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
         ),
         color: systemDarkGroupedBg,
       ),
