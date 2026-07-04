@@ -236,6 +236,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
               },
               child: Text(
                 "No, Cancel",
+                style: GoogleFonts.plusJakartaSans(
+                  fontWeight: FontWeight.bold,
+                  color: ObsidianTheme.textMuted,
+                ),
   @override
   Widget build(BuildContext context) {
     final finance = ref.watch(financialProvider);
