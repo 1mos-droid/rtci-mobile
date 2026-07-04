@@ -298,6 +298,10 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
                           const SizedBox(width: 8),
                           IconButton(
                             constraints: const BoxConstraints(),
+                            padding: EdgeInsets.zero,
+                            icon: const Icon(Icons.delete_outline, color: Colors.redAccent, size: 20),
+                            onPressed: () => ref.read(bibleStudiesProvider).deleteModule(module.id),
+                          ),
                   ],
                 ),
                 const SizedBox(height: 16),
