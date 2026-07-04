@@ -34,13 +34,17 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
   }
 
   @override
+  Widget build(BuildContext context) {
     final user = ref.watch(authNotifierProvider).value;
     final finance = ref.watch(financialProvider);
     final prayers = ref.watch(prayerProvider);
     final care = ref.watch(careProvider);
     final insights = ref.watch(dailyInsightsProvider);
     final eventsProv = ref.watch(eventsProvider);
+    final broadcasts = ref.watch(broadcastProvider);
+    final sermonsProv = ref.watch(sermonProvider);
 
+    final theme = Theme.of(context);
     final isLeader = user?.isDeptHead ?? false;
     final primaryAccent = isLeader
         ? ObsidianTheme.secondaryGold
