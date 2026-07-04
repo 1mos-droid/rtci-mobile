@@ -145,9 +145,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                       style: TextStyle(color: ObsidianTheme.textVibrant, fontSize: 16),
                                       decoration: InputDecoration(
                                         labelText: "Your Full Name",
-                                      "OR",
-                                      style: GoogleFonts.plusJakartaSans(
-                                        fontSize: 12,
+                                        hintText: "Enter your name",
                                         fontWeight: FontWeight.bold,
                                         color: ObsidianTheme.textMuted,
                                       ),
