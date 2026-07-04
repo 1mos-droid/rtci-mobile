@@ -131,10 +131,6 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                   height: 1.4,
                                 ),
                               ).animate().fadeIn(delay: 100.ms, duration: 500.ms).slideY(begin: 0.2, end: 0, curve: Curves.easeOutQuad),
-                                  hintText: "Min 6 characters",
-                                  prefixIcon: Icon(Icons.lock_outline, color: ObsidianTheme.textMuted, size: 20),
-                                  suffixIcon: IconButton(
-                                    icon: Icon(
                                       _showPassword ? Icons.visibility_off_rounded : Icons.visibility_rounded,
                                       color: ObsidianTheme.textMuted,
                                       size: 20,
