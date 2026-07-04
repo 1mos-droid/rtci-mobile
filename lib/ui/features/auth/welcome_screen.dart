@@ -185,8 +185,8 @@ class WelcomeScreen extends StatelessWidget {
                     ],
                   ),
                 ).animate().fadeIn(delay: 600.ms, duration: 600.ms).slideY(begin: 0.1, end: 0, curve: Curves.easeOutQuad),
-                      ),
-                    ),
+                
+                const SizedBox(height: 28),
                   ),
                 ),
               )
