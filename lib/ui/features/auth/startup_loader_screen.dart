@@ -206,3 +206,7 @@ class StartupLoaderScreen extends StatelessWidget {
             const SizedBox(height: 6),
             secondaryText,
             
+            const SizedBox(height: 36),
+            messageWidget,
+          ],
+        ),
