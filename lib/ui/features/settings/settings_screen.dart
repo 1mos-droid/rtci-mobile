@@ -163,6 +163,10 @@ class SettingsScreen extends ConsumerWidget {
                                   if (context.mounted) {
                                     Navigator.pop(context); // Dismiss loading
                                     showAdaptiveDialog(
+                                      context: context,
+                                      builder: (_) => AlertDialog.adaptive(
+                                        title: const Text("Error"),
+                                        content: Text("Unable to trigger password reset: ${e.toString()}"),
                           ),
                           ListTile(
                             contentPadding: EdgeInsets.zero,
