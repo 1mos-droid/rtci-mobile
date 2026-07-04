@@ -164,8 +164,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               physics: const ClampingScrollPhysics(),
               child: Column(
                 children: [
-                  const SizedBox(height: 20),
-                  Text(
+                  // Upper Space (approx 45% of height) for Logo & Title
+                  SizedBox(
                     "Log In",
                     style: Theme.of(context).textTheme.displayMedium,
                   ).animate().fadeIn(duration: 500.ms).slideY(begin: 0.2, end: 0, curve: Curves.easeOutQuad),
