@@ -244,10 +244,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       ],
                     ),
                     padding: EdgeInsets.fromLTRB(
-                  const SizedBox(height: 32),
-                  
-                  Center(
-                    child: TextButton(
                       onPressed: () {
                         Navigator.pushReplacement(
                           context,
