@@ -26,3 +26,7 @@ class CustomPrimaryButton extends StatefulWidget {
 class _CustomPrimaryButtonState extends State<CustomPrimaryButton> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
+
+  @override
+  void initState() {
+    super.initState();
