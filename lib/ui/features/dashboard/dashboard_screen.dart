@@ -1184,10 +1184,6 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
           }
         );
       },
-                  event.name,
-                  style: GoogleFonts.plusJakartaSans(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
                     color: ObsidianTheme.textVibrant,
                   ),
                 ),
