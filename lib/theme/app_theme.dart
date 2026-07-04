@@ -232,6 +232,10 @@ class AppTheme {
   }) {
     try {
       if (Platform.environment.containsKey('FLUTTER_TEST')) {
+        return TextStyle(
+          fontFamily: 'Inter',
+          color: color,
+          fontSize: fontSize,
     );
   }
 
