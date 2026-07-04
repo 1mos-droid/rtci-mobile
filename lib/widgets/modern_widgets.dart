@@ -50,3 +50,7 @@ class _CustomPrimaryButtonState extends State<CustomPrimaryButton> with SingleTi
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
     
+    final bg = widget.backgroundColor ?? theme.colorScheme.primary;
+    final fg = widget.textColor ?? Colors.white;
+
+    return GestureDetector(
