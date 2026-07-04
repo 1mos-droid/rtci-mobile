@@ -166,6 +166,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 children: [
                   // Upper Space (approx 45% of height) for Logo & Title
                   SizedBox(
+                    height: screenHeight * 0.42,
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                     "Log In",
                     style: Theme.of(context).textTheme.displayMedium,
                   ).animate().fadeIn(duration: 500.ms).slideY(begin: 0.2, end: 0, curve: Curves.easeOutQuad),
