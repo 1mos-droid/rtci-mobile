@@ -105,6 +105,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             actions: [
               TextButton(
                 child: const Text("OK"),
+                onPressed: () => Navigator.pop(context),
+              ),
+            ],
+          ),
   @override
   Widget build(BuildContext context) {
     final authState = ref.watch(authNotifierProvider);
