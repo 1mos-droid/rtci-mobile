@@ -200,10 +200,6 @@ class WelcomeScreen extends StatelessWidget {
                 ),
               ],
             ),
-                    OutlinedButton.icon(
-                      icon: const Icon(Icons.assignment_outlined),
-                      label: const Text("Fill Membership Form"),
-                      onPressed: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (_) => const ApplicationFormScreen()),
