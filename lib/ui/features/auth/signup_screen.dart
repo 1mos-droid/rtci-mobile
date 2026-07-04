@@ -93,9 +93,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
       body: MeshGradientBackground(
         child: SafeArea(
           child: Column(
-                      children: [
-                        // Back Button
-                        Row(
+            children: [
                           children: [
                             IconButton(
                               icon: Icon(Icons.arrow_back_ios_new, size: 18, color: ObsidianTheme.textVibrant),
