@@ -514,6 +514,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                       Text(
                         "CHURCH ANNOUNCEMENTS",
                         style: GoogleFonts.plusJakartaSans(
+                          fontWeight: FontWeight.w800,
+                          color: ObsidianTheme.textVibrant,
+                          fontSize: 12,
+                          letterSpacing: 1.5,
                   ],
                 ),
               ),
