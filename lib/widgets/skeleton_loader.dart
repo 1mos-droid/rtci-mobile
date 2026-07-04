@@ -31,3 +31,7 @@ class SkeletonContainer extends StatelessWidget {
         color: baseColor,
         borderRadius: BorderRadius.circular(borderRadius),
       ),
+    );
+
+    if (isTest) {
+      return container;
