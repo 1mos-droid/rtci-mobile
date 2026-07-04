@@ -1147,6 +1147,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                             // Show loading dialog
                             showDialog(
                               context: context,
+                              barrierDismissible: false,
+                              builder: (_) => const Center(child: CircularProgressIndicator()),
+                            );
+                            
                   ),
                 ),
               ],
