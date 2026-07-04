@@ -794,6 +794,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                             currentSeconds = val.toInt();
                           });
                         },
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 24),
+                        child: Row(
               ),
             ),
             child: Column(
