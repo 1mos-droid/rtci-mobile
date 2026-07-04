@@ -40,8 +40,8 @@ class _MainTabScreenState extends State<MainTabScreen> {
           padding: const EdgeInsets.fromLTRB(20, 0, 20, 16),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(24),
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
                 child: Container(
                   padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
                   decoration: BoxDecoration(
