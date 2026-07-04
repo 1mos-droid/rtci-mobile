@@ -465,8 +465,8 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                         style: GoogleFonts.plusJakartaSans(
                           color: ObsidianTheme.textVibrant,
                           fontSize: 22,
-                  },
-                  style: TextStyle(color: ObsidianTheme.textVibrant, fontSize: 24, fontWeight: FontWeight.bold),
+                          fontWeight: FontWeight.bold,
+                        ),
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     prefixText: "GHC ",
