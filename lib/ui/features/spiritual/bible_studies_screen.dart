@@ -141,6 +141,10 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
               TextField(
                 controller: typeController, 
                 decoration: const InputDecoration(labelText: "Type (e.g. PDF, Audio, Video)"),
+                style: TextStyle(color: ObsidianTheme.textVibrant),
+              ),
+              const SizedBox(height: 8),
+              TextField(
   @override
   Widget build(BuildContext context) {
     final libProv = ref.watch(bibleStudiesProvider);
