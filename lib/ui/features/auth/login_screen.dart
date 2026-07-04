@@ -203,6 +203,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                 const Shadow(
                                   color: Colors.black45,
                                   offset: Offset(0, 4),
+                                  blurRadius: 8,
+                                ),
+                              ],
+                            ),
                         ),
                       ],
                     ),
