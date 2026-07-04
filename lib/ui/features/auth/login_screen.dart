@@ -249,9 +249,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       24, 
                       mediaQuery.padding.bottom + 24
                     ),
-                        "Don't have an account? Create one here",
-                        style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                              color: ObsidianTheme.secondaryGold,
+                    child: Form(
                               fontWeight: FontWeight.bold,
                             ),
                       ),
