@@ -99,6 +99,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                 right: 0,
                                 top: 0,
                                 child: Container(
+                                  width: 8,
+                                  height: 8,
+                                  decoration: const BoxDecoration(
+                                    color: AppTheme.iosPrimaryLight,
                 ),
               ),
             ),
