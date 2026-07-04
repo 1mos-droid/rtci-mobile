@@ -906,6 +906,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                 Container(
                                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                                   decoration: BoxDecoration(
+                                    color: AppTheme.accentGold.withOpacity(0.12),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Text(
                   ),
                 ),
                 Text(
