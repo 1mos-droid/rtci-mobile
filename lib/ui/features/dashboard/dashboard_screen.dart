@@ -184,12 +184,12 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                 const SizedBox(height: 2),
                                 Text(
                                   user?.name ?? 'Fellow worshiper',
+                                  style: GoogleFonts.plusJakartaSans(
                                     color: ObsidianTheme.textVibrant,
-                                    fontSize: 20,
+                                    fontSize: 18,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                const SizedBox(height: 4),
                                 Container(
                                   padding: const EdgeInsets.symmetric(
                                     horizontal: 8,
