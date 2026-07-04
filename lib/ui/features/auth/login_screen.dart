@@ -175,10 +175,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             width: 84,
                             height: 84,
                             padding: const EdgeInsets.all(12),
-                          ),
-                          validator: (val) {
-                            if (val == null || val.isEmpty) return "Please enter your email";
-                            if (!val.contains('@')) return "Please enter a valid email";
                             return null;
                           },
                         ),
