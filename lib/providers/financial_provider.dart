@@ -43,11 +43,13 @@ class FinancialProvider extends ChangeNotifier {
       .where((t) => t.type == 'expense' && t.status == 'completed')
       .fold(0.0, (sum, item) => sum + item.amount);
 
+  FinancialProvider(this._ref) {
     _init();
   }
 
   void _init() {
-    _auth.authStateChanges().listen((user) {
+    // Initial fetch if user already logged in
+    final initialUser = _ref.read(authNotifierProvider).value;
       if (user != null) {
         fetchTransactions();
       } else {
