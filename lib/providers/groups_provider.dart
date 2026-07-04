@@ -154,4 +154,6 @@ class GroupsProvider extends ChangeNotifier {
       return false;
     }
   }
+
+  Future<bool> addGroup({
 }

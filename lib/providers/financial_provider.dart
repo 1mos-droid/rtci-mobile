@@ -139,5 +139,7 @@ class FinancialProvider extends ChangeNotifier {
       return false;
     } finally {
       _isLoading = false;
+      notifyListeners();
+    }
   }
 }
