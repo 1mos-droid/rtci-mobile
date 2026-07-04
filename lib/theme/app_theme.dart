@@ -248,12 +248,14 @@ class AppTheme {
       fontSize: fontSize,
       fontWeight: fontWeight,
       letterSpacing: letterSpacing,
+      fontStyle: fontStyle,
+      height: height,
     );
   }
 
   static TextTheme _textTheme(Color primaryColor, Color secondaryColor) {
     return TextTheme(
-      displayLarge: GoogleFonts.inter(
+      displayLarge: _getTextStyle(
         color: primaryColor,
         fontSize: 34,
         fontWeight: FontWeight.bold,
