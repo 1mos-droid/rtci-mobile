@@ -91,12 +91,13 @@ class FinancialProvider extends ChangeNotifier {
     String? description,
     String? memberId,
     String? campus,
+    String status = 'completed',
   }) async {
     _isLoading = true;
     notifyListeners();
 
     try {
-      await _firestore.collection('transactions').add({
+      final docRef = await _firestore.collection('transactions').add({
         'amount': amount,
         'type': type,
         'category': category,
@@ -105,6 +106,7 @@ class FinancialProvider extends ChangeNotifier {
         'campus': campus ?? 'Main',
         'date': FieldValue.serverTimestamp(),
         'logged_by': _auth.currentUser?.uid,
+        'status': status,
       });
       await fetchTransactions();
       return true;
