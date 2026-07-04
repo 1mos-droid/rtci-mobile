@@ -309,6 +309,8 @@ class AppTheme {
       labelLarge: _getTextStyle(
         color: primaryColor,
         fontSize: 12,
+        fontWeight: FontWeight.w600,
+        letterSpacing: 0.5,
       ),
     );
   }
@@ -339,7 +341,7 @@ class ObsidianTheme {
     }
   }
 
-  static Color get backgroundDark => isDark ? const Color(0xFF050505) : const Color(0xFFF2F2F7);
+  // Soft modern white and obsidian dark backgrounds
   static Color get surfaceDark => isDark ? const Color(0xFF0F0F11) : const Color(0xFFFFFFFF);
   static Color get primaryCrimson => isDark ? const Color(0xFF8B1E31) : const Color(0xFFC92A3E);
   static Color get secondaryGold => const Color(0xFFEAB308);
