@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
-  // iOS HIG System Colors
-  static const Color systemLightBg = Color(0xFFF2F2F7);
+  // Brand & Palette Colors
+  static const Color systemLightBg = Color(0xFFFAFAFC); // Clean off-white
   static const Color systemDarkBg = Color(0xFF000000);
   
   static const Color systemLightGroupedBg = Color(0xFFFFFFFF);
