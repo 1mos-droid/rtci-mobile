@@ -393,10 +393,6 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                           ),
                         ),
                         alignment: Alignment.center,
-                      ),
-                    ),
-                  );
-                }).toList(),
               ),
 
               const SizedBox(height: 40),
