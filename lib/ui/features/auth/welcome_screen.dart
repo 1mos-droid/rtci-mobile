@@ -200,10 +200,6 @@ class WelcomeScreen extends StatelessWidget {
                 ),
               ],
             ),
-              ).animate().fadeIn(delay: 750.ms, duration: 600.ms).slideY(begin: 0.08, end: 0),
-              
-              const SizedBox(height: 24),
-              
               Text(
                 "SUPPORT & PRIVACY VER. 1.0.0",
                 textAlign: TextAlign.center,
