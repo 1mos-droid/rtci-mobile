@@ -327,3 +327,7 @@ class DonationChip extends StatelessWidget {
     final unselectedFg = isDark ? Colors.white70 : Colors.black87;
 
     return AnimatedContainer(
+      duration: const Duration(milliseconds: 200),
+      curve: Curves.easeInOut,
+      child: Material(
+        color: isSelected ? selectedBg : unselectedBg,
