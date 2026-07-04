@@ -144,7 +144,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           // 1. Background (Upper Section) Image with Blur
           Positioned.fill(
             child: Image.asset(
-              key: _formKey,
+              'assets/church_sanctuary.jpg',
+              fit: BoxFit.cover,
+            ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
