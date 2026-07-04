@@ -677,6 +677,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
         return StatefulBuilder(
           builder: (context, setModalState) {
             final minutes = (currentSeconds ~/ 60).toString().padLeft(2, '0');
+            final seconds = (currentSeconds % 60).toString().padLeft(2, '0');
+            
+            return GlassCard(
+              borderRadius: 24,
               ),
             ),
             child: Column(
