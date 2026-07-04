@@ -129,6 +129,10 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
             "Add Study Resource",
             style: GoogleFonts.cinzel(fontWeight: FontWeight.bold, color: ObsidianTheme.textVibrant),
           ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
   @override
   Widget build(BuildContext context) {
     final libProv = ref.watch(bibleStudiesProvider);
