@@ -164,7 +164,9 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
               const SizedBox(height: 12),
               TextButton(
                 onPressed: () => Navigator.pop(ctx),
-                child: Text("CANCEL", style: TextStyle(color: ObsidianTheme.textMuted, fontSize: 16, fontWeight: FontWeight.bold)),
+                child: Text(
+                  "Cancel",
+                  style: TextStyle(
               ),
               const SizedBox(height: 12),
             ],
