@@ -251,3 +251,7 @@ class ContentCard extends StatelessWidget {
                             ),
                             child: Text(
                               category.toUpperCase(),
+                              style: TextStyle(
+                                color: theme.colorScheme.primary,
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
