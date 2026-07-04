@@ -387,3 +387,7 @@ class Neumorphic {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
+          colors: isDark 
+              ? [
+                  const Color(0xFF0F1423), 
+                  bgColor,
