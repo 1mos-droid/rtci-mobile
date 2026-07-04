@@ -665,6 +665,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
 
   void _showVideoPlayer(BuildContext context, String title, String speaker) {
     Timer? playbackTimer;
+    int currentSeconds = 0;
+    bool isPlaying = false;
+    
+    showModalBottomSheet(
               ),
             ),
             child: Column(
