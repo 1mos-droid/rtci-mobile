@@ -192,6 +192,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
         return AlertDialog(
           backgroundColor: isDark ? const Color(0xFF151B2C) : Colors.white,
           surfaceTintColor: Colors.transparent,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+          title: Text(
+            "Confirm Payment Status",
+            textAlign: TextAlign.center,
   @override
   Widget build(BuildContext context) {
     final finance = ref.watch(financialProvider);
