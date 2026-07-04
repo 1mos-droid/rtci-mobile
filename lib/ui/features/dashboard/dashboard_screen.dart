@@ -91,6 +91,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                           children: [
                             Icon(
                               Icons.notifications_outlined,
+                              color: ObsidianTheme.textVibrant,
+                              size: 20,
+                            ),
+                            if (broadcasts.messages.isNotEmpty)
                 ),
               ),
             ),
