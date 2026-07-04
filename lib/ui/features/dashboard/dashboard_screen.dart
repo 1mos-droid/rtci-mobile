@@ -411,6 +411,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                         children: ['All', 'Sermons', 'Announcements'].map((cat) {
                           final isSelected = _selectedCategory == cat;
                           return Padding(
+                            padding: const EdgeInsets.only(right: 8),
+                            child: ChoiceChip(
+                              label: Text(
+                                cat,
                       ),
                     ),
                     const SizedBox(height: 12),
