@@ -140,6 +140,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                       await launchUrl(
                         url,
                         mode: LaunchMode.inAppWebView,
+                        webViewConfiguration: const WebViewConfiguration(
+                          enableJavaScript: true,
+                          enableDomStorage: true,
+                        ),
                   }
                 },
                 child: const Text("CONFIRM PAYMENT", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800, letterSpacing: 1.0)),
