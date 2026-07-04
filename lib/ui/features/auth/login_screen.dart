@@ -189,10 +189,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             child: Image.asset(
                               'assets/church_logo.png',
                               fit: BoxFit.contain,
-                                          fontSize: 16,
-                                        ),
-                                      ),
-                                    ],
                                   ),
                           ),
                         ),
