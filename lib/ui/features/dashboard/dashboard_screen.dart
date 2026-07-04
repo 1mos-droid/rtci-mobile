@@ -463,6 +463,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                 style: GoogleFonts.plusJakartaSans(
                                   fontWeight: FontWeight.bold,
                                   color: theme.colorScheme.primary,
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ],
                                   ),
                                 )
                                 .toList(),
