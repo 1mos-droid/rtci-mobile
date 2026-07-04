@@ -36,9 +36,7 @@ class WelcomeScreen extends StatelessWidget {
                       color: isDark ? const Color(0xFF151B2C) : Colors.white,
                       shape: BoxShape.circle,
                       border: Border.all(
-                    border: Border.all(color: ObsidianTheme.secondaryGold.withValues(alpha: 0.4), width: 1.5),
-                    boxShadow: [
-                      BoxShadow(
+                        color: AppTheme.accentGold.withOpacity(0.3),
                         color: ObsidianTheme.secondaryGold.withValues(alpha: 0.12),
                         blurRadius: 20,
                         offset: const Offset(0, 5),
