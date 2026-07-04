@@ -648,7 +648,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
           Text(
             value,
             style: GoogleFonts.plusJakartaSans(
-              fontSize: 22,
+              fontSize: 18,
               fontWeight: FontWeight.bold,
               color: color,
             ),
@@ -656,7 +656,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
           const SizedBox(height: 2),
           Text(
             subtitle,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+            style: theme.textTheme.bodySmall?.copyWith(fontSize: 10),
               fontSize: 10,
               color: ObsidianTheme.textMuted,
             ),
