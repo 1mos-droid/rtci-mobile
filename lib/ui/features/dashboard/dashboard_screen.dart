@@ -966,6 +966,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
 
       final profileDoc = await FirebaseFirestore.instance.collection('profiles').doc(memberId).get();
       if (!context.mounted) return;
+      Navigator.pop(context); // Dismiss loading indicator
+
+      final email = profileDoc.data()?['email'] as String?;
+      if (email != null && email.isNotEmpty) {
                   ),
                 ),
               ],
