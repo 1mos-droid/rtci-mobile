@@ -19,10 +19,6 @@ class AppTheme {
   static const Color systemGray3 = Color(0xFFCBD5E1);
   static const Color systemGray4 = Color(0xFFE2E8F0);
   static const Color systemGray5 = Color(0xFFF1F5F9);
-  static const Color systemBlue = Color(0xFF007AFF);
-  static const Color systemGreen = Color(0xFF34C759);
-  static const Color systemOrange = Color(0xFFFF9500);
-  static const Color systemPink = Color(0xFFFF2D55);
   static const Color systemPurple = Color(0xFFAF52DE);
   static const Color systemTeal = Color(0xFF5AC8FA);
   static const Color systemYellow = Color(0xFFFFCC00);
