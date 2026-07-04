@@ -36,8 +36,8 @@ class _MainTabScreenState extends State<MainTabScreen> {
       ),
       bottomNavigationBar: SafeArea(
         top: false,
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(20, 0, 20, 16),
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 0, 20, 16),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(32),
               child: BackdropFilter(
