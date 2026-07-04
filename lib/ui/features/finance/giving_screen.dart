@@ -105,8 +105,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                 style: theme.textTheme.bodyMedium?.copyWith(
                   color: AppTheme.accentGold,
                   fontWeight: FontWeight.w600,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                 ),
+              ),
+              const SizedBox(height: 28),
+              CustomPrimaryButton(
                 onPressed: () async {
                   Navigator.pop(ctx);
                   final scaffoldMessenger = ScaffoldMessenger.of(context);
