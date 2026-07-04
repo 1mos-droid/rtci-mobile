@@ -562,6 +562,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                                 ),
                                                 child: Text(
                                                   msg.category.toUpperCase(),
+                                                  style: const TextStyle(
+                                                    color: AppTheme.accentGold,
+                                                    fontSize: 9,
+                                                    fontWeight: FontWeight.bold,
                   ],
                 ),
               ),
