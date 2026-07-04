@@ -235,6 +235,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         topLeft: Radius.circular(28),
                         topRight: Radius.circular(28),
                       ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(isDark ? 0.4 : 0.15),
+                          blurRadius: 30,
                         ),
                       ],
                     ),
