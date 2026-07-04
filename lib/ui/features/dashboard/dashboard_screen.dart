@@ -663,10 +663,6 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
     );
   }
 
-            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-            decoration: BoxDecoration(
-              color: ObsidianTheme.secondaryGold.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(16),
               border: Border.all(
                 color: ObsidianTheme.secondaryGold.withValues(alpha: 0.3),
               ),
