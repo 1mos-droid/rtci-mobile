@@ -443,6 +443,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                       },
                     );
                   },
+                ),
+                
+                const SizedBox(height: 16),
+                
                     ),
                   );
                 }).toList(),
