@@ -341,6 +341,10 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                               
                               Center(
                                 child: TextButton(
+                                  onPressed: () {
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(builder: (_) => const LoginScreen()),
                             ],
                           ),
                         ).animate().fadeIn(delay: 200.ms, duration: 600.ms).scaleXY(begin: 0.95, end: 1.0, curve: Curves.easeOutBack).slideY(begin: 0.1, end: 0, curve: Curves.easeOutQuad),
