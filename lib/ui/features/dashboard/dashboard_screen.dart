@@ -256,8 +256,8 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                       style: GoogleFonts.plusJakartaSans(
                                         fontSize: 15,
                                         fontStyle: FontStyle.italic,
-                                    color: ObsidianTheme.textVibrant,
-                                    height: 1.4,
+                                        color: ObsidianTheme.textVibrant,
+                                        height: 1.5,
                                   ),
                                 ),
                                 const SizedBox(height: 12),
