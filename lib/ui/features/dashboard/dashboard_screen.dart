@@ -717,6 +717,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                   AspectRatio(
                     aspectRatio: 16 / 9,
                     child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.black,
+                        borderRadius: BorderRadius.circular(16),
+                        image: const DecorationImage(
               ),
             ),
             child: Column(
