@@ -78,3 +78,7 @@ class _CustomPrimaryButtonState extends State<CustomPrimaryButton> with SingleTi
                     BoxShadow(
                       color: bg.withOpacity(isDark ? 0.3 : 0.15),
                       blurRadius: 16,
+                      offset: const Offset(0, 6),
+                    ),
+                  ],
+          ),
