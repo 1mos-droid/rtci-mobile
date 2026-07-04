@@ -48,9 +48,9 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
     final isDark = theme.brightness == Brightness.dark;
     final isLeader = user?.isDeptHead ?? false;
     final primaryAccent = isLeader ? AppTheme.accentGold : AppTheme.iosPrimaryLight;
-        : ObsidianTheme.primaryCrimson;
 
-    return MeshGradientBackground(
+    return Scaffold(
+      body: MeshGradientBackground(
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: CustomScrollView(
