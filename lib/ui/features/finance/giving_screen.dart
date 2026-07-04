@@ -240,6 +240,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                   fontWeight: FontWeight.bold,
                   color: ObsidianTheme.textMuted,
                 ),
+              ),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
   @override
   Widget build(BuildContext context) {
     final finance = ref.watch(financialProvider);
