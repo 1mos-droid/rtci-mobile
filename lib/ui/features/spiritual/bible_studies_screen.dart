@@ -424,6 +424,10 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      SkeletonContainer(width: 160, height: 16),
+                      SizedBox(height: 6),
+                      SkeletonContainer(width: 60, height: 12),
+                    ],
     }
 
     if (libProv.resources.isEmpty) {
