@@ -508,6 +508,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                   isLoading: finance.isLoading,
                   icon: Icons.lock_outline_rounded,
                   onPressed: () => _confirmPayment(context),
+                ),
+                
+                const SizedBox(height: 100), // Space for nav bar
+              ],
           ),
         ),
       ),
