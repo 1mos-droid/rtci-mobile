@@ -133,3 +133,7 @@ class _ExportingDialogState extends State<_ExportingDialog> {
   void initState() {
     super.initState();
     _startExport();
+  }
+
+  void _startExport() {
+    const duration = Duration(milliseconds: 150);
