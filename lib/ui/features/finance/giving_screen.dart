@@ -393,11 +393,9 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                           ),
                         ),
                         alignment: Alignment.center,
-                      child: Center(
                         child: Text(
-                          "GHC $val",
+                          f.toUpperCase(),
                           style: GoogleFonts.plusJakartaSans(
-                            fontSize: 20,
                             fontWeight: FontWeight.w800,
                             color: isSelected ? ObsidianTheme.secondaryGold : ObsidianTheme.textVibrant,
                           ),
