@@ -52,6 +52,10 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
+                TextField(
+                  controller: titleController, 
+                  decoration: const InputDecoration(labelText: "Title"),
+                  style: TextStyle(color: ObsidianTheme.textVibrant),
   @override
   Widget build(BuildContext context) {
     final libProv = ref.watch(bibleStudiesProvider);
