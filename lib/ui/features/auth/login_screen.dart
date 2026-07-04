@@ -185,6 +185,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                   offset: const Offset(0, 8),
                                 ),
                               ],
+                            ),
+                            child: Image.asset(
+                              'assets/church_logo.png',
+                              fit: BoxFit.contain,
                                         "Sign In with Google",
                                         style: TextStyle(
                                           color: isDark ? Colors.black : Colors.white,
