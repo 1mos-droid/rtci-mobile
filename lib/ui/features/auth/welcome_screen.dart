@@ -198,9 +198,7 @@ class WelcomeScreen extends StatelessWidget {
                     letterSpacing: 1.2,
                   ),
                 ),
-              .scaleXY(begin: 0.85, end: 1.0, curve: Curves.easeOutBack),
-              
-              const SizedBox(height: 32),
+              ],
               
               // Brand Sacred Heading
               Text(
