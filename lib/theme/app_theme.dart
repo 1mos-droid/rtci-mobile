@@ -17,8 +17,8 @@ class AppTheme {
   static const Color systemGray = Color(0xFF64748B); // Slate Gray
   static const Color systemGray2 = Color(0xFF94A3B8);
   static const Color systemGray3 = Color(0xFFCBD5E1);
-  static const Color systemGray6 = Color(0xFFF2F2F7);
-
+  static const Color systemGray4 = Color(0xFFE2E8F0);
+  static const Color systemGray5 = Color(0xFFF1F5F9);
   static const Color systemBlue = Color(0xFF007AFF);
   static const Color systemGreen = Color(0xFF34C759);
   static const Color systemOrange = Color(0xFFFF9500);
