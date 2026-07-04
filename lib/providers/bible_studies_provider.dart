@@ -93,4 +93,8 @@ class BibleStudiesProvider extends ChangeNotifier {
   }
 
   Future<bool> addModule({
+    required String title,
+    required String description,
+    required String imageUrl,
+    required String subtitle,
 }
