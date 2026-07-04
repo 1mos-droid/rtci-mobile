@@ -469,6 +469,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                         ),
                       ),
                       const SizedBox(width: 12),
+                      Expanded(
+                        child: TextField(
+                          controller: _amountController,
+                          keyboardType: const TextInputType.numberWithOptions(decimal: true),
                   ),
                 ),
               ),
