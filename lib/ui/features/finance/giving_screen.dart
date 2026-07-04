@@ -427,6 +427,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                     crossAxisSpacing: 12,
                     mainAxisSpacing: 12,
                     childAspectRatio: 2.2,
+                  ),
+                  itemCount: _presetAmounts.length,
+                  itemBuilder: (context, index) {
+                    final val = _presetAmounts[index];
                     ),
                   );
                 }).toList(),
