@@ -246,8 +246,8 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                   child: Text(
                                     "No revelation available today.",
                                     style: TextStyle(color: ObsidianTheme.textMuted),
-                              ),
-                            )
+                                  ),
+                                )
                           : Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
