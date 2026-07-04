@@ -14,3 +14,7 @@ class CustomPrimaryButton extends StatefulWidget {
     required this.text,
     this.onPressed,
     this.isLoading = false,
+    this.icon,
+    this.backgroundColor,
+    this.textColor,
+  });
