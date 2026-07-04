@@ -12,3 +12,7 @@ void main() {
   group('Neumorphic Theme Tests', () {
     test('Light theme background matches Neumorphic soft grey', () {
       final theme = AppTheme.lightTheme;
+      expect(theme.scaffoldBackgroundColor, const Color(0xFFFAFAFC));
+    });
+
+    test('Dark theme background matches Neumorphic soft slate', () {
