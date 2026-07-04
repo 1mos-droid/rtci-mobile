@@ -53,11 +53,13 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
         final isDark = theme.brightness == Brightness.dark;
 
         return GlassCard(
-          padding: const EdgeInsets.all(32),
+          borderRadius: 28,
+          padding: const EdgeInsets.all(28),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              const SizedBox(height: 8),
               Text(
                 "Authorize Giving",
                 textAlign: TextAlign.center,
