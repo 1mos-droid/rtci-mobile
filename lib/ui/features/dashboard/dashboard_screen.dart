@@ -729,6 +729,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                       child: Center(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                setModalState(() {
               ),
             ),
             child: Column(
