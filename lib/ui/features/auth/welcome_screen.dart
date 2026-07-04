@@ -93,6 +93,10 @@ class WelcomeScreen extends StatelessWidget {
                 
                 Text(
                   "CONNECTING SOULS • SERVING COMMUNITIES",
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.plusJakartaSans(
+                    fontSize: 10,
+                    letterSpacing: 2.5,
                     ],
                   ),
                   child: Center(
