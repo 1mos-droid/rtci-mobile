@@ -138,8 +138,8 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                 borderRadius: 24,
                                 padding: const EdgeInsets.all(24),
                                 child: Column(
-                                children: [
-                                  Expanded(child: Divider(color: ObsidianTheme.borderHairline)),
+                                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                                  children: [
                                   Padding(
                                     padding: const EdgeInsets.symmetric(horizontal: 16),
                                     child: Text(
