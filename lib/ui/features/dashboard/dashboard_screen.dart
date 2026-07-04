@@ -22,6 +22,10 @@ class DashboardScreen extends ConsumerStatefulWidget {
 
 class _DashboardScreenState extends ConsumerState<DashboardScreen> {
   String _selectedCategory = 'All';
+
+  @override
+  void initState() {
+    super.initState();
     final user = ref.watch(authNotifierProvider).value;
     final finance = ref.watch(financialProvider);
     final prayers = ref.watch(prayerProvider);
