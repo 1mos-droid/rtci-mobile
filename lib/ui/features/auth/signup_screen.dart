@@ -157,6 +157,10 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                     ),
                                     const SizedBox(height: 16),
                                     
+                                    TextFormField(
+                                      controller: _emailController,
+                                      keyboardType: TextInputType.emailAddress,
+                                      style: TextStyle(color: ObsidianTheme.textVibrant, fontSize: 16),
                                   decoration: BoxDecoration(
                                     color: isDark ? Colors.white : Colors.black,
                                     borderRadius: BorderRadius.circular(12),
