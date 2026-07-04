@@ -52,11 +52,13 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
     return Scaffold(
       body: MeshGradientBackground(
         child: CustomScrollView(
+          physics: const BouncingScrollPhysics(),
           slivers: [
+            // Premium custom App Bar
             SliverAppBar(
               backgroundColor: Colors.transparent,
               elevation: 0,
-              expandedHeight: 140.0,
+              expandedHeight: 120.0,
               pinned: true,
               flexibleSpace: FlexibleSpaceBar(
                 titlePadding: const EdgeInsets.symmetric(
