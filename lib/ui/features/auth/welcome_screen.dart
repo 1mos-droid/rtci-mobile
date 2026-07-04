@@ -53,6 +53,10 @@ class WelcomeScreen extends StatelessWidget {
                         child: Image.asset(
                           'assets/church_logo.png',
                           fit: BoxFit.contain,
+                        ),
+                      ),
+                    ),
+                  ),
                     ],
                   ),
                   child: Center(
