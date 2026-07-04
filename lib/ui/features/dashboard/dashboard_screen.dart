@@ -663,8 +663,8 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
     );
   }
 
-              border: Border.all(
-                color: ObsidianTheme.secondaryGold.withValues(alpha: 0.3),
+  void _showVideoPlayer(BuildContext context, String title, String speaker) {
+    Timer? playbackTimer;
               ),
             ),
             child: Column(
