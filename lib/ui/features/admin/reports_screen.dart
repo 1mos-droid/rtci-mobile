@@ -153,3 +153,7 @@ class _ExportingDialogState extends State<_ExportingDialog> {
         }
       });
       
+      if (currentStep >= steps) {
+        await Future.delayed(const Duration(milliseconds: 300));
+        if (mounted) {
+          Navigator.pop(context);
