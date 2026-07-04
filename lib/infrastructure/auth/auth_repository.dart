@@ -28,6 +28,9 @@ class AuthRepository {
   Future<void> login(String email, String password) async {
     await _auth.signInWithEmailAndPassword(email: email, password: password);
   }
+
+  Future<void> sendPasswordReset(String email) async {
+    await _auth.sendPasswordResetEmail(email: email);
   }
 
   Future<void> register(String fullName, String email, String password, {String? department}) async {

@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:rtc_mobile/theme/app_theme.dart';
 import 'package:rtc_mobile/services/notification_service.dart';
 import 'package:rtc_mobile/ui/features/auth/welcome_screen.dart';
+import 'package:rtc_mobile/ui/features/auth/startup_loader_screen.dart';
 import 'package:rtc_mobile/ui/features/dashboard/main_tab_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rtc_mobile/firebase_options.dart';
