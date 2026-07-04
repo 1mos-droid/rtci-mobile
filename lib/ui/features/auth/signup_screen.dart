@@ -162,7 +162,9 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                       keyboardType: TextInputType.emailAddress,
                                       style: TextStyle(color: ObsidianTheme.textVibrant, fontSize: 16),
                                       decoration: InputDecoration(
-                                  ),
+                                        labelText: "Email Address",
+                                        hintText: "your@email.com",
+                                        prefixIcon: Icon(Icons.email_outlined, color: ObsidianTheme.textMuted, size: 20),
                                   child: authState.isLoading
                                       ? const Center(child: CircularProgressIndicator.adaptive(valueColor: AlwaysStoppedAnimation<Color>(Colors.grey)))
                                       : Row(
