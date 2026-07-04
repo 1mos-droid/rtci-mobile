@@ -288,4 +288,8 @@ class FinancialsScreen extends ConsumerWidget {
                         child: Text(cp),
                       )).toList(),
                       onChanged: (val) {
+                        if (val != null) {
+                          setModalState(() => selectedCampus = val);
+                        }
+                      },
 }
