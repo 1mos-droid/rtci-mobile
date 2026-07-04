@@ -163,4 +163,8 @@ class FinancialsScreen extends ConsumerWidget {
   }
 
   void _showAddTransactionSheet(BuildContext context, WidgetRef ref) {
+    final formKey = GlobalKey<FormState>();
+    final amountController = TextEditingController();
+    final descController = TextEditingController();
+    
 }
