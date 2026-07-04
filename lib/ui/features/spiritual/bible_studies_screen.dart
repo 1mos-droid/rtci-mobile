@@ -165,6 +165,10 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
                   Navigator.pop(dialogContext);
                   final success = await ref.read(bibleStudiesProvider).addResource(
                     moduleId: moduleId,
+                    title: title,
+                    type: type.toLowerCase(),
+                    url: url,
+                  );
   @override
   Widget build(BuildContext context) {
     final libProv = ref.watch(bibleStudiesProvider);
