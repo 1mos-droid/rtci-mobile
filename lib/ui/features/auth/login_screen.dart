@@ -125,11 +125,15 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       }
     }
   }
+
   @override
   Widget build(BuildContext context) {
     final authState = ref.watch(authNotifierProvider);
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
+    final mediaQuery = MediaQuery.of(context);
+    final screenHeight = mediaQuery.size.height;
+    
 
     return MeshGradientBackground(
       child: Scaffold(
