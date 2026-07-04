@@ -175,8 +175,8 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                 Text(
                                   "WELCOME BACK",
                                   style: GoogleFonts.plusJakartaSans(
-                                        color: ObsidianTheme.textMuted,
-                                        fontSize: 10,
+                                    fontSize: 9,
+                                    fontWeight: FontWeight.w800,
                                       ),
                                 ),
                                 Text(
