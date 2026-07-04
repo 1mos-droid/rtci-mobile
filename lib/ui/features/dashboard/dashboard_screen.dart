@@ -742,6 +742,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                           timer.cancel();
                                           isPlaying = false;
                                           currentSeconds = 0;
+                                        }
+                                      });
+                                    });
+                                  } else {
               ),
             ),
             child: Column(
