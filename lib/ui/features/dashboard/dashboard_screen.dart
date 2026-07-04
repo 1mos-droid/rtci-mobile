@@ -126,6 +126,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                     Container(
                       padding: const EdgeInsets.all(20),
                       decoration: BoxDecoration(
+                        color: isDark ? const Color(0xFF1E293B) : Colors.white,
+                        borderRadius: BorderRadius.circular(24),
+                        border: Border.all(
+                          color: isDark ? Colors.white.withOpacity(0.06) : Colors.black.withOpacity(0.04),
                       child: Row(
                         children: [
                           CircleAvatar(
