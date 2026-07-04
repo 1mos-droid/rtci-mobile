@@ -489,9 +489,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                   ),
                                 )
                               : ListView.builder(
-                          ).animate().fadeIn(delay: 450.ms, duration: 500.ms),
-
-                    const SizedBox(height: 80), // Padding for BottomNav
+                                  shrinkWrap: true,
                   ],
                 ),
               ),
