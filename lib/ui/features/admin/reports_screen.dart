@@ -104,4 +104,8 @@ class ReportsScreen extends StatelessWidget {
               ),
             );
           },
+        );
+      },
+    );
+  }
 }
