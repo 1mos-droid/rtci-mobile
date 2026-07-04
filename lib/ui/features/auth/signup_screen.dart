@@ -135,7 +135,9 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                               const SizedBox(height: 28),
 
                               GlassCard(
-                              Row(
+                                borderRadius: 24,
+                                padding: const EdgeInsets.all(24),
+                                child: Column(
                                 children: [
                                   Expanded(child: Divider(color: ObsidianTheme.borderHairline)),
                                   Padding(
