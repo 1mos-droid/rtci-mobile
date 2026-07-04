@@ -171,4 +171,8 @@ class FinancialsScreen extends ConsumerWidget {
     String selectedCategory = 'Tithe';
     String selectedCampus = 'Main';
     
+    final types = ['contribution', 'expense'];
+    final categories = ['Tithe', 'Offering', 'Special Seeds', 'Building Fund', 'Administrative Expense', 'Welfare Support'];
+    final campuses = ['Main', 'Adenta Branch', 'Virtual Sanctuary'];
+
 }
