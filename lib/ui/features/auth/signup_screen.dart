@@ -200,6 +200,10 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                         if (val.length < 6) return "Password must be at least 6 characters";
                                         return null;
                                       },
+                                    ),
+                                    const SizedBox(height: 16),
+
+                                    TextFormField(
                                             ),
                                             const SizedBox(width: 12),
                                             Text(
