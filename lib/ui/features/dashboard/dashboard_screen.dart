@@ -954,6 +954,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
         );
       },
     );
+  }
+
+  Future<void> _contactMember(BuildContext context, String memberId, String memberName) async {
+    try {
                   ),
                 ),
               ],
