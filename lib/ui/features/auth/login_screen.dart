@@ -173,8 +173,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         children: [
                           Container(
                             width: 84,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
+                            height: 84,
+                            padding: const EdgeInsets.all(12),
                         TextFormField(
                           controller: _emailController,
                           keyboardType: TextInputType.emailAddress,
