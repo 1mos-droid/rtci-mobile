@@ -170,10 +170,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     child: Center(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
-                  const SizedBox(height: 35),
-                  
-                  GlassCard(
-                    padding: const EdgeInsets.all(24),
                     borderType: GlassBorderType.normal,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
