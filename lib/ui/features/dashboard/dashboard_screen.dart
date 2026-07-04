@@ -243,8 +243,8 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                           ? const Center(child: CircularProgressIndicator())
                           : insights.currentInsight == null
                               ? Center(
-                              child: Text(
-                                "No revelation available today.",
+                                  child: Text(
+                                    "No revelation available today.",
                                 style: TextStyle(
                                   color: ObsidianTheme.textMuted,
                                 ),
