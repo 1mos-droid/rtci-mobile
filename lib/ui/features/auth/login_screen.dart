@@ -349,6 +349,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             onPressed: _handleLogin,
                           ),
                           const SizedBox(height: 24),
+
+                          // Social Login Divider
+                          Row(
+                            children: [
                       ),
                     ),
                   ).animate().fadeIn(delay: 450.ms, duration: 500.ms),
