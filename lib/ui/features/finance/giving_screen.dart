@@ -153,6 +153,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                       scaffoldMessenger.showSnackBar(
                         const SnackBar(content: Text("Could not launch Paystack payment link."))
                       );
+                    }
+                  } catch (e) {
+                    scaffoldMessenger.showSnackBar(
+                      SnackBar(content: Text("Error opening payment: $e"))
                   }
                 },
                 child: const Text("CONFIRM PAYMENT", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800, letterSpacing: 1.0)),
