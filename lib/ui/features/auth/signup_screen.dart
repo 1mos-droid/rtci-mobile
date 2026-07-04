@@ -196,6 +196,10 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                         ),
                                       ),
                                       validator: (val) {
+                                        if (val == null || val.isEmpty) return "Please enter a password";
+                                        if (val.length < 6) return "Password must be at least 6 characters";
+                                        return null;
+                                      },
                                             ),
                                             const SizedBox(width: 12),
                                             Text(
