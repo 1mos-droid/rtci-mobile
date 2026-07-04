@@ -866,6 +866,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                     child: Column(
                       children: [
                         Icon(Icons.notifications_off_outlined, size: 48, color: ObsidianTheme.textMuted),
+                        const SizedBox(height: 12),
+                        Text(
+                          "No new announcements",
+                          style: TextStyle(color: ObsidianTheme.textMuted, fontSize: 14),
                   ),
                 ),
                 Text(
