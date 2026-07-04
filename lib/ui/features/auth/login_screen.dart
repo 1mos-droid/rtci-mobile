@@ -211,6 +211,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           const SizedBox(height: 4),
                           Text(
                             "Redeemed Transformation Chapel",
+                            style: GoogleFonts.plusJakartaSans(
+                              color: Colors.white70,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
                         ),
                       ],
                     ),
