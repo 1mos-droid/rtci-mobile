@@ -1135,6 +1135,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                         ),
                         onPressed: () async {
                           if (formKey.currentState!.validate()) {
+                            final title = titleController.text.trim();
+                            final speaker = speakerController.text.trim();
+                            final duration = durationController.text.trim();
+                            final image = imageController.text.trim();
                   ),
                 ),
               ],
