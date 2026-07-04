@@ -82,3 +82,7 @@ class _CustomPrimaryButtonState extends State<CustomPrimaryButton> with SingleTi
                     ),
                   ],
           ),
+          child: widget.isLoading
+              ? const SizedBox(
+                  width: 24,
+                  height: 24,
