@@ -1163,6 +1163,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                             
                             if (context.mounted) {
                               Navigator.pop(context); // Close loading dialog
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(success 
+                                    ? "Sermon posted successfully!" 
                   ),
                 ),
               ],
