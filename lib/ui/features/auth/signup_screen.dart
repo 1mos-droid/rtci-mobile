@@ -360,10 +360,6 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                           ),
                         ),
                       ),
-                style: TextStyle(color: ObsidianTheme.textMuted, height: 1.5),
-              ),
-              const SizedBox(height: 32),
-              SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
