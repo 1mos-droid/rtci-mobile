@@ -352,8 +352,8 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const SizedBox(height: 10),
-              Wrap(
-                spacing: 12,
+                Text(
+                  "SELECT GIVING CATEGORY",
                 runSpacing: 12,
                 children: _funds.map((f) {
                   final isSelected = _selectedFund == f;
