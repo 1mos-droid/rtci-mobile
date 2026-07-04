@@ -1083,6 +1083,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                   setModalState(() => selectedCategory = val);
                                 }
                               },
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          Expanded(
                   ),
                 ),
               ],
