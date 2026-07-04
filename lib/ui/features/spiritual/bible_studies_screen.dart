@@ -502,4 +502,8 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
             style: const TextStyle(fontWeight: FontWeight.bold, color: AppTheme.accentGold, fontSize: 13),
           ),
           Expanded(
+            child: Text(
+              topic,
+              style: TextStyle(color: ObsidianTheme.textVibrant, fontSize: 13),
+            ),
 }
