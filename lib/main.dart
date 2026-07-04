@@ -60,6 +60,10 @@ class _RTCIMobileAppState extends ConsumerState<RTCIMobileApp> {
   }
 
   @override
+  Widget build(BuildContext context) {
+    final themeMode = ref.watch(themeNotifierProvider);
+
+    if (!_initialized) {
     final authState = ref.watch(authNotifierProvider);
     final themeMode = ref.watch(themeNotifierProvider);
 
