@@ -109,7 +109,9 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                     ? _buildSuccessScreen(context)
                     : SingleChildScrollView(
                         physics: const ClampingScrollPhysics(),
-                        Text(
+                        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+                        child: Form(
+                          key: _formKey,
                           "Create Account",
                           style: Theme.of(context).textTheme.displayMedium,
                         ).animate().fadeIn(duration: 500.ms).slideY(begin: 0.2, end: 0, curve: Curves.easeOutQuad),
