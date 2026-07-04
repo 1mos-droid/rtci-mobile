@@ -492,10 +492,6 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                               color: ObsidianTheme.textMuted.withOpacity(0.4),
                               fontSize: 16,
                               fontWeight: FontWeight.normal,
-
-              ElevatedButton(
-                onPressed: finance.isLoading ? null : () => _confirmPayment(context),
-                style: ElevatedButton.styleFrom(
                   backgroundColor: ObsidianTheme.secondaryGold,
                   foregroundColor: ObsidianTheme.backgroundDark,
                   padding: const EdgeInsets.symmetric(vertical: 20),
