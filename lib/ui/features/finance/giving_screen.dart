@@ -91,7 +91,9 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
               Text(
                 "GHC ${amt.toStringAsFixed(2)}",
                 textAlign: TextAlign.center,
-                style: GoogleFonts.plusJakartaSans(fontSize: 48, fontWeight: FontWeight.w800, color: ObsidianTheme.secondaryGold),
+                style: GoogleFonts.plusJakartaSans(
+                  fontSize: 36,
+                  fontWeight: FontWeight.w800,
               ),
               const SizedBox(height: 8),
               Text(
