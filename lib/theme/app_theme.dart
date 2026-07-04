@@ -419,3 +419,7 @@ class Neumorphic {
           blurRadius: 12,
           spreadRadius: 1,
         ),
+        BoxShadow(
+          color: lightShadowColor,
+          offset: const Offset(-6, -6),
+          blurRadius: 12,
