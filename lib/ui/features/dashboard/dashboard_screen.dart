@@ -1159,6 +1159,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                               imageUrl: image,
                               tag: tag,
                               videoUrl: video,
+                            );
+                            
+                            if (context.mounted) {
+                              Navigator.pop(context); // Close loading dialog
                   ),
                 ),
               ],
