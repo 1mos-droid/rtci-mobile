@@ -388,7 +388,11 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                           border: Border.all(
                             color: isSelected 
                                 ? theme.colorScheme.primary 
+                                : (isDark ? Colors.white.withOpacity(0.08) : Colors.black.withOpacity(0.06)),
+                            width: isSelected ? 2.0 : 1.0,
+                          ),
                         ),
+                        alignment: Alignment.center,
                       ),
                     ),
                   );
