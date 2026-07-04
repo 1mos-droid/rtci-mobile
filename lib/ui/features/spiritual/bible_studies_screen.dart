@@ -367,6 +367,10 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
                                       _buildSyllabusItem("Week 1", "Foundations and Historical Context"),
                                       _buildSyllabusItem("Week 2", "Core Theological Framework"),
                                       _buildSyllabusItem("Week 3", "Practical Application in Ministry"),
+                                      _buildSyllabusItem("Week 4", "Integration, Reflection & Evaluation"),
+                                    ],
+                                  ),
+                                ),
                 )
               ],
             ),
