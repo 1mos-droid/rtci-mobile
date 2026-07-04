@@ -455,9 +455,9 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                     borderRadius: BorderRadius.circular(16),
                     border: Border.all(
                       color: isDark ? Colors.white.withOpacity(0.08) : Colors.black.withOpacity(0.06),
+                      width: 1.0,
                     ),
-                  );
-                }).toList(),
+                  ),
               ),
               
               const SizedBox(height: 16),
