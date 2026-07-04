@@ -288,15 +288,15 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                       ),
                       const SizedBox(height: 12),
                       SizedBox(
-                        height: 140,
+                        height: 130,
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
+                          physics: const BouncingScrollPhysics(),
                           itemCount: care.careQueue.length,
                           itemBuilder: (context, index) {
                             final item = care.careQueue[index];
                             return Padding(
                               padding: const EdgeInsets.only(right: 12),
-                              child: GlassCard(
                                 padding: const EdgeInsets.all(16),
                                 borderType: GlassBorderType.crimson,
                                 child: SizedBox(
