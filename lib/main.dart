@@ -44,6 +44,10 @@ class _RTCIMobileAppState extends ConsumerState<RTCIMobileApp> {
         options: DefaultFirebaseOptions.currentPlatform,
       );
       setState(() => _loadingMessage = "Authenticating Gatekeeper...");
+      await GoogleSignIn.instance.initialize();
+      setState(() => _loadingMessage = "Initializing Echoes...");
+      await NotificationService().initialize();
+      
     final authState = ref.watch(authNotifierProvider);
     final themeMode = ref.watch(themeNotifierProvider);
 
