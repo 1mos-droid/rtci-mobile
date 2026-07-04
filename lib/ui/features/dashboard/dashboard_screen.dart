@@ -260,7 +260,9 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                         height: 1.5,
                                       ),
                                     ),
-                                ),
+                                    const SizedBox(height: 12),
+                                    Text(
+                                      "— ${insights.currentInsight!.reference ?? insights.currentInsight!.author ?? ''}",
                               ],
                             ),
                     ).animate().fadeIn(delay: 150.ms, duration: 500.ms),
