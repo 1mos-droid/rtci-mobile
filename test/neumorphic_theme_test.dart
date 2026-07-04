@@ -44,3 +44,7 @@ void main() {
       await tester.pumpWidget(
         const MaterialApp(
           home: Scaffold(
+            body: StartupLoaderScreen(message: 'Testing initialization...'),
+          ),
+        ),
+      );
