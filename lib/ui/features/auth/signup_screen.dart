@@ -192,6 +192,10 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                             color: ObsidianTheme.textMuted,
                                             size: 20,
                                           ),
+                                          onPressed: () => setState(() => _showPassword = !_showPassword),
+                                        ),
+                                      ),
+                                      validator: (val) {
                                             ),
                                             const SizedBox(width: 12),
                                             Text(
