@@ -11,3 +11,7 @@ class Sermon {
   final String tag; // Featured, New, Trending, etc.
   final String? audioUrl;
   final String? videoUrl;
+  final String? loggedBy;
+
+  Sermon({
+    required this.id,
