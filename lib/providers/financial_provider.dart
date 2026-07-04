@@ -109,10 +109,10 @@ class FinancialProvider extends ChangeNotifier {
         'status': status,
       });
       await fetchTransactions();
-      return true;
+      return docRef.id;
     } catch (e) {
       debugPrint('Error processing giving: $e');
-      return false;
+      return null;
     } finally {
       _isLoading = false;
       notifyListeners();
