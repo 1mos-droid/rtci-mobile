@@ -170,8 +170,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     child: Center(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
-                    borderType: GlassBorderType.normal,
-                    child: Column(
+                        children: [
+                          Container(
+                            width: 84,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         TextFormField(
