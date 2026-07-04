@@ -208,6 +208,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
               Text(
                 "Did you successfully complete your donation of GHC ${amount.toStringAsFixed(0)} on the Paystack checkout page?",
                 textAlign: TextAlign.center,
+                style: GoogleFonts.plusJakartaSans(
+                  color: ObsidianTheme.textMuted,
+                  fontSize: 14,
+                  height: 1.4,
   @override
   Widget build(BuildContext context) {
     final finance = ref.watch(financialProvider);
