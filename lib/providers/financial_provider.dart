@@ -13,7 +13,9 @@ class FinancialProvider extends ChangeNotifier {
   List<GivingTransaction> _transactions = [];
   bool _isLoading = false;
 
-  List<GivingTransaction> get transactions => _transactions;
+  // Only expose completed transactions in history and ledger summary
+  List<GivingTransaction> get transactions {
+    final user = _ref.read(authNotifierProvider).value;
   bool get isLoading => _isLoading;
   double get totalRevenue => _transactions.where((t) => t.type == 'contribution').fold(0, (sum, item) => sum + item.amount);
   double get totalExpense => _transactions.where((t) => t.type == 'expense').fold(0, (sum, item) => sum + item.amount);
