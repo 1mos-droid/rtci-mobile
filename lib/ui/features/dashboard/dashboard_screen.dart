@@ -898,6 +898,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                           ),
                         ),
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   ),
                 ),
                 Text(
