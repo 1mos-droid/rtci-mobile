@@ -177,6 +177,10 @@ class WelcomeScreen extends StatelessWidget {
                           ),
                           foregroundColor: ObsidianTheme.textVibrant,
                           shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          minimumSize: const Size.fromHeight(50),
+                        ),
                     ],
                   ),
                   child: Center(
