@@ -471,6 +471,10 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
                       } else {
                         if (context.mounted) {
                           ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text("Cannot open resource URL: ${res.url}")),
+                          );
+                        }
+                      }
               ),
             ),
           ),
