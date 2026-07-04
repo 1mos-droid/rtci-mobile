@@ -16,7 +16,9 @@ class WelcomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
-    return MeshGradientBackground(
+
+    return Scaffold(
+      body: MeshGradientBackground(
       child: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
