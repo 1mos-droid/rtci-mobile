@@ -105,6 +105,10 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
                 }
               },
               style: ElevatedButton.styleFrom(backgroundColor: ObsidianTheme.primaryCrimson, foregroundColor: Colors.white),
+              child: const Text("ADD"),
+            ),
+          ],
+        );
   @override
   Widget build(BuildContext context) {
     final libProv = ref.watch(bibleStudiesProvider);
