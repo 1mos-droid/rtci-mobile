@@ -291,7 +291,9 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Icon(Icons.bookmark, color: ObsidianTheme.secondaryGold),
-                    Text("${module.progress}%", style: GoogleFonts.plusJakartaSans(color: ObsidianTheme.primaryCrimson, fontWeight: FontWeight.bold)),
+                    Row(
+                      children: [
+                        Text("${module.progress}%", style: GoogleFonts.plusJakartaSans(color: ObsidianTheme.primaryCrimson, fontWeight: FontWeight.bold)),
                   ],
                 ),
                 const SizedBox(height: 16),
