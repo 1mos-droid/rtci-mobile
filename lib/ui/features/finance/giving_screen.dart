@@ -487,6 +487,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                             border: InputBorder.none,
                             enabledBorder: InputBorder.none,
                             focusedBorder: InputBorder.none,
+                            hintText: "Enter custom amount",
+                            hintStyle: TextStyle(
+                              color: ObsidianTheme.textMuted.withOpacity(0.4),
+                              fontSize: 16,
               ),
 
               const SizedBox(height: 48),
