@@ -117,6 +117,10 @@ class WelcomeScreen extends StatelessWidget {
                         style: GoogleFonts.plusJakartaSans(
                           color: ObsidianTheme.textVibrant,
                           fontWeight: FontWeight.w800,
+                          fontSize: 12,
+                          letterSpacing: 1.5,
+                        ),
+                      ),
                     ],
                   ),
                   child: Center(
