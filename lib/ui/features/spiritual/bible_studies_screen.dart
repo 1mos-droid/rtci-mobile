@@ -359,6 +359,10 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
                                         style: GoogleFonts.plusJakartaSans(
                                           fontWeight: FontWeight.w800,
                                           color: ObsidianTheme.textMuted,
+                                          fontSize: 11,
+                                          letterSpacing: 1.0,
+                                        ),
+                                      ),
                 )
               ],
             ),
