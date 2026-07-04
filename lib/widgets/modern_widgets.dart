@@ -335,3 +335,7 @@ class DonationChip extends StatelessWidget {
         elevation: 0,
         child: InkWell(
           onTap: onTap,
+          borderRadius: BorderRadius.circular(12),
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+            decoration: BoxDecoration(
