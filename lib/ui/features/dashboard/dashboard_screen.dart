@@ -1079,6 +1079,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                 child: Text(c),
                               )).toList(),
                               onChanged: (val) {
+                                if (val != null) {
+                                  setModalState(() => selectedCategory = val);
+                                }
+                              },
                   ),
                 ),
               ],
