@@ -838,6 +838,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
           borderRadius: 24,
           padding: const EdgeInsets.all(24),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Row(
                   ),
                 ),
                 Text(
