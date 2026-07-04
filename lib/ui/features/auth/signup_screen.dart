@@ -131,10 +131,6 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                   height: 1.4,
                                 ),
                               ).animate().fadeIn(delay: 100.ms, duration: 500.ms).slideY(begin: 0.2, end: 0, curve: Curves.easeOutQuad),
-                              ),
-                              const SizedBox(height: 16),
-
-                              TextFormField(
                                 controller: _confirmPasswordController,
                                 obscureText: !_showConfirmPassword,
                                 style: TextStyle(color: ObsidianTheme.textVibrant),
