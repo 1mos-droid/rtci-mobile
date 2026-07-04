@@ -175,10 +175,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             width: 84,
                             height: 84,
                             padding: const EdgeInsets.all(12),
-                        ),
-                        
-                        const SizedBox(height: 16),
-                        
                         GestureDetector(
                           onTap: authState.isLoading ? null : _handleGoogleLogin,
                           child: Container(
