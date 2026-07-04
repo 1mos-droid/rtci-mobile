@@ -371,6 +371,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                     mainAxisSpacing: 10,
                     childAspectRatio: 2.5,
                   ),
+                  itemCount: _funds.length,
+                  itemBuilder: (context, index) {
+                    final f = _funds[index];
+                    final isSelected = _selectedFund == f;
                         ),
                       ),
                     ),
