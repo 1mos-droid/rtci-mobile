@@ -83,6 +83,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                           color: isDark ? const Color(0xFF151B2C) : Colors.white,
                           shape: BoxShape.circle,
                           border: Border.all(
+                            color: isDark ? Colors.white.withOpacity(0.08) : Colors.black.withOpacity(0.04),
+                            width: 1.0,
+                          ),
+                        ),
                 ),
               ),
             ),
