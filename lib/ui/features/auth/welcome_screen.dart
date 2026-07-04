@@ -49,6 +49,10 @@ class WelcomeScreen extends StatelessWidget {
                     ),
                     child: Center(
                       child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Image.asset(
+                          'assets/church_logo.png',
+                          fit: BoxFit.contain,
                     ],
                   ),
                   child: Center(
