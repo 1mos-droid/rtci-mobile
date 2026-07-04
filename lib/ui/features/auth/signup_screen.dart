@@ -112,10 +112,6 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
                         child: Form(
                           key: _formKey,
-                        const SizedBox(height: 25),
-
-                        GlassCard(
-                          padding: const EdgeInsets.all(24),
                           borderType: GlassBorderType.normal,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
