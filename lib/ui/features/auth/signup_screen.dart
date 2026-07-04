@@ -358,10 +358,6 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                               ).animate().fadeIn(delay: 400.ms, duration: 500.ms),
                             ],
                           ),
-
-                        if (_errorMessage != null) ...[
-                          const SizedBox(height: 16),
-                          Container(
                             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                             decoration: BoxDecoration(
                               color: Colors.red.withOpacity(0.1),
