@@ -200,10 +200,6 @@ class WelcomeScreen extends StatelessWidget {
                 ),
               ],
             ),
-                      icon: const Icon(Icons.person_add_outlined),
-                      label: const Text("Create Account"),
-                      onPressed: () {
-                        Navigator.push(
                           context,
                           MaterialPageRoute(builder: (_) => const SignupScreen()),
                         );
