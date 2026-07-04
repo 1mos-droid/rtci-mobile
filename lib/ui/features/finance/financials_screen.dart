@@ -207,4 +207,8 @@ class FinancialsScreen extends ConsumerWidget {
                           icon: Icon(Icons.close_rounded, color: ObsidianTheme.textVibrant),
                           onPressed: () => Navigator.pop(ctx),
                         ),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+                    // Amount Field
 }
