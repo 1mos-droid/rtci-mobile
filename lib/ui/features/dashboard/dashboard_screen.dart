@@ -850,6 +850,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: ObsidianTheme.textVibrant,
+                    ),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.close_rounded, color: ObsidianTheme.textVibrant),
                   ),
                 ),
                 Text(
