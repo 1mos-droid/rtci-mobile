@@ -87,6 +87,7 @@ class SettingsScreen extends ConsumerWidget {
                               style: ElevatedButton.styleFrom(backgroundColor: ObsidianTheme.primaryCrimson, foregroundColor: Colors.white),
                               onPressed: () {
                                 Navigator.push(context, MaterialPageRoute(builder: (_) => const ProfileEditScreen()));
+                              },
                               child: const Text("EDIT PROFILE"),
                             ),
                           )
@@ -132,7 +133,8 @@ class SettingsScreen extends ConsumerWidget {
                             leading: const Icon(Icons.lock_outline, color: Colors.redAccent),
                             title: Text("Update Credentials", style: TextStyle(color: ObsidianTheme.textVibrant, fontSize: 14)),
                             trailing: Icon(Icons.chevron_right, color: ObsidianTheme.textMuted),
-                            onTap: () {},
+                            onTap: () async {
+                              final email = user.email;
                           ),
                           ListTile(
                             contentPadding: EdgeInsets.zero,
