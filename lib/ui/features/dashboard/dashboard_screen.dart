@@ -472,6 +472,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                       ),
                       const SizedBox(height: 8),
                       sermonsProv.isLoading
+                          ? const Center(child: CircularProgressIndicator())
+                          : sermonsProv.sermons.isEmpty
+                              ? Container(
+                                  padding: const EdgeInsets.symmetric(vertical: 32),
                                   ),
                                 )
                                 .toList(),
