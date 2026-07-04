@@ -1119,6 +1119,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                       ),
                       const SizedBox(height: 16),
                       TextFormField(
+                        controller: videoController,
+                        style: TextStyle(color: ObsidianTheme.textVibrant),
+                        decoration: const InputDecoration(
+                          labelText: "Video / YouTube URL (Optional)",
                   ),
                 ),
               ],
