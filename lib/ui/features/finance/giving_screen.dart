@@ -492,10 +492,6 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                               color: ObsidianTheme.textMuted.withOpacity(0.4),
                               fontSize: 16,
                               fontWeight: FontWeight.normal,
-                  backgroundColor: ObsidianTheme.secondaryGold,
-                  foregroundColor: ObsidianTheme.backgroundDark,
-                  padding: const EdgeInsets.symmetric(vertical: 20),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                 ),
                 child: finance.isLoading
                     ? SizedBox(height: 24, width: 24, child: CircularProgressIndicator(strokeWidth: 3, color: ObsidianTheme.backgroundDark))
