@@ -1111,6 +1111,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                       const SizedBox(height: 16),
                       TextFormField(
                         controller: tagController,
+                        style: TextStyle(color: ObsidianTheme.textVibrant),
+                        decoration: const InputDecoration(
+                          labelText: "Tag (e.g. Featured, Trending, New)",
+                          prefixIcon: Icon(Icons.label_outline),
                   ),
                 ),
               ],
