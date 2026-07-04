@@ -168,4 +168,8 @@ class GroupsProvider extends ChangeNotifier {
 
     try {
       await _firestore.collection('cell_groups').add({
+        'name': name,
+        'leader_name': leaderName,
+        'location': location,
+        'member_count': 0,
 }
