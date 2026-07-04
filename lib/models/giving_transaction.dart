@@ -71,6 +71,8 @@ class GivingTransaction {
       memberId: data['member_id'],
       campus: data['campus'],
       status: data['status'] ?? 'completed',
+      loggedBy: data['logged_by'],
+      isShared: data['is_shared'] ?? false,
     );
   }
 }

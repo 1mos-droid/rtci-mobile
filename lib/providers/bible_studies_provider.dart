@@ -91,4 +91,6 @@ class BibleStudiesProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  Future<bool> addModule({
 }
