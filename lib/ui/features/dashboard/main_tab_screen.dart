@@ -28,8 +28,8 @@ class _MainTabScreenState extends State<MainTabScreen> {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
 
-      return Scaffold(
-        extendBody: true,
+    return Scaffold(
+      extendBody: true,
         body: IndexedStack(
           index: _currentIndex,
           children: _pages,
