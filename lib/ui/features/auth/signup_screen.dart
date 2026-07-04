@@ -6,6 +6,7 @@ import 'package:rtc_mobile/application/auth/auth_provider.dart';
 import 'package:rtc_mobile/ui/features/dashboard/main_tab_screen.dart';
 import 'package:rtc_mobile/widgets/glass_card.dart';
 import 'package:rtc_mobile/widgets/mesh_gradient_background.dart';
+import 'package:rtc_mobile/widgets/modern_widgets.dart';
 import 'package:rtc_mobile/theme/app_theme.dart';
 import 'package:rtc_mobile/ui/features/auth/login_screen.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -86,14 +87,11 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
   Widget build(BuildContext context) {
     final authState = ref.watch(authNotifierProvider);
     final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
     final isDark = theme.brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor: theme.scaffoldBackgroundColor,
       body: MeshGradientBackground(
         child: SafeArea(
-          child: _signupSuccess
               ? _buildSuccessScreen(context)
               : SingleChildScrollView(
                   padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
