@@ -125,4 +125,8 @@ class BibleStudiesProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
+      await _firestore.collection('study_modules').doc(moduleId).delete();
+      
+      // Clean up resources belonging to this module
+      final resourcesSnapshot = await _firestore
 }
