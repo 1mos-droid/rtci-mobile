@@ -186,3 +186,7 @@ class ContentCard extends StatelessWidget {
                                 child: Icon(
                                   Icons.image_not_supported_outlined,
                                   color: theme.colorScheme.primary.withOpacity(0.4),
+                                  size: 40,
+                                ),
+                              ),
+                            );
