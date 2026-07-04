@@ -36,6 +36,10 @@ class _RTCIMobileAppState extends ConsumerState<RTCIMobileApp> {
     super.initState();
     _initialize();
   }
+
+  Future<void> _initialize() async {
+    try {
+      setState(() => _loadingMessage = "Connecting to Vault...");
     final authState = ref.watch(authNotifierProvider);
     final themeMode = ref.watch(themeNotifierProvider);
 
