@@ -215,4 +215,8 @@ class FinancialsScreen extends ConsumerWidget {
                       controller: amountController,
                       keyboardType: const TextInputType.numberWithOptions(decimal: true),
                       style: TextStyle(color: ObsidianTheme.textVibrant),
+                      decoration: const InputDecoration(
+                        labelText: "Amount (GHC)",
+                        prefixIcon: Icon(Icons.attach_money),
+                      ),
 }
