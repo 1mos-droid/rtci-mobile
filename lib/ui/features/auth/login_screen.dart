@@ -175,10 +175,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             width: 84,
                             height: 84,
                             padding: const EdgeInsets.all(12),
-                        TextFormField(
-                          controller: _emailController,
-                          keyboardType: TextInputType.emailAddress,
-                          style: TextStyle(color: ObsidianTheme.textVibrant),
                           decoration: InputDecoration(
                             labelText: "Email Address",
                             hintText: "e.g. name@email.com",
