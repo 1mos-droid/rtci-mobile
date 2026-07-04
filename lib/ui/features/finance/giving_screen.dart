@@ -483,6 +483,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                             fontSize: 22,
                             fontWeight: FontWeight.bold,
                           ),
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            focusedBorder: InputBorder.none,
               ),
 
               const SizedBox(height: 48),
