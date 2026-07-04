@@ -435,7 +435,9 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                     ),
 
                     const SizedBox(height: 16),
-                    // Upcoming Events Feed
+
+                    // Content Feed List
+                    if (_selectedCategory == 'All' || _selectedCategory == 'Sermons') ...[
                     Text(
                       "UPCOMING THIS WEEK",
                       style: Theme.of(context).textTheme.labelLarge?.copyWith(
