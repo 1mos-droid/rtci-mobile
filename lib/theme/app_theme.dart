@@ -93,8 +93,8 @@ class AppTheme {
           minimumSize: const Size.fromHeight(54),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           elevation: 0,
-            fontWeight: FontWeight.w600,
-            fontSize: 17,
+          textStyle: _getTextStyle(
+            fontWeight: FontWeight.w700,
             letterSpacing: -0.4,
           ),
         ),
