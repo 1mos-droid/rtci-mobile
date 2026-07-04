@@ -77,6 +77,10 @@ class WelcomeScreen extends StatelessWidget {
                 ).animate().fadeIn(delay: 200.ms, duration: 600.ms),
                 
                 const SizedBox(height: 4),
+                
+                Text(
+                  "Chapel International",
+                  textAlign: TextAlign.center,
                     ],
                   ),
                   child: Center(
