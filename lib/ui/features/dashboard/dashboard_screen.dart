@@ -254,8 +254,8 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                     Text(
                                       "\"${insights.currentInsight!.content}\"",
                                       style: GoogleFonts.plusJakartaSans(
-                                    fontSize: 16,
-                                    fontStyle: FontStyle.italic,
+                                        fontSize: 15,
+                                        fontStyle: FontStyle.italic,
                                     color: ObsidianTheme.textVibrant,
                                     height: 1.4,
                                   ),
