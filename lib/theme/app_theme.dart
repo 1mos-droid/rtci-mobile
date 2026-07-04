@@ -8,10 +8,8 @@ class AppTheme {
   static const Color systemDarkBg = Color(0xFF0B0F19);  // Premium obsidian dark
   
   static const Color systemLightGroupedBg = Colors.white;
-  static const Color systemDarkGroupedBg = Color(0xFF1C1C1E);
+  static const Color systemDarkGroupedBg = Color(0xFF151B2C); // Deep navy/slate
 
-  // Vibrant iOS-style Tints
-  static const Color iosPrimaryLight = Color(0xFFC92A3E); // Brand Crimson
   static const Color iosPrimaryDark = Color(0xFFFF453A);  // Vibrant Apple-style Red
 
   static const Color systemGray = Color(0xFF8E8E93);
