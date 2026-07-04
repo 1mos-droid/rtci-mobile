@@ -192,7 +192,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             ),
                           ).animate().scale(duration: 500.ms, curve: Curves.easeOutBack),
                           const SizedBox(height: 16),
-                          ),
+                          Text(
+                            "RTCI CONNECT",
+                            style: GoogleFonts.cinzel(
                         ),
                       ],
                     ),
