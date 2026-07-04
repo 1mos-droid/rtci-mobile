@@ -201,3 +201,7 @@ class _ExportingDialogState extends State<_ExportingDialog> {
                 textAlign: TextAlign.center,
                 style: GoogleFonts.plusJakartaSans(
                   fontWeight: FontWeight.bold,
+                  color: ObsidianTheme.textVibrant,
+                  fontSize: 16,
+                ),
+              ),
