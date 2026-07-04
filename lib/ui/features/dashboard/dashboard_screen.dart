@@ -948,10 +948,6 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                     },
                   ),
                 ),
-                Text(
-                  month,
-                  style: GoogleFonts.plusJakartaSans(
-                    fontSize: 10,
                     fontWeight: FontWeight.bold,
                     color: ObsidianTheme.secondaryGold,
                   ),
