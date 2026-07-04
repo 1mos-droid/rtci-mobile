@@ -197,3 +197,7 @@ class _ExportingDialogState extends State<_ExportingDialog> {
               const Icon(Icons.check_circle_outline, color: Colors.green, size: 48),
               const SizedBox(height: 16),
               Text(
+                "Export Complete!",
+                textAlign: TextAlign.center,
+                style: GoogleFonts.plusJakartaSans(
+                  fontWeight: FontWeight.bold,
