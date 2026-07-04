@@ -27,3 +27,7 @@ class SkeletonContainer extends StatelessWidget {
     Widget container = Container(
       width: width,
       height: height,
+      decoration: BoxDecoration(
+        color: baseColor,
+        borderRadius: BorderRadius.circular(borderRadius),
+      ),
