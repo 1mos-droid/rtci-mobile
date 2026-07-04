@@ -1184,10 +1184,6 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
           }
         );
       },
-                      ).textTheme.bodyMedium?.copyWith(fontSize: 11),
-                    ),
-                    const SizedBox(width: 12),
-                    Icon(
                       Icons.location_on_outlined,
                       size: 12,
                       color: ObsidianTheme.textMuted,
