@@ -294,6 +294,10 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
                     Row(
                       children: [
                         Text("${module.progress}%", style: GoogleFonts.plusJakartaSans(color: ObsidianTheme.primaryCrimson, fontWeight: FontWeight.bold)),
+                        if (isAdmin) ...[
+                          const SizedBox(width: 8),
+                          IconButton(
+                            constraints: const BoxConstraints(),
                   ],
                 ),
                 const SizedBox(height: 16),
