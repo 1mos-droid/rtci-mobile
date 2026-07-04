@@ -5,9 +5,9 @@ import 'package:google_fonts/google_fonts.dart';
 class AppTheme {
   // Brand & Palette Colors
   static const Color systemLightBg = Color(0xFFFAFAFC); // Clean off-white
-  static const Color systemDarkBg = Color(0xFF000000);
+  static const Color systemDarkBg = Color(0xFF0B0F19);  // Premium obsidian dark
   
-  static const Color systemLightGroupedBg = Color(0xFFFFFFFF);
+  static const Color systemLightGroupedBg = Colors.white;
   static const Color systemDarkGroupedBg = Color(0xFF1C1C1E);
 
   // Vibrant iOS-style Tints
