@@ -396,8 +396,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                         child: Text(
                           f.toUpperCase(),
                           style: GoogleFonts.plusJakartaSans(
+                            fontSize: 12,
                             fontWeight: FontWeight.w800,
-                            color: isSelected ? ObsidianTheme.secondaryGold : ObsidianTheme.textVibrant,
+                            color: isSelected ? theme.colorScheme.primary : ObsidianTheme.textVibrant,
+                            letterSpacing: 0.5,
                           ),
                         ),
                       ),
