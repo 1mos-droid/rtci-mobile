@@ -207,6 +207,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                 ),
                               ],
                             ),
+                          ).animate().fadeIn(delay: 200.ms, duration: 400.ms),
+                          const SizedBox(height: 4),
+                          Text(
+                            "Redeemed Transformation Chapel",
                         ),
                       ],
                     ),
