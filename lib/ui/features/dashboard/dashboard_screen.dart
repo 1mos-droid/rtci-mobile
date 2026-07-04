@@ -1003,6 +1003,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
     final imageController = TextEditingController();
     final tagController = TextEditingController();
     final videoController = TextEditingController();
+    
+    String selectedCategory = 'Sermon';
+    final categories = ['Sermon', 'Media'];
+
                   ),
                 ),
               ],
