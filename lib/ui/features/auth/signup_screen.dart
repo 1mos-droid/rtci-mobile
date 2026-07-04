@@ -329,6 +329,10 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                     borderRadius: BorderRadius.circular(12),
                                     border: Border.all(color: theme.colorScheme.error.withOpacity(0.3)),
                                   ),
+                                  child: Text(
+                                    _errorMessage!,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(color: theme.colorScheme.error, fontSize: 13, fontWeight: FontWeight.w600),
                             ],
                           ),
                         ).animate().fadeIn(delay: 200.ms, duration: 600.ms).scaleXY(begin: 0.95, end: 1.0, curve: Curves.easeOutBack).slideY(begin: 0.1, end: 0, curve: Curves.easeOutQuad),
