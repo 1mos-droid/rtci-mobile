@@ -134,10 +134,6 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                               
                               const SizedBox(height: 28),
 
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: ObsidianTheme.primaryCrimson,
-                                  foregroundColor: Colors.white,
-                                ),
                                 child: authState.isLoading
                                     ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
                                     : const Text("CREATE ACCOUNT"),
