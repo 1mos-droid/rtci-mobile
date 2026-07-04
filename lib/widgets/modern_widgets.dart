@@ -291,3 +291,7 @@ class ContentCard extends StatelessWidget {
                           ],
                         ],
                       ),
+                    ],
+                  ),
+                ),
+              ],
