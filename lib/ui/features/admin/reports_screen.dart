@@ -149,3 +149,7 @@ class _ExportingDialogState extends State<_ExportingDialog> {
       setState(() {
         _progress = currentStep / steps;
         if (currentStep >= steps) {
+          _finished = true;
+        }
+      });
+      
