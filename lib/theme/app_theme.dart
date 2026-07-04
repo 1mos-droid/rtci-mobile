@@ -269,11 +269,11 @@ class AppTheme {
       ),
       displaySmall: _getTextStyle(
         color: primaryColor,
-        fontSize: 24,
+        fontSize: 22,
         fontWeight: FontWeight.bold,
         letterSpacing: -0.6,
       ),
-      headlineMedium: GoogleFonts.inter(
+      headlineMedium: _getTextStyle(
         color: primaryColor,
         fontSize: 22,
         fontWeight: FontWeight.w700,
