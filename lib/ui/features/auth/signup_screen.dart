@@ -157,10 +157,6 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                     ),
                                     const SizedBox(height: 16),
                                     
-                              GestureDetector(
-                                onTap: authState.isLoading ? null : _handleGoogleSignup,
-                                child: Container(
-                                  height: 52,
                                   decoration: BoxDecoration(
                                     color: isDark ? Colors.white : Colors.black,
                                     borderRadius: BorderRadius.circular(12),
