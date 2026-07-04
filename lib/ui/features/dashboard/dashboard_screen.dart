@@ -377,9 +377,9 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                           _buildMetricCard(
                             context,
                             title: "CONTRIBUTIONS",
-                                "GHC ${finance.totalRevenue.toStringAsFixed(0)}",
+                            value: "GHC ${finance.totalRevenue.toStringAsFixed(0)}",
                             subtitle: "Audit Ledger",
-                            color: ObsidianTheme.primaryCrimson,
+                            color: AppTheme.iosPrimaryLight,
                           ),
                           const SizedBox(width: 12),
                           _buildMetricCard(
