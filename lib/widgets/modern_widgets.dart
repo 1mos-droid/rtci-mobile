@@ -74,3 +74,7 @@ class _CustomPrimaryButtonState extends State<CustomPrimaryButton> with SingleTi
             borderRadius: BorderRadius.circular(16),
             boxShadow: widget.onPressed == null
                 ? []
+                : [
+                    BoxShadow(
+                      color: bg.withOpacity(isDark ? 0.3 : 0.15),
+                      blurRadius: 16,
