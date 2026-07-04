@@ -32,8 +32,8 @@ class _MainTabScreenState extends State<MainTabScreen> {
       extendBody: true,
       body: IndexedStack(
         index: _currentIndex,
-          children: _pages,
-        ),
+        children: _pages,
+      ),
         bottomNavigationBar: SafeArea(
           top: false,
           child: Padding(
