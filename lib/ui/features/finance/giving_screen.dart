@@ -296,6 +296,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                     color: Colors.green.withOpacity(0.12),
                     shape: BoxShape.circle,
                   ),
+                  child: const Icon(Icons.check_circle_outline_rounded, size: 44, color: Colors.green),
+                ).animate().scale(duration: 500.ms, curve: Curves.elasticOut),
+                const SizedBox(height: 24),
+                Text(
   @override
   Widget build(BuildContext context) {
     final finance = ref.watch(financialProvider);
