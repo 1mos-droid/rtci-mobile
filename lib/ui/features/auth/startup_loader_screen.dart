@@ -89,3 +89,7 @@ class StartupLoaderScreen extends StatelessWidget {
           fit: BoxFit.contain,
         ),
       ),
+    );
+    if (!isTest) {
+      logoContainer = logoContainer
+          .animate(onPlay: (controller) => controller.repeat(reverse: true))
