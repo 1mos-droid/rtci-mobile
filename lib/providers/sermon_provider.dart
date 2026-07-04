@@ -22,3 +22,8 @@ class SermonProvider extends ChangeNotifier {
           .collection('sermons')
           .orderBy('date', descending: true)
           .get();
+
+      _sermons = snapshot.docs.map((doc) => Sermon.fromFirestore(doc)).toList();
+    } catch (e) {
+      debugPrint('Error fetching sermons: $e');
+    } finally {
