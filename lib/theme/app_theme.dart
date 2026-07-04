@@ -303,11 +303,7 @@ class AppTheme {
       ),
       bodySmall: _getTextStyle(
         color: secondaryColor,
-      ),
-      labelLarge: GoogleFonts.inter(
-        color: primaryColor,
         fontSize: 12,
-        fontWeight: FontWeight.w500,
         letterSpacing: 0.0,
       ),
     );
