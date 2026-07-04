@@ -132,6 +132,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                     if (transactionId == null) {
                       scaffoldMessenger.showSnackBar(
                         const SnackBar(content: Text("Failed to initialize transaction."))
+                      );
+                      return;
+                    }
+
                   }
                 },
                 child: const Text("CONFIRM PAYMENT", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800, letterSpacing: 1.0)),
