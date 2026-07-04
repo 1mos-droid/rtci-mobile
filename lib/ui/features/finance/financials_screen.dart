@@ -187,4 +187,8 @@ class FinancialsScreen extends ConsumerWidget {
               borderRadius: 24,
               padding: EdgeInsets.fromLTRB(24, 24, 24, MediaQuery.of(context).viewInsets.bottom + 24),
               child: Form(
+                key: formKey,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
 }
