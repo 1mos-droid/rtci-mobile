@@ -26,3 +26,8 @@ class Sermon {
     this.videoUrl,
     this.loggedBy,
   });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'title': title,
+      'speaker': speaker,
