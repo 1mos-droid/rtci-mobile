@@ -313,6 +313,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                 onPressed: () => setState(() => _showPassword = !_showPassword),
                               ),
                             ),
+                            validator: (val) {
+                              if (val == null || val.isEmpty) return "Please enter your password";
+                              return null;
+                            },
                       ),
                     ),
                   ).animate().fadeIn(delay: 450.ms, duration: 500.ms),
