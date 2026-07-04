@@ -267,3 +267,7 @@ class ContentCard extends StatelessWidget {
                               color: isDark ? Colors.white60 : Colors.black54,
                             ),
                           ),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      Row(
