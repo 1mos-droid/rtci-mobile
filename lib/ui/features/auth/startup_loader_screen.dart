@@ -105,3 +105,7 @@ class StartupLoaderScreen extends StatelessWidget {
     Widget primaryText = Text(
       "REDEEMED TRANSFORMATION",
       style: GoogleFonts.cinzel(
+        fontSize: 14,
+        fontWeight: FontWeight.bold,
+        letterSpacing: 2.0,
+        color: isDark ? Colors.white.withOpacity(0.9) : const Color(0xFF0F172A),
