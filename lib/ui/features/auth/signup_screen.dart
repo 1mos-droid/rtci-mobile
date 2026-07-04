@@ -173,7 +173,9 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                         if (!val.contains('@')) return "Please enter a valid email";
                                         return null;
                                       },
-                                              color: isDark ? Colors.black : Colors.white,
+                                    ),
+                                    const SizedBox(height: 16),
+
                                             ),
                                             const SizedBox(width: 12),
                                             Text(
