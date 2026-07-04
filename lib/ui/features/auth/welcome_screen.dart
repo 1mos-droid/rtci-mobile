@@ -181,10 +181,10 @@ class WelcomeScreen extends StatelessWidget {
                           ),
                           minimumSize: const Size.fromHeight(50),
                         ),
+                      ),
                     ],
                   ),
-                  child: Center(
-                    child: Padding(
+                ).animate().fadeIn(delay: 600.ms, duration: 600.ms).slideY(begin: 0.1, end: 0, curve: Curves.easeOutQuad),
                       padding: const EdgeInsets.all(14.0),
                       child: Image.asset(
                         'assets/church_logo.png',
