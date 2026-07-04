@@ -177,4 +177,8 @@ class BibleStudiesProvider extends ChangeNotifier {
   Future<bool> deleteResource(String resourceId) async {
     _isLoading = true;
     notifyListeners();
+
+    try {
+      await _firestore.collection('study_resources').doc(resourceId).delete();
+      await fetchStudies();
 }
