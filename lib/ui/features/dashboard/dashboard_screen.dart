@@ -87,6 +87,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                             width: 1.0,
                           ),
                         ),
+                        child: Stack(
+                          children: [
+                            Icon(
+                              Icons.notifications_outlined,
                 ),
               ),
             ),
