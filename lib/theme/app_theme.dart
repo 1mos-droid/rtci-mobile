@@ -67,7 +67,8 @@ class AppTheme {
         color: systemLightGroupedBg,
       ),
       dividerTheme: DividerThemeData(
-        color: systemGray3.withOpacity(0.5),
+        thickness: 1.0,
+        color: systemGray4,
         indent: 16,
         endIndent: 0,
       ),
@@ -75,7 +76,6 @@ class AppTheme {
         style: FilledButton.styleFrom(
           backgroundColor: iosPrimaryLight,
           foregroundColor: Colors.white,
-          minimumSize: const Size.fromHeight(52),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           elevation: 0,
           textStyle: GoogleFonts.inter(
