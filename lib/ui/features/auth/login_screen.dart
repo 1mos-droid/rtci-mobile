@@ -389,6 +389,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                 children: [
                                   FaIcon(
                                     FontAwesomeIcons.google,
+                                    size: 18,
+                                    color: ObsidianTheme.textVibrant,
+                                  ),
+                                  const SizedBox(width: 12),
                       ),
                     ),
                   ).animate().fadeIn(delay: 450.ms, duration: 500.ms),
