@@ -252,8 +252,8 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                  "\"${insights.currentInsight!.content}\"",
-                                  style: GoogleFonts.plusJakartaSans(
+                                      "\"${insights.currentInsight!.content}\"",
+                                      style: GoogleFonts.plusJakartaSans(
                                     fontSize: 16,
                                     fontStyle: FontStyle.italic,
                                     color: ObsidianTheme.textVibrant,
