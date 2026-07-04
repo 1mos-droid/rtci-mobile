@@ -172,9 +172,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                         if (val == null || val.isEmpty) return "Please enter your email";
                                         if (!val.contains('@')) return "Please enter a valid email";
                                         return null;
-                                            FaIcon(
-                                              FontAwesomeIcons.google, 
-                                              size: 16, 
+                                      },
                                               color: isDark ? Colors.black : Colors.white,
                                             ),
                                             const SizedBox(width: 12),
