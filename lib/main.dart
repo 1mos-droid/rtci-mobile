@@ -13,10 +13,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-    await NotificationService().initialize();
-  } catch (e) {
-    debugPrint('Firebase initialization failed: $e');
-  }
 
   runApp(
     const ProviderScope(
