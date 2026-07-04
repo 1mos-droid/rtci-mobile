@@ -48,8 +48,8 @@ class _MainTabScreenState extends State<MainTabScreen> {
                   color: (isDark ? const Color(0xFF151B2C) : Colors.white).withOpacity(0.85),
                   borderRadius: BorderRadius.circular(24),
                   border: Border.all(
-                      color: isDark ? Colors.white.withOpacity(0.08) : Colors.black.withOpacity(0.05),
-                      width: 1.0,
+                    color: isDark ? Colors.white.withOpacity(0.08) : Colors.black.withOpacity(0.05),
+                    width: 1.0,
                     ),
                     boxShadow: [
                       BoxShadow(
