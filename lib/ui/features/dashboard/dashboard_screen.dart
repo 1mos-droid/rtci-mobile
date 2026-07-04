@@ -1184,10 +1184,6 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
           }
         );
       },
-                Row(
-                  children: [
-                    Icon(
-                      Icons.access_time,
                       size: 12,
                       color: ObsidianTheme.textMuted,
                     ),
