@@ -421,6 +421,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                   style: theme.textTheme.bodyMedium?.copyWith(
                                     color: ObsidianTheme.textMuted,
                                   ),
+                                  children: [
+                                    const TextSpan(text: "Don't have an account? "),
+                                    TextSpan(
+                                      text: "Sign Up",
                       ),
                     ),
                   ).animate().fadeIn(delay: 450.ms, duration: 500.ms),
