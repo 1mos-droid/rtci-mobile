@@ -137,6 +137,10 @@ class WelcomeScreen extends StatelessWidget {
                         icon: Icons.login_rounded,
                         backgroundColor: theme.colorScheme.primary,
                         onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (_) => const LoginScreen()),
+                          );
                     ],
                   ),
                   child: Center(
