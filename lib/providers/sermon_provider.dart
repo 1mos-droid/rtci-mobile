@@ -19,3 +19,6 @@ class SermonProvider extends ChangeNotifier {
 
     try {
       final snapshot = await _firestore
+          .collection('sermons')
+          .orderBy('date', descending: true)
+          .get();
