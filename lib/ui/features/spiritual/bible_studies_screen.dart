@@ -343,6 +343,10 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       if (module.subtitle != null && module.subtitle!.isNotEmpty) ...[
+                                        Text(
+                                          module.subtitle!,
+                                          style: TextStyle(fontWeight: FontWeight.bold, color: ObsidianTheme.secondaryGold, fontSize: 14),
+                                        ),
                 )
               ],
             ),
