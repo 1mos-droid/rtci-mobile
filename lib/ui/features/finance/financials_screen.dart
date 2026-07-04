@@ -93,6 +93,10 @@ class FinancialsScreen extends ConsumerWidget {
                             children: [
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SkeletonContainer(width: 140, height: 16),
+                                  SizedBox(height: 6),
+                                  SkeletonContainer(width: 80, height: 11),
                 : transactions.isEmpty
                   ? SliverFillRemaining(child: Center(child: Text("No records logged.", style: TextStyle(color: ObsidianTheme.textVibrant))))
                   : SliverList(
