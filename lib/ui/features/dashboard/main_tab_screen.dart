@@ -74,10 +74,6 @@ class _MainTabScreenState extends State<MainTabScreen> {
         ),
       ),
     );
-            ),
-            NavigationDestination(
-              icon: Icon(Icons.menu_outlined),
-              selectedIcon: Icon(Icons.menu_rounded),
               label: 'Menu',
             ),
           ],
