@@ -253,7 +253,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       key: _formKey,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
-                            ),
+                        children: [
+                          Text(
+                            "SIGN IN",
                       ),
                     ),
                   ).animate().fadeIn(delay: 450.ms, duration: 500.ms),
