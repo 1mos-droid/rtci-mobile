@@ -169,3 +169,7 @@ class _ExportingDialogState extends State<_ExportingDialog> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
+    
+    return AlertDialog(
+      backgroundColor: isDark ? const Color(0xFF1E202C) : Colors.white,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
