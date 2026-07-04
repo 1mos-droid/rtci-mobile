@@ -107,6 +107,10 @@ class _GroupsScreenState extends ConsumerState<GroupsScreen> {
                           setDialogState(() => selectedType = val);
                         }
                       },
+                    ),
+                  ],
+                ),
+              ),
   @override
   Widget build(BuildContext context) {
     final groupsProv = ref.watch(groupsProvider);
