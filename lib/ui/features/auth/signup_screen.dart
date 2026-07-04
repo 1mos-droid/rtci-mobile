@@ -216,6 +216,10 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                         suffixIcon: IconButton(
                                           icon: Icon(
                                             _showConfirmPassword ? Icons.visibility_off_rounded : Icons.visibility_rounded,
+                                            color: ObsidianTheme.textMuted,
+                                            size: 20,
+                                          ),
+                                          onPressed: () => setState(() => _showConfirmPassword = !_showConfirmPassword),
                                             ),
                                             const SizedBox(width: 12),
                                             Text(
