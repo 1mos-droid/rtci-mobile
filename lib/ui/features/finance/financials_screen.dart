@@ -167,4 +167,8 @@ class FinancialsScreen extends ConsumerWidget {
     final amountController = TextEditingController();
     final descController = TextEditingController();
     
+    String selectedType = 'contribution';
+    String selectedCategory = 'Tithe';
+    String selectedCampus = 'Main';
+    
 }
