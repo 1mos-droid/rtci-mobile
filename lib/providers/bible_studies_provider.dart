@@ -185,4 +185,8 @@ class BibleStudiesProvider extends ChangeNotifier {
     } catch (e) {
       debugPrint('Error deleting study resource: $e');
       return false;
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
 }
