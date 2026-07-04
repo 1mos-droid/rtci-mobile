@@ -82,7 +82,9 @@ class FinancialsScreen extends ConsumerWidget {
             SliverPadding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               sliver: finance.isLoading && transactions.isEmpty
-                ? const SliverFillRemaining(child: Center(child: CircularProgressIndicator()))
+                ? SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (context, index) => const Padding(
                 : transactions.isEmpty
                   ? SliverFillRemaining(child: Center(child: Text("No records logged.", style: TextStyle(color: ObsidianTheme.textVibrant))))
                   : SliverList(
