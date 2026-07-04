@@ -131,6 +131,10 @@ class _GroupsScreenState extends ConsumerState<GroupsScreen> {
                         location: location,
                         type: selectedType,
                         description: desc.isEmpty ? null : desc,
+                        campus: campus.isEmpty ? 'Main' : campus,
+                      );
+                      if (success && mounted) {
+                        ScaffoldMessenger.of(context).showSnackBar(
   @override
   Widget build(BuildContext context) {
     final groupsProv = ref.watch(groupsProvider);
