@@ -323,7 +323,9 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
                 ),
                 const SizedBox(height: 24),
                 Row(
-                  child: OutlinedButton(
+                  children: [
+                    Expanded(
+                      child: OutlinedButton(
                     onPressed: () {},
                     child: const Text("VIEW SYLLABUS"),
                   ),
