@@ -189,10 +189,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             child: Image.asset(
                               'assets/church_logo.png',
                               fit: BoxFit.contain,
-                                        "Sign In with Google",
-                                        style: TextStyle(
-                                          color: isDark ? Colors.black : Colors.white,
-                                          fontWeight: FontWeight.w700,
                                           fontSize: 16,
                                         ),
                                       ),
