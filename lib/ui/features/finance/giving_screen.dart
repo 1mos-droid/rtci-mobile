@@ -157,11 +157,11 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                   } catch (e) {
                     scaffoldMessenger.showSnackBar(
                       SnackBar(content: Text("Error opening payment: $e"))
+                    );
                   }
                 },
-                child: const Text("CONFIRM PAYMENT", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800, letterSpacing: 1.0)),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 12),
               TextButton(
                 onPressed: () => Navigator.pop(ctx),
                 child: Text("CANCEL", style: TextStyle(color: ObsidianTheme.textMuted, fontSize: 16, fontWeight: FontWeight.bold)),
