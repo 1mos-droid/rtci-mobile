@@ -806,6 +806,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                             ),
                             const Text(
                               "45:12",
+                              style: TextStyle(color: Colors.grey, fontSize: 12),
+                            ),
+                          ],
+                        ),
               ),
             ),
             child: Column(
