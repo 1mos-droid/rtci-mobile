@@ -284,4 +284,8 @@ class FinancialsScreen extends ConsumerWidget {
                         prefixIcon: Icon(Icons.location_on_outlined),
                       ),
                       items: campuses.map((cp) => DropdownMenuItem(
+                        value: cp,
+                        child: Text(cp),
+                      )).toList(),
+                      onChanged: (val) {
 }
