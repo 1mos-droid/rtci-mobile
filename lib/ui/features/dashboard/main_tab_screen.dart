@@ -107,6 +107,7 @@ class _MainTabScreenState extends State<MainTabScreen> {
               scale: isSelected ? 1.12 : 1.0,
               duration: const Duration(milliseconds: 200),
               child: Icon(
+                isSelected ? activeIcon : inactiveIcon,
                 color: isSelected ? activeColor : inactiveColor,
                 size: 24,
               ),
@@ -116,9 +117,8 @@ class _MainTabScreenState extends State<MainTabScreen> {
               label,
               style: TextStyle(
                 fontSize: 10,
-                fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+                fontWeight: isSelected ? FontWeight.w800 : FontWeight.w500,
                 color: isSelected ? activeColor : inactiveColor,
-                letterSpacing: -0.2,
               ),
             ),
           ],
