@@ -385,6 +385,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                 ),
                               ),
                               child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  FaIcon(
+                                    FontAwesomeIcons.google,
                       ),
                     ),
                   ).animate().fadeIn(delay: 450.ms, duration: 500.ms),
