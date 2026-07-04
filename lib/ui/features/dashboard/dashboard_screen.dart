@@ -1007,6 +1007,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
     String selectedCategory = 'Sermon';
     final categories = ['Sermon', 'Media'];
 
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
                   ),
                 ),
               ],
