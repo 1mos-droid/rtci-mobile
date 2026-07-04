@@ -102,3 +102,7 @@ class _CustomPrimaryButtonState extends State<CustomPrimaryButton> with SingleTi
                       widget.text,
                       style: GoogleFonts.plusJakartaSans(
                         color: fg,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700,
+                        letterSpacing: 0.2,
+                      ),
