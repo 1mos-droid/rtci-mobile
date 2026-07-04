@@ -78,10 +78,12 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                 style: GoogleFonts.cinzel(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
+                  color: ObsidianTheme.textVibrant,
+                ),
               ),
               const SizedBox(height: 16),
               Text(
-                "You are giving",
+                "You are supporting our church with",
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: ObsidianTheme.textMuted),
               ),
