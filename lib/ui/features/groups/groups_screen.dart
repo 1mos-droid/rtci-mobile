@@ -324,6 +324,7 @@ class _GroupsScreenState extends ConsumerState<GroupsScreen> {
                                           padding: EdgeInsets.zero,
                                           icon: const Icon(Icons.delete_outline, color: Colors.redAccent, size: 20),
                                           onPressed: () => ref.read(groupsProvider).deleteGroup(grp.id),
+                                        ),
                                     ],
                                   ),
                                   const SizedBox(height: 12),
@@ -350,7 +351,7 @@ class _GroupsScreenState extends ConsumerState<GroupsScreen> {
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              "LEADER: ${grp.leaderName.toUpperCase() ?? 'UNASSIGNED'}",
+                                              "LEADER: ${grp.leaderName.toUpperCase()}",
                                               style: Theme.of(context).textTheme.labelMedium?.copyWith(
                                                     fontSize: 8.5,
                                                     color: ObsidianTheme.textMuted,
