@@ -669,6 +669,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
     bool isPlaying = false;
     
     showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (ctx) {
               ),
             ),
             child: Column(
