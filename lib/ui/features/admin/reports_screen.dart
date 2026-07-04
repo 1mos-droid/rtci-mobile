@@ -95,4 +95,9 @@ class ReportsScreen extends StatelessWidget {
           title: title,
           format: format,
           onComplete: () {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text("$title exported as $format successfully!"),
+                backgroundColor: Colors.green,
+                behavior: SnackBarBehavior.floating,
 }
