@@ -363,3 +363,7 @@ class ObsidianTheme {
 
 class Neumorphic {
   static BoxDecoration decoration({
+    required bool isDark,
+    double borderRadius = 16,
+    bool isPressed = false,
+    BoxShape shape = BoxShape.rectangle,
