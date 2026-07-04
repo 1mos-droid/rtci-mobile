@@ -177,3 +177,7 @@ class _ExportingDialogState extends State<_ExportingDialog> {
         padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
+          children: [
+            if (!_finished) ...[
+              CircularProgressIndicator(
+                value: _progress,
