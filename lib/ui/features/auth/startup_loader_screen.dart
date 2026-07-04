@@ -40,3 +40,8 @@ class StartupLoaderScreen extends StatelessWidget {
           .animate(onPlay: (controller) => controller.repeat())
           .rotate(duration: 1.5.seconds);
     }
+
+    // 2. Opposite Ring (Crimson)
+    Widget crimsonRing = SizedBox(
+      width: 136,
+      height: 136,
