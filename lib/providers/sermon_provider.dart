@@ -39,3 +39,7 @@ class SermonProvider extends ChangeNotifier {
     required String duration,
     required String imageUrl,
     required String tag,
+    String? audioUrl,
+    String? videoUrl,
+  }) async {
+    _isLoading = true;
