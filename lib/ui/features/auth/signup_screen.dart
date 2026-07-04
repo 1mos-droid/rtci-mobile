@@ -360,10 +360,6 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                           ),
                         ),
                       ),
-              const SizedBox(height: 12),
-              Text(
-                "Your account has been successfully created. You can now log in to the portal.",
-                textAlign: TextAlign.center,
                 style: TextStyle(color: ObsidianTheme.textMuted, height: 1.5),
               ),
               const SizedBox(height: 32),
