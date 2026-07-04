@@ -360,10 +360,6 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                           ),
                         ),
                       ),
-                    ),
-                  ),
-                ),
-        ),
       ),
     );
   }
