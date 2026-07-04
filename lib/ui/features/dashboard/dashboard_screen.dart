@@ -1103,6 +1103,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                       TextFormField(
                         controller: imageController,
                         style: TextStyle(color: ObsidianTheme.textVibrant),
+                        decoration: const InputDecoration(
+                          labelText: "Cover Image URL (Optional)",
+                          prefixIcon: Icon(Icons.image_outlined),
+                        ),
                   ),
                 ),
               ],
