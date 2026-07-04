@@ -150,3 +150,7 @@ class ContentCard extends StatelessWidget {
         border: Border.all(
           color: isDark ? Colors.white.withOpacity(0.06) : Colors.black.withOpacity(0.04),
           width: 1.0,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(isDark ? 0.2 : 0.03),
