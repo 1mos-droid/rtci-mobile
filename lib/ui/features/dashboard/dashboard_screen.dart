@@ -842,6 +842,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Announcements & Alerts",
                   ),
                 ),
                 Text(
