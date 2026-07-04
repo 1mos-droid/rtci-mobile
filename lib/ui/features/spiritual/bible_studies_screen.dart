@@ -161,6 +161,10 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
                 final title = titleController.text.trim();
                 final type = typeController.text.trim();
                 final url = urlController.text.trim();
+                if (title.isNotEmpty && type.isNotEmpty && url.isNotEmpty) {
+                  Navigator.pop(dialogContext);
+                  final success = await ref.read(bibleStudiesProvider).addResource(
+                    moduleId: moduleId,
   @override
   Widget build(BuildContext context) {
     final libProv = ref.watch(bibleStudiesProvider);
