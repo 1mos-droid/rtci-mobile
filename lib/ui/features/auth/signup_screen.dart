@@ -132,10 +132,8 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                 ),
                               ).animate().fadeIn(delay: 100.ms, duration: 500.ms).slideY(begin: 0.2, end: 0, curve: Curves.easeOutQuad),
                               
-                              const SizedBox(height: 24),
+                              const SizedBox(height: 28),
 
-                              ElevatedButton(
-                                onPressed: authState.isLoading ? null : _handleSignup,
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: ObsidianTheme.primaryCrimson,
                                   foregroundColor: Colors.white,
