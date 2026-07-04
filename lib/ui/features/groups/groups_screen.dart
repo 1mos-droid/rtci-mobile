@@ -83,6 +83,10 @@ class _GroupsScreenState extends ConsumerState<GroupsScreen> {
                     ),
                     const SizedBox(height: 8),
                     TextField(
+                      controller: descController, 
+                      decoration: const InputDecoration(labelText: "Description"),
+                      style: TextStyle(color: ObsidianTheme.textVibrant),
+                    ),
   @override
   Widget build(BuildContext context) {
     final groupsProv = ref.watch(groupsProvider);
