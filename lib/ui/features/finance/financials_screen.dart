@@ -336,4 +336,8 @@ class FinancialsScreen extends ConsumerWidget {
                             Navigator.pop(context); // Dismiss loading
                             
                             ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(success 
+                                  ? "Transaction logged successfully!" 
+                                  : "Failed to log transaction. Try again."),
 }
