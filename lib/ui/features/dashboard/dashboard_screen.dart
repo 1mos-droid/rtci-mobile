@@ -1115,6 +1115,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                         decoration: const InputDecoration(
                           labelText: "Tag (e.g. Featured, Trending, New)",
                           prefixIcon: Icon(Icons.label_outline),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      TextFormField(
                   ),
                 ),
               ],
