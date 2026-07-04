@@ -196,4 +196,8 @@ class GroupsProvider extends ChangeNotifier {
       
       // Clean up memberships belonging to this group
       final membershipsSnapshot = await _firestore
+          .collection('group_memberships')
+          .where('group_id', isEqualTo: groupId)
+          .get();
+      for (final doc in membershipsSnapshot.docs) {
 }
