@@ -200,10 +200,6 @@ class WelcomeScreen extends StatelessWidget {
                 ),
               ],
             ),
-              // Pure clean white card plate
-              GlassCard(
-                padding: const EdgeInsets.all(26),
-                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(
