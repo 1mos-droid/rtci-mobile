@@ -464,7 +464,9 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
                 children: [
                   IconButton(
                     icon: Icon(Icons.download, color: ObsidianTheme.textVibrant, size: 20),
-                onPressed: () {},
+                    onPressed: () async {
+                      final url = Uri.tryParse(res.url);
+                      if (url != null && await canLaunchUrl(url)) {
               ),
             ),
           ),
