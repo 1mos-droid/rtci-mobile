@@ -31,3 +31,7 @@ class Sermon {
     return {
       'title': title,
       'speaker': speaker,
+      'category': category,
+      'duration': duration,
+      'date': FieldValue.serverTimestamp(),
+      'image_url': imageUrl,
