@@ -231,6 +231,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     ),
                     decoration: BoxDecoration(
                       color: panelColor,
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(28),
+                        topRight: Radius.circular(28),
+                      ),
                         ),
                       ],
                     ),
