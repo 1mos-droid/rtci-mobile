@@ -762,6 +762,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                       offset: const Offset(0, 4),
                                     )
                                   ]
+                                ),
+                                child: Icon(
+                                  isPlaying ? Icons.pause_rounded : Icons.play_arrow_rounded,
+                                  color: Colors.white,
               ),
             ),
             child: Column(
