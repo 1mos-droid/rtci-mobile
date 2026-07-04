@@ -35,6 +35,10 @@ class FinancialProvider extends ChangeNotifier {
   
   bool get isLoading => _isLoading;
   
+  double get totalRevenue => transactions
+      .where((t) => t.type == 'contribution' && t.status == 'completed')
+      .fold(0.0, (sum, item) => sum + item.amount);
+      
 
   FinancialProvider() {
     _init();
