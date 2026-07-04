@@ -518,6 +518,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                           color: ObsidianTheme.textVibrant,
                           fontSize: 12,
                           letterSpacing: 1.5,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      broadcasts.isLoading
                   ],
                 ),
               ),
