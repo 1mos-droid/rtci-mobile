@@ -574,6 +574,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                                 DateFormat('MMM dd, yyyy').format(msg.createdAt),
                                                 style: theme.textTheme.bodySmall?.copyWith(fontSize: 11),
                                               ),
+                                            ],
+                                          ),
+                                          const SizedBox(height: 8),
+                                          Text(
                   ],
                 ),
               ),
