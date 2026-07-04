@@ -112,10 +112,6 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
                         child: Form(
                           key: _formKey,
-                          "Create Account",
-                          style: Theme.of(context).textTheme.displayMedium,
-                        ).animate().fadeIn(duration: 500.ms).slideY(begin: 0.2, end: 0, curve: Curves.easeOutQuad),
-                        const SizedBox(height: 6),
                         Text(
                           "Fill in the fields below to create your account.",
                           style: Theme.of(context).textTheme.bodyMedium,
