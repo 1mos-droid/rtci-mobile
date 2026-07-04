@@ -119,6 +119,7 @@ class _MainTabScreenState extends State<MainTabScreen> {
                 fontSize: 10,
                 fontWeight: isSelected ? FontWeight.w800 : FontWeight.w500,
                 color: isSelected ? activeColor : inactiveColor,
+                letterSpacing: -0.1,
               ),
             ),
           ],

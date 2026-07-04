@@ -6,6 +6,7 @@ import 'package:rtc_mobile/theme/app_theme.dart';
 import 'package:rtc_mobile/widgets/glass_card.dart';
 import 'package:rtc_mobile/widgets/mesh_gradient_background.dart';
 import 'package:rtc_mobile/providers/riverpod_providers.dart';
+import 'package:rtc_mobile/widgets/skeleton_loader.dart';
 
 class FinancialsScreen extends ConsumerWidget {
   const FinancialsScreen({super.key});
@@ -19,7 +20,7 @@ class FinancialsScreen extends ConsumerWidget {
       backgroundColor: ObsidianTheme.backgroundDark,
       floatingActionButton: FloatingActionButton(
         backgroundColor: ObsidianTheme.primaryCrimson,
-        onPressed: () {},
+        onPressed: () => _showAddTransactionSheet(context, ref),
         child: const Icon(Icons.add, color: Colors.white),
       ),
       body: MeshGradientBackground(
