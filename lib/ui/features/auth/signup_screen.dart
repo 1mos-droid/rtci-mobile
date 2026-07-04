@@ -124,7 +124,9 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                               
                               const SizedBox(height: 6),
                               
-                                style: TextStyle(color: ObsidianTheme.textVibrant),
+                              Text(
+                                "Join the fellowship by creating your digital member profile.",
+                                style: theme.textTheme.bodyMedium?.copyWith(
                                 decoration: InputDecoration(
                                   labelText: "Email Address",
                                   hintText: "your@email.com",
