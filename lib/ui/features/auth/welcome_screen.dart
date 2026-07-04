@@ -200,10 +200,6 @@ class WelcomeScreen extends StatelessWidget {
                 ),
               ],
             ),
-                "Chapel International",
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                      fontSize: 18,
                       color: ObsidianTheme.secondaryGold,
                       fontStyle: FontStyle.italic,
                     ),
