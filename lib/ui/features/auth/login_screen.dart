@@ -101,6 +101,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           context: context,
           builder: (_) => AlertDialog.adaptive(
             title: const Text("Password Reset Sent"),
+            content: Text("A link to reset your password has been sent to $email. Please follow instructions in the email."),
+            actions: [
+              TextButton(
+                child: const Text("OK"),
   @override
   Widget build(BuildContext context) {
     final authState = ref.watch(authNotifierProvider);
