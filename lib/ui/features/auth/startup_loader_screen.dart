@@ -73,3 +73,7 @@ class StartupLoaderScreen extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(isDark ? 0.4 : 0.04),
+            blurRadius: 16,
+            offset: const Offset(0, 4),
+          )
+        ],
