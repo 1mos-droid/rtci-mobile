@@ -210,3 +210,7 @@ class StartupLoaderScreen extends StatelessWidget {
             messageWidget,
           ],
         ),
+      ),
+    );
+  }
+}
