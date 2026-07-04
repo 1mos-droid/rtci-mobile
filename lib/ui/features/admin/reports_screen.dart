@@ -141,3 +141,7 @@ class _ExportingDialogState extends State<_ExportingDialog> {
     int currentStep = 0;
     
     // Simulate step progress
+    Future.doWhile(() async {
+      await Future.delayed(duration);
+      if (!mounted) return false;
+      
