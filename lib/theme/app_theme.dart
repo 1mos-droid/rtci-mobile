@@ -118,6 +118,10 @@ class AppTheme {
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
           borderSide: const BorderSide(color: systemRed, width: 1.0),
+        ),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+        labelStyle: const TextStyle(color: systemGray, fontSize: 15, fontWeight: FontWeight.w500),
+        hintStyle: const TextStyle(color: systemGray2, fontSize: 15),
       ),
     );
   }
