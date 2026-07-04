@@ -347,3 +347,7 @@ class DonationChip extends StatelessWidget {
                 width: 1.0,
               ),
             ),
+            alignment: Alignment.center,
+            child: Text(
+              label,
+              style: GoogleFonts.plusJakartaSans(
