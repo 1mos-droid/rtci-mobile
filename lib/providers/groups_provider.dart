@@ -176,4 +176,8 @@ class GroupsProvider extends ChangeNotifier {
         'description': description ?? '',
         'campus': campus ?? 'Main',
       });
+      await fetchGroups();
+      return true;
+    } catch (e) {
+      debugPrint('Error adding group: $e');
 }
