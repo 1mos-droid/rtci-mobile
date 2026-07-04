@@ -29,8 +29,8 @@ class WelcomeScreen extends StatelessWidget {
                 
                 // Elegant brand logo with floating glow animation
                 Center(
-                  width: 90,
-                  height: 90,
+                  child: Container(
+                    width: 100,
                   decoration: BoxDecoration(
                     color: ObsidianTheme.backgroundDark,
                     shape: BoxShape.circle,
