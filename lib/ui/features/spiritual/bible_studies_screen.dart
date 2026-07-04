@@ -85,6 +85,10 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
             ),
             ElevatedButton(
               onPressed: () async {
+                final title = titleController.text.trim();
+                final subtitle = subtitleController.text.trim();
+                final desc = descController.text.trim();
+                final img = imgController.text.trim();
   @override
   Widget build(BuildContext context) {
     final libProv = ref.watch(bibleStudiesProvider);
