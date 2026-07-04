@@ -123,9 +123,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                               ).animate().fadeIn(duration: 500.ms).slideY(begin: 0.2, end: 0, curve: Curves.easeOutQuad),
                               
                               const SizedBox(height: 6),
-                              TextFormField(
-                                controller: _emailController,
-                                keyboardType: TextInputType.emailAddress,
+                              
                                 style: TextStyle(color: ObsidianTheme.textVibrant),
                                 decoration: InputDecoration(
                                   labelText: "Email Address",
