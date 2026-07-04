@@ -135,6 +135,10 @@ class SettingsScreen extends ConsumerWidget {
                             trailing: Icon(Icons.chevron_right, color: ObsidianTheme.textMuted),
                             onTap: () async {
                               final email = user.email;
+                              if (email.isNotEmpty) {
+                                try {
+                                  showDialog(
+                                    context: context,
                           ),
                           ListTile(
                             contentPadding: EdgeInsets.zero,
