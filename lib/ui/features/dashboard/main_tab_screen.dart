@@ -74,10 +74,6 @@ class _MainTabScreenState extends State<MainTabScreen> {
         ),
       ),
     );
-              label: 'Menu',
-            ),
-          ],
-        ),
       );
     }
   }
