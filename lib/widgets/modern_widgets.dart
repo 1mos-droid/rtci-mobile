@@ -314,3 +314,8 @@ class DonationChip extends StatelessWidget {
     required this.isSelected,
     required this.onTap,
   });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
