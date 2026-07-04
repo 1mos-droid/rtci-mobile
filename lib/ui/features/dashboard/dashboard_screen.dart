@@ -746,6 +746,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                       });
                                     });
                                   } else {
+                                    playbackTimer?.cancel();
+                                  }
+                                });
+                              },
               ),
             ),
             child: Column(
