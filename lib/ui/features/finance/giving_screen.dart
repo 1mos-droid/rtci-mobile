@@ -342,7 +342,9 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
           ),
         ),
         centerTitle: true,
-        body: SingleChildScrollView(
+      ),
+      body: MeshGradientBackground(
+        child: SafeArea(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
