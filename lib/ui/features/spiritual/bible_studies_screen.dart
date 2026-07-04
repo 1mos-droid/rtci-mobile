@@ -436,6 +436,7 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
             ),
           ),
         ),
+      );
     }
 
     if (libProv.resources.isEmpty) {
@@ -458,7 +459,8 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
               ),
               title: Text(res.title, style: TextStyle(color: ObsidianTheme.textVibrant, fontWeight: FontWeight.bold)),
               subtitle: Text(res.type.toUpperCase(), style: TextStyle(color: ObsidianTheme.textMuted, fontSize: 10)),
-              trailing: IconButton(
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
                 icon: Icon(Icons.download, color: ObsidianTheme.textVibrant, size: 20),
                 onPressed: () {},
               ),
