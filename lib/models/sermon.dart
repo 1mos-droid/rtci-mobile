@@ -19,3 +19,7 @@ class Sermon {
     required this.speaker,
     required this.category,
     required this.duration,
+    required this.date,
+    required this.imageUrl,
+    required this.tag,
+    this.audioUrl,
