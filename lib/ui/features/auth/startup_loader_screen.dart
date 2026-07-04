@@ -33,3 +33,7 @@ class StartupLoaderScreen extends StatelessWidget {
         value: isTest ? 0.75 : null,
         valueColor: AlwaysStoppedAnimation<Color>(secondaryAccent),
         backgroundColor: Colors.transparent,
+      ),
+    );
+    if (!isTest) {
+      sweepRing = sweepRing
