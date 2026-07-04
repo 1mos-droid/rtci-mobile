@@ -455,6 +455,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                               if (isLeader)
                                 IconButton(
                                   icon: const Icon(Icons.add_circle_outline_rounded, size: 20),
+                                  color: theme.colorScheme.primary,
+                                  onPressed: () => _showAddSermonSheet(context),
+                                ),
+                              Text(
                                   ),
                                 )
                                 .toList(),
