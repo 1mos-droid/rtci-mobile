@@ -1051,6 +1051,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                           prefixIcon: Icon(Icons.title),
                         ),
                         validator: (val) => val == null || val.trim().isEmpty ? "Title is required" : null,
+                      ),
+                      const SizedBox(height: 16),
+                      TextFormField(
+                        controller: speakerController,
                   ),
                 ),
               ],
