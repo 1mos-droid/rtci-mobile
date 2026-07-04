@@ -309,6 +309,10 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                                     style: TextStyle(
                                                       color: isDark ? Colors.black : Colors.white,
                                                       fontWeight: FontWeight.w700,
+                                                      fontSize: 15,
+                                                    ),
+                                                  ),
+                                                ],
                                 ),
                               ),
                             ],
