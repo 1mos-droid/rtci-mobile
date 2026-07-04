@@ -447,7 +447,9 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                               fontWeight: FontWeight.w800,
                               color: ObsidianTheme.textVibrant,
                               fontSize: 12,
-                                .map(
+                              letterSpacing: 1.5,
+                            ),
+                          ),
                                   (e) => Padding(
                                     padding: const EdgeInsets.only(bottom: 12),
                                     child: _buildEventCard(context, e),
