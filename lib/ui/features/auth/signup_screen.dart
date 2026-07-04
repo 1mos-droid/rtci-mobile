@@ -101,9 +101,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                   child: IconButton(
                     icon: Icon(Icons.arrow_back_ios_new_rounded, color: ObsidianTheme.textVibrant, size: 20),
                     onPressed: () => Navigator.pop(context),
-                          ],
-                        ),
-                        const SizedBox(height: 10),
+                  ),
                         
                         Text(
                           "Create Account",
