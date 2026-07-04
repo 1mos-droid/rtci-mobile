@@ -155,8 +155,8 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                         return null;
                                       },
                                     ),
-                              const SizedBox(height: 16),
-                              
+                                    const SizedBox(height: 16),
+                                    
                               GestureDetector(
                                 onTap: authState.isLoading ? null : _handleGoogleSignup,
                                 child: Container(
