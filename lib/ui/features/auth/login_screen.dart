@@ -159,8 +159,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
           // 2. Main Scrollable content containing upper logo space and the solid bottom panel
           SafeArea(
+            bottom: false,
+            child: SingleChildScrollView(
+              physics: const ClampingScrollPhysics(),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   const SizedBox(height: 20),
                   Text(
