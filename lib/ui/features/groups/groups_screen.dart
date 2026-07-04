@@ -70,6 +70,11 @@ class _GroupsScreenState extends ConsumerState<GroupsScreen> {
                       style: TextStyle(color: ObsidianTheme.textVibrant),
                     ),
                     const SizedBox(height: 8),
+                    TextField(
+                      controller: leaderController, 
+                      decoration: const InputDecoration(labelText: "Leader Name"),
+                      style: TextStyle(color: ObsidianTheme.textVibrant),
+                    ),
   @override
   Widget build(BuildContext context) {
     final groupsProv = ref.watch(groupsProvider);
