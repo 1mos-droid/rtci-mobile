@@ -115,9 +115,7 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
                   Navigator.pop(ctx);
                   final scaffoldMessenger = ScaffoldMessenger.of(context);
                   final user = ref.read(authNotifierProvider).value;
-                    memberId: user?.email,
-                    campus: 'Main',
-                  );
+                  
                   if (success && mounted) {
                     _amountController.clear();
                     setState(() => _customAmount = null);
