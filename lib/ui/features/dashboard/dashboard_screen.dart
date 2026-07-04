@@ -459,6 +459,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                                   onPressed: () => _showAddSermonSheet(context),
                                 ),
                               Text(
+                                "See All",
+                                style: GoogleFonts.plusJakartaSans(
+                                  fontWeight: FontWeight.bold,
+                                  color: theme.colorScheme.primary,
                                   ),
                                 )
                                 .toList(),
