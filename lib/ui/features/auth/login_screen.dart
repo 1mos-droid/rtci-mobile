@@ -89,6 +89,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     try {
       showDialog(
         context: context,
+        barrierDismissible: false,
+        builder: (_) => const Center(child: CircularProgressIndicator()),
+      );
+      
   @override
   Widget build(BuildContext context) {
     final authState = ref.watch(authNotifierProvider);
