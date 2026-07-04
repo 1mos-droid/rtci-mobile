@@ -395,3 +395,7 @@ class Neumorphic {
               : [
                   const Color(0xFFF1F5F9),
                   bgColor,
+                ],
+        ),
+        border: Border.all(
+          color: isDark ? Colors.white.withOpacity(0.06) : Colors.black.withOpacity(0.04),
