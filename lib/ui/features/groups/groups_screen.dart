@@ -123,6 +123,10 @@ class _GroupsScreenState extends ConsumerState<GroupsScreen> {
                     final location = locationController.text.trim();
                     final desc = descController.text.trim();
                     final campus = campusController.text.trim();
+                    if (name.isNotEmpty && leader.isNotEmpty && location.isNotEmpty) {
+                      Navigator.pop(dialogContext);
+                      final success = await ref.read(groupsProvider).addGroup(
+                        name: name,
   @override
   Widget build(BuildContext context) {
     final groupsProv = ref.watch(groupsProvider);
