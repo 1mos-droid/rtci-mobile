@@ -445,6 +445,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           ),
           
           // Back button inside safe area overlay
+          SafeArea(
+            child: Align(
+              alignment: Alignment.topLeft,
+              child: Padding(
       ),
     );
   }
