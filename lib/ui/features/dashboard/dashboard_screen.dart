@@ -818,6 +818,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
               ),
             );
           },
+        );
+      },
+    ).then((value) {
+      playbackTimer?.cancel();
                   ),
                 ),
                 Text(
