@@ -411,6 +411,10 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
 
                 Text(
                   "CHOOSE AMOUNT",
+                  style: GoogleFonts.plusJakartaSans(
+                    fontWeight: FontWeight.w800,
+                    color: ObsidianTheme.textMuted,
+                    fontSize: 10,
                     ),
                   );
                 }).toList(),
