@@ -85,6 +85,10 @@ class WelcomeScreen extends StatelessWidget {
                     fontSize: 18,
                     color: AppTheme.accentGold,
                     fontWeight: FontWeight.w600,
+                    letterSpacing: 0.5,
+                  ),
+                ).animate().fadeIn(delay: 400.ms, duration: 600.ms),
+                
                     ],
                   ),
                   child: Center(
