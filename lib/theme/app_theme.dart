@@ -403,3 +403,7 @@ class Neumorphic {
         ),
       );
     }
+
+    return BoxDecoration(
+      color: bgColor,
+      shape: shape,
