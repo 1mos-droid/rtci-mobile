@@ -283,3 +283,7 @@ class ContentCard extends StatelessWidget {
                                 fontSize: 16,
                                 height: 1.3,
                               ),
+                            ),
+                          ),
+                          if (trailing != null) ...[
+                            const SizedBox(width: 8),
