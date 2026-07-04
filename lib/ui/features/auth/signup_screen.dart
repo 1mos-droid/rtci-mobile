@@ -204,6 +204,10 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                     const SizedBox(height: 16),
 
                                     TextFormField(
+                                      controller: _confirmPasswordController,
+                                      obscureText: !_showConfirmPassword,
+                                      style: TextStyle(color: ObsidianTheme.textVibrant, fontSize: 16),
+                                      decoration: InputDecoration(
                                             ),
                                             const SizedBox(width: 12),
                                             Text(
