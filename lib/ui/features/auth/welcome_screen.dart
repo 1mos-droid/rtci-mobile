@@ -200,10 +200,6 @@ class WelcomeScreen extends StatelessWidget {
                 ),
               ],
             ),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: ObsidianTheme.secondaryGold,
-                        foregroundColor: ObsidianTheme.backgroundDark,
-                      ),
                     ),
                     
                     const SizedBox(height: 12),
