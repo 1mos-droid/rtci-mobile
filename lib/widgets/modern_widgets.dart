@@ -178,3 +178,7 @@ class ContentCard extends StatelessWidget {
                           height: 180,
                           width: double.infinity,
                           fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Container(
+                              height: 180,
+                              color: theme.colorScheme.primary.withOpacity(0.05),
