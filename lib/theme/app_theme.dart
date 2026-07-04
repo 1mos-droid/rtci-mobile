@@ -23,6 +23,10 @@ class AppTheme {
 
   static const Color systemBlue = Color(0xFF2563EB);
   static const Color systemGreen = Color(0xFF16A34A);
+  static const Color systemOrange = Color(0xFFEA580C);
+  static const Color systemPink = Color(0xFFDB2777);
+  static const Color systemPurple = Color(0xFF7C3AED);
+  static const Color systemTeal = Color(0xFF0D9488);
 
   static ThemeData get lightTheme {
     return ThemeData(
