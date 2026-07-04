@@ -97,16 +97,16 @@ class _MainTabScreenState extends State<MainTabScreen> {
           color: isSelected 
               ? activeColor.withOpacity(isDark ? 0.12 : 0.08)
               : Colors.transparent,
+          borderRadius: BorderRadius.circular(16),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             AnimatedScale(
-              scale: isSelected ? 1.15 : 1.0,
+              scale: isSelected ? 1.12 : 1.0,
               duration: const Duration(milliseconds: 200),
               child: Icon(
-                icon,
                 color: isSelected ? activeColor : inactiveColor,
                 size: 24,
               ),
