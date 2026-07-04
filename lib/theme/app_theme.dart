@@ -316,16 +316,6 @@ class AppTheme {
   }
 }
 
-class AdaptiveColor extends Color {
-  final int lightValue;
-  final int darkValue;
-
-  const AdaptiveColor(this.lightValue, this.darkValue) : super(lightValue);
-
-  @override
-  int get value => ObsidianTheme.isDark ? darkValue : lightValue;
-}
-
 class ObsidianTheme {
   static ThemeMode currentThemeMode = ThemeMode.system;
 
@@ -359,73 +349,4 @@ class ObsidianTheme {
   static Color get textDark => textVibrant;
   static Color get accentGoldLight => secondaryGold.withOpacity(0.12);
   static Color get accentSage => secondaryGold;
-}
-
-class Neumorphic {
-  static BoxDecoration decoration({
-    required bool isDark,
-    double borderRadius = 16,
-    bool isPressed = false,
-    BoxShape shape = BoxShape.rectangle,
-    Color? customBgColor,
-  }) {
-    final bgColor = customBgColor ?? (isDark ? const Color(0xFF151B2C) : Colors.white);
-    
-    // Very subtle, modern drop shadows designed to pass neumorphic offsets in tests
-    final lightShadowColor = isDark 
-        ? Colors.black.withOpacity(0.2)
-        : Colors.white.withOpacity(0.9);
-    final darkShadowColor = isDark 
-        ? Colors.black.withOpacity(0.4) 
-        : Colors.black.withOpacity(0.03);
-
-    if (isPressed) {
-      return BoxDecoration(
-        color: bgColor,
-        shape: shape,
-        borderRadius: shape == BoxShape.circle ? null : BorderRadius.circular(borderRadius),
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: isDark 
-              ? [
-                  const Color(0xFF0F1423), 
-                  bgColor,
-                ]
-              : [
-                  const Color(0xFFF1F5F9),
-                  bgColor,
-                ],
-        ),
-        border: Border.all(
-          color: isDark ? Colors.white.withOpacity(0.06) : Colors.black.withOpacity(0.04),
-          width: 1.0,
-        ),
-      );
-    }
-
-    return BoxDecoration(
-      color: bgColor,
-      shape: shape,
-      borderRadius: shape == BoxShape.circle ? null : BorderRadius.circular(borderRadius),
-      border: Border.all(
-        color: isDark ? Colors.white.withOpacity(0.04) : Colors.black.withOpacity(0.02),
-        width: 1.0,
-      ),
-      boxShadow: [
-        BoxShadow(
-          color: darkShadowColor,
-          offset: const Offset(6, 6),
-          blurRadius: 12,
-          spreadRadius: 1,
-        ),
-        BoxShadow(
-          color: lightShadowColor,
-          offset: const Offset(-6, -6),
-          blurRadius: 12,
-          spreadRadius: 1,
-        ),
-      ],
-    );
-  }
 }
