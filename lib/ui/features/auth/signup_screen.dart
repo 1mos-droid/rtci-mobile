@@ -80,6 +80,11 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
         MaterialPageRoute(builder: (_) => const MainTabScreen()),
         (route) => false,
       );
+    } else if (mounted && authState.hasError) {
+      final errorMsg = authState.error?.toString() ?? "Google Sign-Up failed.";
+      if (!errorMsg.contains("cancelled")) {
+        setState(() => _errorMessage = errorMsg.replaceAll('Exception: ', ''));
+      }
     }
   }
 

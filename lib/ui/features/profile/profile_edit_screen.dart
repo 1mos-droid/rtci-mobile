@@ -21,13 +21,16 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
   late TextEditingController _nameController;
   final _formKey = GlobalKey<FormState>();
   final ImagePicker _picker = ImagePicker();
+  bool _hasInitializedName = false;
 
   @override
   void initState() {
     super.initState();
-    // Use ref.read for initial value to avoid rebuild loop if needed
     final authUser = ref.read(authNotifierProvider).value;
     _nameController = TextEditingController(text: authUser?.name ?? '');
+    if (authUser?.name.isNotEmpty ?? false) {
+      _hasInitializedName = true;
+    }
   }
 
   @override
@@ -107,7 +110,17 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
           ? const CustomLogoLoader(message: "Updating Records...")
           : authState.when(
               data: (user) {
-                if (user == null) return const SizedBox.shrink();
+                if (user == null) {
+                  return const Center(child: Text("No profile found. Please sign in again."));
+                }
+                if (!_hasInitializedName && user.name.isNotEmpty) {
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    if (mounted) {
+                      _nameController.text = user.name;
+                      _hasInitializedName = true;
+                    }
+                  });
+                }
                 return CustomScrollView(
                   physics: const BouncingScrollPhysics(),
                   slivers: [

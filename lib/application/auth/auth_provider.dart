@@ -22,17 +22,30 @@ class AuthNotifier extends _$AuthNotifier {
     final user = ref.watch(authStateChangesProvider).value;
     if (user == null) return null;
     
-    final profile = await ref.read(authRepositoryProvider).fetchUserProfile(user.uid);
-    if (profile != null) {
-      // Side effect: update notification token
-      NotificationService().updateToken();
-      return profile;
+    try {
+      var profile = await ref.read(authRepositoryProvider).fetchUserProfile(user.uid);
+      if (profile == null) {
+        await ref.read(authRepositoryProvider).createProfileIfMissing(user);
+        profile = await ref.read(authRepositoryProvider).fetchUserProfile(user.uid);
+      }
+      if (profile != null) {
+        try {
+          NotificationService().updateToken();
+        } catch (_) {}
+        return profile;
+      }
+    } catch (e) {
+      // Fallback if network or firestore fails
     }
     
     return AppUser(
       id: user.uid,
       email: user.email ?? '',
-      name: user.displayName ?? user.email?.split('@')[0] ?? 'Member',
+      name: (user.displayName != null && user.displayName!.trim().isNotEmpty)
+          ? user.displayName!
+          : (user.email != null && user.email!.contains('@')
+              ? user.email!.split('@')[0]
+              : 'Member'),
       avatarUrl: user.photoURL,
       role: UserRole.member,
     );
@@ -42,20 +55,30 @@ class AuthNotifier extends _$AuthNotifier {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
       await ref.read(authRepositoryProvider).login(email, password);
-      // build() will automatically re-run due to authStateChangesProvider
-      return state.value; 
+      return ref.read(authNotifierProvider).value; 
     });
   }
 
   Future<void> signInWithGoogle() async {
     state = const AsyncValue.loading();
-    state = await AsyncValue.guard(() async {
+    try {
       final cred = await ref.read(authRepositoryProvider).signInWithGoogle();
       if (cred.user != null) {
         await ref.read(authRepositoryProvider).createProfileIfMissing(cred.user!);
+        final profile = await ref.read(authRepositoryProvider).fetchUserProfile(cred.user!.uid);
+        state = AsyncValue.data(profile ?? AppUser(
+          id: cred.user!.uid,
+          email: cred.user!.email ?? '',
+          name: cred.user!.displayName ?? 'Member',
+          avatarUrl: cred.user!.photoURL,
+          role: UserRole.member,
+        ));
+      } else {
+        state = AsyncValue.data(null);
       }
-      return state.value;
-    });
+    } catch (e, st) {
+      state = AsyncValue.error(e, st);
+    }
   }
 
   Future<void> register(String fullName, String email, String password, {String? department}) async {

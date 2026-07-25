@@ -84,7 +84,7 @@ class _MembersScreenState extends ConsumerState<MembersScreen> {
                             CircleAvatar(
                               backgroundColor: ObsidianTheme.primaryCrimson.withValues(alpha: 0.2),
                               child: Text(
-                                member.name[0],
+                                member.name.isNotEmpty ? member.name[0] : 'M',
                                 style: TextStyle(
                                   color: ObsidianTheme.primaryCrimson,
                                   fontWeight: FontWeight.bold,

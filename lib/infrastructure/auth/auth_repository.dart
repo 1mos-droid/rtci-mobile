@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -62,17 +63,28 @@ class AuthRepository {
     return await ref.getDownloadURL();
   }
 
+  bool _googleSignInInitialized = false;
+
+  Future<void> _ensureGoogleSignInInitialized() async {
+    if (!_googleSignInInitialized) {
+      try {
+        await _googleSignIn.initialize(
+          serverClientId: '381753713314-0bjahjac04c2ibr5m7b6a780meni572s.apps.googleusercontent.com',
+        );
+      } catch (e) {
+        print('GoogleSignIn init info: $e');
+      }
+      _googleSignInInitialized = true;
+    }
+  }
+
   Future<UserCredential> signInWithGoogle() async {
     try {
-      // Ensure Google Sign In is initialized with serverClientId
-      await _googleSignIn.initialize(
-        serverClientId: '381753713314-0bjahjac04c2ibr5m7b6a780meni572s.apps.googleusercontent.com',
-      );
+      await _ensureGoogleSignInInitialized();
 
       final gsi.GoogleSignInAccount googleUser = await _googleSignIn.authenticate();
       final gsi.GoogleSignInAuthentication googleAuth = googleUser.authentication;
       
-      // Retrieve access token via authorizationClient
       final authorization = await googleUser.authorizationClient.authorizeScopes([
         'email',
         'https://www.googleapis.com/auth/userinfo.profile',
@@ -84,25 +96,36 @@ class AuthRepository {
         idToken: googleAuth.idToken,
       );
 
-      return await _auth.signInWithCredential(credential);
+      final userCredential = await _auth.signInWithCredential(credential);
+      if (userCredential.user != null) {
+        await createProfileIfMissing(userCredential.user!);
+      }
+      return userCredential;
     } catch (e) {
-      // On Android 14+ Credential Manager may throw GetCredentialException if no saved accounts exist.
-      // In this case, we catch the error to prevent app crash and let the UI handle it.
       print('Google Sign-In Error: $e');
       rethrow;
     }
   }
 
   Future<void> createProfileIfMissing(User user) async {
-    final doc = await _firestore.collection('profiles').doc(user.uid).get();
-    if (!doc.exists) {
-      await _firestore.collection('profiles').doc(user.uid).set({
-        'name': user.displayName ?? 'Member',
-        'email': user.email,
-        'role': 'member',
-        'avatar_url': user.photoURL,
-        'created_at': FieldValue.serverTimestamp(),
-      });
+    try {
+      final doc = await _firestore.collection('profiles').doc(user.uid).get();
+      if (!doc.exists) {
+        final displayName = (user.displayName != null && user.displayName!.trim().isNotEmpty)
+            ? user.displayName!
+            : (user.email != null && user.email!.contains('@')
+                ? user.email!.split('@')[0]
+                : 'Member');
+        await _firestore.collection('profiles').doc(user.uid).set({
+          'name': displayName,
+          'email': user.email ?? '',
+          'role': 'member',
+          'avatar_url': user.photoURL,
+          'created_at': FieldValue.serverTimestamp(),
+        });
+      }
+    } catch (e) {
+      print('Error creating profile if missing: $e');
     }
   }
 }

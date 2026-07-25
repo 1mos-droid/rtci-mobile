@@ -69,6 +69,18 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         MaterialPageRoute(builder: (_) => const MainTabScreen()),
         (route) => false,
       );
+    } else if (mounted && authState.hasError) {
+      final errorMsg = authState.error?.toString() ?? "Google Sign-In failed.";
+      if (!errorMsg.contains("cancelled")) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(errorMsg.replaceAll('Exception: ', '')),
+            backgroundColor: Theme.of(context).colorScheme.error,
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          ),
+        );
+      }
     }
   }
 
