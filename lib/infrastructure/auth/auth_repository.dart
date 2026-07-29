@@ -85,14 +85,20 @@ class AuthRepository {
       final gsi.GoogleSignInAccount googleUser = await _googleSignIn.authenticate();
       final gsi.GoogleSignInAuthentication googleAuth = googleUser.authentication;
       
-      final authorization = await googleUser.authorizationClient.authorizeScopes([
-        'email',
-        'https://www.googleapis.com/auth/userinfo.profile',
-        'openid',
-      ]);
+      String? accessToken;
+      try {
+        final authorization = await googleUser.authorizationClient.authorizeScopes([
+          'email',
+          'https://www.googleapis.com/auth/userinfo.profile',
+          'openid',
+        ]);
+        accessToken = authorization.accessToken;
+      } catch (e) {
+        debugPrint('Scope authorization note: $e');
+      }
 
       final AuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: authorization.accessToken,
+        accessToken: accessToken,
         idToken: googleAuth.idToken,
       );
 
@@ -102,7 +108,7 @@ class AuthRepository {
       }
       return userCredential;
     } catch (e) {
-      print('Google Sign-In Error: $e');
+      debugPrint('Google Sign-In Error: $e');
       rethrow;
     }
   }
