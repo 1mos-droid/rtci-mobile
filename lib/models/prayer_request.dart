@@ -36,6 +36,18 @@ class PrayerRequest {
   }
 
   factory PrayerRequest.fromMap(Map<String, dynamic> map) {
+    DateTime parsedCreatedAt;
+    final rawCreatedAt = map['created_at'];
+    if (rawCreatedAt is Timestamp) {
+      parsedCreatedAt = rawCreatedAt.toDate();
+    } else if (rawCreatedAt is DateTime) {
+      parsedCreatedAt = rawCreatedAt;
+    } else if (rawCreatedAt is String && rawCreatedAt.isNotEmpty) {
+      parsedCreatedAt = DateTime.tryParse(rawCreatedAt) ?? DateTime.now();
+    } else {
+      parsedCreatedAt = DateTime.now();
+    }
+
     return PrayerRequest(
       id: map['id']?.toString() ?? '',
       request: map['request'] ?? '',
@@ -44,7 +56,7 @@ class PrayerRequest {
       memberId: map['member_id']?.toString(),
       memberName: map['members'] != null ? map['members']['name'] : null,
       campus: map['campus']?.toString(),
-      createdAt: DateTime.parse(map['created_at'] ?? DateTime.now().toIso8601String()),
+      createdAt: parsedCreatedAt,
     );
   }
 
