@@ -44,12 +44,24 @@ class GivingTransaction {
   }
 
   factory GivingTransaction.fromMap(Map<String, dynamic> map) {
+    DateTime parsedDate;
+    final rawDate = map['date'] ?? map['created_at'];
+    if (rawDate is Timestamp) {
+      parsedDate = rawDate.toDate();
+    } else if (rawDate is DateTime) {
+      parsedDate = rawDate;
+    } else if (rawDate is String && rawDate.isNotEmpty) {
+      parsedDate = DateTime.tryParse(rawDate) ?? DateTime.now();
+    } else {
+      parsedDate = DateTime.now();
+    }
+
     return GivingTransaction(
       id: map['id']?.toString() ?? '',
       amount: (map['amount'] as num?)?.toDouble() ?? 0.0,
       type: map['type'] ?? 'contribution',
       category: map['category'],
-      date: DateTime.parse(map['date'] ?? map['created_at'] ?? DateTime.now().toIso8601String()),
+      date: parsedDate,
       description: map['description'] ?? '',
       memberId: map['member_id']?.toString(),
       campus: map['campus']?.toString(),
