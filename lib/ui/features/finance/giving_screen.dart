@@ -50,7 +50,6 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
       isScrollControlled: true,
       builder: (ctx) {
         final theme = Theme.of(context);
-        final isDark = theme.brightness == Brightness.dark;
 
         return GlassCard(
           borderRadius: 28,

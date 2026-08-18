@@ -1,6 +1,5 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:rtc_mobile/theme/app_theme.dart';
 import 'package:rtc_mobile/ui/features/dashboard/dashboard_screen.dart';
 import 'package:rtc_mobile/ui/features/spiritual/live_bible_screen.dart';
 import 'package:rtc_mobile/ui/features/finance/giving_screen.dart';
