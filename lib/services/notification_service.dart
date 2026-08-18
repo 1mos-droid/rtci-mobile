@@ -47,9 +47,6 @@ class NotificationService {
 
       // 4. Handle Background Messages
       FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
-      // 5. Update Token in Firestore
-      await updateToken();
     } catch (e) {
       if (kDebugMode) print('Error initializing notification service: $e');
     }

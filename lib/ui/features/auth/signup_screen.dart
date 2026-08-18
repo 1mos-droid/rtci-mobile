@@ -26,7 +26,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
 
-  bool _acceptTerms = true;
+  bool _acceptTerms = false;
   bool _showPassword = false;
   bool _showConfirmPassword = false;
 

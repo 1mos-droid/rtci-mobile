@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:rtc_mobile/domain/auth/user_model.dart';
@@ -7,15 +8,15 @@ import 'package:rtc_mobile/services/notification_service.dart';
 
 part 'auth_provider.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 AuthRepository authRepository(AuthRepositoryRef ref) => AuthRepository();
 
-@riverpod
+@Riverpod(keepAlive: true)
 Stream<User?> authStateChanges(AuthStateChangesRef ref) {
   return ref.watch(authRepositoryProvider).authStateChanges();
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 class AuthNotifier extends _$AuthNotifier {
   @override
   FutureOr<AppUser?> build() async {
@@ -55,71 +56,96 @@ class AuthNotifier extends _$AuthNotifier {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
       await ref.read(authRepositoryProvider).login(email, password);
-      return ref.read(authNotifierProvider).value; 
+      final currentUser = FirebaseAuth.instance.currentUser;
+      if (currentUser != null) {
+        final profile = await ref.read(authRepositoryProvider).fetchUserProfile(currentUser.uid);
+        return profile ?? AppUser(
+          id: currentUser.uid,
+          email: currentUser.email ?? '',
+          name: (currentUser.displayName != null && currentUser.displayName!.trim().isNotEmpty)
+              ? currentUser.displayName!
+              : (currentUser.email != null && currentUser.email!.contains('@')
+                  ? currentUser.email!.split('@')[0]
+                  : 'Member'),
+          avatarUrl: currentUser.photoURL,
+          role: UserRole.member,
+        );
+      }
+      return null;
     });
   }
 
   Future<void> signInWithGoogle() async {
     state = const AsyncValue.loading();
-    try {
+    state = await AsyncValue.guard(() async {
       final cred = await ref.read(authRepositoryProvider).signInWithGoogle();
       if (cred.user != null) {
-        await ref.read(authRepositoryProvider).createProfileIfMissing(cred.user!);
         final profile = await ref.read(authRepositoryProvider).fetchUserProfile(cred.user!.uid);
-        state = AsyncValue.data(profile ?? AppUser(
+        return profile ?? AppUser(
           id: cred.user!.uid,
           email: cred.user!.email ?? '',
           name: cred.user!.displayName ?? 'Member',
           avatarUrl: cred.user!.photoURL,
           role: UserRole.member,
-        ));
-      } else {
-        state = AsyncValue.data(null);
+        );
       }
-    } catch (e, st) {
-      state = AsyncValue.error(e, st);
-    }
+      return null;
+    });
   }
 
   Future<void> register(String fullName, String email, String password, {String? department}) async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
       await ref.read(authRepositoryProvider).register(fullName, email, password, department: department);
-      return state.value;
+      final currentUser = FirebaseAuth.instance.currentUser;
+      if (currentUser != null) {
+        final profile = await ref.read(authRepositoryProvider).fetchUserProfile(currentUser.uid);
+        return profile ?? AppUser(
+          id: currentUser.uid,
+          email: email,
+          name: fullName,
+          department: department,
+          role: UserRole.member,
+        );
+      }
+      return null;
     });
   }
 
   Future<void> logout() async {
     await ref.read(authRepositoryProvider).logout();
+    state = const AsyncValue.data(null);
   }
 
   Future<void> updateProfile({String? name, String? avatarUrl}) async {
     final user = state.value;
     if (user == null) return;
 
-    state = const AsyncValue.loading();
-    state = await AsyncValue.guard(() async {
-      final updates = <String, dynamic>{};
-      if (name != null) updates['name'] = name;
-      if (avatarUrl != null) updates['avatar_url'] = avatarUrl;
+    final updates = <String, dynamic>{};
+    if (name != null) updates['name'] = name;
+    if (avatarUrl != null) updates['avatar_url'] = avatarUrl;
 
+    try {
       await ref.read(authRepositoryProvider).updateProfile(user.id, updates);
-      return user.copyWith(name: name, avatarUrl: avatarUrl);
-    });
+      final updatedUser = user.copyWith(name: name, avatarUrl: avatarUrl);
+      state = AsyncValue.data(updatedUser);
+    } catch (e, st) {
+      state = AsyncValue.error(e, st);
+      rethrow;
+    }
   }
 
   Future<String?> uploadAvatar(File imageFile) async {
     final user = state.value;
     if (user == null) return null;
 
-    state = const AsyncValue.loading();
     try {
       final url = await ref.read(authRepositoryProvider).uploadAvatar(user.id, imageFile);
       await updateProfile(avatarUrl: url);
       return url;
-    } catch (e, st) {
-      state = AsyncValue.error(e, st);
-      return null;
+    } catch (e) {
+      debugPrint('Error uploading avatar: $e');
+      rethrow;
     }
   }
 }

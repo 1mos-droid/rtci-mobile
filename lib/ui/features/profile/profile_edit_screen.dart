@@ -21,16 +21,14 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
   late TextEditingController _nameController;
   final _formKey = GlobalKey<FormState>();
   final ImagePicker _picker = ImagePicker();
-  bool _hasInitializedName = false;
+  bool _isSaving = false;
+  bool _isUploadingAvatar = false;
 
   @override
   void initState() {
     super.initState();
     final authUser = ref.read(authNotifierProvider).value;
     _nameController = TextEditingController(text: authUser?.name ?? '');
-    if (authUser?.name.isNotEmpty ?? false) {
-      _hasInitializedName = true;
-    }
   }
 
   @override
@@ -47,10 +45,27 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
     );
 
     if (image != null && mounted) {
-      final authNotifier = ref.read(authNotifierProvider.notifier);
-      final url = await authNotifier.uploadAvatar(File(image.path));
-      if (url != null && mounted) {
-        _showIOSAlert("Success", "Your sanctuary portrait has been updated successfully!");
+      setState(() => _isUploadingAvatar = true);
+      try {
+        final authNotifier = ref.read(authNotifierProvider.notifier);
+        final url = await authNotifier.uploadAvatar(File(image.path));
+        if (url != null && mounted) {
+          _showIOSAlert("Success", "Your sanctuary portrait has been updated successfully!");
+        }
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text("Failed to upload photo: ${e.toString()}"),
+              backgroundColor: Theme.of(context).colorScheme.error,
+              behavior: SnackBarBehavior.floating,
+            ),
+          );
+        }
+      } finally {
+        if (mounted) {
+          setState(() => _isUploadingAvatar = false);
+        }
       }
     }
   }
@@ -73,27 +88,43 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
 
   Future<void> _handleSave() async {
     if (_formKey.currentState!.validate()) {
-      final authNotifier = ref.read(authNotifierProvider.notifier);
-      await authNotifier.updateProfile(name: _nameController.text.trim());
-      
-      final authState = ref.read(authNotifierProvider);
-      if (!authState.hasError && mounted) {
-        showAdaptiveDialog(
-          context: context,
-          builder: (_) => AlertDialog.adaptive(
-            title: const Text("Profile Saved"),
-            content: const Text("Your identity has been updated in the sanctuary records."),
-            actions: [
-              TextButton(
-                child: const Text("OK"),
-                onPressed: () {
-                  Navigator.pop(context); // Dismiss dialog
-                  Navigator.pop(context); // Go back to previous screen
-                },
-              ),
-            ],
-          ),
-        );
+      setState(() => _isSaving = true);
+      try {
+        final authNotifier = ref.read(authNotifierProvider.notifier);
+        await authNotifier.updateProfile(name: _nameController.text.trim());
+        
+        if (mounted) {
+          showAdaptiveDialog(
+            context: context,
+            builder: (_) => AlertDialog.adaptive(
+              title: const Text("Profile Saved"),
+              content: const Text("Your identity has been updated in the sanctuary records."),
+              actions: [
+                TextButton(
+                  child: const Text("OK"),
+                  onPressed: () {
+                    Navigator.pop(context); // Dismiss dialog
+                    Navigator.pop(context); // Go back to previous screen
+                  },
+                ),
+              ],
+            ),
+          );
+        }
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text("Failed to save profile: ${e.toString()}"),
+              backgroundColor: Theme.of(context).colorScheme.error,
+              behavior: SnackBarBehavior.floating,
+            ),
+          );
+        }
+      } finally {
+        if (mounted) {
+          setState(() => _isSaving = false);
+        }
       }
     }
   }
@@ -104,139 +135,171 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
+    final user = authState.value;
+
+    if (user == null && authState.isLoading) {
+      return Scaffold(
+        backgroundColor: theme.scaffoldBackgroundColor,
+        body: const CustomLogoLoader(message: "Loading Profile..."),
+      );
+    }
+
+    if (user == null) {
+      return Scaffold(
+        backgroundColor: theme.scaffoldBackgroundColor,
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text("No profile found. Please sign in again."),
+              const SizedBox(height: 16),
+              FilledButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text("Go Back"),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    // Keep controller synced if user changed and controller was empty
+    if (_nameController.text.isEmpty && user.name.isNotEmpty) {
+      _nameController.text = user.name;
+    }
+
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
-      body: authState.isLoading
-          ? const CustomLogoLoader(message: "Updating Records...")
-          : authState.when(
-              data: (user) {
-                if (user == null) {
-                  return const Center(child: Text("No profile found. Please sign in again."));
-                }
-                if (!_hasInitializedName && user.name.isNotEmpty) {
-                  WidgetsBinding.instance.addPostFrameCallback((_) {
-                    if (mounted) {
-                      _nameController.text = user.name;
-                      _hasInitializedName = true;
-                    }
-                  });
-                }
-                return CustomScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  slivers: [
-                    SliverAppBar(
-                pinned: true,
-                floating: false,
-                expandedHeight: 120.0,
-                backgroundColor: theme.scaffoldBackgroundColor,
-                surfaceTintColor: Colors.transparent,
-                iconTheme: IconThemeData(color: theme.colorScheme.primary),
-                flexibleSpace: FlexibleSpaceBar(
-                  title: Text(
-                    "Identity",
-                    style: GoogleFonts.inter(
-                      fontWeight: FontWeight.w800,
-                      color: theme.colorScheme.onSurface,
-                      letterSpacing: -0.5,
-                    ),
-                  ),
-                  centerTitle: false,
-                  titlePadding: const EdgeInsets.only(left: 56, bottom: 16),
+      body: CustomScrollView(
+        physics: const BouncingScrollPhysics(),
+        slivers: [
+          SliverAppBar(
+            pinned: true,
+            floating: false,
+            expandedHeight: 120.0,
+            backgroundColor: theme.scaffoldBackgroundColor,
+            surfaceTintColor: Colors.transparent,
+            iconTheme: IconThemeData(color: theme.colorScheme.primary),
+            flexibleSpace: FlexibleSpaceBar(
+              title: Text(
+                "Identity",
+                style: GoogleFonts.inter(
+                  fontWeight: FontWeight.w800,
+                  color: theme.colorScheme.onSurface,
+                  letterSpacing: -0.5,
                 ),
               ),
-              SliverToBoxAdapter(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
-                        child: Column(
-                          children: [
-                            // Avatar Section
-                            Center(
-                              child: Stack(
-                                children: [
-                                  Container(
-                                    padding: const EdgeInsets.all(4),
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      border: Border.all(color: colorScheme.primary.withOpacity(0.3), width: 2),
-                                    ),
-                                    child: CircleAvatar(
-                                      radius: 60,
-                                      backgroundColor: AppTheme.systemGray6,
-                                      backgroundImage: user.avatarUrl != null ? NetworkImage(user.avatarUrl!) : null,
-                                      child: user.avatarUrl == null
-                                          ? const Icon(Icons.person_outline, size: 50, color: AppTheme.systemGray2)
-                                          : null,
-                                    ),
-                                  ).animate().scale(duration: 600.ms, curve: Curves.easeOutBack),
-                                  Positioned(
-                                    bottom: 4,
-                                    right: 4,
-                                    child: GestureDetector(
-                                      onTap: () => _showImageSourceActionSheet(context),
-                                      child: Container(
-                                        padding: const EdgeInsets.all(10),
-                                        decoration: BoxDecoration(
-                                          color: colorScheme.primary,
-                                          shape: BoxShape.circle,
-                                          border: Border.all(color: theme.scaffoldBackgroundColor, width: 3),
-                                          boxShadow: [
-                                            BoxShadow(color: Colors.black.withOpacity(0.15), blurRadius: 10, offset: const Offset(0, 4)),
-                                          ],
-                                        ),
-                                        child: const Icon(CupertinoIcons.camera_fill, size: 18, color: Colors.white),
-                                      ),
-                                    ),
+              centerTitle: false,
+              titlePadding: const EdgeInsets.only(left: 56, bottom: 16),
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+              child: Column(
+                children: [
+                  // Avatar Section
+                  Center(
+                    child: Stack(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(4),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: colorScheme.primary.withValues(alpha: 0.3),
+                              width: 2,
+                            ),
+                          ),
+                          child: CircleAvatar(
+                            radius: 60,
+                            backgroundColor: AppTheme.systemGray6,
+                            backgroundImage: user.avatarUrl != null ? NetworkImage(user.avatarUrl!) : null,
+                            child: _isUploadingAvatar
+                                ? const CircularProgressIndicator.adaptive()
+                                : (user.avatarUrl == null
+                                    ? const Icon(Icons.person_outline, size: 50, color: AppTheme.systemGray2)
+                                    : null),
+                          ),
+                        ).animate().scale(duration: 600.ms, curve: Curves.easeOutBack),
+                        Positioned(
+                          bottom: 4,
+                          right: 4,
+                          child: GestureDetector(
+                            onTap: _isUploadingAvatar ? null : () => _showImageSourceActionSheet(context),
+                            child: Container(
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                color: colorScheme.primary,
+                                shape: BoxShape.circle,
+                                border: Border.all(color: theme.scaffoldBackgroundColor, width: 3),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withValues(alpha: 0.15),
+                                    blurRadius: 10,
+                                    offset: const Offset(0, 4),
                                   ),
                                 ],
                               ),
+                              child: const Icon(CupertinoIcons.camera_fill, size: 18, color: Colors.white),
                             ),
-
-                            const SizedBox(height: 48),
-
-                            _buildSectionHeader("PERSONAL DETAILS"),
-                            const SizedBox(height: 12),
-                            Form(
-                              key: _formKey,
-                              child: GlassCard(
-                                padding: EdgeInsets.zero,
-                                child: _buildIOSInput(
-                                  controller: _nameController,
-                                  placeholder: "Display Name",
-                                  prefixIcon: Icons.person_outline,
-                                  validator: (val) => val == null || val.trim().isEmpty ? "Required" : null,
-                                ),
-                              ),
-                            ).animate().fadeIn(delay: 200.ms).slideY(begin: 0.05, end: 0),
-
-                            const SizedBox(height: 48),
-
-                            FilledButton(
-                              onPressed: _handleSave,
-                              child: const Text("Save Changes"),
-                            ).animate().fadeIn(delay: 300.ms),
-
-                            const SizedBox(height: 24),
-
-                            Text(
-                              "Your identity is how you are known in the sanctuary community.",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: AppTheme.systemGray,
-                                fontSize: 13,
-                                fontWeight: FontWeight.w500,
-                                height: 1.5,
-                              ),
-                            ).animate().fadeIn(delay: 400.ms),
-                          ],
+                          ),
                         ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 48),
+
+                  _buildSectionHeader("PERSONAL DETAILS"),
+                  const SizedBox(height: 12),
+                  Form(
+                    key: _formKey,
+                    child: GlassCard(
+                      padding: EdgeInsets.zero,
+                      child: _buildIOSInput(
+                        controller: _nameController,
+                        placeholder: "Display Name",
+                        prefixIcon: Icons.person_outline,
+                        validator: (val) => val == null || val.trim().isEmpty ? "Required" : null,
                       ),
                     ),
-                  ],
-                );
-              },
-              loading: () => const CustomLogoLoader(message: "Loading Profile..."),
-              error: (e, _) => Center(child: Text("Error: $e")),
+                  ).animate().fadeIn(delay: 200.ms).slideY(begin: 0.05, end: 0),
+
+                  const SizedBox(height: 48),
+
+                  FilledButton(
+                    onPressed: _isSaving ? null : _handleSave,
+                    child: _isSaving
+                        ? const SizedBox(
+                            width: 20,
+                            height: 20,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2.0,
+                              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                            ),
+                          )
+                        : const Text("Save Changes"),
+                  ).animate().fadeIn(delay: 300.ms),
+
+                  const SizedBox(height: 24),
+
+                  Text(
+                    "Your identity is how you are known in the sanctuary community.",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: AppTheme.systemGray,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w500,
+                      height: 1.5,
+                    ),
+                  ).animate().fadeIn(delay: 400.ms),
+                ],
+              ),
             ),
+          ),
+        ],
+      ),
     );
   }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:rtc_mobile/ui/features/auth/welcome_screen.dart';
 import 'package:rtc_mobile/ui/features/profile/profile_edit_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -188,7 +189,10 @@ class SettingsScreen extends ConsumerWidget {
                             onTap: () async {
                               await ref.read(authNotifierProvider.notifier).logout();
                               if (context.mounted) {
-                                Navigator.of(context).pushNamedAndRemoveUntil('/', (route) => false);
+                                Navigator.of(context).pushAndRemoveUntil(
+                                  MaterialPageRoute(builder: (_) => const WelcomeScreen()),
+                                  (route) => false,
+                                );
                               }
                             },
                           ),

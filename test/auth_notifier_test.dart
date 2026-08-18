@@ -43,7 +43,7 @@ void main() {
         ],
       );
 
-      container.listen(authNotifierProvider, (_, __) {});
+      container.listen(authNotifierProvider, (previous, next) {});
       final user = await container.read(authNotifierProvider.future);
 
       expect(user, isNotNull);
@@ -63,7 +63,7 @@ void main() {
         ],
       );
 
-      container.listen(authNotifierProvider, (_, __) {});
+      container.listen(authNotifierProvider, (previous, next) {});
       final user = await container.read(authNotifierProvider.future);
 
       expect(user, isNotNull);
@@ -93,7 +93,7 @@ void main() {
         ],
       );
 
-      container.listen(authNotifierProvider, (_, __) {});
+      container.listen(authNotifierProvider, (previous, next) {});
       await container.read(authNotifierProvider.future);
       final notifier = container.read(authNotifierProvider.notifier);
 
@@ -101,6 +101,51 @@ void main() {
 
       final updatedUser = container.read(authNotifierProvider).value;
       expect(updatedUser?.name, equals('New Name'));
+    });
+
+    test('logout resets state to null', () async {
+      when(() => mockAuthRepository.logout()).thenAnswer((_) async {});
+
+      final container = ProviderContainer(
+        overrides: [
+          authRepositoryProvider.overrideWithValue(mockAuthRepository),
+          authStateChangesProvider.overrideWith((ref) => Stream.value(null)),
+        ],
+      );
+
+      final notifier = container.read(authNotifierProvider.notifier);
+      await notifier.logout();
+
+      expect(container.read(authNotifierProvider).value, isNull);
+    });
+
+    test('signInWithGoogle updates state with profile', () async {
+      final mockCred = MockUserCredential();
+      when(() => mockCred.user).thenReturn(mockUser);
+      when(() => mockAuthRepository.signInWithGoogle()).thenAnswer((_) async => mockCred);
+      when(() => mockAuthRepository.fetchUserProfile('user_123')).thenAnswer((_) async => const AppUser(
+        id: 'user_123',
+        email: 'user@example.com',
+        name: 'Google User',
+        role: UserRole.member,
+      ));
+
+      final container = ProviderContainer(
+        overrides: [
+          authRepositoryProvider.overrideWithValue(mockAuthRepository),
+          authStateChangesProvider.overrideWith((ref) => Stream.value(null)),
+        ],
+      );
+
+      container.listen(authNotifierProvider, (previous, next) {});
+      await container.read(authNotifierProvider.future);
+
+      final notifier = container.read(authNotifierProvider.notifier);
+      await notifier.signInWithGoogle();
+
+      final user = container.read(authNotifierProvider).value;
+      expect(user, isNotNull);
+      expect(user?.name, equals('Google User'));
     });
   });
 }

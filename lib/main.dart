@@ -9,7 +9,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rtc_mobile/firebase_options.dart';
 import 'package:rtc_mobile/application/auth/auth_provider.dart';
 import 'package:rtc_mobile/application/theme/theme_provider.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,8 +42,6 @@ class _RTCIMobileAppState extends ConsumerState<RTCIMobileApp> {
       await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform,
       );
-      setState(() => _loadingMessage = "Authenticating Gatekeeper...");
-      await GoogleSignIn.instance.initialize();
       setState(() => _loadingMessage = "Initializing Echoes...");
       await NotificationService().initialize();
       

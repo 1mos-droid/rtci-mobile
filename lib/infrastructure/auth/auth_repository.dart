@@ -71,10 +71,11 @@ class AuthRepository {
         await _googleSignIn.initialize(
           serverClientId: '381753713314-0bjahjac04c2ibr5m7b6a780meni572s.apps.googleusercontent.com',
         );
+        _googleSignInInitialized = true;
       } catch (e) {
-        print('GoogleSignIn init info: $e');
+        debugPrint('GoogleSignIn initialize: $e');
+        _googleSignInInitialized = true;
       }
-      _googleSignInInitialized = true;
     }
   }
 
@@ -94,7 +95,14 @@ class AuthRepository {
         ]);
         accessToken = authorization.accessToken;
       } catch (e) {
-        debugPrint('Scope authorization note: $e');
+        debugPrint('Scope authorization notice: $e');
+      }
+
+      if (googleAuth.idToken == null && accessToken == null) {
+        throw FirebaseAuthException(
+          code: 'ERROR_MISSING_GOOGLE_AUTH_TOKEN',
+          message: 'Missing Google Auth Token from sign-in response.',
+        );
       }
 
       final AuthCredential credential = GoogleAuthProvider.credential(
@@ -107,6 +115,8 @@ class AuthRepository {
         await createProfileIfMissing(userCredential.user!);
       }
       return userCredential;
+    } on FirebaseAuthException {
+      rethrow;
     } catch (e) {
       debugPrint('Google Sign-In Error: $e');
       rethrow;
