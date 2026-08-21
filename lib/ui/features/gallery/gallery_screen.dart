@@ -9,7 +9,6 @@ import 'package:rtc_mobile/theme/app_theme.dart';
 import 'package:rtc_mobile/widgets/glass_card.dart';
 import 'package:rtc_mobile/widgets/mesh_gradient_background.dart';
 import 'package:rtc_mobile/providers/riverpod_providers.dart';
-import 'package:rtc_mobile/providers/gallery_provider.dart';
 import 'package:rtc_mobile/application/auth/auth_provider.dart';
 
 class GalleryScreen extends ConsumerStatefulWidget {

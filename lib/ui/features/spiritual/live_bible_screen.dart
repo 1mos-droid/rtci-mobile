@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rtc_mobile/providers/riverpod_providers.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:rtc_mobile/providers/bible_provider.dart';
 
 class LiveBibleScreen extends ConsumerStatefulWidget {
   const LiveBibleScreen({super.key});

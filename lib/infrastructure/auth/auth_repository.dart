@@ -141,7 +141,7 @@ class AuthRepository {
         });
       }
     } catch (e) {
-      print('Error creating profile if missing: $e');
+      debugPrint('Error creating profile if missing: $e');
     }
   }
 }

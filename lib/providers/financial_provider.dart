@@ -37,11 +37,11 @@ class FinancialProvider extends ChangeNotifier {
   
   double get totalRevenue => transactions
       .where((t) => t.type == 'contribution' && t.status == 'completed')
-      .fold(0.0, (sum, item) => sum + item.amount);
+      .fold(0.0, (acc, item) => acc + item.amount);
       
   double get totalExpense => transactions
       .where((t) => t.type == 'expense' && t.status == 'completed')
-      .fold(0.0, (sum, item) => sum + item.amount);
+      .fold(0.0, (acc, item) => acc + item.amount);
 
   FinancialProvider(this._ref) {
     _init();

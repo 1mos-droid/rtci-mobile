@@ -52,7 +52,7 @@ class _GroupsScreenState extends ConsumerState<GroupsScreen> {
       builder: (dialogContext) {
         final isDark = Theme.of(context).brightness == Brightness.dark;
         return StatefulBuilder(
-          builder: (context, setDialogState) {
+          builder: (_, setDialogState) {
             return AlertDialog(
               backgroundColor: isDark ? const Color(0xFF1E202C) : const Color(0xFFE0E5EC),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),

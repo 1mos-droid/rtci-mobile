@@ -243,7 +243,7 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
         padding: const EdgeInsets.all(20),
         itemCount: 3,
         itemBuilder: (context, index) => const Padding(
-          padding: const EdgeInsets.only(bottom: 16.0),
+          padding: EdgeInsets.only(bottom: 16.0),
           child: GlassCard(
             padding: EdgeInsets.all(24),
             child: Column(

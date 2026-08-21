@@ -989,6 +989,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
         );
       }
     } catch (e) {
+      if (!context.mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error contacting member: $e')),
       );
