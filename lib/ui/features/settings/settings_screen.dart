@@ -1,15 +1,19 @@
+import 'package:rtc_mobile/services/app_links.dart';
+import 'package:rtc_mobile/services/account_deletion_service.dart';
+import 'package:rtc_mobile/services/notification_service.dart';
+import 'package:rtc_mobile/widgets/custom_logo_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rtc_mobile/ui/features/auth/welcome_screen.dart';
 import 'package:rtc_mobile/ui/features/profile/profile_edit_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:rtc_mobile/theme/app_theme.dart';
 import 'package:rtc_mobile/widgets/glass_card.dart';
 import 'package:rtc_mobile/widgets/mesh_gradient_background.dart';
 import 'package:rtc_mobile/application/auth/auth_provider.dart';
 import 'package:rtc_mobile/application/theme/theme_provider.dart';
+import 'package:rtc_mobile/utils/auth_error_message.dart';
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
@@ -20,15 +24,13 @@ class SettingsScreen extends ConsumerWidget {
 
     if (user == null) {
       return Scaffold(
-        backgroundColor: ObsidianTheme.backgroundDark,
-        body: Center(
-          child: CircularProgressIndicator(),
-        ),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        body: Center(child: CustomLogoLoader(size: 48)),
       );
     }
 
     return Scaffold(
-      backgroundColor: ObsidianTheme.backgroundDark,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: MeshGradientBackground(
         child: CustomScrollView(
           slivers: [
@@ -40,8 +42,9 @@ class SettingsScreen extends ConsumerWidget {
                 titlePadding: const EdgeInsets.only(left: 48, bottom: 16),
                 title: Text(
                   "Account Settings",
-                  style: GoogleFonts.cinzel(
-                    color: ObsidianTheme.textVibrant,
+                  style: TextStyle(
+                    fontFamily: 'Inter',
+                    color: Theme.of(context).colorScheme.onSurface,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -61,37 +64,90 @@ class SettingsScreen extends ConsumerWidget {
                             children: [
                               CircleAvatar(
                                 radius: 30,
-                                backgroundColor: ObsidianTheme.primaryCrimson.withValues(alpha: 0.1),
-                                child: Text(user.name.isNotEmpty ? user.name[0] : 'U', style: TextStyle(fontSize: 24, color: ObsidianTheme.primaryCrimson, fontWeight: FontWeight.bold)),
+                                backgroundColor: ObsidianTheme.primaryCrimson
+                                    .withValues(alpha: 0.1),
+                                child: Text(
+                                  user.name.isNotEmpty ? user.name[0] : 'U',
+                                  style: TextStyle(
+                                    fontSize: 24,
+                                    color: ObsidianTheme.primaryCrimson,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ),
                               const SizedBox(width: 16),
                               Expanded(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                     Text(user.name, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: ObsidianTheme.textVibrant)),
-                                    Text(user.email, style: TextStyle(fontSize: 12, color: ObsidianTheme.textMuted)),
+                                    Text(
+                                      user.name,
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.onSurface,
+                                      ),
+                                    ),
+                                    Text(
+                                      user.email,
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.onSurfaceVariant,
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ),
                             ],
                           ),
-                          Divider(height: 40, color: ObsidianTheme.borderHairline),
-                          Text("Official Profile", style: GoogleFonts.cinzel(fontSize: 14, fontWeight: FontWeight.bold, color: ObsidianTheme.secondaryGold)),
+                          Divider(
+                            height: 40,
+                            color: Theme.of(context).colorScheme.outlineVariant,
+                          ),
+                          Text(
+                            "Official Profile",
+                            style: TextStyle(
+                              fontFamily: 'Inter',
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: ObsidianTheme.secondaryGold,
+                            ),
+                          ),
                           const SizedBox(height: 16),
-                          _buildInfoRow("Role", user.role.name.toUpperCase()),
-                          if (user.department != null) _buildInfoRow("Department", user.department!),
+                          _buildInfoRow(
+                            context,
+                            "Role",
+                            user.role.name.toUpperCase(),
+                          ),
+                          if (user.department != null)
+                            _buildInfoRow(
+                              context,
+                              "Department",
+                              user.department!,
+                            ),
                           const SizedBox(height: 24),
                           SizedBox(
                             width: double.infinity,
                             child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(backgroundColor: ObsidianTheme.primaryCrimson, foregroundColor: Colors.white),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: ObsidianTheme.primaryCrimson,
+                                foregroundColor: Colors.white,
+                              ),
                               onPressed: () {
-                                Navigator.push(context, MaterialPageRoute(builder: (_) => const ProfileEditScreen()));
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => const ProfileEditScreen(),
+                                  ),
+                                );
                               },
                               child: const Text("EDIT PROFILE"),
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -101,21 +157,50 @@ class SettingsScreen extends ConsumerWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Preferences", style: GoogleFonts.cinzel(fontSize: 14, fontWeight: FontWeight.bold, color: ObsidianTheme.secondaryGold)),
+                          Text(
+                            "Preferences",
+                            style: TextStyle(
+                              fontFamily: 'Inter',
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: ObsidianTheme.secondaryGold,
+                            ),
+                          ),
                           const SizedBox(height: 16),
                           ListTile(
                             contentPadding: EdgeInsets.zero,
-                            leading: Icon(Icons.palette_outlined, color: ObsidianTheme.secondaryGold),
-                            title: Text("Theme Mode", style: TextStyle(color: ObsidianTheme.textVibrant, fontSize: 14)),
-                            subtitle: Text(
-                              ref.watch(themeNotifierProvider) == ThemeMode.system
-                                  ? "System Default"
-                                  : ref.watch(themeNotifierProvider) == ThemeMode.dark
-                                      ? "Dark"
-                                      : "Light",
-                              style: TextStyle(color: ObsidianTheme.textMuted, fontSize: 12),
+                            leading: Icon(
+                              Icons.palette_outlined,
+                              color: ObsidianTheme.secondaryGold,
                             ),
-                            trailing: Icon(Icons.chevron_right, color: ObsidianTheme.textMuted),
+                            title: Text(
+                              "Theme Mode",
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.onSurface,
+                                fontSize: 14,
+                              ),
+                            ),
+                            subtitle: Text(
+                              ref.watch(themeNotifierProvider) ==
+                                      ThemeMode.system
+                                  ? "System Default"
+                                  : ref.watch(themeNotifierProvider) ==
+                                        ThemeMode.dark
+                                  ? "Dark"
+                                  : "Light",
+                              style: TextStyle(
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.onSurfaceVariant,
+                                fontSize: 12,
+                              ),
+                            ),
+                            trailing: Icon(
+                              Icons.chevron_right,
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.onSurfaceVariant,
+                            ),
                             onTap: () => _showThemeSelector(context, ref),
                           ),
                         ],
@@ -127,13 +212,76 @@ class SettingsScreen extends ConsumerWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Security & Terminal", style: GoogleFonts.cinzel(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.redAccent)),
+                          Text(
+                            "Account & security",
+                            style: TextStyle(
+                              fontFamily: 'Inter',
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.redAccent,
+                            ),
+                          ),
                           const SizedBox(height: 16),
                           ListTile(
                             contentPadding: EdgeInsets.zero,
-                            leading: const Icon(Icons.lock_outline, color: Colors.redAccent),
-                            title: Text("Update Credentials", style: TextStyle(color: ObsidianTheme.textVibrant, fontSize: 14)),
-                            trailing: Icon(Icons.chevron_right, color: ObsidianTheme.textMuted),
+                            leading: const Icon(Icons.privacy_tip_outlined),
+                            title: const Text('Privacy policy'),
+                            onTap: () =>
+                                AppLinks.open(context, AppLinks.privacy),
+                          ),
+                          ListTile(
+                            contentPadding: EdgeInsets.zero,
+                            leading: const Icon(Icons.notifications_outlined),
+                            title: const Text('Church notifications'),
+                            subtitle: const Text(
+                              'Choose whether to receive church updates.',
+                            ),
+                            onTap: () async {
+                              try {
+                                final granted = await NotificationService()
+                                    .requestPermission();
+                                if (!context.mounted) return;
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      granted
+                                          ? 'Church notifications are enabled.'
+                                          : 'You can allow notifications in your device settings.',
+                                    ),
+                                  ),
+                                );
+                              } catch (_) {
+                                if (context.mounted) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text(
+                                        'Notifications are unavailable. Please try again.',
+                                      ),
+                                    ),
+                                  );
+                                }
+                              }
+                            },
+                          ),
+                          ListTile(
+                            contentPadding: EdgeInsets.zero,
+                            leading: const Icon(
+                              Icons.lock_outline,
+                              color: Colors.redAccent,
+                            ),
+                            title: Text(
+                              "Update Credentials",
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.onSurface,
+                                fontSize: 14,
+                              ),
+                            ),
+                            trailing: Icon(
+                              Icons.chevron_right,
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.onSurfaceVariant,
+                            ),
                             onTap: () async {
                               final email = user.email;
                               if (email.isNotEmpty) {
@@ -141,20 +289,26 @@ class SettingsScreen extends ConsumerWidget {
                                   showDialog(
                                     context: context,
                                     barrierDismissible: false,
-                                    builder: (_) => const Center(child: CircularProgressIndicator()),
+                                    builder: (_) => const Center(
+                                      child: CustomLogoLoader(size: 48),
+                                    ),
                                   );
-                                  await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+                                  await FirebaseAuth.instance
+                                      .sendPasswordResetEmail(email: email);
                                   if (context.mounted) {
                                     Navigator.pop(context); // Dismiss loading
                                     showAdaptiveDialog(
                                       context: context,
                                       builder: (_) => AlertDialog.adaptive(
                                         title: const Text("Reset Email Sent"),
-                                        content: Text("A password reset link has been dispatched to $email. Please check your inbox."),
+                                        content: Text(
+                                          "A password reset link has been dispatched to $email. Please check your inbox.",
+                                        ),
                                         actions: [
                                           TextButton(
                                             child: const Text("OK"),
-                                            onPressed: () => Navigator.pop(context),
+                                            onPressed: () =>
+                                                Navigator.pop(context),
                                           ),
                                         ],
                                       ),
@@ -167,11 +321,14 @@ class SettingsScreen extends ConsumerWidget {
                                       context: context,
                                       builder: (_) => AlertDialog.adaptive(
                                         title: const Text("Error"),
-                                        content: Text("Unable to trigger password reset: ${e.toString()}"),
+                                        content: Text(
+                                          "Unable to send a password reset email. ${authErrorMessage(e)}",
+                                        ),
                                         actions: [
                                           TextButton(
                                             child: const Text("OK"),
-                                            onPressed: () => Navigator.pop(context),
+                                            onPressed: () =>
+                                                Navigator.pop(context),
                                           ),
                                         ],
                                       ),
@@ -183,14 +340,41 @@ class SettingsScreen extends ConsumerWidget {
                           ),
                           ListTile(
                             contentPadding: EdgeInsets.zero,
-                            leading: const Icon(Icons.logout, color: Colors.redAccent),
-                            title: Text("Terminal Shutdown", style: TextStyle(color: ObsidianTheme.textVibrant, fontSize: 14)),
-                            trailing: Icon(Icons.chevron_right, color: ObsidianTheme.textMuted),
+                            leading: const Icon(Icons.person_remove_outlined),
+                            title: const Text('Request account deletion'),
+                            subtitle: const Text(
+                              'Remove your account and associated personal data.',
+                            ),
+                            onTap: () => _requestAccountDeletion(context, ref),
+                          ),
+                          ListTile(
+                            contentPadding: EdgeInsets.zero,
+                            leading: const Icon(
+                              Icons.logout,
+                              color: Colors.redAccent,
+                            ),
+                            title: Text(
+                              "Sign out",
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.onSurface,
+                                fontSize: 14,
+                              ),
+                            ),
+                            trailing: Icon(
+                              Icons.chevron_right,
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.onSurfaceVariant,
+                            ),
                             onTap: () async {
-                              await ref.read(authNotifierProvider.notifier).logout();
+                              await ref
+                                  .read(authNotifierProvider.notifier)
+                                  .logout();
                               if (context.mounted) {
                                 Navigator.of(context).pushAndRemoveUntil(
-                                  MaterialPageRoute(builder: (_) => const WelcomeScreen()),
+                                  MaterialPageRoute(
+                                    builder: (_) => const WelcomeScreen(),
+                                  ),
                                   (route) => false,
                                 );
                               }
@@ -209,14 +393,91 @@ class SettingsScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildInfoRow(String label, String value) {
+  Future<void> _requestAccountDeletion(
+    BuildContext context,
+    WidgetRef ref,
+  ) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Request account deletion?'),
+        content: const Text(
+          'The church will process your request within 30 days. Your profile and associated personal data will be removed after verification. Financial records required for accounting may be retained, as described in the privacy policy. Your account remains available until the request is processed.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, false),
+            child: const Text('Keep account'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(ctx, true),
+            child: const Text('Request deletion'),
+          ),
+        ],
+      ),
+    );
+    if (confirmed != true || !context.mounted) return;
+    showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => const PopScope(
+        canPop: false,
+        child: Dialog(
+          child: Padding(
+            padding: EdgeInsets.all(32),
+            child: CustomLogoLoader(
+              size: 48,
+              message: 'Submitting your request…',
+            ),
+          ),
+        ),
+      ),
+    );
+    try {
+      await ref.read(accountDeletionServiceProvider).requestDeletion();
+      if (!context.mounted) return;
+      Navigator.of(context, rootNavigator: true).pop();
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Your account deletion request has been received. The church will process it within 30 days.',
+          ),
+        ),
+      );
+    } catch (_) {
+      if (!context.mounted) return;
+      Navigator.of(context, rootNavigator: true).pop();
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'We couldn’t confirm your deletion request. Check your connection and try again.',
+          ),
+        ),
+      );
+    }
+  }
+
+  Widget _buildInfoRow(BuildContext context, String label, String value) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label, style: TextStyle(color: ObsidianTheme.textMuted, fontSize: 12)),
-          Text(value, style: TextStyle(color: ObsidianTheme.textVibrant, fontSize: 12, fontWeight: FontWeight.bold)),
+          Text(
+            label,
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+              fontSize: 12,
+            ),
+          ),
+          Text(
+            value,
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onSurface,
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );
@@ -224,7 +485,9 @@ class SettingsScreen extends ConsumerWidget {
 
   void _showThemeSelector(BuildContext context, WidgetRef ref) {
     final currentTheme = ref.read(themeNotifierProvider);
-    final isIOS = Theme.of(context).platform == TargetPlatform.iOS || Theme.of(context).platform == TargetPlatform.macOS;
+    final isIOS =
+        Theme.of(context).platform == TargetPlatform.iOS ||
+        Theme.of(context).platform == TargetPlatform.macOS;
 
     if (isIOS) {
       showCupertinoModalPopup(
@@ -234,24 +497,51 @@ class SettingsScreen extends ConsumerWidget {
           actions: [
             CupertinoActionSheetAction(
               onPressed: () {
-                ref.read(themeNotifierProvider.notifier).setThemeMode(ThemeMode.system);
+                ref
+                    .read(themeNotifierProvider.notifier)
+                    .setThemeMode(ThemeMode.system);
                 Navigator.pop(ctx);
               },
-              child: Text("System Default", style: TextStyle(fontWeight: currentTheme == ThemeMode.system ? FontWeight.bold : FontWeight.normal)),
+              child: Text(
+                "System Default",
+                style: TextStyle(
+                  fontWeight: currentTheme == ThemeMode.system
+                      ? FontWeight.bold
+                      : FontWeight.normal,
+                ),
+              ),
             ),
             CupertinoActionSheetAction(
               onPressed: () {
-                ref.read(themeNotifierProvider.notifier).setThemeMode(ThemeMode.light);
+                ref
+                    .read(themeNotifierProvider.notifier)
+                    .setThemeMode(ThemeMode.light);
                 Navigator.pop(ctx);
               },
-              child: Text("Light", style: TextStyle(fontWeight: currentTheme == ThemeMode.light ? FontWeight.bold : FontWeight.normal)),
+              child: Text(
+                "Light",
+                style: TextStyle(
+                  fontWeight: currentTheme == ThemeMode.light
+                      ? FontWeight.bold
+                      : FontWeight.normal,
+                ),
+              ),
             ),
             CupertinoActionSheetAction(
               onPressed: () {
-                ref.read(themeNotifierProvider.notifier).setThemeMode(ThemeMode.dark);
+                ref
+                    .read(themeNotifierProvider.notifier)
+                    .setThemeMode(ThemeMode.dark);
                 Navigator.pop(ctx);
               },
-              child: Text("Dark", style: TextStyle(fontWeight: currentTheme == ThemeMode.dark ? FontWeight.bold : FontWeight.normal)),
+              child: Text(
+                "Dark",
+                style: TextStyle(
+                  fontWeight: currentTheme == ThemeMode.dark
+                      ? FontWeight.bold
+                      : FontWeight.normal,
+                ),
+              ),
             ),
           ],
           cancelButton: CupertinoActionSheetAction(
@@ -264,7 +554,8 @@ class SettingsScreen extends ConsumerWidget {
     } else {
       showModalBottomSheet(
         context: context,
-        backgroundColor: Theme.of(context).cardTheme.color ?? Theme.of(context).cardColor,
+        backgroundColor:
+            Theme.of(context).cardTheme.color ?? Theme.of(context).cardColor,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
         ),
@@ -276,34 +567,50 @@ class SettingsScreen extends ConsumerWidget {
             children: [
               Text(
                 "Select Theme Mode",
-                style: GoogleFonts.inter(fontSize: 18, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontFamily: 'Inter',
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 16),
               ListTile(
                 leading: const Icon(Icons.settings_suggest_outlined),
                 title: const Text("System Default"),
-                trailing: currentTheme == ThemeMode.system ? const Icon(Icons.check, color: Colors.green) : null,
+                trailing: currentTheme == ThemeMode.system
+                    ? const Icon(Icons.check, color: Colors.green)
+                    : null,
                 onTap: () {
-                  ref.read(themeNotifierProvider.notifier).setThemeMode(ThemeMode.system);
+                  ref
+                      .read(themeNotifierProvider.notifier)
+                      .setThemeMode(ThemeMode.system);
                   Navigator.pop(ctx);
                 },
               ),
               ListTile(
                 leading: const Icon(Icons.light_mode_outlined),
                 title: const Text("Light"),
-                trailing: currentTheme == ThemeMode.light ? const Icon(Icons.check, color: Colors.green) : null,
+                trailing: currentTheme == ThemeMode.light
+                    ? const Icon(Icons.check, color: Colors.green)
+                    : null,
                 onTap: () {
-                  ref.read(themeNotifierProvider.notifier).setThemeMode(ThemeMode.light);
+                  ref
+                      .read(themeNotifierProvider.notifier)
+                      .setThemeMode(ThemeMode.light);
                   Navigator.pop(ctx);
                 },
               ),
               ListTile(
                 leading: const Icon(Icons.dark_mode_outlined),
                 title: const Text("Dark"),
-                trailing: currentTheme == ThemeMode.dark ? const Icon(Icons.check, color: Colors.green) : null,
+                trailing: currentTheme == ThemeMode.dark
+                    ? const Icon(Icons.check, color: Colors.green)
+                    : null,
                 onTap: () {
-                  ref.read(themeNotifierProvider.notifier).setThemeMode(ThemeMode.dark);
+                  ref
+                      .read(themeNotifierProvider.notifier)
+                      .setThemeMode(ThemeMode.dark);
                   Navigator.pop(ctx);
                 },
               ),
