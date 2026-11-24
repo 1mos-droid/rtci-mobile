@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,10 +14,10 @@ class CellGroup {
   final String? campus;
 
   CellGroup({
-    required this.id, 
-    required this.name, 
-    required this.leaderName, 
-    required this.location, 
+    required this.id,
+    required this.name,
+    required this.leaderName,
+    required this.location,
     required this.memberCount,
     this.type,
     this.description,
@@ -41,10 +42,26 @@ class CellGroup {
 class GroupsProvider extends ChangeNotifier {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  
+  StreamSubscription<User?>? _authSubscription;
+  bool _disposed = false;
+
+  @override
+  void notifyListeners() {
+    if (!_disposed) super.notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    _disposed = true;
+    _authSubscription?.cancel();
+    super.dispose();
+  }
+
   List<CellGroup> _groups = [];
   Set<String> _joinedGroupIds = {};
   bool _isLoading = false;
+  String? _error;
+  String? get error => _error;
 
   List<CellGroup> get groups => _groups;
   Set<String> get joinedGroupIds => _joinedGroupIds;
@@ -55,26 +72,30 @@ class GroupsProvider extends ChangeNotifier {
   }
 
   void _init() {
-    _auth.authStateChanges().listen((user) {
+    _authSubscription = _auth.authStateChanges().listen((user) {
+      if (_disposed) return;
+      _groups = [];
+      _joinedGroupIds = {};
+      notifyListeners();
       if (user != null) {
         fetchGroups();
         _fetchUserMemberships(user.uid);
-      } else {
-        _groups = [];
-        _joinedGroupIds = {};
-        notifyListeners();
       }
     });
   }
 
   Future<void> fetchGroups() async {
     _isLoading = true;
+    _error = null;
     notifyListeners();
 
     try {
       final snapshot = await _firestore.collection('cell_groups').get();
-      _groups = snapshot.docs.map((doc) => CellGroup.fromFirestore(doc)).toList();
+      _groups = snapshot.docs
+          .map((doc) => CellGroup.fromFirestore(doc))
+          .toList();
     } catch (e) {
+      _error = 'We couldn’t load groups. Please try again.';
       debugPrint('Error fetching groups: $e');
     } finally {
       _isLoading = false;
@@ -84,11 +105,21 @@ class GroupsProvider extends ChangeNotifier {
 
   Future<void> _fetchUserMemberships(String userId) async {
     try {
-      final snapshot = await _firestore
-          .collection('group_memberships')
-          .where('user_id', isEqualTo: userId)
-          .get();
-      _joinedGroupIds = snapshot.docs.map((doc) => doc.data()['group_id'] as String).toSet();
+      final snapshots = await Future.wait([
+        _firestore
+            .collectionGroup('members')
+            .where('user_id', isEqualTo: userId)
+            .get(),
+        _firestore
+            .collection('group_memberships')
+            .where('user_id', isEqualTo: userId)
+            .get(),
+      ]);
+      if (_disposed || _auth.currentUser?.uid != userId) return;
+      _joinedGroupIds = {
+        for (final snapshot in snapshots)
+          for (final doc in snapshot.docs) doc.data()['group_id'] as String,
+      };
       notifyListeners();
     } catch (e) {
       debugPrint('Error fetching memberships: $e');
@@ -108,16 +139,23 @@ class GroupsProvider extends ChangeNotifier {
       final user = _auth.currentUser;
       if (user == null) return false;
 
-      await _firestore.collection('cell_groups').doc(groupId).update({
-        'member_count': FieldValue.increment(1),
-      });
-      
-      await _firestore.collection('group_memberships').add({
-        'group_id': groupId,
-        'user_id': user.uid,
-        'joined_at': FieldValue.serverTimestamp(),
+      final membership = _firestore
+          .collection('cell_groups')
+          .doc(groupId)
+          .collection('members')
+          .doc(user.uid);
+      await _firestore.runTransaction((transaction) async {
+        final existing = await transaction.get(membership);
+        if (!existing.exists) {
+          transaction.set(membership, {
+            'group_id': groupId,
+            'user_id': user.uid,
+            'joined_at': FieldValue.serverTimestamp(),
+          });
+        }
       });
 
+      if (_disposed || _auth.currentUser?.uid != user.uid) return false;
       _joinedGroupIds.add(groupId);
       notifyListeners();
       return true;
@@ -132,20 +170,24 @@ class GroupsProvider extends ChangeNotifier {
       final user = _auth.currentUser;
       if (user == null) return false;
 
-      await _firestore.collection('cell_groups').doc(groupId).update({
-        'member_count': FieldValue.increment(-1),
-      });
-      
-      final snapshot = await _firestore
+      await _firestore
+          .collection('cell_groups')
+          .doc(groupId)
+          .collection('members')
+          .doc(user.uid)
+          .delete();
+      // Remove any old, randomly keyed memberships belonging to this account.
+      final legacy = await _firestore
           .collection('group_memberships')
-          .where('group_id', isEqualTo: groupId)
           .where('user_id', isEqualTo: user.uid)
           .get();
-      
-      for (var doc in snapshot.docs) {
+      for (final doc in legacy.docs.where(
+        (doc) => doc.data()['group_id'] == groupId,
+      )) {
         await doc.reference.delete();
       }
 
+      if (_disposed || _auth.currentUser?.uid != user.uid) return false;
       _joinedGroupIds.remove(groupId);
       notifyListeners();
       return true;
@@ -193,7 +235,7 @@ class GroupsProvider extends ChangeNotifier {
 
     try {
       await _firestore.collection('cell_groups').doc(groupId).delete();
-      
+
       // Clean up memberships belonging to this group
       final membershipsSnapshot = await _firestore
           .collection('group_memberships')
@@ -202,7 +244,7 @@ class GroupsProvider extends ChangeNotifier {
       for (final doc in membershipsSnapshot.docs) {
         await doc.reference.delete();
       }
-      
+
       await fetchGroups();
       return true;
     } catch (e) {

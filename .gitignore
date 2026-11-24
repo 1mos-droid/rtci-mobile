@@ -43,3 +43,19 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Backend dependencies, secrets and local build output
+node_modules/
+.env*
+!.env.example
+functions/.secret.local
+/android/build/
+/android/key.properties
+*.jks
+*.keystore
+
+# Local release tooling
+__pycache__/
+
+# Firebase Hosting local deployment cache
+.firebase/

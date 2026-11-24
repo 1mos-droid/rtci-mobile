@@ -1,3 +1,4 @@
+import 'package:rtc_mobile/providers/account_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -41,17 +42,20 @@ class BroadcastMessage {
   }
 }
 
-class BroadcastProvider extends ChangeNotifier {
+class BroadcastProvider extends AccountNotifier {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   List<BroadcastMessage> _messages = [];
   bool _isLoading = false;
+  String? _error;
+  String? get error => _error;
 
   List<BroadcastMessage> get messages => _messages;
   bool get isLoading => _isLoading;
 
   Future<void> fetchBroadcasts() async {
     _isLoading = true;
+    _error = null;
     notifyListeners();
 
     try {
@@ -60,8 +64,11 @@ class BroadcastProvider extends ChangeNotifier {
           .orderBy('created_at', descending: true)
           .get();
 
-      _messages = snapshot.docs.map((doc) => BroadcastMessage.fromFirestore(doc)).toList();
+      _messages = snapshot.docs
+          .map((doc) => BroadcastMessage.fromFirestore(doc))
+          .toList();
     } catch (e) {
+      _error = 'We couldn’t load church updates. Please try again.';
       debugPrint('Error fetching broadcasts: $e');
     } finally {
       _isLoading = false;
@@ -84,7 +91,10 @@ class BroadcastProvider extends ChangeNotifier {
       if (user == null) return false;
 
       // Fetch sender name from profiles
-      final profileDoc = await _firestore.collection('profiles').doc(user.uid).get();
+      final profileDoc = await _firestore
+          .collection('profiles')
+          .doc(user.uid)
+          .get();
       final senderName = profileDoc.data()?['name'] ?? 'Official';
 
       await _firestore.collection('broadcasts').add({

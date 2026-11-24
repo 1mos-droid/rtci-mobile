@@ -1,6 +1,6 @@
+import 'package:rtc_mobile/widgets/custom_logo_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:rtc_mobile/theme/app_theme.dart';
 import 'package:rtc_mobile/widgets/glass_card.dart';
 import 'package:rtc_mobile/widgets/mesh_gradient_background.dart';
@@ -19,13 +19,16 @@ class _MembersScreenState extends ConsumerState<MembersScreen> {
   @override
   Widget build(BuildContext context) {
     final membersProv = ref.watch(membersProvider);
-    final filteredMembers = membersProv.members.where((m) => 
-      m.name.toLowerCase().contains(_searchTerm.toLowerCase()) ||
-      m.email.toLowerCase().contains(_searchTerm.toLowerCase())
-    ).toList();
+    final filteredMembers = membersProv.members
+        .where(
+          (m) =>
+              m.name.toLowerCase().contains(_searchTerm.toLowerCase()) ||
+              m.email.toLowerCase().contains(_searchTerm.toLowerCase()),
+        )
+        .toList();
 
     return Scaffold(
-      backgroundColor: ObsidianTheme.backgroundDark,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: MeshGradientBackground(
         child: CustomScrollView(
           slivers: [
@@ -37,8 +40,9 @@ class _MembersScreenState extends ConsumerState<MembersScreen> {
                 titlePadding: const EdgeInsets.only(left: 48, bottom: 16),
                 title: Text(
                   "Member Directory",
-                  style: GoogleFonts.cinzel(
-                    color: ObsidianTheme.textVibrant,
+                  style: TextStyle(
+                    fontFamily: 'Inter',
+                    color: Theme.of(context).colorScheme.onSurface,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -46,16 +50,28 @@ class _MembersScreenState extends ConsumerState<MembersScreen> {
               bottom: PreferredSize(
                 preferredSize: const Size.fromHeight(60),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 8,
+                  ),
                   child: TextField(
                     onChanged: (val) => setState(() => _searchTerm = val),
-                    style: TextStyle(color: ObsidianTheme.textVibrant),
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
                     decoration: InputDecoration(
                       hintText: "Search registry...",
-                      hintStyle: TextStyle(color: ObsidianTheme.textMuted),
-                      prefixIcon: Icon(Icons.search, color: ObsidianTheme.textMuted),
+                      hintStyle: TextStyle(
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
+                      ),
+                      prefixIcon: Icon(
+                        Icons.search,
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
+                      ),
                       filled: true,
-                      fillColor: ObsidianTheme.surfaceDark.withValues(alpha: 0.5),
+                      fillColor: Theme.of(
+                        context,
+                      ).colorScheme.surface.withValues(alpha: 0.5),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
                         borderSide: BorderSide.none,
@@ -68,62 +84,87 @@ class _MembersScreenState extends ConsumerState<MembersScreen> {
             SliverPadding(
               padding: const EdgeInsets.all(20.0),
               sliver: membersProv.isLoading && filteredMembers.isEmpty
-                ? const SliverFillRemaining(child: Center(child: CircularProgressIndicator()))
-                : filteredMembers.isEmpty
-                  ? SliverFillRemaining(child: Center(child: Text("No members found.", style: TextStyle(color: ObsidianTheme.textVibrant))))
-                  : SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) {
-                    final member = filteredMembers[index];
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 12.0),
-                      child: GlassCard(
-                        padding: const EdgeInsets.all(16),
-                        child: Row(
-                          children: [
-                            CircleAvatar(
-                              backgroundColor: ObsidianTheme.primaryCrimson.withValues(alpha: 0.2),
-                              child: Text(
-                                member.name.isNotEmpty ? member.name[0] : 'M',
-                                style: TextStyle(
-                                  color: ObsidianTheme.primaryCrimson,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 16),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    member.name,
-                                    style: Theme.of(context).textTheme.titleLarge,
-                                  ),
-                                  if (member.department != null)
-                                    Text(
-                                      member.department!,
-                                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                        color: ObsidianTheme.secondaryGold,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  Text(
-                                    member.email,
-                                    style: Theme.of(context).textTheme.bodyMedium,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Icon(Icons.more_vert, color: ObsidianTheme.textMuted),
-                          ],
+                  ? const SliverFillRemaining(
+                      child: Center(child: CustomLogoLoader(size: 48)),
+                    )
+                  : filteredMembers.isEmpty
+                  ? SliverFillRemaining(
+                      child: Center(
+                        child: Text(
+                          "No members found.",
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSurface,
+                          ),
                         ),
                       ),
-                    );
-                  },
-                  childCount: filteredMembers.length,
-                ),
-              ),
+                    )
+                  : SliverList(
+                      delegate: SliverChildBuilderDelegate((context, index) {
+                        final member = filteredMembers[index];
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 12.0),
+                          child: GlassCard(
+                            padding: const EdgeInsets.all(16),
+                            child: Row(
+                              children: [
+                                CircleAvatar(
+                                  backgroundColor: ObsidianTheme.primaryCrimson
+                                      .withValues(alpha: 0.2),
+                                  child: Text(
+                                    member.name.isNotEmpty
+                                        ? member.name[0]
+                                        : 'M',
+                                    style: TextStyle(
+                                      color: ObsidianTheme.primaryCrimson,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 16),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        member.name,
+                                        style: Theme.of(
+                                          context,
+                                        ).textTheme.titleLarge,
+                                      ),
+                                      if (member.department != null)
+                                        Text(
+                                          member.department!,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyMedium
+                                              ?.copyWith(
+                                                color:
+                                                    ObsidianTheme.secondaryGold,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                        ),
+                                      Text(
+                                        member.email,
+                                        style: Theme.of(
+                                          context,
+                                        ).textTheme.bodyMedium,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Icon(
+                                  Icons.more_vert,
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onSurfaceVariant,
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      }, childCount: filteredMembers.length),
+                    ),
             ),
             const SliverToBoxAdapter(child: SizedBox(height: 80)),
           ],

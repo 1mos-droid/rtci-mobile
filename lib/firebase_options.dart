@@ -65,6 +65,8 @@ class DefaultFirebaseOptions {
     projectId: 'rtci-22582',
     storageBucket: 'rtci-22582.firebasestorage.app',
     iosBundleId: 'com.rtci.app.rtcMobile',
+    iosClientId:
+        '381753713314-3h9pkn36m3naqk70ltj367568oanhp9m.apps.googleusercontent.com',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -74,6 +76,8 @@ class DefaultFirebaseOptions {
     projectId: 'rtci-22582',
     storageBucket: 'rtci-22582.firebasestorage.app',
     iosBundleId: 'com.rtci.app.rtcMobile',
+    iosClientId:
+        '381753713314-3h9pkn36m3naqk70ltj367568oanhp9m.apps.googleusercontent.com',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(

@@ -1,6 +1,4 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:rtc_mobile/theme/app_theme.dart';
 import 'package:rtc_mobile/ui/features/dashboard/dashboard_screen.dart';
 import 'package:rtc_mobile/ui/features/spiritual/live_bible_screen.dart';
 import 'package:rtc_mobile/ui/features/finance/giving_screen.dart';
@@ -8,123 +6,111 @@ import 'package:rtc_mobile/ui/features/settings/menu_screen.dart';
 
 class MainTabScreen extends StatefulWidget {
   const MainTabScreen({super.key});
-
   @override
   State<MainTabScreen> createState() => _MainTabScreenState();
 }
 
 class _MainTabScreenState extends State<MainTabScreen> {
   int _currentIndex = 0;
-
-  final List<Widget> _pages = [
-    const DashboardScreen(),
-    const LiveBibleScreen(),
-    const GivingScreen(),
-    const MenuScreen(),
-  ];
-
+  // Build each feature on first visit, then preserve its state.
+  final Map<int, Widget> _pages = {0: const DashboardScreen()};
+  void _select(int index) => setState(() {
+    _pages.putIfAbsent(
+      index,
+      () => switch (index) {
+        1 => const LiveBibleScreen(),
+        2 => const GivingScreen(),
+        _ => const MenuScreen(),
+      },
+    );
+    _currentIndex = index;
+  });
   @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
-
-    return Scaffold(
-      extendBody: true,
-      body: IndexedStack(
+  Widget build(BuildContext context) => LayoutBuilder(
+    builder: (context, constraints) {
+      final wide = constraints.maxWidth >= 840;
+      final content = IndexedStack(
         index: _currentIndex,
-        children: _pages,
-      ),
-      bottomNavigationBar: SafeArea(
-        top: false,
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 0, 20, 16),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(24),
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
-              child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-                decoration: BoxDecoration(
-                  color: (isDark ? const Color(0xFF151B2C) : Colors.white).withOpacity(0.85),
-                  borderRadius: BorderRadius.circular(24),
-                  border: Border.all(
-                    color: isDark ? Colors.white.withOpacity(0.08) : Colors.black.withOpacity(0.05),
-                    width: 1.0,
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(isDark ? 0.3 : 0.04),
-                      blurRadius: 20,
-                      offset: const Offset(0, 8),
-                    ),
-                  ],
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    _buildNavItem(0, Icons.home_rounded, Icons.home_outlined, "Home"),
-                    _buildNavItem(1, Icons.auto_stories_rounded, Icons.auto_stories_outlined, "Bible"),
-                    _buildNavItem(2, Icons.favorite_rounded, Icons.favorite_outline_rounded, "Give"),
-                    _buildNavItem(3, Icons.menu_rounded, Icons.menu_outlined, "Menu"),
-                  ],
-                ),
-              ),
+        children: List.generate(
+          4,
+          (i) => TickerMode(
+            enabled: i == _currentIndex,
+            child: ExcludeFocus(
+              excluding: i != _currentIndex,
+              child: _pages[i] ?? const SizedBox.shrink(),
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildNavItem(int index, IconData activeIcon, IconData inactiveIcon, String label) {
-    final isSelected = _currentIndex == index;
-    final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
-    
-    final activeColor = theme.colorScheme.primary;
-    final inactiveColor = isDark 
-        ? Colors.white.withOpacity(0.4) 
-        : Colors.black.withOpacity(0.4);
-
-    return GestureDetector(
-      onTap: () => setState(() => _currentIndex = index),
-      behavior: HitTestBehavior.opaque,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        curve: Curves.easeInOut,
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        decoration: BoxDecoration(
-          color: isSelected 
-              ? activeColor.withOpacity(isDark ? 0.12 : 0.08)
-              : Colors.transparent,
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            AnimatedScale(
-              scale: isSelected ? 1.12 : 1.0,
-              duration: const Duration(milliseconds: 200),
-              child: Icon(
-                isSelected ? activeIcon : inactiveIcon,
-                color: isSelected ? activeColor : inactiveColor,
-                size: 24,
+      );
+      return Scaffold(
+        body: wide
+            ? Row(
+                children: [
+                  SafeArea(
+                    child: NavigationRail(
+                      selectedIndex: _currentIndex,
+                      onDestinationSelected: _select,
+                      labelType: NavigationRailLabelType.all,
+                      leading: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 24),
+                        child: Image.asset(
+                          'assets/church_logo.png',
+                          width: 42,
+                          height: 42,
+                        ),
+                      ),
+                      destinations: const [
+                        NavigationRailDestination(
+                          icon: Icon(Icons.home_outlined),
+                          selectedIcon: Icon(Icons.home_rounded),
+                          label: Text('Home'),
+                        ),
+                        NavigationRailDestination(
+                          icon: Icon(Icons.auto_stories_outlined),
+                          label: Text('Bible'),
+                        ),
+                        NavigationRailDestination(
+                          icon: Icon(Icons.favorite_border_rounded),
+                          label: Text('Give'),
+                        ),
+                        NavigationRailDestination(
+                          icon: Icon(Icons.grid_view_rounded),
+                          label: Text('Explore'),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const VerticalDivider(width: 1),
+                  Expanded(child: content),
+                ],
+              )
+            : content,
+        bottomNavigationBar: wide
+            ? null
+            : NavigationBar(
+                selectedIndex: _currentIndex,
+                onDestinationSelected: _select,
+                destinations: const [
+                  NavigationDestination(
+                    icon: Icon(Icons.home_outlined),
+                    selectedIcon: Icon(Icons.home_rounded),
+                    label: 'Home',
+                  ),
+                  NavigationDestination(
+                    icon: Icon(Icons.auto_stories_outlined),
+                    label: 'Bible',
+                  ),
+                  NavigationDestination(
+                    icon: Icon(Icons.favorite_border_rounded),
+                    label: 'Give',
+                  ),
+                  NavigationDestination(
+                    icon: Icon(Icons.grid_view_rounded),
+                    label: 'Explore',
+                  ),
+                ],
               ),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              label,
-              style: TextStyle(
-                fontSize: 10,
-                fontWeight: isSelected ? FontWeight.w800 : FontWeight.w500,
-                color: isSelected ? activeColor : inactiveColor,
-                letterSpacing: -0.1,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+      );
+    },
+  );
 }

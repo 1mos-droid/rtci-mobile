@@ -1,8 +1,10 @@
+import 'package:rtc_mobile/providers/account_notifier.dart';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:rtc_mobile/utils/image_upload.dart';
 
 class GalleryItem {
   final String id;
@@ -11,7 +13,13 @@ class GalleryItem {
   final String? description;
   final DateTime date;
 
-  GalleryItem({required this.id, required this.imageUrl, required this.title, this.description, required this.date});
+  GalleryItem({
+    required this.id,
+    required this.imageUrl,
+    required this.title,
+    this.description,
+    required this.date,
+  });
 
   String get url => imageUrl; // Support getter name mismatch
 
@@ -27,11 +35,11 @@ class GalleryItem {
   }
 }
 
-class GalleryProvider extends ChangeNotifier {
+class GalleryProvider extends AccountNotifier {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseStorage _storage = FirebaseStorage.instance;
-  
+
   List<GalleryItem> _items = [];
   bool _isLoading = false;
 
@@ -44,14 +52,16 @@ class GalleryProvider extends ChangeNotifier {
   }
 
   void _init() {
-    _auth.authStateChanges().listen((user) {
-      if (user != null) {
-        fetchGallery();
-      } else {
-        _items = [];
-        notifyListeners();
-      }
-    });
+    trackSubscription(
+      _auth.authStateChanges().listen((user) {
+        if (user != null) {
+          fetchGallery();
+        } else {
+          _items = [];
+          notifyListeners();
+        }
+      }),
+    );
   }
 
   Future<void> fetchGallery() async {
@@ -63,7 +73,9 @@ class GalleryProvider extends ChangeNotifier {
           .collection('gallery')
           .orderBy('date', descending: true)
           .get();
-      _items = snapshot.docs.map((doc) => GalleryItem.fromFirestore(doc)).toList();
+      _items = snapshot.docs
+          .map((doc) => GalleryItem.fromFirestore(doc))
+          .toList();
     } catch (e) {
       debugPrint('Error fetching gallery: $e');
     } finally {
@@ -75,7 +87,7 @@ class GalleryProvider extends ChangeNotifier {
   Future<String> uploadImage(File file) async {
     final fileName = 'gallery_${DateTime.now().millisecondsSinceEpoch}.jpg';
     final storageRef = _storage.ref().child('gallery').child(fileName);
-    await storageRef.putFile(file);
+    await storageRef.putFile(file, await validatedImageMetadata(file));
     return await storageRef.getDownloadURL();
   }
 

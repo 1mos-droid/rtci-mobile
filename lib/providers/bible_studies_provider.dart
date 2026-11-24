@@ -1,3 +1,4 @@
+import 'package:rtc_mobile/providers/account_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -10,7 +11,14 @@ class StudyModule {
   final int progress;
   final String? subtitle;
 
-  StudyModule({required this.id, required this.title, required this.description, required this.imageUrl, this.progress = 0, this.subtitle});
+  StudyModule({
+    required this.id,
+    required this.title,
+    required this.description,
+    required this.imageUrl,
+    this.progress = 0,
+    this.subtitle,
+  });
 
   factory StudyModule.fromFirestore(DocumentSnapshot doc) {
     final data = doc.data() as Map<String, dynamic>;
@@ -32,7 +40,13 @@ class StudyResource {
   final String type;
   final String url;
 
-  StudyResource({required this.id, required this.moduleId, required this.title, required this.type, required this.url});
+  StudyResource({
+    required this.id,
+    required this.moduleId,
+    required this.title,
+    required this.type,
+    required this.url,
+  });
 
   factory StudyResource.fromFirestore(DocumentSnapshot doc) {
     final data = doc.data() as Map<String, dynamic>;
@@ -46,10 +60,10 @@ class StudyResource {
   }
 }
 
-class BibleStudiesProvider extends ChangeNotifier {
+class BibleStudiesProvider extends AccountNotifier {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  
+
   List<StudyModule> _modules = [];
   List<StudyResource> _resources = [];
   bool _isLoading = false;
@@ -63,15 +77,17 @@ class BibleStudiesProvider extends ChangeNotifier {
   }
 
   void _init() {
-    _auth.authStateChanges().listen((user) {
-      if (user != null) {
-        fetchStudies();
-      } else {
-        _modules = [];
-        _resources = [];
-        notifyListeners();
-      }
-    });
+    trackSubscription(
+      _auth.authStateChanges().listen((user) {
+        if (user != null) {
+          fetchStudies();
+        } else {
+          _modules = [];
+          _resources = [];
+          notifyListeners();
+        }
+      }),
+    );
   }
 
   Future<void> fetchStudies() async {
@@ -79,11 +95,19 @@ class BibleStudiesProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final modulesSnapshot = await _firestore.collection('study_modules').get();
-      _modules = modulesSnapshot.docs.map((doc) => StudyModule.fromFirestore(doc)).toList();
-      
-      final resourcesSnapshot = await _firestore.collection('study_resources').get();
-      _resources = resourcesSnapshot.docs.map((doc) => StudyResource.fromFirestore(doc)).toList();
+      final modulesSnapshot = await _firestore
+          .collection('study_modules')
+          .get();
+      _modules = modulesSnapshot.docs
+          .map((doc) => StudyModule.fromFirestore(doc))
+          .toList();
+
+      final resourcesSnapshot = await _firestore
+          .collection('study_resources')
+          .get();
+      _resources = resourcesSnapshot.docs
+          .map((doc) => StudyResource.fromFirestore(doc))
+          .toList();
     } catch (e) {
       debugPrint('Error fetching study data: $e');
     } finally {
@@ -126,7 +150,7 @@ class BibleStudiesProvider extends ChangeNotifier {
 
     try {
       await _firestore.collection('study_modules').doc(moduleId).delete();
-      
+
       // Clean up resources belonging to this module
       final resourcesSnapshot = await _firestore
           .collection('study_resources')
@@ -135,7 +159,7 @@ class BibleStudiesProvider extends ChangeNotifier {
       for (final doc in resourcesSnapshot.docs) {
         await doc.reference.delete();
       }
-      
+
       await fetchStudies();
       return true;
     } catch (e) {

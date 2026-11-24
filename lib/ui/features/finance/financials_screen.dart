@@ -1,6 +1,7 @@
+import 'package:rtc_mobile/application/auth/auth_provider.dart';
+import 'package:rtc_mobile/widgets/custom_logo_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:rtc_mobile/theme/app_theme.dart';
 import 'package:rtc_mobile/widgets/glass_card.dart';
@@ -17,12 +18,15 @@ class FinancialsScreen extends ConsumerWidget {
     final transactions = finance.transactions;
 
     return Scaffold(
-      backgroundColor: ObsidianTheme.backgroundDark,
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: ObsidianTheme.primaryCrimson,
-        onPressed: () => _showAddTransactionSheet(context, ref),
-        child: const Icon(Icons.add, color: Colors.white),
-      ),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      floatingActionButton:
+          ref.watch(authNotifierProvider).value?.isAdmin == true
+          ? FloatingActionButton(
+              backgroundColor: ObsidianTheme.primaryCrimson,
+              onPressed: () => _showAddTransactionSheet(context, ref),
+              child: const Icon(Icons.add, color: Colors.white),
+            )
+          : null,
       body: MeshGradientBackground(
         child: CustomScrollView(
           slivers: [
@@ -34,8 +38,9 @@ class FinancialsScreen extends ConsumerWidget {
                 titlePadding: const EdgeInsets.only(left: 48, bottom: 16),
                 title: Text(
                   "Financial Ledger",
-                  style: GoogleFonts.cinzel(
-                    color: ObsidianTheme.textVibrant,
+                  style: TextStyle(
+                    fontFamily: 'Inter',
+                    color: Theme.of(context).colorScheme.onSurface,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -52,10 +57,27 @@ class FinancialsScreen extends ConsumerWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Icon(Icons.trending_up, color: Colors.greenAccent, size: 20),
+                            const Icon(
+                              Icons.trending_up,
+                              color: Colors.greenAccent,
+                              size: 20,
+                            ),
                             const SizedBox(height: 8),
-                            Text("Revenue", style: Theme.of(context).textTheme.labelLarge?.copyWith(color: ObsidianTheme.textMuted, fontSize: 10)),
-                            Text("GHC ${finance.totalRevenue.toStringAsFixed(0)}", style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold)),
+                            Text(
+                              "Revenue",
+                              style: Theme.of(context).textTheme.labelLarge
+                                  ?.copyWith(
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.onSurfaceVariant,
+                                    fontSize: 12,
+                                  ),
+                            ),
+                            Text(
+                              "GHC ${finance.totalRevenue.toStringAsFixed(0)}",
+                              style: Theme.of(context).textTheme.headlineSmall
+                                  ?.copyWith(fontWeight: FontWeight.bold),
+                            ),
                           ],
                         ),
                       ),
@@ -67,10 +89,27 @@ class FinancialsScreen extends ConsumerWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Icon(Icons.trending_down, color: Colors.redAccent, size: 20),
+                            const Icon(
+                              Icons.trending_down,
+                              color: Colors.redAccent,
+                              size: 20,
+                            ),
                             const SizedBox(height: 8),
-                            Text("Expenses", style: Theme.of(context).textTheme.labelLarge?.copyWith(color: ObsidianTheme.textMuted, fontSize: 10)),
-                            Text("GHC ${finance.totalExpense.toStringAsFixed(0)}", style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold)),
+                            Text(
+                              "Expenses",
+                              style: Theme.of(context).textTheme.labelLarge
+                                  ?.copyWith(
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.onSurfaceVariant,
+                                    fontSize: 12,
+                                  ),
+                            ),
+                            Text(
+                              "GHC ${finance.totalExpense.toStringAsFixed(0)}",
+                              style: Theme.of(context).textTheme.headlineSmall
+                                  ?.copyWith(fontWeight: FontWeight.bold),
+                            ),
                           ],
                         ),
                       ),
@@ -82,78 +121,100 @@ class FinancialsScreen extends ConsumerWidget {
             SliverPadding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               sliver: finance.isLoading && transactions.isEmpty
-                ? SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) => const Padding(
-                        padding: EdgeInsets.only(bottom: 12.0),
-                        child: GlassCard(
-                          padding: EdgeInsets.all(16),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SkeletonContainer(width: 140, height: 16),
-                                  SizedBox(height: 6),
-                                  SkeletonContainer(width: 80, height: 11),
-                                ],
-                              ),
-                              SkeletonContainer(width: 70, height: 16),
-                            ],
+                  ? SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (context, index) => const Padding(
+                          padding: EdgeInsets.only(bottom: 12.0),
+                          child: GlassCard(
+                            padding: EdgeInsets.all(16),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SkeletonContainer(width: 140, height: 16),
+                                    SizedBox(height: 6),
+                                    SkeletonContainer(width: 80, height: 11),
+                                  ],
+                                ),
+                                SkeletonContainer(width: 70, height: 16),
+                              ],
+                            ),
+                          ),
+                        ),
+                        childCount: 4,
+                      ),
+                    )
+                  : transactions.isEmpty
+                  ? SliverFillRemaining(
+                      child: Center(
+                        child: Text(
+                          "No records logged.",
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSurface,
                           ),
                         ),
                       ),
-                      childCount: 4,
-                    ),
-                  )
-                : transactions.isEmpty
-                  ? SliverFillRemaining(child: Center(child: Text("No records logged.", style: TextStyle(color: ObsidianTheme.textVibrant))))
+                    )
                   : SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) {
-                    final tx = transactions[index];
-                    final bool isRevenue = tx.type == 'contribution';
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 12.0),
-                      child: GlassCard(
-                        padding: const EdgeInsets.all(16),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    tx.description, 
-                                    style: TextStyle(color: ObsidianTheme.textVibrant, fontWeight: FontWeight.bold, fontSize: 14),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
+                      delegate: SliverChildBuilderDelegate((context, index) {
+                        final tx = transactions[index];
+                        final bool isRevenue = tx.type == 'contribution';
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 12.0),
+                          child: GlassCard(
+                            padding: const EdgeInsets.all(16),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        tx.description,
+                                        style: TextStyle(
+                                          color: Theme.of(
+                                            context,
+                                          ).colorScheme.onSurface,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 14,
+                                        ),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      Text(
+                                        DateFormat(
+                                          'MMM dd, yyyy',
+                                        ).format(tx.date),
+                                        style: TextStyle(
+                                          color: Theme.of(
+                                            context,
+                                          ).colorScheme.onSurfaceVariant,
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                  Text(
-                                    DateFormat('MMM dd, yyyy').format(tx.date), 
-                                    style: TextStyle(color: ObsidianTheme.textMuted, fontSize: 11),
+                                ),
+                                Text(
+                                  "${isRevenue ? '+' : '-'} GHC ${tx.amount.toStringAsFixed(0)}",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: isRevenue
+                                        ? Colors.greenAccent
+                                        : Colors.redAccent,
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                            Text(
-                              "${isRevenue ? '+' : '-'} GHC ${tx.amount.toStringAsFixed(0)}",
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: isRevenue ? Colors.greenAccent : Colors.redAccent,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                  childCount: transactions.length,
-                ),
-              ),
+                          ),
+                        );
+                      }, childCount: transactions.length),
+                    ),
             ),
             const SliverToBoxAdapter(child: SizedBox(height: 80)),
           ],
@@ -166,13 +227,20 @@ class FinancialsScreen extends ConsumerWidget {
     final formKey = GlobalKey<FormState>();
     final amountController = TextEditingController();
     final descController = TextEditingController();
-    
+
     String selectedType = 'contribution';
     String selectedCategory = 'Tithe';
     String selectedCampus = 'Main';
-    
+
     final types = ['contribution', 'expense'];
-    final categories = ['Tithe', 'Offering', 'Special Seeds', 'Building Fund', 'Administrative Expense', 'Welfare Support'];
+    final categories = [
+      'Tithe',
+      'Offering',
+      'Special Seeds',
+      'Building Fund',
+      'Administrative Expense',
+      'Welfare Support',
+    ];
     final campuses = ['Main', 'Adenta Branch', 'Virtual Sanctuary'];
 
     showModalBottomSheet(
@@ -185,7 +253,12 @@ class FinancialsScreen extends ConsumerWidget {
           builder: (context, setModalState) {
             return GlassCard(
               borderRadius: 24,
-              padding: EdgeInsets.fromLTRB(24, 24, 24, MediaQuery.of(context).viewInsets.bottom + 24),
+              padding: EdgeInsets.fromLTRB(
+                24,
+                24,
+                24,
+                MediaQuery.of(context).viewInsets.bottom + 24,
+              ),
               child: Form(
                 key: formKey,
                 child: Column(
@@ -197,14 +270,18 @@ class FinancialsScreen extends ConsumerWidget {
                       children: [
                         Text(
                           "Log Transaction",
-                          style: GoogleFonts.cinzel(
+                          style: TextStyle(
+                            fontFamily: 'Inter',
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
-                            color: ObsidianTheme.textVibrant,
+                            color: Theme.of(context).colorScheme.onSurface,
                           ),
                         ),
                         IconButton(
-                          icon: Icon(Icons.close_rounded, color: ObsidianTheme.textVibrant),
+                          icon: Icon(
+                            Icons.close_rounded,
+                            color: Theme.of(context).colorScheme.onSurface,
+                          ),
                           onPressed: () => Navigator.pop(ctx),
                         ),
                       ],
@@ -213,15 +290,23 @@ class FinancialsScreen extends ConsumerWidget {
                     // Amount Field
                     TextFormField(
                       controller: amountController,
-                      keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                      style: TextStyle(color: ObsidianTheme.textVibrant),
+                      keyboardType: const TextInputType.numberWithOptions(
+                        decimal: true,
+                      ),
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
                       decoration: const InputDecoration(
                         labelText: "Amount (GHC)",
                         prefixIcon: Icon(Icons.attach_money),
                       ),
                       validator: (val) {
-                        if (val == null || val.isEmpty) return "Please enter amount";
-                        if (double.tryParse(val) == null) return "Enter a valid number";
+                        if (val == null || val.isEmpty) {
+                          return "Please enter amount";
+                        }
+                        if (double.tryParse(val) == null) {
+                          return "Enter a valid number";
+                        }
                         return null;
                       },
                     ),
@@ -229,16 +314,24 @@ class FinancialsScreen extends ConsumerWidget {
                     // Transaction Type
                     DropdownButtonFormField<String>(
                       value: selectedType,
-                      dropdownColor: isDark ? const Color(0xFF1E202C) : Colors.white,
-                      style: TextStyle(color: ObsidianTheme.textVibrant),
+                      dropdownColor: isDark
+                          ? const Color(0xFF1E202C)
+                          : Colors.white,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
                       decoration: const InputDecoration(
                         labelText: "Transaction Type",
                         prefixIcon: Icon(Icons.swap_horiz),
                       ),
-                      items: types.map((t) => DropdownMenuItem(
-                        value: t,
-                        child: Text(t.toUpperCase()),
-                      )).toList(),
+                      items: types
+                          .map(
+                            (t) => DropdownMenuItem(
+                              value: t,
+                              child: Text(t.toUpperCase()),
+                            ),
+                          )
+                          .toList(),
                       onChanged: (val) {
                         if (val != null) {
                           setModalState(() {
@@ -257,16 +350,21 @@ class FinancialsScreen extends ConsumerWidget {
                     // Category
                     DropdownButtonFormField<String>(
                       value: selectedCategory,
-                      dropdownColor: isDark ? const Color(0xFF1E202C) : Colors.white,
-                      style: TextStyle(color: ObsidianTheme.textVibrant),
+                      dropdownColor: isDark
+                          ? const Color(0xFF1E202C)
+                          : Colors.white,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
                       decoration: const InputDecoration(
                         labelText: "Category / Contributor",
                         prefixIcon: Icon(Icons.category_outlined),
                       ),
-                      items: categories.map((c) => DropdownMenuItem(
-                        value: c,
-                        child: Text(c),
-                      )).toList(),
+                      items: categories
+                          .map(
+                            (c) => DropdownMenuItem(value: c, child: Text(c)),
+                          )
+                          .toList(),
                       onChanged: (val) {
                         if (val != null) {
                           setModalState(() => selectedCategory = val);
@@ -277,16 +375,22 @@ class FinancialsScreen extends ConsumerWidget {
                     // Campus
                     DropdownButtonFormField<String>(
                       value: selectedCampus,
-                      dropdownColor: isDark ? const Color(0xFF1E202C) : Colors.white,
-                      style: TextStyle(color: ObsidianTheme.textVibrant),
+                      dropdownColor: isDark
+                          ? const Color(0xFF1E202C)
+                          : Colors.white,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
                       decoration: const InputDecoration(
                         labelText: "Campus",
                         prefixIcon: Icon(Icons.location_on_outlined),
                       ),
-                      items: campuses.map((cp) => DropdownMenuItem(
-                        value: cp,
-                        child: Text(cp),
-                      )).toList(),
+                      items: campuses
+                          .map(
+                            (cp) =>
+                                DropdownMenuItem(value: cp, child: Text(cp)),
+                          )
+                          .toList(),
                       onChanged: (val) {
                         if (val != null) {
                           setModalState(() => selectedCampus = val);
@@ -297,7 +401,9 @@ class FinancialsScreen extends ConsumerWidget {
                     // Description
                     TextFormField(
                       controller: descController,
-                      style: TextStyle(color: ObsidianTheme.textVibrant),
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
                       decoration: const InputDecoration(
                         labelText: "Description",
                         prefixIcon: Icon(Icons.description_outlined),
@@ -312,35 +418,44 @@ class FinancialsScreen extends ConsumerWidget {
                       ),
                       onPressed: () async {
                         if (formKey.currentState!.validate()) {
-                          final amount = double.parse(amountController.text.trim());
+                          final amount = double.parse(
+                            amountController.text.trim(),
+                          );
                           final desc = descController.text.trim();
-                          
+
                           Navigator.pop(ctx); // Close sheet
-                          
+
                           // Show loading indicator on screen
                           showDialog(
                             context: context,
                             barrierDismissible: false,
-                            builder: (_) => const Center(child: CircularProgressIndicator()),
+                            builder: (_) =>
+                                const Center(child: CustomLogoLoader(size: 48)),
                           );
-                          
-                          final success = await ref.read(financialProvider).recordTransaction(
-                            amount,
-                            selectedType,
-                            selectedCategory,
-                            description: desc,
-                            campus: selectedCampus,
-                          );
-                          
+
+                          final success = await ref
+                              .read(financialProvider)
+                              .recordTransaction(
+                                amount,
+                                selectedType,
+                                selectedCategory,
+                                description: desc,
+                                campus: selectedCampus,
+                              );
+
                           if (context.mounted) {
                             Navigator.pop(context); // Dismiss loading
-                            
+
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: Text(success 
-                                  ? "Transaction logged successfully!" 
-                                  : "Failed to log transaction. Try again."),
-                                backgroundColor: success ? Colors.green : Colors.red,
+                                content: Text(
+                                  success
+                                      ? "Transaction logged successfully!"
+                                      : "Failed to log transaction. Try again.",
+                                ),
+                                backgroundColor: success
+                                    ? Colors.green
+                                    : Colors.red,
                               ),
                             );
                           }
@@ -352,7 +467,7 @@ class FinancialsScreen extends ConsumerWidget {
                 ),
               ),
             );
-          }
+          },
         );
       },
     );

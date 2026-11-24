@@ -19,13 +19,28 @@ enum UserRole {
     }
   }
 
+  /// The value stored in `profiles/{uid}.role` and checked by firestore.rules.
+  String get value {
+    switch (this) {
+      case UserRole.departmentHead:
+        return 'department_head';
+      default:
+        return name;
+    }
+  }
+
   String get label {
     switch (this) {
-      case UserRole.developer: return 'DEVELOPER';
-      case UserRole.admin: return 'ADMIN';
-      case UserRole.departmentHead: return 'DEPT HEAD';
-      case UserRole.member: return 'MEMBER';
-      case UserRole.guest: return 'GUEST';
+      case UserRole.developer:
+        return 'DEVELOPER';
+      case UserRole.admin:
+        return 'ADMIN';
+      case UserRole.departmentHead:
+        return 'DEPT HEAD';
+      case UserRole.member:
+        return 'MEMBER';
+      case UserRole.guest:
+        return 'GUEST';
     }
   }
 }
@@ -75,6 +90,9 @@ class AppUser {
   }
 
   bool get isAdmin => role == UserRole.admin || role == UserRole.developer;
-  bool get isDeptHead => role == UserRole.departmentHead || role == UserRole.admin || role == UserRole.developer;
+  bool get isDeptHead =>
+      role == UserRole.departmentHead ||
+      role == UserRole.admin ||
+      role == UserRole.developer;
   bool get isDeveloper => role == UserRole.developer;
 }

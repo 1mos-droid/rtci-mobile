@@ -2,13 +2,13 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:rtc_mobile/application/auth/auth_provider.dart';
 import 'package:rtc_mobile/widgets/glass_card.dart';
 import 'package:rtc_mobile/widgets/custom_logo_loader.dart';
 import 'package:rtc_mobile/theme/app_theme.dart';
+import 'package:rtc_mobile/utils/image_upload.dart';
 
 class ProfileEditScreen extends ConsumerStatefulWidget {
   const ProfileEditScreen({super.key});
@@ -50,13 +50,20 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
         final authNotifier = ref.read(authNotifierProvider.notifier);
         final url = await authNotifier.uploadAvatar(File(image.path));
         if (url != null && mounted) {
-          _showIOSAlert("Success", "Your sanctuary portrait has been updated successfully!");
+          _showIOSAlert(
+            "Success",
+            "Your sanctuary portrait has been updated successfully!",
+          );
         }
       } catch (e) {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text("Failed to upload photo: ${e.toString()}"),
+              content: Text(
+                e is ImageUploadException
+                    ? e.message
+                    : "Your photo could not be uploaded. Please try again.",
+              ),
               backgroundColor: Theme.of(context).colorScheme.error,
               behavior: SnackBarBehavior.floating,
             ),
@@ -92,13 +99,15 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
       try {
         final authNotifier = ref.read(authNotifierProvider.notifier);
         await authNotifier.updateProfile(name: _nameController.text.trim());
-        
+
         if (mounted) {
           showAdaptiveDialog(
             context: context,
             builder: (_) => AlertDialog.adaptive(
               title: const Text("Profile Saved"),
-              content: const Text("Your identity has been updated in the sanctuary records."),
+              content: const Text(
+                "Your identity has been updated in the sanctuary records.",
+              ),
               actions: [
                 TextButton(
                   child: const Text("OK"),
@@ -115,7 +124,9 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text("Failed to save profile: ${e.toString()}"),
+              content: const Text(
+                "Your profile could not be saved. Please try again.",
+              ),
               backgroundColor: Theme.of(context).colorScheme.error,
               behavior: SnackBarBehavior.floating,
             ),
@@ -183,7 +194,8 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
             flexibleSpace: FlexibleSpaceBar(
               title: Text(
                 "Identity",
-                style: GoogleFonts.inter(
+                style: TextStyle(
+                  fontFamily: 'Inter',
                   fontWeight: FontWeight.w800,
                   color: theme.colorScheme.onSurface,
                   letterSpacing: -0.5,
@@ -214,25 +226,39 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
                           child: CircleAvatar(
                             radius: 60,
                             backgroundColor: AppTheme.systemGray6,
-                            backgroundImage: user.avatarUrl != null ? NetworkImage(user.avatarUrl!) : null,
+                            backgroundImage: user.avatarUrl != null
+                                ? NetworkImage(user.avatarUrl!)
+                                : null,
                             child: _isUploadingAvatar
                                 ? const CircularProgressIndicator.adaptive()
                                 : (user.avatarUrl == null
-                                    ? const Icon(Icons.person_outline, size: 50, color: AppTheme.systemGray2)
-                                    : null),
+                                      ? const Icon(
+                                          Icons.person_outline,
+                                          size: 50,
+                                          color: AppTheme.systemGray2,
+                                        )
+                                      : null),
                           ),
-                        ).animate().scale(duration: 600.ms, curve: Curves.easeOutBack),
+                        ).animate().scale(
+                          duration: 600.ms,
+                          curve: Curves.easeOutBack,
+                        ),
                         Positioned(
                           bottom: 4,
                           right: 4,
                           child: GestureDetector(
-                            onTap: _isUploadingAvatar ? null : () => _showImageSourceActionSheet(context),
+                            onTap: _isUploadingAvatar
+                                ? null
+                                : () => _showImageSourceActionSheet(context),
                             child: Container(
                               padding: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
                                 color: colorScheme.primary,
                                 shape: BoxShape.circle,
-                                border: Border.all(color: theme.scaffoldBackgroundColor, width: 3),
+                                border: Border.all(
+                                  color: theme.scaffoldBackgroundColor,
+                                  width: 3,
+                                ),
                                 boxShadow: [
                                   BoxShadow(
                                     color: Colors.black.withValues(alpha: 0.15),
@@ -241,7 +267,11 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
                                   ),
                                 ],
                               ),
-                              child: const Icon(CupertinoIcons.camera_fill, size: 18, color: Colors.white),
+                              child: const Icon(
+                                CupertinoIcons.camera_fill,
+                                size: 18,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ),
@@ -261,7 +291,9 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
                         controller: _nameController,
                         placeholder: "Display Name",
                         prefixIcon: Icons.person_outline,
-                        validator: (val) => val == null || val.trim().isEmpty ? "Required" : null,
+                        validator: (val) => val == null || val.trim().isEmpty
+                            ? "Required"
+                            : null,
                       ),
                     ),
                   ).animate().fadeIn(delay: 200.ms).slideY(begin: 0.05, end: 0),
@@ -276,7 +308,9 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
                             height: 20,
                             child: CircularProgressIndicator(
                               strokeWidth: 2.0,
-                              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                Colors.white,
+                              ),
                             ),
                           )
                         : const Text("Save Changes"),
@@ -328,7 +362,8 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
     return TextFormField(
       controller: controller,
       validator: validator,
-      style: GoogleFonts.inter(
+      style: TextStyle(
+        fontFamily: 'Inter',
         fontSize: 17,
         fontWeight: FontWeight.w600,
         color: theme.colorScheme.onSurface,
@@ -336,7 +371,8 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
       cursorColor: theme.colorScheme.primary,
       decoration: InputDecoration(
         hintText: placeholder,
-        hintStyle: GoogleFonts.inter(
+        hintStyle: TextStyle(
+          fontFamily: 'Inter',
           color: AppTheme.systemGray2,
           fontSize: 17,
         ),
@@ -352,21 +388,28 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
         focusedBorder: InputBorder.none,
         errorBorder: InputBorder.none,
         focusedErrorBorder: InputBorder.none,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 16,
+        ),
       ),
     );
   }
 
   void _showImageSourceActionSheet(BuildContext context) {
     final theme = Theme.of(context);
-    final isIOS = theme.platform == TargetPlatform.iOS || theme.platform == TargetPlatform.macOS;
+    final isIOS =
+        theme.platform == TargetPlatform.iOS ||
+        theme.platform == TargetPlatform.macOS;
 
     if (isIOS) {
       showCupertinoModalPopup(
         context: context,
         builder: (ctx) => CupertinoActionSheet(
           title: const Text("Update Photo"),
-          message: const Text("Select a photo source to update your sanctuary portrait."),
+          message: const Text(
+            "Select a photo source to update your sanctuary portrait.",
+          ),
           actions: [
             CupertinoActionSheetAction(
               onPressed: () {
@@ -412,7 +455,8 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
               const SizedBox(height: 16),
               Text(
                 "Update Photo",
-                style: GoogleFonts.inter(
+                style: TextStyle(
+                  fontFamily: 'Inter',
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                   color: theme.colorScheme.onSurface,
@@ -421,7 +465,10 @@ class _ProfileEditScreenState extends ConsumerState<ProfileEditScreen> {
               const SizedBox(height: 8),
               Text(
                 "Select a photo source to update your sanctuary portrait.",
-                style: const TextStyle(color: AppTheme.systemGray, fontSize: 13),
+                style: const TextStyle(
+                  color: AppTheme.systemGray,
+                  fontSize: 13,
+                ),
               ),
               const SizedBox(height: 16),
               ListTile(

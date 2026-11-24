@@ -1,12 +1,13 @@
+import 'package:rtc_mobile/providers/account_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rtc_mobile/models/member_application.dart';
 
-class ApplicationProvider extends ChangeNotifier {
+class ApplicationProvider extends AccountNotifier {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  
+
   MemberApplication _application = MemberApplication();
   int _currentStep = 0;
   bool _isLoading = false;
@@ -15,9 +16,8 @@ class ApplicationProvider extends ChangeNotifier {
   int get currentStep => _currentStep;
   bool get isLoading => _isLoading;
 
-  String? get pdfExportPath => _application.isSubmitted 
-    ? "RTCI-MEMBER-CERT-${_application.fullName.replaceAll(' ', '_')}.pdf" 
-    : null;
+  String? _submissionReference;
+  String? get submissionReference => _submissionReference;
 
   void nextStep() {
     if (_currentStep < 3) {
@@ -88,7 +88,9 @@ class ApplicationProvider extends ChangeNotifier {
 
   void updateSignature(List<Offset?> points) {
     // Convert Offset list to a format suitable for MemberApplication (List<String>)
-    final stringPoints = points.map((p) => p == null ? "null" : "${p.dx},${p.dy}").toList();
+    final stringPoints = points
+        .map((p) => p == null ? "null" : "${p.dx},${p.dy}")
+        .toList();
     _application = _application.copyWith(signaturePoints: stringPoints);
     notifyListeners();
   }
@@ -99,8 +101,8 @@ class ApplicationProvider extends ChangeNotifier {
 
     try {
       final user = _auth.currentUser;
-      
-      await _firestore.collection('applications').add({
+
+      final submission = await _firestore.collection('applications').add({
         'user_id': user?.uid,
         'full_name': _application.fullName,
         'email': _application.email,
@@ -118,6 +120,7 @@ class ApplicationProvider extends ChangeNotifier {
         'created_at': FieldValue.serverTimestamp(),
       });
 
+      _submissionReference = submission.id;
       _application = _application.copyWith(isSubmitted: true);
       _isLoading = false;
       notifyListeners();

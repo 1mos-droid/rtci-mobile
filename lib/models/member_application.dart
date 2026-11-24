@@ -46,8 +46,8 @@ class MemberApplication {
     List<String>? signaturePoints,
     this.isSubmitted = false,
     this.progress = 0.0,
-  })  : selectedMinistries = selectedMinistries ?? [],
-        signaturePoints = signaturePoints ?? [];
+  }) : selectedMinistries = selectedMinistries ?? [],
+       signaturePoints = signaturePoints ?? [];
 
   // Clone/Copy implementation
   MemberApplication copyWith({
@@ -80,7 +80,8 @@ class MemberApplication {
       isWaterBaptized: isWaterBaptized ?? this.isWaterBaptized,
       isHolyGhostBaptized: isHolyGhostBaptized ?? this.isHolyGhostBaptized,
       previousChurch: previousChurch ?? this.previousChurch,
-      selectedMinistries: selectedMinistries ?? List.from(this.selectedMinistries),
+      selectedMinistries:
+          selectedMinistries ?? List.from(this.selectedMinistries),
       talentsAndSkills: talentsAndSkills ?? this.talentsAndSkills,
       covenantsAgreed: covenantsAgreed ?? this.covenantsAgreed,
       signaturePath: signaturePath ?? this.signaturePath,

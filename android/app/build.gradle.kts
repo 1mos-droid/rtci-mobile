@@ -1,3 +1,5 @@
+import java.security.KeyStore
+import java.security.MessageDigest
 import java.util.Properties
 
 plugins {
@@ -14,6 +16,39 @@ val keystoreProperties = Properties()
 val keystorePropertiesFile = rootProject.file("key.properties")
 if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(keystorePropertiesFile.inputStream())
+}
+
+val releaseTaskRequested = gradle.startParameter.taskNames.any { it.contains("release", ignoreCase = true) }
+val expectedReleaseSigningSha1 = "A9:70:60:36:51:26:B2:9A:F5:21:B6:30:89:00:A6:E0:8E:F3:2A:97"
+
+if (releaseTaskRequested) {
+    require(keystorePropertiesFile.exists()) { "Release signing requires android/key.properties and the church keystore." }
+
+    val storeFilePath = requireNotNull(keystoreProperties.getProperty("storeFile")) {
+        "Release signing requires storeFile in android/key.properties."
+    }
+    val storePassword = requireNotNull(keystoreProperties.getProperty("storePassword")) {
+        "Release signing requires storePassword in android/key.properties."
+    }
+    val keyAlias = requireNotNull(keystoreProperties.getProperty("keyAlias")) {
+        "Release signing requires keyAlias in android/key.properties."
+    }
+    val releaseStoreFile = file(storeFilePath)
+    require(releaseStoreFile.isFile) { "The configured release keystore does not exist." }
+
+    val keyStore = KeyStore.getInstance(KeyStore.getDefaultType())
+    releaseStoreFile.inputStream().use { stream ->
+        keyStore.load(stream, storePassword.toCharArray())
+    }
+    val certificate = requireNotNull(keyStore.getCertificate(keyAlias)) {
+        "The configured release key alias does not exist in the keystore."
+    }
+    val actualReleaseSigningSha1 = MessageDigest.getInstance("SHA-1")
+        .digest(certificate.encoded)
+        .joinToString(":") { byte -> "%02X".format(byte) }
+    require(actualReleaseSigningSha1 == expectedReleaseSigningSha1) {
+        "Wrong Android release signing certificate. Expected $expectedReleaseSigningSha1 but found $actualReleaseSigningSha1."
+    }
 }
 
 android {
@@ -53,12 +88,9 @@ android {
 
     buildTypes {
         release {
-            signingConfig = if (keystorePropertiesFile.exists()) {
-                signingConfigs.getByName("release")
-            } else {
-                signingConfigs.getByName("debug")
-            }
-            
+            // Release artifacts must never silently use the debug identity.
+            signingConfig = signingConfigs.getByName("release")
+
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")

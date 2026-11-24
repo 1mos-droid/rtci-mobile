@@ -1,9 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:rtc_mobile/theme/app_theme.dart';
 import 'package:rtc_mobile/widgets/glass_card.dart';
+import 'package:rtc_mobile/widgets/custom_logo_loader.dart';
+import 'package:rtc_mobile/widgets/feature_state.dart';
 import 'package:rtc_mobile/widgets/mesh_gradient_background.dart';
 import 'package:rtc_mobile/application/auth/auth_provider.dart';
 import 'package:rtc_mobile/providers/riverpod_providers.dart';
@@ -16,6 +17,28 @@ class EventsScreen extends ConsumerStatefulWidget {
 }
 
 class _EventsScreenState extends ConsumerState<EventsScreen> {
+  final Set<String> _savingRsvps = {};
+  final Set<String> _attending = {};
+
+  Future<void> _rsvp(String eventId) async {
+    if (_savingRsvps.contains(eventId) || _attending.contains(eventId)) return;
+    setState(() => _savingRsvps.add(eventId));
+    final saved = await ref.read(eventsProvider).rsvp(eventId);
+    if (!mounted) return;
+    setState(() {
+      _savingRsvps.remove(eventId);
+      if (saved) _attending.add(eventId);
+    });
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          saved
+              ? 'Your attendance response has been saved.'
+              : 'We couldn’t save your response. Please try again.',
+        ),
+      ),
+    );
+  }
 
   void _showAddEventSheet(BuildContext context) {
     final nameController = TextEditingController();
@@ -34,7 +57,9 @@ class _EventsScreenState extends ConsumerState<EventsScreen> {
         return StatefulBuilder(
           builder: (context, setModalState) {
             return Padding(
-              padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+              padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom,
+              ),
               child: GlassCard(
                 borderRadius: 24,
                 padding: const EdgeInsets.all(24),
@@ -50,15 +75,18 @@ class _EventsScreenState extends ConsumerState<EventsScreen> {
                             width: 40,
                             height: 4,
                             decoration: BoxDecoration(
-                              color: ObsidianTheme.borderHairline,
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.outlineVariant,
                               borderRadius: BorderRadius.circular(2),
                             ),
                           ),
                         ),
                         const SizedBox(height: 20),
                         Text(
-                          "Schedule Sanctuary Event",
-                          style: GoogleFonts.cinzel(
+                          "Schedule an event",
+                          style: TextStyle(
+                            fontFamily: 'Inter',
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                             color: ObsidianTheme.primaryCrimson,
@@ -67,15 +95,33 @@ class _EventsScreenState extends ConsumerState<EventsScreen> {
                         const SizedBox(height: 16),
                         TextFormField(
                           controller: nameController,
-                          style: TextStyle(color: ObsidianTheme.textVibrant),
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSurface,
+                          ),
                           decoration: InputDecoration(
                             labelText: "Event Title",
                             hintText: "E.g., Midweek Revival",
-                            labelStyle: TextStyle(color: ObsidianTheme.textMuted),
-                            enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: ObsidianTheme.borderHairline)),
-                            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: ObsidianTheme.primaryCrimson)),
+                            labelStyle: TextStyle(
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.onSurfaceVariant,
+                            ),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.outlineVariant,
+                              ),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: ObsidianTheme.primaryCrimson,
+                              ),
+                            ),
                           ),
-                          validator: (val) => val == null || val.isEmpty ? "Event title required" : null,
+                          validator: (val) => val == null || val.isEmpty
+                              ? "Event title required"
+                              : null,
                         ),
                         const SizedBox(height: 12),
                         Row(
@@ -83,9 +129,12 @@ class _EventsScreenState extends ConsumerState<EventsScreen> {
                             Expanded(
                               child: Text(
                                 "Date: ${DateFormat('yyyy-MM-dd').format(selectedDate)}",
-                                style: GoogleFonts.plusJakartaSans(
+                                style: TextStyle(
+                                  fontFamily: 'Inter',
                                   fontWeight: FontWeight.w600,
-                                  color: ObsidianTheme.textVibrant,
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onSurface,
                                 ),
                               ),
                             ),
@@ -95,7 +144,9 @@ class _EventsScreenState extends ConsumerState<EventsScreen> {
                                   context: context,
                                   initialDate: selectedDate,
                                   firstDate: DateTime.now(),
-                                  lastDate: DateTime.now().add(const Duration(days: 365)),
+                                  lastDate: DateTime.now().add(
+                                    const Duration(days: 365),
+                                  ),
                                 );
                                 if (date != null) {
                                   setModalState(() => selectedDate = date);
@@ -108,47 +159,105 @@ class _EventsScreenState extends ConsumerState<EventsScreen> {
                         const SizedBox(height: 12),
                         TextFormField(
                           controller: timeController,
-                          style: TextStyle(color: ObsidianTheme.textVibrant),
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSurface,
+                          ),
                           decoration: InputDecoration(
                             labelText: "Service Hours",
                             hintText: "E.g., 09:00 AM - 11:30 AM",
-                            labelStyle: TextStyle(color: ObsidianTheme.textMuted),
-                            enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: ObsidianTheme.borderHairline)),
-                            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: ObsidianTheme.primaryCrimson)),
+                            labelStyle: TextStyle(
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.onSurfaceVariant,
+                            ),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.outlineVariant,
+                              ),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: ObsidianTheme.primaryCrimson,
+                              ),
+                            ),
                           ),
-                          validator: (val) => val == null || val.isEmpty ? "Service hours required" : null,
+                          validator: (val) => val == null || val.isEmpty
+                              ? "Service hours required"
+                              : null,
                         ),
                         const SizedBox(height: 12),
                         TextFormField(
                           controller: locationController,
-                          style: TextStyle(color: ObsidianTheme.textVibrant),
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSurface,
+                          ),
                           decoration: InputDecoration(
                             labelText: "Physical / Virtual Location",
                             hintText: "E.g., Main Sanctuary or Zoom",
-                            labelStyle: TextStyle(color: ObsidianTheme.textMuted),
-                            enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: ObsidianTheme.borderHairline)),
-                            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: ObsidianTheme.primaryCrimson)),
+                            labelStyle: TextStyle(
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.onSurfaceVariant,
+                            ),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.outlineVariant,
+                              ),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: ObsidianTheme.primaryCrimson,
+                              ),
+                            ),
                           ),
-                          validator: (val) => val == null || val.isEmpty ? "Location required" : null,
+                          validator: (val) => val == null || val.isEmpty
+                              ? "Location required"
+                              : null,
                         ),
                         const SizedBox(height: 12),
                         TextFormField(
                           controller: descController,
                           maxLines: 3,
-                          style: TextStyle(color: ObsidianTheme.textVibrant),
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSurface,
+                          ),
                           decoration: InputDecoration(
                             labelText: "Event Description & Focus",
-                            hintText: "Focus of the gathering, scriptures, guidelines...",
-                            labelStyle: TextStyle(color: ObsidianTheme.textMuted),
-                            enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: ObsidianTheme.borderHairline)),
-                            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: ObsidianTheme.primaryCrimson)),
+                            hintText:
+                                "Focus of the gathering, scriptures, guidelines...",
+                            labelStyle: TextStyle(
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.onSurfaceVariant,
+                            ),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.outlineVariant,
+                              ),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: ObsidianTheme.primaryCrimson,
+                              ),
+                            ),
                           ),
                         ),
                         const SizedBox(height: 12),
                         SwitchListTile(
                           title: Text(
                             "Broadcast Stream Online?",
-                            style: GoogleFonts.plusJakartaSans(fontSize: 13, fontWeight: FontWeight.bold, color: ObsidianTheme.textVibrant),
+                            style: TextStyle(
+                              fontFamily: 'Inter',
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(context).colorScheme.onSurface,
+                            ),
                           ),
                           value: isOnline,
                           activeThumbColor: ObsidianTheme.secondaryGold,
@@ -162,8 +271,10 @@ class _EventsScreenState extends ConsumerState<EventsScreen> {
                           onPressed: () async {
                             if (formKey.currentState!.validate()) {
                               final eventsProv = ref.read(eventsProvider);
-                              final auth = ref.read(authNotifierProvider).value!;
-                              
+                              final auth = ref
+                                  .read(authNotifierProvider)
+                                  .value!;
+
                               final success = await eventsProv.scheduleEvent(
                                 name: nameController.text,
                                 date: selectedDate,
@@ -178,7 +289,9 @@ class _EventsScreenState extends ConsumerState<EventsScreen> {
                                 Navigator.pop(context);
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
-                                    content: Text("Event scheduled on Sanctuary Calendar!"),
+                                    content: Text(
+                                      "Event added to the church calendar.",
+                                    ),
                                     backgroundColor: Colors.green,
                                   ),
                                 );
@@ -201,11 +314,12 @@ class _EventsScreenState extends ConsumerState<EventsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final auth = ref.watch(authNotifierProvider).value!;
+    final auth = ref.watch(authNotifierProvider).value;
     final eventsProv = ref.watch(eventsProvider);
-    final isLeader = auth.isDeptHead;
+    final isLeader = auth?.isDeptHead ?? false;
 
-    final sortedEvents = eventsProv.events;
+    final sortedEvents = [...eventsProv.events]
+      ..sort((a, b) => a.date.compareTo(b.date));
 
     return MeshGradientBackground(
       child: Scaffold(
@@ -214,15 +328,20 @@ class _EventsScreenState extends ConsumerState<EventsScreen> {
           backgroundColor: Colors.transparent,
           elevation: 0,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios_new, color: ObsidianTheme.textVibrant, size: 18),
+            icon: Icon(
+              Icons.arrow_back_ios_new,
+              color: Theme.of(context).colorScheme.onSurface,
+              size: 18,
+            ),
             onPressed: () => Navigator.pop(context),
           ),
           title: Text(
-            "Calendar of Service",
-            style: GoogleFonts.cinzel(
+            "Church calendar",
+            style: TextStyle(
+              fontFamily: 'Inter',
               fontWeight: FontWeight.bold,
               fontSize: 18,
-              color: ObsidianTheme.textVibrant,
+              color: Theme.of(context).colorScheme.onSurface,
             ),
           ),
           centerTitle: true,
@@ -232,24 +351,28 @@ class _EventsScreenState extends ConsumerState<EventsScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 10,
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "UPCOMING SERVICES & ASSEMBLIES",
+                      "LIFE TOGETHER",
                       style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                            letterSpacing: 1.5,
-                            color: ObsidianTheme.secondaryGold,
-                          ),
+                        letterSpacing: 1.5,
+                        color: ObsidianTheme.secondaryGold,
+                      ),
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      "Sanctuary Chronicles",
-                      style: GoogleFonts.cinzel(
+                      "Gather with your church family",
+                      style: TextStyle(
+                        fontFamily: 'Inter',
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
-                        color: ObsidianTheme.textVibrant,
+                        color: Theme.of(context).colorScheme.onSurface,
                       ),
                     ),
                     Text(
@@ -264,22 +387,42 @@ class _EventsScreenState extends ConsumerState<EventsScreen> {
 
               Expanded(
                 child: eventsProv.isLoading && sortedEvents.isEmpty
-                  ? const Center(child: CircularProgressIndicator())
-                  : sortedEvents.isEmpty
-                    ? Center(
-                        child: Text(
-                          "No services scheduled on the calendar.",
-                          style: Theme.of(context).textTheme.bodyMedium,
+                    ? const Center(
+                        child: CustomLogoLoader(
+                          size: 48,
+                          message: 'Loading events…',
                         ),
                       )
+                    : eventsProv.error != null && sortedEvents.isEmpty
+                    ? FeatureState(
+                        icon: Icons.cloud_off_rounded,
+                        title: 'The calendar is unavailable',
+                        message: eventsProv.error!,
+                        actionLabel: 'Try again',
+                        onAction: eventsProv.fetchEvents,
+                      )
+                    : sortedEvents.isEmpty
+                    ? FeatureState(
+                        icon: Icons.event_outlined,
+                        title: 'Good things are ahead',
+                        message:
+                            'Services and gatherings will appear here when they are scheduled.',
+                        actionLabel: 'Refresh',
+                        onAction: eventsProv.fetchEvents,
+                      )
                     : ListView.builder(
-                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 10,
+                        ),
                         itemCount: sortedEvents.length,
                         itemBuilder: (context, index) {
                           final event = sortedEvents[index];
                           final day = DateFormat('dd').format(event.date);
-                          final month = DateFormat('MMM').format(event.date).toUpperCase();
-                          
+                          final month = DateFormat(
+                            'MMM',
+                          ).format(event.date).toUpperCase();
+
                           return Padding(
                             padding: const EdgeInsets.only(bottom: 14),
                             child: GlassCard(
@@ -289,13 +432,23 @@ class _EventsScreenState extends ConsumerState<EventsScreen> {
                                 children: [
                                   Container(
                                     width: 54,
-                                    padding: const EdgeInsets.symmetric(vertical: 10),
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 10,
+                                    ),
                                     decoration: BoxDecoration(
                                       color: event.isOnline
-                                          ? ObsidianTheme.secondaryGold.withValues(alpha: 0.1)
-                                          : ObsidianTheme.surfaceDark.withValues(alpha: 0.5),
+                                          ? ObsidianTheme.secondaryGold
+                                                .withValues(alpha: 0.1)
+                                          : Theme.of(context)
+                                                .colorScheme
+                                                .surface
+                                                .withValues(alpha: 0.5),
                                       border: Border.all(
-                                        color: event.isOnline ? ObsidianTheme.secondaryGold : ObsidianTheme.borderHairline,
+                                        color: event.isOnline
+                                            ? ObsidianTheme.secondaryGold
+                                            : Theme.of(
+                                                context,
+                                              ).colorScheme.outlineVariant,
                                         width: 0.8,
                                       ),
                                       borderRadius: BorderRadius.circular(16),
@@ -305,20 +458,28 @@ class _EventsScreenState extends ConsumerState<EventsScreen> {
                                       children: [
                                         Text(
                                           day,
-                                          style: GoogleFonts.cinzel(
+                                          style: TextStyle(
+                                            fontFamily: 'Inter',
                                             fontSize: 22,
                                             fontWeight: FontWeight.bold,
-                                            color: event.isOnline ? ObsidianTheme.secondaryGold : ObsidianTheme.textVibrant,
+                                            color: event.isOnline
+                                                ? ObsidianTheme.secondaryGold
+                                                : Theme.of(
+                                                    context,
+                                                  ).colorScheme.onSurface,
                                             height: 1.0,
                                           ),
                                         ),
                                         const SizedBox(height: 2),
                                         Text(
                                           month,
-                                          style: GoogleFonts.plusJakartaSans(
-                                            fontSize: 9,
+                                          style: TextStyle(
+                                            fontFamily: 'Inter',
+                                            fontSize: 12,
                                             fontWeight: FontWeight.bold,
-                                            color: ObsidianTheme.textMuted,
+                                            color: Theme.of(
+                                              context,
+                                            ).colorScheme.onSurfaceVariant,
                                             letterSpacing: 0.5,
                                           ),
                                         ),
@@ -326,42 +487,67 @@ class _EventsScreenState extends ConsumerState<EventsScreen> {
                                     ),
                                   ),
                                   const SizedBox(width: 16),
-                                  
+
                                   Expanded(
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             if (event.department != null)
                                               Container(
-                                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                      horizontal: 8,
+                                                      vertical: 4,
+                                                    ),
                                                 decoration: BoxDecoration(
-                                                  color: ObsidianTheme.secondaryGold.withValues(alpha: 0.1),
-                                                  borderRadius: BorderRadius.circular(6),
-                                                  border: Border.all(color: ObsidianTheme.secondaryGold.withValues(alpha: 0.3), width: 0.5),
+                                                  color: ObsidianTheme
+                                                      .secondaryGold
+                                                      .withValues(alpha: 0.1),
+                                                  borderRadius:
+                                                      BorderRadius.circular(6),
+                                                  border: Border.all(
+                                                    color: ObsidianTheme
+                                                        .secondaryGold
+                                                        .withValues(alpha: 0.3),
+                                                    width: 0.5,
+                                                  ),
                                                 ),
                                                 child: Text(
-                                                  event.department!.toUpperCase(),
-                                                  style: GoogleFonts.plusJakartaSans(
-                                                    fontSize: 8,
+                                                  event.department!
+                                                      .toUpperCase(),
+                                                  style: TextStyle(
+                                                    fontFamily: 'Inter',
+                                                    fontSize: 12,
                                                     fontWeight: FontWeight.bold,
-                                                    color: ObsidianTheme.secondaryGold,
+                                                    color: ObsidianTheme
+                                                        .secondaryGold,
                                                   ),
                                                 ),
                                               ),
                                             if (event.isOnline)
                                               Row(
                                                 children: [
-                                                  Icon(Icons.videocam_outlined, size: 14, color: ObsidianTheme.secondaryGold),
+                                                  Icon(
+                                                    Icons.videocam_outlined,
+                                                    size: 14,
+                                                    color: ObsidianTheme
+                                                        .secondaryGold,
+                                                  ),
                                                   const SizedBox(width: 4),
                                                   Text(
                                                     "ONLINE",
-                                                    style: GoogleFonts.plusJakartaSans(
-                                                      fontSize: 8.5,
-                                                      color: ObsidianTheme.secondaryGold,
-                                                      fontWeight: FontWeight.bold,
+                                                    style: TextStyle(
+                                                      fontFamily: 'Inter',
+                                                      fontSize: 12,
+                                                      color: ObsidianTheme
+                                                          .secondaryGold,
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                     ),
                                                   ),
                                                 ],
@@ -371,32 +557,54 @@ class _EventsScreenState extends ConsumerState<EventsScreen> {
                                         const SizedBox(height: 8),
                                         Text(
                                           event.name,
-                                          style: GoogleFonts.cinzel(
+                                          style: TextStyle(
+                                            fontFamily: 'Inter',
                                             fontSize: 16,
                                             fontWeight: FontWeight.bold,
-                                            color: ObsidianTheme.textVibrant,
+                                            color: Theme.of(
+                                              context,
+                                            ).colorScheme.onSurface,
                                           ),
                                         ),
                                         const SizedBox(height: 4),
                                         Text(
                                           event.description ?? '',
-                                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyMedium
+                                              ?.copyWith(
                                                 fontSize: 12,
-                                                color: ObsidianTheme.textMuted,
+                                                color: Theme.of(
+                                                  context,
+                                                ).colorScheme.onSurfaceVariant,
                                               ),
                                         ),
-                                        Divider(color: ObsidianTheme.borderHairline, height: 20),
+                                        Divider(
+                                          color: Theme.of(
+                                            context,
+                                          ).colorScheme.outlineVariant,
+                                          height: 20,
+                                        ),
                                         Row(
                                           children: [
-                                            Icon(Icons.access_time_outlined, size: 13, color: ObsidianTheme.textMuted),
+                                            Icon(
+                                              Icons.access_time_outlined,
+                                              size: 13,
+                                              color: Theme.of(
+                                                context,
+                                              ).colorScheme.onSurfaceVariant,
+                                            ),
                                             const SizedBox(width: 6),
                                             Expanded(
                                               child: Text(
                                                 event.time,
-                                                style: GoogleFonts.plusJakartaSans(
-                                                  fontSize: 11,
+                                                style: TextStyle(
+                                                  fontFamily: 'Inter',
+                                                  fontSize: 12,
                                                   fontWeight: FontWeight.bold,
-                                                  color: ObsidianTheme.textVibrant,
+                                                  color: Theme.of(
+                                                    context,
+                                                  ).colorScheme.onSurface,
                                                 ),
                                               ),
                                             ),
@@ -405,15 +613,24 @@ class _EventsScreenState extends ConsumerState<EventsScreen> {
                                         const SizedBox(height: 4),
                                         Row(
                                           children: [
-                                            Icon(Icons.map_outlined, size: 13, color: ObsidianTheme.textMuted),
+                                            Icon(
+                                              Icons.map_outlined,
+                                              size: 13,
+                                              color: Theme.of(
+                                                context,
+                                              ).colorScheme.onSurfaceVariant,
+                                            ),
                                             const SizedBox(width: 6),
                                             Expanded(
                                               child: Text(
                                                 event.location,
-                                                style: GoogleFonts.plusJakartaSans(
-                                                  fontSize: 11,
+                                                style: TextStyle(
+                                                  fontFamily: 'Inter',
+                                                  fontSize: 12,
                                                   fontWeight: FontWeight.w600,
-                                                  color: ObsidianTheme.textVibrant,
+                                                  color: Theme.of(
+                                                    context,
+                                                  ).colorScheme.onSurface,
                                                 ),
                                               ),
                                             ),
@@ -423,21 +640,45 @@ class _EventsScreenState extends ConsumerState<EventsScreen> {
                                         SizedBox(
                                           width: double.infinity,
                                           child: ElevatedButton.icon(
-                                            onPressed: () {
-                                              ScaffoldMessenger.of(context).showSnackBar(
-                                                const SnackBar(
-                                                  content: Text("Attendance confirmed for this service!"),
-                                                  backgroundColor: Colors.green,
-                                                ),
-                                              );
-                                            },
-                                            icon: const Icon(Icons.check_circle_outline, size: 20),
-                                            label: const Text("I'M ATTENDING", style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 1.0)),
+                                            onPressed:
+                                                _savingRsvps.contains(
+                                                      event.id,
+                                                    ) ||
+                                                    _attending.contains(
+                                                      event.id,
+                                                    )
+                                                ? null
+                                                : () => _rsvp(event.id),
+                                            icon: const Icon(
+                                              Icons.check_circle_outline,
+                                              size: 20,
+                                            ),
+                                            label: Text(
+                                              _savingRsvps.contains(event.id)
+                                                  ? 'Saving…'
+                                                  : _attending.contains(
+                                                      event.id,
+                                                    )
+                                                  ? 'You’re on the list'
+                                                  : 'I’m attending',
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
                                             style: ElevatedButton.styleFrom(
-                                              backgroundColor: ObsidianTheme.secondaryGold,
-                                              foregroundColor: ObsidianTheme.backgroundDark,
-                                              padding: const EdgeInsets.symmetric(vertical: 12),
-                                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                                              backgroundColor:
+                                                  ObsidianTheme.secondaryGold,
+                                              foregroundColor: Theme.of(
+                                                context,
+                                              ).scaffoldBackgroundColor,
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                    vertical: 12,
+                                                  ),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
+                                              ),
                                             ),
                                           ),
                                         ),

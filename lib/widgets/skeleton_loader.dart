@@ -1,46 +1,62 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 
-class SkeletonContainer extends StatelessWidget {
+/// A quiet placeholder that follows the local theme and motion preference.
+class SkeletonContainer extends StatefulWidget {
   final double width;
   final double height;
   final double borderRadius;
-
   const SkeletonContainer({
     super.key,
     this.width = double.infinity,
     required this.height,
     this.borderRadius = 8,
   });
+  @override
+  State<SkeletonContainer> createState() => _SkeletonContainerState();
+}
+
+class _SkeletonContainerState extends State<SkeletonContainer>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _pulse = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 1400),
+  );
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (MediaQuery.disableAnimationsOf(context) || !TickerMode.of(context)) {
+      _pulse.stop();
+      _pulse.value = 0;
+    } else {
+      _pulse.repeat(reverse: true);
+    }
+  }
+
+  @override
+  void dispose() {
+    _pulse.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    final baseColor = isDark ? const Color(0xFF2E3142) : const Color(0xFFD8DEE9);
-    final highlightColor = isDark ? const Color(0xFF3B4056) : const Color(0xFFE5E9F0);
-
-    // Disable shimmer timers in test environments to avoid pending timer assertions
-    final isTest = Platform.environment.containsKey('FLUTTER_TEST');
-
-    Widget container = Container(
-      width: width,
-      height: height,
-      decoration: BoxDecoration(
-        color: baseColor,
-        borderRadius: BorderRadius.circular(borderRadius),
+    final scheme = Theme.of(context).colorScheme;
+    return ExcludeSemantics(
+      child: AnimatedBuilder(
+        animation: _pulse,
+        builder: (context, _) => DecoratedBox(
+          decoration: BoxDecoration(
+            color: Color.lerp(
+              scheme.surfaceContainerHighest,
+              scheme.surfaceContainerLow,
+              _pulse.value,
+            ),
+            borderRadius: BorderRadius.circular(widget.borderRadius),
+          ),
+          child: SizedBox(width: widget.width, height: widget.height),
+        ),
       ),
     );
-
-    if (isTest) {
-      return container;
-    }
-
-    return container
-        .animate(onPlay: (controller) => controller.repeat())
-        .shimmer(
-          color: highlightColor,
-          duration: 1.5.seconds,
-        );
   }
 }

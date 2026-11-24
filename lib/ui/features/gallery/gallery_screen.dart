@@ -1,7 +1,7 @@
+import 'package:rtc_mobile/widgets/custom_logo_loader.dart';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -9,8 +9,8 @@ import 'package:rtc_mobile/theme/app_theme.dart';
 import 'package:rtc_mobile/widgets/glass_card.dart';
 import 'package:rtc_mobile/widgets/mesh_gradient_background.dart';
 import 'package:rtc_mobile/providers/riverpod_providers.dart';
-import 'package:rtc_mobile/providers/gallery_provider.dart';
 import 'package:rtc_mobile/application/auth/auth_provider.dart';
+import 'package:rtc_mobile/utils/image_upload.dart';
 
 class GalleryScreen extends ConsumerStatefulWidget {
   const GalleryScreen({super.key});
@@ -22,11 +22,14 @@ class GalleryScreen extends ConsumerStatefulWidget {
 class _GalleryScreenState extends ConsumerState<GalleryScreen> {
   final ImagePicker _picker = ImagePicker();
 
-  Future<void> _pickAndUploadImage(BuildContext context, GalleryProvider provider) async {
+  Future<void> _pickAndUploadImage(
+    BuildContext context,
+    GalleryProvider provider,
+  ) async {
     // Pick source
     final ImageSource? source = await showModalBottomSheet<ImageSource>(
       context: context,
-      backgroundColor: ObsidianTheme.surfaceDark,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
@@ -34,13 +37,29 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
         child: Wrap(
           children: [
             ListTile(
-              leading: Icon(Icons.camera_alt_outlined, color: ObsidianTheme.secondaryGold),
-              title: Text("Take Photo", style: TextStyle(color: ObsidianTheme.textVibrant)),
+              leading: Icon(
+                Icons.camera_alt_outlined,
+                color: ObsidianTheme.secondaryGold,
+              ),
+              title: Text(
+                "Take Photo",
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
+              ),
               onTap: () => Navigator.pop(context, ImageSource.camera),
             ),
             ListTile(
-              leading: Icon(Icons.photo_library_outlined, color: ObsidianTheme.secondaryGold),
-              title: Text("Choose from Gallery", style: TextStyle(color: ObsidianTheme.textVibrant)),
+              leading: Icon(
+                Icons.photo_library_outlined,
+                color: ObsidianTheme.secondaryGold,
+              ),
+              title: Text(
+                "Choose from Gallery",
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
+              ),
               onTap: () => Navigator.pop(context, ImageSource.gallery),
             ),
           ],
@@ -69,7 +88,7 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      backgroundColor: ObsidianTheme.backgroundDark,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
@@ -92,10 +111,11 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
                     children: [
                       Text(
                         "Post Service Moment",
-                        style: GoogleFonts.cinzel(
+                        style: TextStyle(
+                          fontFamily: 'Inter',
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color: ObsidianTheme.textVibrant,
+                          color: Theme.of(context).colorScheme.onSurface,
                         ),
                       ),
                       const SizedBox(height: 16),
@@ -111,33 +131,53 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
                       const SizedBox(height: 16),
                       TextFormField(
                         controller: titleController,
-                        style: TextStyle(color: ObsidianTheme.textVibrant),
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onSurface,
+                        ),
                         decoration: const InputDecoration(
                           labelText: "Title",
                           hintText: "e.g. Sunday Service",
                         ),
-                        validator: (val) => val == null || val.isEmpty ? "Title is required" : null,
+                        validator: (val) => val == null || val.isEmpty
+                            ? "Title is required"
+                            : null,
                       ),
                       const SizedBox(height: 16),
                       TextFormField(
                         controller: descController,
-                        style: TextStyle(color: ObsidianTheme.textVibrant),
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onSurface,
+                        ),
                         decoration: const InputDecoration(
                           labelText: "Description / Caption",
                           hintText: "e.g. Worship team pop off fr",
                         ),
-                        validator: (val) => val == null || val.isEmpty ? "Description is required" : null,
+                        validator: (val) => val == null || val.isEmpty
+                            ? "Description is required"
+                            : null,
                       ),
                       const SizedBox(height: 16),
                       ListTile(
                         contentPadding: EdgeInsets.zero,
-                        title: Text("Service Date", style: TextStyle(color: ObsidianTheme.textVibrant, fontSize: 14)),
+                        title: Text(
+                          "Service Date",
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSurface,
+                            fontSize: 14,
+                          ),
+                        ),
                         subtitle: Text(
                           DateFormat('yyyy-MM-dd').format(selectedDate),
-                          style: TextStyle(color: ObsidianTheme.secondaryGold, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                            color: ObsidianTheme.secondaryGold,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                         trailing: IconButton(
-                          icon: Icon(Icons.calendar_month, color: ObsidianTheme.secondaryGold),
+                          icon: Icon(
+                            Icons.calendar_month,
+                            color: ObsidianTheme.secondaryGold,
+                          ),
                           onPressed: () async {
                             final picked = await showDatePicker(
                               context: context,
@@ -162,30 +202,43 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
                                   setSheetState(() {});
                                   try {
                                     // 1. Upload the image file
-                                    final downloadUrl = await provider.uploadImage(File(image.path));
-                                    
+                                    final downloadUrl = await provider
+                                        .uploadImage(File(image.path));
+
                                     // 2. Add item to Firestore collection
-                                    final success = await provider.addGalleryItem(
-                                      imageUrl: downloadUrl,
-                                      title: titleController.text.trim(),
-                                      description: descController.text.trim(),
-                                      date: selectedDate,
-                                    );
+                                    final success = await provider
+                                        .addGalleryItem(
+                                          imageUrl: downloadUrl,
+                                          title: titleController.text.trim(),
+                                          description: descController.text
+                                              .trim(),
+                                          date: selectedDate,
+                                        );
 
                                     if (success && context.mounted) {
                                       Navigator.pop(context); // Close dialog
-                                      ScaffoldMessenger.of(context).showSnackBar(
+                                      ScaffoldMessenger.of(
+                                        context,
+                                      ).showSnackBar(
                                         const SnackBar(
-                                          content: Text("Moment added to service gallery!"),
+                                          content: Text(
+                                            "Moment added to service gallery!",
+                                          ),
                                           backgroundColor: Colors.green,
                                         ),
                                       );
                                     }
                                   } catch (e) {
                                     if (context.mounted) {
-                                      ScaffoldMessenger.of(context).showSnackBar(
+                                      ScaffoldMessenger.of(
+                                        context,
+                                      ).showSnackBar(
                                         SnackBar(
-                                          content: Text("Upload failed: $e"),
+                                          content: Text(
+                                            e is ImageUploadException
+                                                ? e.message
+                                                : "Upload failed. Please try again.",
+                                          ),
                                           backgroundColor: Colors.red,
                                         ),
                                       );
@@ -197,7 +250,10 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
                             ? const SizedBox(
                                 width: 20,
                                 height: 20,
-                                child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                  color: Colors.white,
+                                ),
                               )
                             : const Text("UPLOAD MOMENT"),
                       ),
@@ -213,12 +269,18 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
     );
   }
 
-  void _showDeleteConfirmation(BuildContext context, GalleryProvider provider, GalleryItem item) {
+  void _showDeleteConfirmation(
+    BuildContext context,
+    GalleryProvider provider,
+    GalleryItem item,
+  ) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog.adaptive(
         title: const Text("Delete Moment"),
-        content: const Text("Are you sure you want to remove this moment from the service gallery?"),
+        content: const Text(
+          "Are you sure you want to remove this moment from the service gallery?",
+        ),
         actions: [
           TextButton(
             child: const Text("Cancel"),
@@ -229,7 +291,10 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
             child: const Text("Delete"),
             onPressed: () async {
               Navigator.pop(context); // Close dialog
-              final success = await provider.deleteGalleryItem(item.id, item.imageUrl);
+              final success = await provider.deleteGalleryItem(
+                item.id,
+                item.imageUrl,
+              );
               if (success && context.mounted) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text("Moment deleted successfully.")),
@@ -242,7 +307,12 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
     );
   }
 
-  void _viewFullImage(BuildContext context, GalleryProvider provider, GalleryItem item, bool canManage) {
+  void _viewFullImage(
+    BuildContext context,
+    GalleryProvider provider,
+    GalleryItem item,
+    bool canManage,
+  ) {
     showDialog(
       context: context,
       builder: (context) {
@@ -268,12 +338,18 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
                     if (loadingProgress == null) return child;
                     return const SizedBox(
                       height: 300,
-                      child: Center(child: CircularProgressIndicator()),
+                      child: Center(child: CustomLogoLoader(size: 48)),
                     );
                   },
                   errorBuilder: (context, error, stackTrace) => const SizedBox(
                     height: 200,
-                    child: Center(child: Icon(Icons.broken_image, size: 48, color: Colors.white)),
+                    child: Center(
+                      child: Icon(
+                        Icons.broken_image,
+                        size: 48,
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -281,9 +357,13 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: ObsidianTheme.surfaceDark.withValues(alpha: 0.95),
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.surface.withValues(alpha: 0.95),
                   borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: ObsidianTheme.borderHairline),
+                  border: Border.all(
+                    color: Theme.of(context).colorScheme.outlineVariant,
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -294,7 +374,8 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
                         Expanded(
                           child: Text(
                             item.title,
-                            style: GoogleFonts.plusJakartaSans(
+                            style: TextStyle(
+                              fontFamily: 'Inter',
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
@@ -303,7 +384,10 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
                         ),
                         if (canManage)
                           IconButton(
-                            icon: const Icon(Icons.delete_outline, color: Colors.redAccent),
+                            icon: const Icon(
+                              Icons.delete_outline,
+                              color: Colors.redAccent,
+                            ),
                             onPressed: () {
                               Navigator.pop(context); // Close view image dialog
                               _showDeleteConfirmation(context, provider, item);
@@ -311,21 +395,37 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
                           ),
                       ],
                     ),
-                    if (item.description != null && item.description!.isNotEmpty) ...[
+                    if (item.description != null &&
+                        item.description!.isNotEmpty) ...[
                       const SizedBox(height: 8),
                       Text(
                         item.description!,
-                        style: TextStyle(color: ObsidianTheme.textMuted, fontSize: 13),
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
+                          fontSize: 13,
+                        ),
                       ),
                     ],
-                    Divider(color: ObsidianTheme.borderHairline, height: 24),
+                    Divider(
+                      color: Theme.of(context).colorScheme.outlineVariant,
+                      height: 24,
+                    ),
                     Row(
                       children: [
-                        Icon(Icons.calendar_today_outlined, size: 12, color: ObsidianTheme.textMuted),
+                        Icon(
+                          Icons.calendar_today_outlined,
+                          size: 12,
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
+                        ),
                         const SizedBox(width: 8),
                         Text(
                           DateFormat('MMMM dd, yyyy').format(item.date),
-                          style: TextStyle(color: ObsidianTheme.textMuted, fontSize: 11),
+                          style: TextStyle(
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.onSurfaceVariant,
+                            fontSize: 12,
+                          ),
                         ),
                       ],
                     ),
@@ -351,7 +451,7 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
     final images = galleryProv.images;
 
     return Scaffold(
-      backgroundColor: ObsidianTheme.backgroundDark,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: MeshGradientBackground(
         child: CustomScrollView(
           physics: const BouncingScrollPhysics(),
@@ -365,8 +465,9 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
                 titlePadding: const EdgeInsets.only(left: 48, bottom: 16),
                 title: Text(
                   "Service Gallery",
-                  style: GoogleFonts.cinzel(
-                    color: ObsidianTheme.textVibrant,
+                  style: TextStyle(
+                    fontFamily: 'Inter',
+                    color: Theme.of(context).colorScheme.onSurface,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -374,7 +475,10 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
               actions: [
                 if (canManage)
                   IconButton(
-                    icon: Icon(Icons.add_a_photo_outlined, color: ObsidianTheme.secondaryGold),
+                    icon: Icon(
+                      Icons.add_a_photo_outlined,
+                      color: ObsidianTheme.secondaryGold,
+                    ),
                     onPressed: () => _pickAndUploadImage(context, galleryProv),
                   ),
               ],
@@ -383,86 +487,114 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
               padding: const EdgeInsets.all(20.0),
               sliver: galleryProv.isLoading && images.isEmpty
                   ? const SliverFillRemaining(
-                      child: Center(child: CircularProgressIndicator()),
+                      child: Center(child: CustomLogoLoader(size: 48)),
                     )
                   : images.isEmpty
-                      ? SliverFillRemaining(
-                          child: Center(
-                            child: Text(
-                              "No gallery images found.",
-                              style: TextStyle(color: ObsidianTheme.textVibrant),
-                            ),
+                  ? SliverFillRemaining(
+                      child: Center(
+                        child: Text(
+                          "No gallery images found.",
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSurface,
                           ),
-                        )
-                      : SliverGrid(
-                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        ),
+                      ),
+                    )
+                  : SliverGrid(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
                             mainAxisSpacing: 16.0,
                             crossAxisSpacing: 16.0,
                             childAspectRatio: 0.8,
                           ),
-                          delegate: SliverChildBuilderDelegate(
-                            (context, index) {
-                              final img = images[index];
-                              return GestureDetector(
-                                onTap: () => _viewFullImage(context, galleryProv, img, canManage),
-                                child: GlassCard(
-                                  padding: EdgeInsets.zero,
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                                    children: [
-                                      Expanded(
-                                        child: ClipRRect(
-                                          borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
-                                          child: Image.network(
-                                            img.url,
-                                            fit: BoxFit.cover,
-                                            errorBuilder: (context, error, stackTrace) => Container(
-                                              color: ObsidianTheme.borderHairline,
-                                              child: Icon(
-                                                Icons.broken_image,
-                                                color: ObsidianTheme.textMuted,
-                                              ),
+                      delegate: SliverChildBuilderDelegate((context, index) {
+                        final img = images[index];
+                        return GestureDetector(
+                              onTap: () => _viewFullImage(
+                                context,
+                                galleryProv,
+                                img,
+                                canManage,
+                              ),
+                              child: GlassCard(
+                                padding: EdgeInsets.zero,
+                                child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  children: [
+                                    Expanded(
+                                      child: ClipRRect(
+                                        borderRadius:
+                                            const BorderRadius.vertical(
+                                              top: Radius.circular(16),
                                             ),
-                                          ),
+                                        child: Image.network(
+                                          img.url,
+                                          fit: BoxFit.cover,
+                                          errorBuilder:
+                                              (context, error, stackTrace) =>
+                                                  Container(
+                                                    color: ObsidianTheme
+                                                        .borderHairline,
+                                                    child: Icon(
+                                                      Icons.broken_image,
+                                                      color: ObsidianTheme
+                                                          .textMuted,
+                                                    ),
+                                                  ),
                                         ),
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(12.0),
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              img.description ?? img.title,
-                                              style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                            const SizedBox(height: 4),
-                                            Text(
-                                              DateFormat('MMM dd, yyyy').format(img.date),
-                                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                                    fontSize: 9,
-                                                    color: ObsidianTheme.textMuted,
-                                                  ),
-                                            ),
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(12.0),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            img.description ?? img.title,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleLarge
+                                                ?.copyWith(
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                          const SizedBox(height: 4),
+                                          Text(
+                                            DateFormat(
+                                              'MMM dd, yyyy',
+                                            ).format(img.date),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyMedium
+                                                ?.copyWith(
+                                                  fontSize: 12,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .onSurfaceVariant,
+                                                ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              )
-                              .animate()
-                              .fadeIn(delay: (index * 50).ms, duration: 400.ms)
-                              .scaleXY(begin: 0.9, end: 1.0, curve: Curves.easeOutBack);
-                            },
-                            childCount: images.length,
-                          ),
-                        ),
+                              ),
+                            )
+                            .animate()
+                            .fadeIn(delay: (index * 50).ms, duration: 400.ms)
+                            .scaleXY(
+                              begin: 0.9,
+                              end: 1.0,
+                              curve: Curves.easeOutBack,
+                            );
+                      }, childCount: images.length),
+                    ),
             ),
             const SliverToBoxAdapter(child: SizedBox(height: 80)),
           ],
@@ -470,12 +602,17 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
       ),
       floatingActionButton: canManage
           ? FloatingActionButton(
-              backgroundColor: ObsidianTheme.primaryCrimson,
-              foregroundColor: Colors.white,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-              onPressed: () => _pickAndUploadImage(context, galleryProv),
-              child: const Icon(Icons.add_a_photo_outlined),
-            ).animate().fadeIn(delay: 500.ms).scaleXY(begin: 0.8, end: 1.0, curve: Curves.easeOutBack)
+                  backgroundColor: ObsidianTheme.primaryCrimson,
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  onPressed: () => _pickAndUploadImage(context, galleryProv),
+                  child: const Icon(Icons.add_a_photo_outlined),
+                )
+                .animate()
+                .fadeIn(delay: 500.ms)
+                .scaleXY(begin: 0.8, end: 1.0, curve: Curves.easeOutBack)
           : null,
     );
   }

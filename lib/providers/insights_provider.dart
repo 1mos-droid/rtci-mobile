@@ -1,3 +1,4 @@
+import 'package:rtc_mobile/providers/account_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -9,7 +10,13 @@ class DailyInsight {
   final String? author;
   final DateTime date;
 
-  DailyInsight({required this.id, required this.content, this.reference, this.author, required this.date});
+  DailyInsight({
+    required this.id,
+    required this.content,
+    this.reference,
+    this.author,
+    required this.date,
+  });
 
   factory DailyInsight.fromFirestore(DocumentSnapshot doc) {
     final data = doc.data() as Map<String, dynamic>;
@@ -23,10 +30,10 @@ class DailyInsight {
   }
 }
 
-class DailyInsightsProvider extends ChangeNotifier {
+class DailyInsightsProvider extends AccountNotifier {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  
+
   DailyInsight? _currentInsight;
   bool _isLoading = false;
 
@@ -38,14 +45,16 @@ class DailyInsightsProvider extends ChangeNotifier {
   }
 
   void _init() {
-    _auth.authStateChanges().listen((user) {
-      if (user != null) {
-        fetchLatestInsight();
-      } else {
-        _currentInsight = null;
-        notifyListeners();
-      }
-    });
+    trackSubscription(
+      _auth.authStateChanges().listen((user) {
+        if (user != null) {
+          fetchLatestInsight();
+        } else {
+          _currentInsight = null;
+          notifyListeners();
+        }
+      }),
+    );
   }
 
   Future<void> fetchLatestInsight() async {
@@ -58,7 +67,7 @@ class DailyInsightsProvider extends ChangeNotifier {
           .orderBy('date', descending: true)
           .limit(1)
           .get();
-      
+
       if (snapshot.docs.isNotEmpty) {
         _currentInsight = DailyInsight.fromFirestore(snapshot.docs.first);
       }

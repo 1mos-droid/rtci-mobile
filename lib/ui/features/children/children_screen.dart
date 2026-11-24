@@ -1,6 +1,6 @@
+import 'package:rtc_mobile/widgets/custom_logo_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:rtc_mobile/theme/app_theme.dart';
 import 'package:rtc_mobile/widgets/glass_card.dart';
 import 'package:rtc_mobile/widgets/mesh_gradient_background.dart';
@@ -14,7 +14,6 @@ class ChildrenScreen extends ConsumerStatefulWidget {
 }
 
 class _ChildrenScreenState extends ConsumerState<ChildrenScreen> {
-  
   void _showCheckinSheet(BuildContext context) {
     final childController = TextEditingController();
     final parentController = TextEditingController();
@@ -27,7 +26,9 @@ class _ChildrenScreenState extends ConsumerState<ChildrenScreen> {
       backgroundColor: Colors.transparent,
       builder: (context) {
         return Padding(
-          padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewInsets.bottom,
+          ),
           child: GlassCard(
             borderRadius: 24,
             padding: const EdgeInsets.all(24),
@@ -39,7 +40,8 @@ class _ChildrenScreenState extends ConsumerState<ChildrenScreen> {
                 children: [
                   Text(
                     "New Child Check-in",
-                    style: GoogleFonts.cinzel(
+                    style: TextStyle(
+                      fontFamily: 'Inter',
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: ObsidianTheme.primaryCrimson,
@@ -48,24 +50,39 @@ class _ChildrenScreenState extends ConsumerState<ChildrenScreen> {
                   const SizedBox(height: 16),
                   TextFormField(
                     controller: childController,
-                    style: TextStyle(color: ObsidianTheme.textVibrant),
-                    decoration: const InputDecoration(labelText: "Child's Full Name"),
-                    validator: (val) => val == null || val.isEmpty ? "Required" : null,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
+                    decoration: const InputDecoration(
+                      labelText: "Child's Full Name",
+                    ),
+                    validator: (val) =>
+                        val == null || val.isEmpty ? "Required" : null,
                   ),
                   const SizedBox(height: 12),
                   TextFormField(
                     controller: parentController,
-                    style: TextStyle(color: ObsidianTheme.textVibrant),
-                    decoration: const InputDecoration(labelText: "Parent/Guardian Name"),
-                    validator: (val) => val == null || val.isEmpty ? "Required" : null,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
+                    decoration: const InputDecoration(
+                      labelText: "Parent/Guardian Name",
+                    ),
+                    validator: (val) =>
+                        val == null || val.isEmpty ? "Required" : null,
                   ),
                   const SizedBox(height: 12),
                   TextFormField(
                     controller: phoneController,
                     keyboardType: TextInputType.phone,
-                    style: TextStyle(color: ObsidianTheme.textVibrant),
-                    decoration: const InputDecoration(labelText: "Contact Phone"),
-                    validator: (val) => val == null || val.isEmpty ? "Required" : null,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
+                    decoration: const InputDecoration(
+                      labelText: "Contact Phone",
+                    ),
+                    validator: (val) =>
+                        val == null || val.isEmpty ? "Required" : null,
                   ),
                   const SizedBox(height: 24),
                   ElevatedButton(
@@ -101,12 +118,19 @@ class _ChildrenScreenState extends ConsumerState<ChildrenScreen> {
     final childrenProv = ref.watch(childrenProvider);
 
     return Scaffold(
-      backgroundColor: ObsidianTheme.backgroundDark,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: ObsidianTheme.primaryCrimson,
         onPressed: () => _showCheckinSheet(context),
         icon: const Icon(Icons.child_care, color: Colors.white),
-        label: Text("New Check-in", style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.bold, color: Colors.white)),
+        label: Text(
+          "New Check-in",
+          style: TextStyle(
+            fontFamily: 'Inter',
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
       ),
       body: MeshGradientBackground(
         child: CustomScrollView(
@@ -119,8 +143,9 @@ class _ChildrenScreenState extends ConsumerState<ChildrenScreen> {
                 titlePadding: const EdgeInsets.only(left: 48, bottom: 16),
                 title: Text(
                   "Children's Ministry",
-                  style: GoogleFonts.cinzel(
-                    color: ObsidianTheme.textVibrant,
+                  style: TextStyle(
+                    fontFamily: 'Inter',
+                    color: Theme.of(context).colorScheme.onSurface,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -129,71 +154,114 @@ class _ChildrenScreenState extends ConsumerState<ChildrenScreen> {
             SliverPadding(
               padding: const EdgeInsets.all(20.0),
               sliver: childrenProv.isLoading && childrenProv.checkins.isEmpty
-                ? const SliverFillRemaining(child: Center(child: CircularProgressIndicator()))
-                : childrenProv.checkins.isEmpty
-                  ? SliverFillRemaining(child: Center(child: Text("No children checked in.", style: TextStyle(color: ObsidianTheme.textVibrant))))
+                  ? const SliverFillRemaining(
+                      child: Center(child: CustomLogoLoader(size: 48)),
+                    )
+                  : childrenProv.checkins.isEmpty
+                  ? SliverFillRemaining(
+                      child: Center(
+                        child: Text(
+                          "No children checked in.",
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSurface,
+                          ),
+                        ),
+                      ),
+                    )
                   : SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) {
-                    final item = childrenProv.checkins[index];
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 12.0),
-                      child: GlassCard(
-                        padding: const EdgeInsets.all(16),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    item.childName,
-                                    style: Theme.of(context).textTheme.titleLarge,
-                                  ),
-                                  const SizedBox(height: 4),
-                                  Row(
+                      delegate: SliverChildBuilderDelegate((context, index) {
+                        final item = childrenProv.checkins[index];
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 12.0),
+                          child: GlassCard(
+                            padding: const EdgeInsets.all(16),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      Icon(Icons.person_outline, size: 14, color: ObsidianTheme.textMuted),
-                                      const SizedBox(width: 4),
-                                      Expanded(
-                                        child: Text(
-                                          "Parent: ${item.parentName}",
-                                          style: Theme.of(context).textTheme.bodyMedium,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
+                                      Text(
+                                        item.childName,
+                                        style: Theme.of(
+                                          context,
+                                        ).textTheme.titleLarge,
+                                      ),
+                                      const SizedBox(height: 4),
+                                      Row(
+                                        children: [
+                                          Icon(
+                                            Icons.person_outline,
+                                            size: 14,
+                                            color: Theme.of(
+                                              context,
+                                            ).colorScheme.onSurfaceVariant,
+                                          ),
+                                          const SizedBox(width: 4),
+                                          Expanded(
+                                            child: Text(
+                                              "Parent: ${item.parentName}",
+                                              style: Theme.of(
+                                                context,
+                                              ).textTheme.bodyMedium,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   ),
-                                ],
-                              ),
+                                ),
+                                const SizedBox(width: 12),
+                                GestureDetector(
+                                  onLongPress: () =>
+                                      childrenProv.checkOut(item.id),
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 12,
+                                      vertical: 8,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: ObsidianTheme.secondaryGold
+                                          .withValues(alpha: 0.1),
+                                      borderRadius: BorderRadius.circular(8),
+                                      border: Border.all(
+                                        color: ObsidianTheme.secondaryGold
+                                            .withValues(alpha: 0.3),
+                                      ),
+                                    ),
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          "TAG",
+                                          style: TextStyle(
+                                            fontFamily: 'Inter',
+                                            fontSize: 12,
+                                            color: ObsidianTheme.secondaryGold,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        Text(
+                                          "#${item.tagNumber}",
+                                          style: TextStyle(
+                                            fontFamily: 'Inter',
+                                            fontSize: 18,
+                                            color: ObsidianTheme.secondaryGold,
+                                            fontWeight: FontWeight.w900,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                            const SizedBox(width: 12),
-                            GestureDetector(
-                              onLongPress: () => childrenProv.checkOut(item.id),
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                                decoration: BoxDecoration(
-                                  color: ObsidianTheme.secondaryGold.withValues(alpha: 0.1),
-                                  borderRadius: BorderRadius.circular(8),
-                                  border: Border.all(color: ObsidianTheme.secondaryGold.withValues(alpha: 0.3)),
-                                ),
-                                child: Column(
-                                  children: [
-                                    Text("TAG", style: GoogleFonts.plusJakartaSans(fontSize: 10, color: ObsidianTheme.secondaryGold, fontWeight: FontWeight.bold)),
-                                    Text("#${item.tagNumber}", style: GoogleFonts.plusJakartaSans(fontSize: 18, color: ObsidianTheme.secondaryGold, fontWeight: FontWeight.w900)),
-                                  ],
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                  childCount: childrenProv.checkins.length,
-                ),
-              ),
+                          ),
+                        );
+                      }, childCount: childrenProv.checkins.length),
+                    ),
             ),
             const SliverToBoxAdapter(child: SizedBox(height: 80)),
           ],

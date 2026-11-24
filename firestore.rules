@@ -1,15 +1,156 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Allow anyone (even guests) to submit a membership application
-    match /applications/{applicationId} {
-      allow create: if true;
-      allow read, update, delete: if request.auth != null;
+    function signedIn() { return request.auth != null; }
+    function own(uid) { return signedIn() && request.auth.uid == uid; }
+    function role() {
+      return signedIn() && exists(/databases/$(database)/documents/profiles/$(request.auth.uid))
+        ? get(/databases/$(database)/documents/profiles/$(request.auth.uid)).data.get('role', 'member') : 'guest';
+    }
+    function admin() { return role() in ['admin', 'developer']; }
+    function staff() { return role() in ['admin', 'developer', 'department_head']; }
+    function text(value, max) { return value is string && value.size() > 0 && value.size() <= max; }
+    function unchangedExcept(fields) {
+      return request.resource.data.diff(resource.data).affectedKeys().hasOnly(fields);
+    }
+    function prayerVisible(data) {
+      // Missing privacy flags are treated as private, including legacy documents.
+      return signedIn() && (admin() || data.get('user_id', null) == request.auth.uid
+        || (data.get('is_private', true) == false && data.get('is_anonymous', true) == false));
     }
 
-    // Default rule for all other documents requires authentication
-    match /{document=**} {
-      allow read, write: if request.auth != null;
+    match /profiles/{uid} {
+      allow get: if own(uid) || staff();
+      allow list: if staff();
+      allow create: if own(uid)
+        && request.resource.data.keys().hasOnly(['name', 'email', 'role', 'department', 'avatar_url', 'created_at'])
+        && request.resource.data.role == 'member'
+        && request.resource.data.get('department', null) in [null, 'Member']
+        && request.resource.data.email == request.auth.token.get('email', '')
+        && text(request.resource.data.name, 200)
+        && request.resource.data.created_at == request.time;
+      allow update: if (own(uid) && unchangedExcept(['name', 'avatar_url', 'fcm_token'])
+          && text(request.resource.data.name, 200)
+          && (request.resource.data.get('fcm_token', null) == null || text(request.resource.data.fcm_token, 4096))
+          && (request.resource.data.get('avatar_url', null) == null || text(request.resource.data.avatar_url, 2048)))
+        || (admin() && unchangedExcept(['name', 'avatar_url', 'department', 'title', 'role'])
+          && request.resource.data.role in ['member', 'department_head', 'admin', 'developer']
+          && (request.resource.data.role != 'developer' || role() == 'developer')
+          && (resource.data.role != 'developer' || role() == 'developer')
+          && (uid != request.auth.uid || request.resource.data.role == resource.data.role));
+      allow delete: if false;
     }
+    // A server-maintained projection contains no email, device token or private profile fields.
+    match /leadership/{uid} {
+      allow read: if signedIn();
+      allow write: if false;
+    }
+    match /account_deletion_requests/{uid} {
+      allow get: if own(uid) || admin();
+      allow list: if admin();
+      allow create: if own(uid)
+        && request.resource.data.keys().hasOnly(['user_id', 'status', 'created_at'])
+        && request.resource.data.user_id == uid
+        && request.resource.data.status == 'pending'
+        && request.resource.data.created_at == request.time;
+      allow update: if admin() && unchangedExcept(['status', 'processed_at'])
+        && request.resource.data.status in ['pending', 'in_progress', 'completed']
+        && request.resource.data.processed_at == request.time;
+      allow delete: if false;
+    }
+    match /applications/{id} {
+      allow create: if request.resource.data.keys().hasOnly([
+          'user_id', 'full_name', 'email', 'phone', 'birth_date', 'address', 'conversion_date',
+          'previous_church', 'is_water_baptized', 'is_holy_ghost_baptized', 'selected_ministries',
+          'talents_and_skills', 'covenants_agreed', 'signature_points', 'created_at'])
+        && request.resource.data.get('user_id', null) == (signedIn() ? request.auth.uid : null)
+        && text(request.resource.data.full_name, 200) && text(request.resource.data.email, 254)
+        && text(request.resource.data.phone, 40) && text(request.resource.data.address, 1000)
+        && request.resource.data.covenants_agreed == true
+        && request.resource.data.signature_points is list && request.resource.data.signature_points.size() <= 5000
+        && request.resource.data.selected_ministries is list && request.resource.data.selected_ministries.size() <= 50
+        && request.resource.data.created_at == request.time;
+      allow read, update, delete: if admin();
+    }
+    match /transactions/{id} {
+      allow read: if signedIn() && (admin() || resource.data.get('member_id', null) == request.auth.uid
+        || resource.data.get('is_shared', false) == true);
+      // Online contributions are created and reconciled only by trusted backend code.
+      allow create: if admin() && request.resource.data.keys().hasOnly([
+          'amount', 'type', 'category', 'description', 'member_id', 'campus', 'date', 'logged_by', 'status', 'source', 'is_shared', 'amount_subunit', 'currency'])
+        && request.resource.data.source == 'manual' && request.resource.data.status == 'completed'
+        && request.resource.data.type in ['contribution', 'expense']
+        && request.resource.data.amount_subunit is int && request.resource.data.amount_subunit >= 1
+        && request.resource.data.amount_subunit <= 100000000 && request.resource.data.currency == 'GHS'
+        && request.resource.data.amount == request.resource.data.amount_subunit / 100
+        && request.resource.data.logged_by == request.auth.uid && request.resource.data.date == request.time;
+      allow update, delete: if false;
+    }
+    match /prayer_requests/{id} {
+      allow read: if prayerVisible(resource.data);
+      allow create: if signedIn() && request.resource.data.keys().hasOnly([
+          'content', 'user_id', 'user_name', 'is_private', 'is_anonymous', 'category', 'status', 'intercession_count', 'created_at'])
+        && request.resource.data.user_id == request.auth.uid
+        && text(request.resource.data.content, 5000)
+        && request.resource.data.is_private is bool && request.resource.data.is_anonymous is bool
+        && request.resource.data.status == 'pending' && request.resource.data.intercession_count == 0
+        && request.resource.data.created_at == request.time;
+      allow update: if (admin() || own(resource.data.user_id)) && unchangedExcept(['status', 'updated_at'])
+        && request.resource.data.status in ['pending', 'praying', 'answered']
+        && request.resource.data.updated_at == request.time;
+      allow delete: if admin() || own(resource.data.user_id);
+      match /supporters/{uid} {
+        allow get: if own(uid) || admin();
+        allow list: if admin();
+        allow create: if own(uid) && prayerVisible(get(/databases/$(database)/documents/prayer_requests/$(id)).data)
+          && request.resource.data.keys().hasOnly(['created_at']) && request.resource.data.created_at == request.time;
+        allow update, delete: if false;
+      }
+    }
+    match /cell_groups/{groupId} {
+      allow read: if signedIn();
+      allow create, update, delete: if admin();
+      match /members/{uid} {
+        allow get: if own(uid) || staff();
+        allow list: if staff();
+        allow create: if own(uid) && exists(/databases/$(database)/documents/cell_groups/$(groupId))
+          && request.resource.data.keys().hasOnly(['user_id', 'group_id', 'joined_at'])
+          && request.resource.data.user_id == request.auth.uid && request.resource.data.group_id == groupId
+          && request.resource.data.joined_at == request.time;
+        allow delete: if own(uid) || admin();
+        allow update: if false;
+      }
+    }
+    match /{path=**}/members/{uid} {
+      allow list: if signedIn() && resource.data.user_id == request.auth.uid;
+    }
+    // Legacy memberships remain readable for migration; new clients use deterministic member documents.
+    match /group_memberships/{id} {
+      allow read: if staff() || (signedIn() && resource.data.user_id == request.auth.uid);
+      allow delete: if admin() || (signedIn() && resource.data.user_id == request.auth.uid);
+      allow create, update: if false;
+    }
+    match /events/{eventId} {
+      allow read: if signedIn();
+      allow create, update, delete: if staff();
+      match /rsvps/{uid} {
+        allow get: if own(uid) || staff();
+        allow list: if staff();
+        allow create, update: if own(uid) && exists(/databases/$(database)/documents/events/$(eventId))
+          && request.resource.data.keys().hasOnly(['member_id', 'created_at'])
+          && request.resource.data.member_id == uid && request.resource.data.created_at == request.time;
+        allow delete: if own(uid) || staff();
+      }
+    }
+    match /child_checkins/{id} { allow read, write: if staff(); }
+    match /attendance/{id} { allow read, write: if staff(); }
+    match /care_tickets/{id} { allow read, write: if staff(); }
+    match /broadcasts/{id} { allow read: if signedIn(); allow write: if staff(); }
+    match /sermons/{id} { allow read: if signedIn(); allow write: if staff(); }
+    match /insights/{id} { allow read: if signedIn(); allow write: if staff(); }
+    match /gallery/{id} { allow read: if signedIn(); allow write: if staff(); }
+    match /study_modules/{id} { allow read: if signedIn(); allow write: if staff(); }
+    match /study_resources/{id} { allow read: if signedIn(); allow write: if staff(); }
+    match /{document=**} { allow read, write: if false; }
   }
 }

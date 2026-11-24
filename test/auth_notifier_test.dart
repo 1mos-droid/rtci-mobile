@@ -5,9 +5,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rtc_mobile/domain/auth/user_model.dart';
 import 'package:rtc_mobile/infrastructure/auth/auth_repository.dart';
 import 'package:rtc_mobile/application/auth/auth_provider.dart';
+import 'package:rtc_mobile/utils/auth_error_message.dart';
 
 class MockAuthRepository extends Mock implements AuthRepository {}
+
 class MockUserCredential extends Mock implements UserCredential {}
+
 class MockUser extends Mock implements User {}
 
 void main() {
@@ -25,53 +28,65 @@ void main() {
   });
 
   group('AuthNotifier TDD Tests', () {
-    test('build() creates profile if missing and returns valid AppUser profile', () async {
-      const mockProfile = AppUser(
-        id: 'user_123',
-        email: 'user@example.com',
-        name: 'Sanctuary Member',
-        role: UserRole.member,
-      );
+    test(
+      'build() creates profile if missing and returns valid AppUser profile',
+      () async {
+        const mockProfile = AppUser(
+          id: 'user_123',
+          email: 'user@example.com',
+          name: 'Sanctuary Member',
+          role: UserRole.member,
+        );
 
-      when(() => mockAuthRepository.fetchUserProfile('user_123'))
-          .thenAnswer((_) async => mockProfile);
+        when(
+          () => mockAuthRepository.fetchUserProfile('user_123'),
+        ).thenAnswer((_) async => mockProfile);
 
-      final container = ProviderContainer(
-        overrides: [
-          authRepositoryProvider.overrideWithValue(mockAuthRepository),
-          authStateChangesProvider.overrideWith((ref) => Stream.value(mockUser)),
-        ],
-      );
+        final container = ProviderContainer(
+          overrides: [
+            authRepositoryProvider.overrideWithValue(mockAuthRepository),
+            authStateChangesProvider.overrideWith(
+              (ref) => Stream.value(mockUser),
+            ),
+          ],
+        );
 
-      container.listen(authNotifierProvider, (previous, next) {});
-      final user = await container.read(authNotifierProvider.future);
+        container.listen(authNotifierProvider, (previous, next) {});
+        final user = await container.read(authNotifierProvider.future);
 
-      expect(user, isNotNull);
-      expect(user?.id, equals('user_123'));
-      expect(user?.name, equals('Sanctuary Member'));
-      expect(user?.role, equals(UserRole.member));
-    });
+        expect(user, isNotNull);
+        expect(user?.id, equals('user_123'));
+        expect(user?.name, equals('Sanctuary Member'));
+        expect(user?.role, equals(UserRole.member));
+      },
+    );
 
-    test('build() falls back to Firebase User properties if Firestore fetch fails', () async {
-      when(() => mockAuthRepository.fetchUserProfile('user_123'))
-          .thenThrow(Exception('Firestore network error'));
+    test(
+      'build() falls back to Firebase User properties if Firestore fetch fails',
+      () async {
+        when(
+          () => mockAuthRepository.fetchUserProfile('user_123'),
+        ).thenThrow(Exception('Firestore network error'));
 
-      final container = ProviderContainer(
-        overrides: [
-          authRepositoryProvider.overrideWithValue(mockAuthRepository),
-          authStateChangesProvider.overrideWith((ref) => Stream.value(mockUser)),
-        ],
-      );
+        final container = ProviderContainer(
+          overrides: [
+            authRepositoryProvider.overrideWithValue(mockAuthRepository),
+            authStateChangesProvider.overrideWith(
+              (ref) => Stream.value(mockUser),
+            ),
+          ],
+        );
 
-      container.listen(authNotifierProvider, (previous, next) {});
-      final user = await container.read(authNotifierProvider.future);
+        container.listen(authNotifierProvider, (previous, next) {});
+        final user = await container.read(authNotifierProvider.future);
 
-      expect(user, isNotNull);
-      expect(user?.id, equals('user_123'));
-      expect(user?.email, equals('user@example.com'));
-      expect(user?.name, equals('Sanctuary Member'));
-      expect(user?.role, equals(UserRole.member));
-    });
+        expect(user, isNotNull);
+        expect(user?.id, equals('user_123'));
+        expect(user?.email, equals('user@example.com'));
+        expect(user?.name, equals('Sanctuary Member'));
+        expect(user?.role, equals(UserRole.member));
+      },
+    );
 
     test('updateProfile updates user state correctly', () async {
       const initialProfile = AppUser(
@@ -81,15 +96,19 @@ void main() {
         role: UserRole.member,
       );
 
-      when(() => mockAuthRepository.fetchUserProfile('user_123'))
-          .thenAnswer((_) async => initialProfile);
-      when(() => mockAuthRepository.updateProfile('user_123', any()))
-          .thenAnswer((_) async {});
+      when(
+        () => mockAuthRepository.fetchUserProfile('user_123'),
+      ).thenAnswer((_) async => initialProfile);
+      when(
+        () => mockAuthRepository.updateProfile('user_123', any()),
+      ).thenAnswer((_) async {});
 
       final container = ProviderContainer(
         overrides: [
           authRepositoryProvider.overrideWithValue(mockAuthRepository),
-          authStateChangesProvider.overrideWith((ref) => Stream.value(mockUser)),
+          authStateChangesProvider.overrideWith(
+            (ref) => Stream.value(mockUser),
+          ),
         ],
       );
 
@@ -122,13 +141,17 @@ void main() {
     test('signInWithGoogle updates state with profile', () async {
       final mockCred = MockUserCredential();
       when(() => mockCred.user).thenReturn(mockUser);
-      when(() => mockAuthRepository.signInWithGoogle()).thenAnswer((_) async => mockCred);
-      when(() => mockAuthRepository.fetchUserProfile('user_123')).thenAnswer((_) async => const AppUser(
-        id: 'user_123',
-        email: 'user@example.com',
-        name: 'Google User',
-        role: UserRole.member,
-      ));
+      when(
+        () => mockAuthRepository.signInWithGoogle(),
+      ).thenAnswer((_) async => mockCred);
+      when(() => mockAuthRepository.fetchUserProfile('user_123')).thenAnswer(
+        (_) async => const AppUser(
+          id: 'user_123',
+          email: 'user@example.com',
+          name: 'Google User',
+          role: UserRole.member,
+        ),
+      );
 
       final container = ProviderContainer(
         overrides: [
@@ -147,5 +170,69 @@ void main() {
       expect(user, isNotNull);
       expect(user?.name, equals('Google User'));
     });
+
+    test(
+      'login succeeds with account details when the profile cannot load',
+      () async {
+        when(
+          () => mockAuthRepository.login('user@example.com', 'secret123'),
+        ).thenAnswer((_) async => mockUser);
+        when(() => mockAuthRepository.fetchUserProfile('user_123')).thenThrow(
+          FirebaseException(
+            plugin: 'cloud_firestore',
+            code: 'permission-denied',
+          ),
+        );
+
+        final container = ProviderContainer(
+          overrides: [
+            authRepositoryProvider.overrideWithValue(mockAuthRepository),
+            authStateChangesProvider.overrideWith((ref) => Stream.value(null)),
+          ],
+        );
+        container.listen(authNotifierProvider, (previous, next) {});
+        await container.read(authNotifierProvider.future);
+
+        await container
+            .read(authNotifierProvider.notifier)
+            .login('user@example.com', 'secret123');
+
+        final state = container.read(authNotifierProvider);
+        expect(state.hasError, isFalse);
+        expect(state.value?.id, equals('user_123'));
+      },
+    );
+
+    test(
+      'login failure keeps the auth error for the screen to translate',
+      () async {
+        when(() => mockAuthRepository.login(any(), any())).thenThrow(
+          FirebaseAuthException(
+            code: 'invalid-credential',
+            message: 'raw server text',
+          ),
+        );
+
+        final container = ProviderContainer(
+          overrides: [
+            authRepositoryProvider.overrideWithValue(mockAuthRepository),
+            authStateChangesProvider.overrideWith((ref) => Stream.value(null)),
+          ],
+        );
+        container.listen(authNotifierProvider, (previous, next) {});
+        await container.read(authNotifierProvider.future);
+
+        await container
+            .read(authNotifierProvider.notifier)
+            .login('a@b.co', 'wrong');
+
+        final state = container.read(authNotifierProvider);
+        expect(state.hasError, isTrue);
+        expect(
+          authErrorMessage(state.error!),
+          equals('Incorrect email or password.'),
+        );
+      },
+    );
   });
 }

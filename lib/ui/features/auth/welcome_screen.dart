@@ -1,204 +1,167 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:rtc_mobile/theme/app_theme.dart';
-import 'package:rtc_mobile/widgets/glass_card.dart';
-import 'package:rtc_mobile/widgets/mesh_gradient_background.dart';
-import 'package:rtc_mobile/widgets/modern_widgets.dart';
 import 'package:rtc_mobile/ui/features/auth/login_screen.dart';
 import 'package:rtc_mobile/ui/features/auth/signup_screen.dart';
 import 'package:rtc_mobile/ui/features/applications/application_form_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
-
+  void _open(BuildContext context, Widget page) =>
+      Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => page));
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
-
     return Scaffold(
-      body: MeshGradientBackground(
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const Spacer(flex: 2),
-                
-                // Elegant brand logo with floating glow animation
-                Center(
-                  child: Container(
-                    width: 100,
-                    height: 100,
-                    decoration: BoxDecoration(
-                      color: isDark ? const Color(0xFF151B2C) : Colors.white,
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: AppTheme.accentGold.withOpacity(0.3),
-                        width: 1.5,
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: AppTheme.accentGold.withOpacity(0.15),
-                          blurRadius: 24,
-                          offset: const Offset(0, 8),
-                        )
-                      ],
-                    ),
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Image.asset(
-                          'assets/church_logo.png',
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                    ),
-                  ),
-                )
-                .animate()
-                .fadeIn(duration: 800.ms)
-                .scaleXY(begin: 0.8, end: 1.0, curve: Curves.easeOutBack),
-                
-                const SizedBox(height: 28),
-                
-                // Church Name Heading
-                Text(
-                  "Redeemed Transformation",
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.cinzel(
-                    fontSize: 26,
-                    fontWeight: FontWeight.bold,
-                    color: ObsidianTheme.textVibrant,
-                    letterSpacing: 0.5,
-                  ),
-                ).animate().fadeIn(delay: 200.ms, duration: 600.ms),
-                
-                const SizedBox(height: 4),
-                
-                Text(
-                  "Chapel International",
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.cinzel(
-                    fontSize: 18,
-                    color: AppTheme.accentGold,
-                    fontWeight: FontWeight.w600,
-                    letterSpacing: 0.5,
-                  ),
-                ).animate().fadeIn(delay: 400.ms, duration: 600.ms),
-                
-                const SizedBox(height: 14),
-                
-                Text(
-                  "CONNECTING SOULS • SERVING COMMUNITIES",
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.plusJakartaSans(
-                    fontSize: 10,
-                    letterSpacing: 2.5,
-                    color: ObsidianTheme.textMuted,
-                    fontWeight: FontWeight.w800,
-                  ),
-                ).animate().fadeIn(delay: 500.ms, duration: 600.ms),
-                
-                const Spacer(flex: 3),
-                
-                // Premium white/dark translucent card plate
-                GlassCard(
-                  borderRadius: 24,
-                  padding: const EdgeInsets.all(28),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
+      body: SafeArea(
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 1000),
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                final wide = constraints.maxWidth >= 760;
+                final image = ClipRRect(
+                  borderRadius: BorderRadius.circular(28),
+                  child: Stack(
                     children: [
-                      Text(
-                        "MEMBERS PORTAL",
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.plusJakartaSans(
-                          color: ObsidianTheme.textVibrant,
-                          fontWeight: FontWeight.w800,
-                          fontSize: 12,
-                          letterSpacing: 1.5,
+                      Positioned.fill(
+                        child: Image.asset(
+                          'assets/church_sanctuary.jpg',
+                          fit: BoxFit.cover,
+                          excludeFromSemantics: true,
                         ),
                       ),
-                      const SizedBox(height: 8),
-                      Text(
-                        "Join our global family to watch sermons, request prayers, and participate in giving.",
-                        textAlign: TextAlign.center,
-                        style: theme.textTheme.bodyMedium?.copyWith(
-                          color: ObsidianTheme.textMuted,
-                          height: 1.5,
+                      const Positioned.fill(
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [Color(0x22000000), Color(0xCC182920)],
+                            ),
+                          ),
                         ),
                       ),
-                      const SizedBox(height: 28),
-                      
-                      CustomPrimaryButton(
-                        text: "Sign In",
-                        icon: Icons.login_rounded,
-                        backgroundColor: theme.colorScheme.primary,
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (_) => const LoginScreen()),
-                          );
-                        },
-                      ),
-                      
-                      const SizedBox(height: 14),
-                      
-                      CustomPrimaryButton(
-                        text: "Create Account",
-                        icon: Icons.person_add_rounded,
-                        backgroundColor: isDark ? const Color(0xFF1E293B) : const Color(0xFFF1F5F9),
-                        textColor: isDark ? Colors.white : const Color(0xFF0F172A),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (_) => const SignupScreen()),
-                          );
-                        },
-                      ),
-                      
-                      const SizedBox(height: 14),
-                      
-                      OutlinedButton.icon(
-                        icon: const Icon(Icons.assignment_outlined, size: 18),
-                        label: const Text("Membership Form"),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (_) => const ApplicationFormScreen()),
-                          );
-                        },
-                        style: OutlinedButton.styleFrom(
-                          side: BorderSide(
-                            color: isDark ? Colors.white24 : Colors.black12,
-                            width: 1.0,
-                          ),
-                          foregroundColor: ObsidianTheme.textVibrant,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                          minimumSize: const Size.fromHeight(50),
+                      const Positioned(
+                        left: 24,
+                        right: 24,
+                        bottom: 24,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'ROOTED IN FAITH',
+                              style: TextStyle(
+                                color: Color(0xFFF0D7A9),
+                                fontSize: 12,
+                                letterSpacing: 2,
+                              ),
+                            ),
+                            SizedBox(height: 10),
+                            Text(
+                              'Growing together.\nLiving with purpose.',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 30,
+                                height: 1.15,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
                   ),
-                ).animate().fadeIn(delay: 600.ms, duration: 600.ms).slideY(begin: 0.1, end: 0, curve: Curves.easeOutQuad),
-                
-                const SizedBox(height: 28),
-                
-                Text(
-                  "SUPPORT & PRIVACY • VERSION 1.0.0",
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.plusJakartaSans(
-                    fontSize: 9,
-                    color: ObsidianTheme.textMuted.withOpacity(0.8),
-                    fontWeight: FontWeight.w700,
-                    letterSpacing: 1.2,
-                  ),
-                ),
-              ],
+                );
+                final content = Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      children: [
+                        Image.asset(
+                          'assets/church_logo.png',
+                          width: 44,
+                          height: 44,
+                        ),
+                        const SizedBox(width: 12),
+                        Flexible(
+                          child: Text(
+                            'RTCI CONNECT',
+                            style: theme.textTheme.labelLarge?.copyWith(
+                              letterSpacing: 2,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 32),
+                    Text(
+                      'A place to belong.',
+                      style: theme.textTheme.displayLarge?.copyWith(
+                        fontSize: 36,
+                        height: 1.12,
+                      ),
+                    ),
+                    const SizedBox(height: 14),
+                    Text(
+                      'Welcome to Redeemed Transformation Chapel International. Stay close to your faith and your church family, wherever life takes you.',
+                      style: theme.textTheme.bodyLarge?.copyWith(
+                        height: 1.65,
+                        color: theme.colorScheme.onSurfaceVariant,
+                      ),
+                    ),
+                    const SizedBox(height: 28),
+                    FilledButton(
+                      onPressed: () => _open(context, const LoginScreen()),
+                      child: const Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('Sign in'),
+                          SizedBox(width: 12),
+                          Icon(Icons.arrow_forward_rounded, size: 18),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    OutlinedButton(
+                      onPressed: () => _open(context, const SignupScreen()),
+                      child: const Text('Create an account'),
+                    ),
+                    const SizedBox(height: 20),
+                    TextButton(
+                      onPressed: () =>
+                          _open(context, const ApplicationFormScreen()),
+                      child: const Text('New here? Become a member'),
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      'Faith. Fellowship. Family.',
+                      textAlign: TextAlign.center,
+                      style: theme.textTheme.bodySmall,
+                    ),
+                  ],
+                );
+                return SingleChildScrollView(
+                  padding: const EdgeInsets.all(24),
+                  child: wide
+                      ? Row(
+                          children: [
+                            Expanded(
+                              child: SizedBox(height: 620, child: image),
+                            ),
+                            const SizedBox(width: 48),
+                            Expanded(child: content),
+                          ],
+                        )
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            SizedBox(height: 260, child: image),
+                            const SizedBox(height: 28),
+                            content,
+                          ],
+                        ),
+                );
+              },
             ),
           ),
         ),

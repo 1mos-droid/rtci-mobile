@@ -22,12 +22,18 @@ class AuthNotifier extends _$AuthNotifier {
   FutureOr<AppUser?> build() async {
     final user = ref.watch(authStateChangesProvider).value;
     if (user == null) return null;
-    
+    return _loadUser(user);
+  }
+
+  /// Signing in succeeds once Firebase Auth does; a profile that cannot be
+  /// loaded or created falls back to the account details instead of failing.
+  Future<AppUser> _loadUser(User user) async {
+    final repository = ref.read(authRepositoryProvider);
     try {
-      var profile = await ref.read(authRepositoryProvider).fetchUserProfile(user.uid);
+      var profile = await repository.fetchUserProfile(user.uid);
       if (profile == null) {
-        await ref.read(authRepositoryProvider).createProfileIfMissing(user);
-        profile = await ref.read(authRepositoryProvider).fetchUserProfile(user.uid);
+        await repository.createProfileIfMissing(user);
+        profile = await repository.fetchUserProfile(user.uid);
       }
       if (profile != null) {
         try {
@@ -36,81 +42,53 @@ class AuthNotifier extends _$AuthNotifier {
         return profile;
       }
     } catch (e) {
-      // Fallback if network or firestore fails
+      debugPrint('Profile unavailable, using account details: $e');
     }
-    
+
     return AppUser(
       id: user.uid,
       email: user.email ?? '',
       name: (user.displayName != null && user.displayName!.trim().isNotEmpty)
           ? user.displayName!
           : (user.email != null && user.email!.contains('@')
-              ? user.email!.split('@')[0]
-              : 'Member'),
+                ? user.email!.split('@')[0]
+                : 'Member'),
       avatarUrl: user.photoURL,
       role: UserRole.member,
     );
   }
 
-  Future<void> login(String email, String password) async {
+  Future<void> _authenticate(Future<User?> Function() signIn) async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
-      await ref.read(authRepositoryProvider).login(email, password);
-      final currentUser = FirebaseAuth.instance.currentUser;
-      if (currentUser != null) {
-        final profile = await ref.read(authRepositoryProvider).fetchUserProfile(currentUser.uid);
-        return profile ?? AppUser(
-          id: currentUser.uid,
-          email: currentUser.email ?? '',
-          name: (currentUser.displayName != null && currentUser.displayName!.trim().isNotEmpty)
-              ? currentUser.displayName!
-              : (currentUser.email != null && currentUser.email!.contains('@')
-                  ? currentUser.email!.split('@')[0]
-                  : 'Member'),
-          avatarUrl: currentUser.photoURL,
-          role: UserRole.member,
-        );
-      }
-      return null;
+      final user = await signIn();
+      return user == null ? null : _loadUser(user);
     });
   }
 
-  Future<void> signInWithGoogle() async {
-    state = const AsyncValue.loading();
-    state = await AsyncValue.guard(() async {
-      final cred = await ref.read(authRepositoryProvider).signInWithGoogle();
-      if (cred.user != null) {
-        final profile = await ref.read(authRepositoryProvider).fetchUserProfile(cred.user!.uid);
-        return profile ?? AppUser(
-          id: cred.user!.uid,
-          email: cred.user!.email ?? '',
-          name: cred.user!.displayName ?? 'Member',
-          avatarUrl: cred.user!.photoURL,
-          role: UserRole.member,
-        );
-      }
-      return null;
-    });
-  }
+  Future<void> login(String email, String password) => _authenticate(
+    () => ref.read(authRepositoryProvider).login(email, password),
+  );
 
-  Future<void> register(String fullName, String email, String password, {String? department}) async {
-    state = const AsyncValue.loading();
-    state = await AsyncValue.guard(() async {
-      await ref.read(authRepositoryProvider).register(fullName, email, password, department: department);
-      final currentUser = FirebaseAuth.instance.currentUser;
-      if (currentUser != null) {
-        final profile = await ref.read(authRepositoryProvider).fetchUserProfile(currentUser.uid);
-        return profile ?? AppUser(
-          id: currentUser.uid,
-          email: email,
-          name: fullName,
-          department: department,
-          role: UserRole.member,
-        );
-      }
-      return null;
-    });
-  }
+  Future<void> signInWithGoogle() => _authenticate(
+    () async =>
+        (await ref.read(authRepositoryProvider).signInWithGoogle()).user,
+  );
+
+  Future<void> signInWithApple() => _authenticate(
+    () async => (await ref.read(authRepositoryProvider).signInWithApple()).user,
+  );
+
+  Future<void> register(
+    String fullName,
+    String email,
+    String password, {
+    String? department,
+  }) => _authenticate(
+    () => ref
+        .read(authRepositoryProvider)
+        .register(fullName, email, password, department: department),
+  );
 
   Future<void> logout() async {
     await ref.read(authRepositoryProvider).logout();
@@ -140,7 +118,9 @@ class AuthNotifier extends _$AuthNotifier {
     if (user == null) return null;
 
     try {
-      final url = await ref.read(authRepositoryProvider).uploadAvatar(user.id, imageFile);
+      final url = await ref
+          .read(authRepositoryProvider)
+          .uploadAvatar(user.id, imageFile);
       await updateProfile(avatarUrl: url);
       return url;
     } catch (e) {

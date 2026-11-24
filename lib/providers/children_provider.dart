@@ -1,3 +1,4 @@
+import 'package:rtc_mobile/providers/account_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,10 +14,10 @@ class ChildCheckIn {
   final String? tagNumber;
 
   ChildCheckIn({
-    required this.id, 
-    required this.childName, 
-    required this.guardianId, 
-    required this.checkInTime, 
+    required this.id,
+    required this.childName,
+    required this.guardianId,
+    required this.checkInTime,
     required this.status,
     this.parentName,
     this.parentPhone,
@@ -31,22 +32,24 @@ class ChildCheckIn {
       parentName: data['parent_name'],
       parentPhone: data['parent_phone'],
       guardianId: data['guardian_id'] ?? '',
-      checkInTime: (data['check_in_time'] as Timestamp?)?.toDate() ?? DateTime.now(),
+      checkInTime:
+          (data['check_in_time'] as Timestamp?)?.toDate() ?? DateTime.now(),
       status: data['status'] ?? 'checked_in',
       tagNumber: data['tag_number'] ?? doc.id.substring(0, 4).toUpperCase(),
     );
   }
 }
 
-class ChildrenProvider extends ChangeNotifier {
+class ChildrenProvider extends AccountNotifier {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  
+
   List<ChildCheckIn> _activeCheckIns = [];
   bool _isLoading = false;
 
   List<ChildCheckIn> get activeCheckIns => _activeCheckIns;
-  List<ChildCheckIn> get checkins => _activeCheckIns; // Support getter name mismatch
+  List<ChildCheckIn> get checkins =>
+      _activeCheckIns; // Support getter name mismatch
   bool get isLoading => _isLoading;
 
   ChildrenProvider() {
@@ -54,14 +57,16 @@ class ChildrenProvider extends ChangeNotifier {
   }
 
   void _init() {
-    _auth.authStateChanges().listen((user) {
-      if (user != null) {
-        fetchActiveCheckIns();
-      } else {
-        _activeCheckIns = [];
-        notifyListeners();
-      }
-    });
+    trackSubscription(
+      _auth.authStateChanges().listen((user) {
+        if (user != null) {
+          fetchActiveCheckIns();
+        } else {
+          _activeCheckIns = [];
+          notifyListeners();
+        }
+      }),
+    );
   }
 
   Future<void> fetchActiveCheckIns() async {
@@ -72,8 +77,10 @@ class ChildrenProvider extends ChangeNotifier {
       final snapshot = await _firestore
           .collection('child_checkins')
           .where('status', isEqualTo: 'checked_in')
-          .get();
-      _activeCheckIns = snapshot.docs.map((doc) => ChildCheckIn.fromFirestore(doc)).toList();
+          .get(const GetOptions(source: Source.server));
+      _activeCheckIns = snapshot.docs
+          .map((doc) => ChildCheckIn.fromFirestore(doc))
+          .toList();
     } catch (e) {
       debugPrint('Error fetching children check-ins: $e');
     } finally {
@@ -98,7 +105,8 @@ class ChildrenProvider extends ChangeNotifier {
         'guardian_id': _auth.currentUser?.uid,
         'check_in_time': FieldValue.serverTimestamp(),
         'status': 'checked_in',
-        'tag_number': 'T-${DateTime.now().millisecondsSinceEpoch.toString().substring(7)}',
+        'tag_number':
+            'T-${DateTime.now().millisecondsSinceEpoch.toString().substring(7)}',
       });
       await fetchActiveCheckIns();
       return true;

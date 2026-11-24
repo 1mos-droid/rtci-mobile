@@ -1,15 +1,15 @@
+import 'package:flutter/foundation.dart';
+import 'package:rtc_mobile/services/app_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:rtc_mobile/application/auth/auth_provider.dart';
 import 'package:rtc_mobile/ui/features/dashboard/main_tab_screen.dart';
-import 'package:rtc_mobile/widgets/glass_card.dart';
-import 'package:rtc_mobile/widgets/mesh_gradient_background.dart';
 import 'package:rtc_mobile/widgets/modern_widgets.dart';
-import 'package:rtc_mobile/theme/app_theme.dart';
+import 'package:rtc_mobile/widgets/auth_page.dart';
+import 'package:rtc_mobile/widgets/feature_state.dart';
 import 'package:rtc_mobile/ui/features/auth/login_screen.dart';
-import 'package:flutter_animate/flutter_animate.dart';
+import 'package:rtc_mobile/utils/auth_error_message.dart';
 
 class SignupScreen extends ConsumerStatefulWidget {
   const SignupScreen({super.key});
@@ -47,7 +47,10 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
 
     if (_formKey.currentState!.validate()) {
       if (!_acceptTerms) {
-        setState(() => _errorMessage = "You must agree to the rules to create an account.");
+        setState(
+          () => _errorMessage =
+              "Please read and acknowledge the privacy policy before creating an account.",
+        );
         return;
       }
 
@@ -60,11 +63,16 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
         department: "Member",
       );
 
+      if (!mounted) return;
       final authState = ref.read(authNotifierProvider);
-      if (!authState.hasError) {
+      if (!authState.hasError && authState.value != null) {
         setState(() => _signupSuccess = true);
       } else {
-        setState(() => _errorMessage = authState.error?.toString() ?? "Registration failed. Try again.");
+        setState(
+          () => _errorMessage = authState.hasError
+              ? authErrorMessage(authState.error!)
+              : 'Registration failed. Try again.',
+        );
       }
     }
   }
@@ -72,354 +80,239 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
   Future<void> _handleGoogleSignup() async {
     final authNotifier = ref.read(authNotifierProvider.notifier);
     await authNotifier.signInWithGoogle();
-    
+    if (!mounted) return;
+
     final authState = ref.read(authNotifierProvider);
-    if (!authState.hasError && mounted) {
+    if (!authState.hasError && authState.value != null && mounted) {
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (_) => const MainTabScreen()),
         (route) => false,
       );
     } else if (mounted && authState.hasError) {
-      final errorMsg = authState.error?.toString() ?? "Google Sign-Up failed.";
-      if (!errorMsg.contains("cancelled")) {
-        setState(() => _errorMessage = errorMsg.replaceAll('Exception: ', ''));
+      final error = authState.error!;
+      if (!isAuthCancellation(error)) {
+        setState(() => _errorMessage = authErrorMessage(error));
+      }
+    }
+  }
+
+  Future<void> _handleAppleSignIn() async {
+    final authNotifier = ref.read(authNotifierProvider.notifier);
+    await authNotifier.signInWithApple();
+    if (!mounted) return;
+
+    final authState = ref.read(authNotifierProvider);
+    if (!authState.hasError && authState.value != null && mounted) {
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (_) => const MainTabScreen()),
+        (route) => false,
+      );
+    } else if (mounted && authState.hasError) {
+      final error = authState.error!;
+      if (!isAuthCancellation(error)) {
+        setState(() => _errorMessage = authErrorMessage(error));
       }
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final authState = ref.watch(authNotifierProvider);
+    final busy = ref.watch(authNotifierProvider).isLoading;
     final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
-
-    return Scaffold(
-      body: MeshGradientBackground(
-        child: SafeArea(
-          child: Column(
-            children: [
-              Align(
-                alignment: Alignment.topLeft,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 12, top: 8),
-                  child: IconButton(
-                    icon: Icon(Icons.arrow_back_ios_new_rounded, color: ObsidianTheme.textVibrant, size: 20),
-                    onPressed: () => Navigator.pop(context),
+    if (_signupSuccess) {
+      return Scaffold(
+        body: SafeArea(
+          child: FeatureState(
+            icon: Icons.check_circle_outline_rounded,
+            title: 'You belong here.',
+            message: 'Your account is ready. Welcome to your church community.',
+            actionLabel: 'Continue to home',
+            onAction: () => Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (_) => const MainTabScreen()),
+              (_) => false,
+            ),
+          ),
+        ),
+      );
+    }
+    return AuthPage(
+      title: 'Make yourself at home.',
+      description:
+          'Create your account and become part of our connected community.',
+      child: Form(
+        key: _formKey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            if (_errorMessage != null) ...[
+              Semantics(
+                liveRegion: true,
+                child: Text(
+                  _errorMessage!,
+                  style: TextStyle(color: theme.colorScheme.error),
+                ),
+              ),
+              const SizedBox(height: 20),
+            ],
+            TextFormField(
+              controller: _nameController,
+              enabled: !busy,
+              textCapitalization: TextCapitalization.words,
+              textInputAction: TextInputAction.next,
+              autofillHints: const [AutofillHints.name],
+              decoration: const InputDecoration(
+                labelText: 'Full name',
+                prefixIcon: Icon(Icons.person_outline),
+              ),
+              validator: (value) => value == null || value.trim().isEmpty
+                  ? 'Enter your name'
+                  : null,
+            ),
+            const SizedBox(height: 18),
+            TextFormField(
+              controller: _emailController,
+              enabled: !busy,
+              keyboardType: TextInputType.emailAddress,
+              autocorrect: false,
+              textInputAction: TextInputAction.next,
+              autofillHints: const [AutofillHints.email],
+              decoration: const InputDecoration(
+                labelText: 'Email address',
+                prefixIcon: Icon(Icons.mail_outline),
+              ),
+              validator: (value) =>
+                  value == null ||
+                      !RegExp(
+                        r'^[^\s@]+@[^\s@]+\.[^\s@]+$',
+                      ).hasMatch(value.trim())
+                  ? 'Enter a valid email address'
+                  : null,
+            ),
+            const SizedBox(height: 18),
+            TextFormField(
+              controller: _passwordController,
+              enabled: !busy,
+              obscureText: !_showPassword,
+              textInputAction: TextInputAction.next,
+              autofillHints: const [AutofillHints.newPassword],
+              decoration: InputDecoration(
+                labelText: 'Password',
+                helperText: 'Use at least 8 characters',
+                prefixIcon: const Icon(Icons.lock_outline),
+                suffixIcon: IconButton(
+                  tooltip: _showPassword ? 'Hide password' : 'Show password',
+                  onPressed: () =>
+                      setState(() => _showPassword = !_showPassword),
+                  icon: Icon(
+                    _showPassword
+                        ? Icons.visibility_off_outlined
+                        : Icons.visibility_outlined,
                   ),
                 ),
               ),
-              Expanded(
-                child: _signupSuccess
-                    ? _buildSuccessScreen(context)
-                    : SingleChildScrollView(
-                        physics: const ClampingScrollPhysics(),
-                        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-                        child: Form(
-                          key: _formKey,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              Text(
-                                "Create Account",
-                                style: theme.textTheme.displayMedium?.copyWith(
-                                  fontWeight: FontWeight.w800,
-                                ),
-                              ).animate().fadeIn(duration: 500.ms).slideY(begin: 0.2, end: 0, curve: Curves.easeOutQuad),
-                              
-                              const SizedBox(height: 6),
-                              
-                              Text(
-                                "Join the fellowship by creating your digital member profile.",
-                                style: theme.textTheme.bodyMedium?.copyWith(
-                                  color: ObsidianTheme.textMuted,
-                                  height: 1.4,
-                                ),
-                              ).animate().fadeIn(delay: 100.ms, duration: 500.ms).slideY(begin: 0.2, end: 0, curve: Curves.easeOutQuad),
-                              
-                              const SizedBox(height: 28),
-
-                              GlassCard(
-                                borderRadius: 24,
-                                padding: const EdgeInsets.all(24),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                                  children: [
-                                    TextFormField(
-                                      controller: _nameController,
-                                      style: TextStyle(color: ObsidianTheme.textVibrant, fontSize: 16),
-                                      decoration: InputDecoration(
-                                        labelText: "Your Full Name",
-                                        hintText: "Enter your name",
-                                        prefixIcon: Icon(Icons.person_outline_rounded, color: ObsidianTheme.textMuted, size: 20),
-                                        filled: true,
-                                        fillColor: isDark ? const Color(0xFF151B2C) : Colors.black.withOpacity(0.02),
-                                      ),
-                                      validator: (val) {
-                                        if (val == null || val.isEmpty) return "Please enter your name";
-                                        return null;
-                                      },
-                                    ),
-                                    const SizedBox(height: 16),
-                                    
-                                    TextFormField(
-                                      controller: _emailController,
-                                      keyboardType: TextInputType.emailAddress,
-                                      style: TextStyle(color: ObsidianTheme.textVibrant, fontSize: 16),
-                                      decoration: InputDecoration(
-                                        labelText: "Email Address",
-                                        hintText: "your@email.com",
-                                        prefixIcon: Icon(Icons.email_outlined, color: ObsidianTheme.textMuted, size: 20),
-                                        filled: true,
-                                        fillColor: isDark ? const Color(0xFF151B2C) : Colors.black.withOpacity(0.02),
-                                      ),
-                                      validator: (val) {
-                                        if (val == null || val.isEmpty) return "Please enter your email";
-                                        if (!val.contains('@')) return "Please enter a valid email";
-                                        return null;
-                                      },
-                                    ),
-                                    const SizedBox(height: 16),
-
-                                    TextFormField(
-                                      controller: _passwordController,
-                                      obscureText: !_showPassword,
-                                      style: TextStyle(color: ObsidianTheme.textVibrant, fontSize: 16),
-                                      decoration: InputDecoration(
-                                        labelText: "Choose a Password",
-                                        hintText: "Min 6 characters",
-                                        prefixIcon: Icon(Icons.lock_outline_rounded, color: ObsidianTheme.textMuted, size: 20),
-                                        filled: true,
-                                        fillColor: isDark ? const Color(0xFF151B2C) : Colors.black.withOpacity(0.02),
-                                        suffixIcon: IconButton(
-                                          icon: Icon(
-                                            _showPassword ? Icons.visibility_off_rounded : Icons.visibility_rounded,
-                                            color: ObsidianTheme.textMuted,
-                                            size: 20,
-                                          ),
-                                          onPressed: () => setState(() => _showPassword = !_showPassword),
-                                        ),
-                                      ),
-                                      validator: (val) {
-                                        if (val == null || val.isEmpty) return "Please enter a password";
-                                        if (val.length < 6) return "Password must be at least 6 characters";
-                                        return null;
-                                      },
-                                    ),
-                                    const SizedBox(height: 16),
-
-                                    TextFormField(
-                                      controller: _confirmPasswordController,
-                                      obscureText: !_showConfirmPassword,
-                                      style: TextStyle(color: ObsidianTheme.textVibrant, fontSize: 16),
-                                      decoration: InputDecoration(
-                                        labelText: "Type Password Again",
-                                        hintText: "Confirm your password",
-                                        prefixIcon: Icon(Icons.lock_outline_rounded, color: ObsidianTheme.textMuted, size: 20),
-                                        filled: true,
-                                        fillColor: isDark ? const Color(0xFF151B2C) : Colors.black.withOpacity(0.02),
-                                        suffixIcon: IconButton(
-                                          icon: Icon(
-                                            _showConfirmPassword ? Icons.visibility_off_rounded : Icons.visibility_rounded,
-                                            color: ObsidianTheme.textMuted,
-                                            size: 20,
-                                          ),
-                                          onPressed: () => setState(() => _showConfirmPassword = !_showConfirmPassword),
-                                        ),
-                                      ),
-                                      validator: (val) {
-                                        if (val == null || val.isEmpty) return "Please confirm your password";
-                                        if (val != _passwordController.text) return "Passwords do not match";
-                                        return null;
-                                      },
-                                    ),
-                                    const SizedBox(height: 20),
-
-                                    CheckboxListTile(
-                                      title: Text(
-                                        "I agree to the guidelines and rules of the church fellowship.",
-                                        style: GoogleFonts.plusJakartaSans(
-                                          fontSize: 12,
-                                          color: ObsidianTheme.textMuted,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                                      value: _acceptTerms,
-                                      activeColor: theme.colorScheme.primary,
-                                      checkColor: Colors.white,
-                                      contentPadding: EdgeInsets.zero,
-                                      controlAffinity: ListTileControlAffinity.leading,
-                                      onChanged: (val) => setState(() => _acceptTerms = val ?? false),
-                                    ),
-                                    
-                                    const SizedBox(height: 24),
-
-                                    CustomPrimaryButton(
-                                      text: "Create Account",
-                                      isLoading: authState.isLoading,
-                                      onPressed: _handleSignup,
-                                    ),
-                                    
-                                    const SizedBox(height: 20),
-                                    
-                                    Row(
-                                      children: [
-                                        Expanded(child: Divider(color: ObsidianTheme.borderHairline)),
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                                          child: Text(
-                                            "OR SIGN UP WITH",
-                                            style: GoogleFonts.plusJakartaSans(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w800,
-                                              color: ObsidianTheme.textMuted,
-                                              letterSpacing: 1.0,
-                                            ),
-                                          ),
-                                        ),
-                                        Expanded(child: Divider(color: ObsidianTheme.borderHairline)),
-                                      ],
-                                    ),
-                                    
-                                    const SizedBox(height: 20),
-                                    
-                                    GestureDetector(
-                                      onTap: authState.isLoading ? null : _handleGoogleSignup,
-                                      child: Container(
-                                        height: 52,
-                                        decoration: BoxDecoration(
-                                          color: isDark ? Colors.white : const Color(0xFF0F172A),
-                                          borderRadius: BorderRadius.circular(16),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: Colors.black.withOpacity(0.05),
-                                              blurRadius: 10,
-                                              offset: const Offset(0, 4),
-                                            ),
-                                          ],
-                                        ),
-                                        child: authState.isLoading
-                                            ? const Center(child: CircularProgressIndicator.adaptive())
-                                            : Row(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-                                                  FaIcon(
-                                                    FontAwesomeIcons.google, 
-                                                    size: 16, 
-                                                    color: isDark ? Colors.black : Colors.white,
-                                                  ),
-                                                  const SizedBox(width: 12),
-                                                  Text(
-                                                    "Google Account",
-                                                    style: TextStyle(
-                                                      color: isDark ? Colors.black : Colors.white,
-                                                      fontWeight: FontWeight.w700,
-                                                      fontSize: 15,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ).animate().fadeIn(delay: 200.ms, duration: 600.ms).scaleXY(begin: 0.95, end: 1.0, curve: Curves.easeOutBack).slideY(begin: 0.1, end: 0, curve: Curves.easeOutQuad),
-
-                              if (_errorMessage != null) ...[
-                                const SizedBox(height: 16),
-                                Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                                  decoration: BoxDecoration(
-                                    color: theme.colorScheme.error.withOpacity(0.1),
-                                    borderRadius: BorderRadius.circular(12),
-                                    border: Border.all(color: theme.colorScheme.error.withOpacity(0.3)),
-                                  ),
-                                  child: Text(
-                                    _errorMessage!,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(color: theme.colorScheme.error, fontSize: 13, fontWeight: FontWeight.w600),
-                                  ),
-                                ),
-                              ],
-                              
-                              const SizedBox(height: 28),
-                              
-                              Center(
-                                child: TextButton(
-                                  onPressed: () {
-                                    Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(builder: (_) => const LoginScreen()),
-                                    );
-                                  },
-                                  child: Text(
-                                    "Already have an account? Sign In",
-                                    style: theme.textTheme.bodyMedium?.copyWith(
-                                      color: AppTheme.accentGold,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              ).animate().fadeIn(delay: 400.ms, duration: 500.ms),
-                            ],
-                          ),
-                        ),
-                      ),
+              validator: (value) => value == null || value.length < 8
+                  ? 'Use at least 8 characters'
+                  : null,
+            ),
+            const SizedBox(height: 18),
+            TextFormField(
+              controller: _confirmPasswordController,
+              enabled: !busy,
+              obscureText: !_showConfirmPassword,
+              textInputAction: TextInputAction.done,
+              onFieldSubmitted: (_) {
+                if (!busy) _handleSignup();
+              },
+              decoration: InputDecoration(
+                labelText: 'Confirm password',
+                prefixIcon: const Icon(Icons.lock_outline),
+                suffixIcon: IconButton(
+                  tooltip: _showConfirmPassword
+                      ? 'Hide password'
+                      : 'Show password',
+                  onPressed: () => setState(
+                    () => _showConfirmPassword = !_showConfirmPassword,
+                  ),
+                  icon: Icon(
+                    _showConfirmPassword
+                        ? Icons.visibility_off_outlined
+                        : Icons.visibility_outlined,
+                  ),
+                ),
               ),
+              validator: (value) => value != _passwordController.text
+                  ? 'Passwords do not match'
+                  : null,
+            ),
+            const SizedBox(height: 12),
+            CheckboxListTile(
+              contentPadding: EdgeInsets.zero,
+              controlAffinity: ListTileControlAffinity.leading,
+              value: _acceptTerms,
+              onChanged: busy
+                  ? null
+                  : (value) => setState(() => _acceptTerms = value ?? false),
+              title: Text(
+                'I have read the privacy policy.',
+                style: theme.textTheme.bodyMedium,
+              ),
+            ),
+            TextButton(
+              onPressed: () => AppLinks.open(context, AppLinks.privacy),
+              child: const Text('Read privacy policy'),
+            ),
+            const SizedBox(height: 20),
+            CustomPrimaryButton(
+              text: 'Create account',
+              isLoading: busy,
+              onPressed: _handleSignup,
+            ),
+            const SizedBox(height: 16),
+            if (!kIsWeb &&
+                (defaultTargetPlatform == TargetPlatform.iOS ||
+                    defaultTargetPlatform == TargetPlatform.macOS)) ...[
+              OutlinedButton.icon(
+                onPressed: busy ? null : _handleAppleSignIn,
+                icon: const FaIcon(FontAwesomeIcons.apple, size: 20),
+                label: const Text('Continue with Apple'),
+              ),
+              const SizedBox(height: 12),
             ],
-          ),
+            OutlinedButton(
+              onPressed: busy ? null : _handleGoogleSignup,
+              child: const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  FaIcon(FontAwesomeIcons.google, size: 18),
+                  SizedBox(width: 12),
+                  Flexible(
+                    child: Text(
+                      'Continue with Google',
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 16),
+            TextButton(
+              onPressed: busy
+                  ? null
+                  : () => Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (_) => const LoginScreen()),
+                    ),
+              child: const Text(
+                'Already part of the family? Sign in',
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
         ),
       ),
     );
-  }
-
-  Widget _buildSuccessScreen(BuildContext context) {
-    final theme = Theme.of(context);
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: GlassCard(
-          borderRadius: 24,
-          padding: const EdgeInsets.all(32),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                width: 80,
-                height: 80,
-                decoration: BoxDecoration(
-                  color: Colors.green.withOpacity(0.1),
-                  shape: BoxShape.circle,
-                ),
-                child: const Icon(Icons.check_circle_outline_rounded, size: 48, color: Colors.green),
-              ).animate().scale(duration: 500.ms, curve: Curves.elasticOut),
-              const SizedBox(height: 24),
-              Text(
-                "Welcome to fellowship!",
-                textAlign: TextAlign.center,
-                style: GoogleFonts.cinzel(fontSize: 22, fontWeight: FontWeight.bold, color: ObsidianTheme.textVibrant),
-              ),
-              const SizedBox(height: 12),
-              Text(
-                "Your account was created successfully. Welcome to the Redeemed Transformation Chapel International community portal.",
-                textAlign: TextAlign.center,
-                style: TextStyle(color: ObsidianTheme.textMuted, height: 1.5),
-              ),
-              const SizedBox(height: 32),
-              CustomPrimaryButton(
-                text: "Continue to Dashboard",
-                onPressed: () {
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (_) => const MainTabScreen()),
-                    (route) => false,
-                  );
-                },
-              ),
-            ],
-          ),
-        ),
-      ),
-    ).animate().fadeIn(duration: 400.ms);
   }
 }
