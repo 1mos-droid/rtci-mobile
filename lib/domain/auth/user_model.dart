@@ -19,6 +19,16 @@ enum UserRole {
     }
   }
 
+  /// The value stored in `profiles/{uid}.role` and checked by firestore.rules.
+  String get value {
+    switch (this) {
+      case UserRole.departmentHead:
+        return 'department_head';
+      default:
+        return name;
+    }
+  }
+
   String get label {
     switch (this) {
       case UserRole.developer:

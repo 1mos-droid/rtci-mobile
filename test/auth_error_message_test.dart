@@ -36,17 +36,20 @@ void main() {
     }
   });
 
-  test('recognises user cancellation', () {
-    expect(
-      isAuthCancellation(
-        const GoogleSignInException(code: GoogleSignInExceptionCode.canceled),
-      ),
-      isTrue,
+  test('Google failures are never silent, even when reported as canceled', () {
+    const error = GoogleSignInException(
+      code: GoogleSignInExceptionCode.canceled,
     );
+    expect(isAuthCancellation(error), isFalse);
+    expect(authErrorMessage(error), contains("didn't finish"));
+  });
+
+  test('recognises Apple and web cancellation', () {
     expect(
       isAuthCancellation(FirebaseAuthException(code: 'web-context-canceled')),
       isTrue,
     );
+    expect(isAuthCancellation(FirebaseAuthException(code: 'canceled')), isTrue);
     expect(
       isAuthCancellation(FirebaseAuthException(code: 'invalid-credential')),
       isFalse,

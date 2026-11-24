@@ -2,10 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 /// True when the user dismissed a sign-in flow; no message should be shown.
+/// Google is never treated as silent: Android's Credential Manager reports
+/// configuration failures (such as an unregistered signing certificate) with
+/// the same `canceled` code as a real user cancellation.
 bool isAuthCancellation(Object error) {
-  if (error is GoogleSignInException) {
-    return error.code == GoogleSignInExceptionCode.canceled;
-  }
   if (error is FirebaseAuthException) {
     return const {
       'canceled',
@@ -53,7 +53,9 @@ String authErrorMessage(Object error) {
     return 'No internet connection. Check your connection and try again.';
   }
   if (error is GoogleSignInException) {
-    return 'Google sign-in could not be completed. Please try again.';
+    return error.code == GoogleSignInExceptionCode.canceled
+        ? "Google sign-in didn't finish. If you didn't cancel it, try again or use your email and password."
+        : 'Google sign-in could not be completed. Please try again or use your email and password.';
   }
   return 'Something went wrong. Please try again.';
 }
