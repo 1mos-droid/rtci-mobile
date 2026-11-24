@@ -9,7 +9,18 @@ class FinancialProvider extends ChangeNotifier {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final Ref _ref;
-  
+  bool _disposed = false;
+  @override
+  void notifyListeners() {
+    if (!_disposed) super.notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    _disposed = true;
+    super.dispose();
+  }
+
   List<GivingTransaction> _transactions = [];
   bool _isLoading = false;
 
@@ -18,7 +29,9 @@ class FinancialProvider extends ChangeNotifier {
     final user = _ref.read(authNotifierProvider).value;
     if (user == null) return [];
 
-    final completed = _transactions.where((t) => t.status == 'completed').toList();
+    final completed = _transactions
+        .where((t) => t.status == 'completed')
+        .toList();
 
     // Admins and developers see all completed transactions
     if (user.isAdmin) {
@@ -27,18 +40,18 @@ class FinancialProvider extends ChangeNotifier {
 
     // Normal members and dept heads see their own contributions OR shared admin expenses
     return completed.where((t) {
-      final isOwn = t.memberId == user.id || t.memberId == user.email;
-      final isShared = t.type == 'expense' || t.isShared;
+      final isOwn = t.memberId == user.id;
+      final isShared = t.isShared;
       return isOwn || isShared;
     }).toList();
   }
-  
+
   bool get isLoading => _isLoading;
-  
+
   double get totalRevenue => transactions
       .where((t) => t.type == 'contribution' && t.status == 'completed')
       .fold(0.0, (acc, item) => acc + item.amount);
-      
+
   double get totalExpense => transactions
       .where((t) => t.type == 'expense' && t.status == 'completed')
       .fold(0.0, (acc, item) => acc + item.amount);
@@ -71,11 +84,35 @@ class FinancialProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final snapshot = await _firestore
-          .collection('transactions')
-          .orderBy('date', descending: true)
-          .get();
-      _transactions = snapshot.docs.map((doc) => GivingTransaction.fromFirestore(doc)).toList();
+      final user = _ref.read(authNotifierProvider).value;
+      if (user == null) {
+        _transactions = [];
+        return;
+      }
+      final collection = _firestore.collection('transactions');
+      final List<QuerySnapshot<Map<String, dynamic>>> snapshots;
+      if (user.isAdmin) {
+        snapshots = [
+          await collection.get(const GetOptions(source: Source.server)),
+        ];
+      } else {
+        snapshots = await Future.wait([
+          collection
+              .where('member_id', isEqualTo: user.id)
+              .get(const GetOptions(source: Source.server)),
+          collection
+              .where('is_shared', isEqualTo: true)
+              .get(const GetOptions(source: Source.server)),
+        ]);
+      }
+      if (_disposed || _auth.currentUser?.uid != user.id) return;
+      final byId = {
+        for (final snapshot in snapshots)
+          for (final doc in snapshot.docs)
+            doc.id: GivingTransaction.fromFirestore(doc),
+      };
+      _transactions = byId.values.toList()
+        ..sort((a, b) => b.date.compareTo(a.date));
     } catch (e) {
       debugPrint('Error fetching transactions: $e');
     } finally {
@@ -93,12 +130,21 @@ class FinancialProvider extends ChangeNotifier {
     String? campus,
     String status = 'completed',
   }) async {
+    final user = _ref.read(authNotifierProvider).value;
+    if (user?.isAdmin != true ||
+        !amount.isFinite ||
+        amount < 0.01 ||
+        amount > 1000000 ||
+        status != 'completed' ||
+        !['contribution', 'expense'].contains(type)) {
+      return null;
+    }
     _isLoading = true;
     notifyListeners();
 
     try {
       final docRef = await _firestore.collection('transactions').add({
-        'amount': amount,
+        'amount': (amount * 100).round() / 100,
         'type': type,
         'category': category,
         'description': description ?? '',
@@ -107,6 +153,9 @@ class FinancialProvider extends ChangeNotifier {
         'date': FieldValue.serverTimestamp(),
         'logged_by': _auth.currentUser?.uid,
         'status': status,
+        'source': 'manual',
+        'amount_subunit': (amount * 100).round(),
+        'currency': 'GHS',
       });
       await fetchTransactions();
       return docRef.id;
@@ -119,27 +168,20 @@ class FinancialProvider extends ChangeNotifier {
     }
   }
 
-  Future<bool> recordTransaction(double amount, String type, String contributor, {String? description, String? campus}) async {
-    final docId = await processGiving(amount: amount, type: type, category: contributor, description: description, campus: campus);
+  Future<bool> recordTransaction(
+    double amount,
+    String type,
+    String contributor, {
+    String? description,
+    String? campus,
+  }) async {
+    final docId = await processGiving(
+      amount: amount,
+      type: type,
+      category: contributor,
+      description: description,
+      campus: campus,
+    );
     return docId != null;
-  }
-
-  Future<bool> updateTransactionStatus(String transactionId, String status) async {
-    _isLoading = true;
-    notifyListeners();
-
-    try {
-      await _firestore.collection('transactions').doc(transactionId).update({
-        'status': status,
-      });
-      await fetchTransactions();
-      return true;
-    } catch (e) {
-      debugPrint('Error updating transaction status: $e');
-      return false;
-    } finally {
-      _isLoading = false;
-      notifyListeners();
-    }
   }
 }

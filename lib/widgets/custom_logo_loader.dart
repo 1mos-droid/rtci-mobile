@@ -1,89 +1,115 @@
+import 'dart:math' as math;
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 
-class CustomLogoLoader extends StatelessWidget {
+/// A single orbit around the church seal; static when reduced motion is enabled.
+class CustomLogoLoader extends StatefulWidget {
   final double size;
   final String? message;
+  const CustomLogoLoader({super.key, this.size = 80, this.message});
+  @override
+  State<CustomLogoLoader> createState() => _CustomLogoLoaderState();
+}
 
-  const CustomLogoLoader({
-    super.key,
-    this.size = 80,
-    this.message,
-  });
+class _CustomLogoLoaderState extends State<CustomLogoLoader>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _orbit = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 2200),
+  );
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (MediaQuery.disableAnimationsOf(context) || !TickerMode.of(context)) {
+      _orbit.stop();
+    } else {
+      _orbit.repeat();
+    }
+  }
+
+  @override
+  void dispose() {
+    _orbit.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
-
-    return Center(
+    return Semantics(
+      label: widget.message ?? 'Loading',
+      liveRegion: true,
+      excludeSemantics: true,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Stack(
-            alignment: Alignment.center,
-            children: [
-              // Spinning glow ring
-              Container(
-                width: size + 20,
-                height: size + 20,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  gradient: SweepGradient(
-                    colors: [
-                      colorScheme.primary.withOpacity(0),
-                      colorScheme.secondary,
-                      colorScheme.primary,
-                      colorScheme.primary.withOpacity(0),
-                    ],
+          SizedBox(
+            width: widget.size + 32,
+            height: widget.size + 32,
+            child: AnimatedBuilder(
+              animation: _orbit,
+              builder: (context, child) => CustomPaint(
+                painter: _OrbitPainter(
+                  _orbit.value,
+                  theme.colorScheme.primary,
+                  theme.colorScheme.outlineVariant,
+                ),
+                child: child,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: DecoratedBox(
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: Image.asset(
+                      'assets/church_logo.png',
+                      excludeFromSemantics: true,
+                    ),
                   ),
                 ),
-              )
-              .animate(onPlay: (controller) => controller.repeat())
-              .rotate(duration: 2.seconds),
-
-              // Blurred mask for the ring
-              Container(
-                width: size + 16,
-                height: size + 16,
-                decoration: BoxDecoration(
-                  color: theme.scaffoldBackgroundColor,
-                  shape: BoxShape.circle,
-                ),
               ),
-
-              // The Logo
-              Container(
-                width: size,
-                height: size,
-                padding: const EdgeInsets.all(12),
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  shape: BoxShape.circle,
-                ),
-                child: Image.asset(
-                  'assets/church_logo.png',
-                  fit: BoxFit.contain,
-                ),
-              )
-              .animate(onPlay: (controller) => controller.repeat(reverse: true))
-              .scaleXY(begin: 0.9, end: 1.05, duration: 1.seconds, curve: Curves.easeInOut),
-            ],
+            ),
           ),
-          if (message != null) ...[
+          if (widget.message != null) ...[
             const SizedBox(height: 24),
             Text(
-              message!.toUpperCase(),
-              style: theme.textTheme.labelLarge?.copyWith(
-                color: colorScheme.primary,
-                letterSpacing: 3.0,
-                fontWeight: FontWeight.w900,
-              ),
-            ).animate(onPlay: (controller) => controller.repeat(reverse: true))
-             .fadeIn(duration: 1.seconds),
+              widget.message!,
+              textAlign: TextAlign.center,
+              style: theme.textTheme.bodyMedium,
+            ),
           ],
         ],
       ),
     );
   }
+}
+
+class _OrbitPainter extends CustomPainter {
+  final double progress;
+  final Color color, track;
+  _OrbitPainter(this.progress, this.color, this.track);
+  @override
+  void paint(Canvas canvas, Size size) {
+    final rect = (Offset.zero & size).deflate(3);
+    final paint = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2;
+    canvas.drawOval(rect, paint..color = track.withValues(alpha: .5));
+    canvas.drawArc(
+      rect,
+      progress * math.pi * 2 - math.pi / 2,
+      math.pi * .55,
+      false,
+      paint
+        ..color = color
+        ..strokeCap = StrokeCap.round,
+    );
+  }
+
+  @override
+  bool shouldRepaint(_OrbitPainter old) =>
+      old.progress != progress || old.color != color || old.track != track;
 }

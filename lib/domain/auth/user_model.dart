@@ -21,11 +21,16 @@ enum UserRole {
 
   String get label {
     switch (this) {
-      case UserRole.developer: return 'DEVELOPER';
-      case UserRole.admin: return 'ADMIN';
-      case UserRole.departmentHead: return 'DEPT HEAD';
-      case UserRole.member: return 'MEMBER';
-      case UserRole.guest: return 'GUEST';
+      case UserRole.developer:
+        return 'DEVELOPER';
+      case UserRole.admin:
+        return 'ADMIN';
+      case UserRole.departmentHead:
+        return 'DEPT HEAD';
+      case UserRole.member:
+        return 'MEMBER';
+      case UserRole.guest:
+        return 'GUEST';
     }
   }
 }
@@ -75,6 +80,9 @@ class AppUser {
   }
 
   bool get isAdmin => role == UserRole.admin || role == UserRole.developer;
-  bool get isDeptHead => role == UserRole.departmentHead || role == UserRole.admin || role == UserRole.developer;
+  bool get isDeptHead =>
+      role == UserRole.departmentHead ||
+      role == UserRole.admin ||
+      role == UserRole.developer;
   bool get isDeveloper => role == UserRole.developer;
 }

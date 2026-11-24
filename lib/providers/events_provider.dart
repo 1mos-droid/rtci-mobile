@@ -1,3 +1,4 @@
+import 'package:rtc_mobile/providers/account_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -41,12 +42,14 @@ class ChurchEvent {
   }
 }
 
-class EventsProvider extends ChangeNotifier {
+class EventsProvider extends AccountNotifier {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  
+
   List<ChurchEvent> _events = [];
   bool _isLoading = false;
+  String? _error;
+  String? get error => _error;
 
   List<ChurchEvent> get events => _events;
   bool get isLoading => _isLoading;
@@ -56,18 +59,21 @@ class EventsProvider extends ChangeNotifier {
   }
 
   void _init() {
-    _auth.authStateChanges().listen((user) {
-      if (user != null) {
-        fetchEvents();
-      } else {
-        _events = [];
-        notifyListeners();
-      }
-    });
+    trackSubscription(
+      _auth.authStateChanges().listen((user) {
+        if (user != null) {
+          fetchEvents();
+        } else {
+          _events = [];
+          notifyListeners();
+        }
+      }),
+    );
   }
 
   Future<void> fetchEvents() async {
     _isLoading = true;
+    _error = null;
     notifyListeners();
 
     try {
@@ -75,12 +81,35 @@ class EventsProvider extends ChangeNotifier {
           .collection('events')
           .orderBy('date', descending: false)
           .get();
-      _events = snapshot.docs.map((doc) => ChurchEvent.fromFirestore(doc)).toList();
+      _events = snapshot.docs
+          .map((doc) => ChurchEvent.fromFirestore(doc))
+          .toList();
     } catch (e) {
+      _error = 'We couldn’t load events. Please try again.';
       debugPrint('Error fetching events: $e');
     } finally {
       _isLoading = false;
       notifyListeners();
+    }
+  }
+
+  Future<bool> rsvp(String eventId) async {
+    final user = _auth.currentUser;
+    if (user == null) return false;
+    try {
+      await _firestore
+          .collection('events')
+          .doc(eventId)
+          .collection('rsvps')
+          .doc(user.uid)
+          .set({
+            'member_id': user.uid,
+            'created_at': FieldValue.serverTimestamp(),
+          });
+      return true;
+    } catch (error) {
+      debugPrint('Unable to save RSVP: $error');
+      return false;
     }
   }
 

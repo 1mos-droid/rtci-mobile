@@ -1,212 +1,212 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:rtc_mobile/theme/app_theme.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rtc_mobile/application/auth/auth_provider.dart';
+import 'package:rtc_mobile/providers/riverpod_providers.dart';
+import 'package:rtc_mobile/utils/csv.dart';
+import 'package:rtc_mobile/widgets/feature_state.dart';
 import 'package:rtc_mobile/widgets/glass_card.dart';
-import 'package:rtc_mobile/widgets/mesh_gradient_background.dart';
 
-class ReportsScreen extends StatelessWidget {
+class ReportsScreen extends ConsumerWidget {
   const ReportsScreen({super.key});
 
+  Future<void> _copy(
+    BuildContext context,
+    String title,
+    List<List<Object?>> rows,
+  ) async {
+    try {
+      await Clipboard.setData(ClipboardData(text: encodeCsv(rows)));
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            '$title copied as CSV. Paste it into your spreadsheet.',
+          ),
+        ),
+      );
+    } catch (_) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('We couldn’t copy this report. Please try again.'),
+        ),
+      );
+    }
+  }
+
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: ObsidianTheme.backgroundDark,
-      body: MeshGradientBackground(
-        child: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              backgroundColor: Colors.transparent,
-              pinned: true,
-              expandedHeight: 120.0,
-              flexibleSpace: FlexibleSpaceBar(
-                titlePadding: const EdgeInsets.only(left: 48, bottom: 16),
-                title: Text(
-                  "Audit Reports",
-                  style: GoogleFonts.cinzel(
-                    color: ObsidianTheme.primaryCrimson,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
+    if (!(ref.watch(authNotifierProvider).value?.isDeptHead ?? false)) {
+      return Scaffold(
+        appBar: AppBar(title: const Text('Reports')),
+        body: const FeatureState(
+          icon: Icons.lock_outline_rounded,
+          title: 'Church administration',
+          message:
+              'Ask your church administrator if you need access to reports.',
+        ),
+      );
+    }
+    final members = ref.watch(membersProvider);
+    final finance = ref.watch(financialProvider);
+    final attendance = ref.watch(attendanceProvider);
+    final reports =
+        <
+          ({
+            String title,
+            String description,
+            IconData icon,
+            bool loading,
+            List<List<Object?>> rows,
+          })
+        >[
+          (
+            title: 'Member directory',
+            description: 'Names, email addresses, roles and departments.',
+            icon: Icons.people_outline_rounded,
+            loading: members.isLoading,
+            rows: [
+              ['Name', 'Email', 'Role', 'Department'],
+              ...members.members.map(
+                (member) => <Object?>[
+                  member.name,
+                  member.email,
+                  member.role,
+                  member.department,
+                ],
               ),
-            ),
-            SliverPadding(
-              padding: const EdgeInsets.all(20.0),
-              sliver: SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) {
-                    final reports = [
-                      {"title": "Member Registry", "desc": "Comprehensive list of all registered congregation members.", "icon": Icons.people},
-                      {"title": "Financial Ledger", "desc": "Audit-ready logs of all contributions and expenditures.", "icon": Icons.attach_money},
-                      {"title": "Attendance Logs", "desc": "Historical data of service participation.", "icon": Icons.calendar_today},
-                    ];
-                    final report = reports[index];
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 16.0),
+            ],
+          ),
+          (
+            title: 'Financial ledger',
+            description: 'Completed transactions visible to your account.',
+            icon: Icons.account_balance_wallet_outlined,
+            loading: finance.isLoading,
+            rows: [
+              [
+                'Reference',
+                'Date',
+                'Type',
+                'Fund',
+                'Amount (GHC)',
+                'Description',
+                'Status',
+              ],
+              ...finance.transactions.map(
+                (transaction) => <Object?>[
+                  transaction.id,
+                  transaction.date.toIso8601String(),
+                  transaction.type,
+                  transaction.category,
+                  transaction.amount.toStringAsFixed(2),
+                  transaction.description,
+                  transaction.status,
+                ],
+              ),
+            ],
+          ),
+          (
+            title: 'Attendance',
+            description:
+                'Recorded services, dates, headcounts and departments.',
+            icon: Icons.event_available_outlined,
+            loading: attendance.isLoading,
+            rows: [
+              ['Service', 'Date', 'Headcount', 'Department'],
+              ...attendance.records.map(
+                (record) => <Object?>[
+                  record.serviceName,
+                  record.date.toIso8601String(),
+                  record.count,
+                  record.department,
+                ],
+              ),
+            ],
+          ),
+        ];
+    return Scaffold(
+      appBar: AppBar(title: const Text('Reports')),
+      body: SafeArea(
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 760),
+            child: RefreshIndicator(
+              onRefresh: () => Future.wait([
+                members.fetchMembers(),
+                finance.fetchTransactions(),
+                attendance.fetchAttendance(),
+              ]),
+              child: ListView(
+                padding: const EdgeInsets.all(24),
+                physics: const AlwaysScrollableScrollPhysics(),
+                children: [
+                  Text(
+                    'A clearer view of church life.',
+                    style: theme.textTheme.displayMedium,
+                  ),
+                  const SizedBox(height: 12),
+                  Text(
+                    'Copy the currently loaded records as CSV for your spreadsheet. Pull down to refresh before preparing a report.',
+                    style: theme.textTheme.bodyLarge?.copyWith(
+                      color: theme.colorScheme.onSurfaceVariant,
+                      height: 1.6,
+                    ),
+                  ),
+                  const SizedBox(height: 28),
+                  for (final report in reports)
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 16),
                       child: GlassCard(
-                        padding: const EdgeInsets.all(20),
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            Icon(report['icon'] as IconData, size: 40, color: ObsidianTheme.primaryCrimson),
+                            Icon(
+                              report.icon,
+                              color: theme.colorScheme.primary,
+                              size: 28,
+                            ),
                             const SizedBox(height: 16),
-                            Text(report['title'] as String, style: Theme.of(context).textTheme.headlineMedium),
+                            Text(
+                              report.title,
+                              style: theme.textTheme.titleLarge,
+                            ),
                             const SizedBox(height: 8),
-                            Text(report['desc'] as String, style: Theme.of(context).textTheme.bodyMedium, textAlign: TextAlign.center),
-                            const SizedBox(height: 24),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: ElevatedButton.icon(
-                                    onPressed: () => _exportReport(context, report['title'] as String, "PDF"),
-                                    icon: const Icon(Icons.picture_as_pdf),
-                                    label: const Text("PDF"),
-                                  ),
-                                ),
-                                const SizedBox(width: 12),
-                                Expanded(
-                                  child: OutlinedButton.icon(
-                                    onPressed: () => _exportReport(context, report['title'] as String, "EXCEL"),
-                                    icon: const Icon(Icons.table_chart),
-                                    label: const Text("EXCEL"),
-                                  ),
-                                ),
-                              ],
-                            )
+                            Text(
+                              report.description,
+                              style: theme.textTheme.bodyMedium?.copyWith(
+                                height: 1.5,
+                              ),
+                            ),
+                            const SizedBox(height: 12),
+                            Text(
+                              report.loading
+                                  ? 'Loading records…'
+                                  : '${report.rows.length - 1} records loaded',
+                              style: theme.textTheme.bodySmall,
+                            ),
+                            const SizedBox(height: 20),
+                            OutlinedButton.icon(
+                              onPressed:
+                                  report.loading || report.rows.length <= 1
+                                  ? null
+                                  : () => _copy(
+                                      context,
+                                      report.title,
+                                      report.rows,
+                                    ),
+                              icon: const Icon(Icons.copy_outlined, size: 18),
+                              label: const Text('Copy as CSV'),
+                            ),
                           ],
                         ),
                       ),
-                    );
-                  },
-                  childCount: 3,
-                ),
+                    ),
+                ],
               ),
             ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  void _exportReport(BuildContext context, String title, String format) {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (dialogContext) {
-        return _ExportingDialog(
-          title: title,
-          format: format,
-          onComplete: () {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text("$title exported as $format successfully!"),
-                backgroundColor: Colors.green,
-                behavior: SnackBarBehavior.floating,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-              ),
-            );
-          },
-        );
-      },
-    );
-  }
-}
-
-class _ExportingDialog extends StatefulWidget {
-  final String title;
-  final String format;
-  final VoidCallback onComplete;
-
-  const _ExportingDialog({
-    required this.title,
-    required this.format,
-    required this.onComplete,
-  });
-
-  @override
-  State<_ExportingDialog> createState() => _ExportingDialogState();
-}
-
-class _ExportingDialogState extends State<_ExportingDialog> {
-  double _progress = 0.0;
-  bool _finished = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _startExport();
-  }
-
-  void _startExport() {
-    const duration = Duration(milliseconds: 150);
-    const steps = 10;
-    int currentStep = 0;
-    
-    // Simulate step progress
-    Future.doWhile(() async {
-      await Future.delayed(duration);
-      if (!mounted) return false;
-      
-      currentStep++;
-      setState(() {
-        _progress = currentStep / steps;
-        if (currentStep >= steps) {
-          _finished = true;
-        }
-      });
-      
-      if (currentStep >= steps) {
-        await Future.delayed(const Duration(milliseconds: 300));
-        if (mounted) {
-          Navigator.pop(context);
-          widget.onComplete();
-        }
-        return false;
-      }
-      return true;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
-    
-    return AlertDialog(
-      backgroundColor: isDark ? const Color(0xFF1E202C) : Colors.white,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-      content: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (!_finished) ...[
-              CircularProgressIndicator(
-                value: _progress,
-                color: ObsidianTheme.primaryCrimson,
-                backgroundColor: ObsidianTheme.borderHairline,
-              ),
-              const SizedBox(height: 24),
-              Text(
-                "Compiling ${widget.title} in ${widget.format}...",
-                textAlign: TextAlign.center,
-                style: GoogleFonts.plusJakartaSans(
-                  fontWeight: FontWeight.bold,
-                  color: ObsidianTheme.textVibrant,
-                ),
-              ),
-            ] else ...[
-              const Icon(Icons.check_circle_outline, color: Colors.green, size: 48),
-              const SizedBox(height: 16),
-              Text(
-                "Export Complete!",
-                textAlign: TextAlign.center,
-                style: GoogleFonts.plusJakartaSans(
-                  fontWeight: FontWeight.bold,
-                  color: ObsidianTheme.textVibrant,
-                  fontSize: 16,
-                ),
-              ),
-            ],
-          ],
+          ),
         ),
       ),
     );

@@ -1,0 +1,25 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    function signedIn() { return request.auth != null; }
+    function staff() {
+      return signedIn() && firestore.get(/databases/(default)/documents/profiles/$(request.auth.uid)).data.role
+        in ['admin', 'developer', 'department_head'];
+    }
+    function image() {
+      return request.resource.size < 10 * 1024 * 1024
+        && request.resource.contentType.matches('image/(jpeg|png|webp)');
+    }
+    match /avatars/{file} {
+      allow read: if signedIn();
+      allow create, update: if signedIn() && file == 'avatar_' + request.auth.uid + '.jpg' && image();
+      allow delete: if signedIn() && file == 'avatar_' + request.auth.uid + '.jpg';
+    }
+    match /gallery/{file} {
+      allow read: if signedIn();
+      allow create, update: if staff() && image();
+      allow delete: if staff();
+    }
+    match /{path=**} { allow read, write: if false; }
+  }
+}

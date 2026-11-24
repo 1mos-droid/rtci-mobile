@@ -1,3 +1,4 @@
+import 'package:rtc_mobile/providers/account_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -9,7 +10,13 @@ class LeadershipProfile {
   final String department;
   final String? avatarUrl;
 
-  LeadershipProfile({required this.id, required this.name, required this.title, required this.department, this.avatarUrl});
+  LeadershipProfile({
+    required this.id,
+    required this.name,
+    required this.title,
+    required this.department,
+    this.avatarUrl,
+  });
 
   factory LeadershipProfile.fromFirestore(DocumentSnapshot doc) {
     final data = doc.data() as Map<String, dynamic>;
@@ -23,10 +30,10 @@ class LeadershipProfile {
   }
 }
 
-class LeadershipProvider extends ChangeNotifier {
+class LeadershipProvider extends AccountNotifier {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  
+
   List<LeadershipProfile> _leaders = [];
   bool _isLoading = false;
 
@@ -38,14 +45,16 @@ class LeadershipProvider extends ChangeNotifier {
   }
 
   void _init() {
-    _auth.authStateChanges().listen((user) {
-      if (user != null) {
-        fetchLeaders();
-      } else {
-        _leaders = [];
-        notifyListeners();
-      }
-    });
+    trackSubscription(
+      _auth.authStateChanges().listen((user) {
+        if (user != null) {
+          fetchLeaders();
+        } else {
+          _leaders = [];
+          notifyListeners();
+        }
+      }),
+    );
   }
 
   Future<void> fetchLeaders() async {
@@ -53,11 +62,10 @@ class LeadershipProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final snapshot = await _firestore
-          .collection('profiles')
-          .where('role', whereIn: ['admin', 'department_head', 'developer'])
-          .get();
-      _leaders = snapshot.docs.map((doc) => LeadershipProfile.fromFirestore(doc)).toList();
+      final snapshot = await _firestore.collection('leadership').get();
+      _leaders = snapshot.docs
+          .map((doc) => LeadershipProfile.fromFirestore(doc))
+          .toList();
     } catch (e) {
       debugPrint('Error fetching leaders: $e');
     } finally {

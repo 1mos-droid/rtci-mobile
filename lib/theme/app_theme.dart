@@ -1,20 +1,18 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
   // Brand & Palette Colors
-  static const Color systemLightBg = Color(0xFFFAFAFC); // Clean off-white
-  static const Color systemDarkBg = Color(0xFF0B0F19);  // Premium obsidian dark
-  
+  static const Color systemLightBg = Color(0xFFF7F5F0); // Clean off-white
+  static const Color systemDarkBg = Color(0xFF171A19); // Premium obsidian dark
+
   static const Color systemLightGroupedBg = Colors.white;
-  static const Color systemDarkGroupedBg = Color(0xFF151B2C); // Deep navy/slate
+  static const Color systemDarkGroupedBg = Color(0xFF222725); // Deep navy/slate
 
-  static const Color iosPrimaryLight = Color(0xFFA81D32); // Crimson Red
-  static const Color iosPrimaryDark = Color(0xFFA81D32);  // Crimson Red
-  static const Color accentGold = Color(0xFFD4AF37);      // Warm Gold
+  static const Color iosPrimaryLight = Color(0xFF792C40); // Crimson Red
+  static const Color iosPrimaryDark = Color(0xFF792C40); // Crimson Red
+  static const Color accentGold = Color(0xFF94713C); // Warm Gold
 
-  static const Color systemGray = Color(0xFF64748B); // Slate Gray
+  static const Color systemGray = Color(0xFF66716B); // Slate Gray
   static const Color systemGray2 = Color(0xFF94A3B8);
   static const Color systemGray3 = Color(0xFFCBD5E1);
   static const Color systemGray4 = Color(0xFFE2E8F0);
@@ -34,6 +32,19 @@ class AppTheme {
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.light,
+      fontFamily: 'Inter',
+      visualDensity: VisualDensity.standard,
+      navigationBarTheme: const NavigationBarThemeData(
+        elevation: 0,
+        backgroundColor: systemLightGroupedBg,
+        indicatorColor: Color(0xFFF0E2E6),
+        height: 76,
+      ),
+      bottomSheetTheme: const BottomSheetThemeData(
+        showDragHandle: true,
+        backgroundColor: systemLightGroupedBg,
+        surfaceTintColor: Colors.transparent,
+      ),
       colorScheme: ColorScheme.fromSeed(
         seedColor: iosPrimaryLight,
         brightness: Brightness.light,
@@ -41,29 +52,33 @@ class AppTheme {
         secondary: accentGold,
         surface: systemLightGroupedBg,
         surfaceContainerHighest: systemGray5,
-        onSurface: const Color(0xFF0F172A),
+        onSurface: const Color(0xFF242C29),
         error: systemRed,
       ),
       scaffoldBackgroundColor: systemLightBg,
-      textTheme: _textTheme(const Color(0xFF0F172A), systemGray),
+      snackBarTheme: const SnackBarThemeData(
+        behavior: SnackBarBehavior.floating,
+      ),
+      listTileTheme: const ListTileThemeData(
+        contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+      ),
+      textTheme: _textTheme(const Color(0xFF242C29), systemGray),
       appBarTheme: AppBarTheme(
-        centerTitle: true,
+        centerTitle: false,
         backgroundColor: systemLightBg.withOpacity(0.9),
         surfaceTintColor: Colors.transparent,
         elevation: 0,
         titleTextStyle: _getTextStyle(
           fontSize: 18,
           fontWeight: FontWeight.w700,
-          color: const Color(0xFF0F172A),
+          color: const Color(0xFF242C29),
           letterSpacing: -0.4,
         ),
         iconTheme: const IconThemeData(color: iosPrimaryLight),
       ),
       cardTheme: CardThemeData(
         elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         color: systemLightGroupedBg,
       ),
       dividerTheme: DividerThemeData(
@@ -77,7 +92,9 @@ class AppTheme {
           backgroundColor: iosPrimaryLight,
           foregroundColor: Colors.white,
           minimumSize: const Size.fromHeight(54),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
           elevation: 0,
           textStyle: _getTextStyle(
             fontWeight: FontWeight.w700,
@@ -91,7 +108,9 @@ class AppTheme {
           foregroundColor: iosPrimaryLight,
           side: const BorderSide(color: iosPrimaryLight, width: 1.5),
           minimumSize: const Size.fromHeight(54),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
           elevation: 0,
           textStyle: _getTextStyle(
             fontWeight: FontWeight.w700,
@@ -119,8 +138,15 @@ class AppTheme {
           borderRadius: BorderRadius.circular(16),
           borderSide: const BorderSide(color: systemRed, width: 1.0),
         ),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
-        labelStyle: const TextStyle(color: systemGray, fontSize: 15, fontWeight: FontWeight.w500),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 20,
+          vertical: 18,
+        ),
+        labelStyle: const TextStyle(
+          color: systemGray,
+          fontSize: 15,
+          fontWeight: FontWeight.w500,
+        ),
         hintStyle: const TextStyle(color: systemGray2, fontSize: 15),
       ),
     );
@@ -130,20 +156,39 @@ class AppTheme {
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.dark,
+      fontFamily: 'Inter',
+      visualDensity: VisualDensity.standard,
+      navigationBarTheme: const NavigationBarThemeData(
+        elevation: 0,
+        backgroundColor: systemDarkGroupedBg,
+        indicatorColor: Color(0xFF51303C),
+        height: 76,
+      ),
+      bottomSheetTheme: const BottomSheetThemeData(
+        showDragHandle: true,
+        backgroundColor: systemDarkGroupedBg,
+        surfaceTintColor: Colors.transparent,
+      ),
+      snackBarTheme: const SnackBarThemeData(
+        behavior: SnackBarBehavior.floating,
+      ),
+      listTileTheme: const ListTileThemeData(
+        contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+      ),
       colorScheme: ColorScheme.fromSeed(
         seedColor: iosPrimaryDark,
         brightness: Brightness.dark,
-        primary: iosPrimaryDark,
+        primary: const Color(0xFFEAA9B8),
         secondary: accentGold,
         surface: systemDarkGroupedBg,
-        surfaceContainerHighest: const Color(0xFF1E293B),
+        surfaceContainerHighest: const Color(0xFF303733),
         onSurface: Colors.white,
         error: const Color(0xFFEF4444),
       ),
       scaffoldBackgroundColor: systemDarkBg,
       textTheme: _textTheme(Colors.white, systemGray2),
       appBarTheme: AppBarTheme(
-        centerTitle: true,
+        centerTitle: false,
         backgroundColor: systemDarkBg.withOpacity(0.9),
         surfaceTintColor: Colors.transparent,
         elevation: 0,
@@ -157,9 +202,7 @@ class AppTheme {
       ),
       cardTheme: CardThemeData(
         elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         color: systemDarkGroupedBg,
       ),
       dividerTheme: DividerThemeData(
@@ -173,7 +216,9 @@ class AppTheme {
           backgroundColor: iosPrimaryDark,
           foregroundColor: Colors.white,
           minimumSize: const Size.fromHeight(54),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
           elevation: 0,
           textStyle: _getTextStyle(
             fontWeight: FontWeight.w700,
@@ -187,7 +232,9 @@ class AppTheme {
           foregroundColor: Colors.white,
           side: const BorderSide(color: Colors.white30, width: 1.5),
           minimumSize: const Size.fromHeight(54),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
           elevation: 0,
           textStyle: _getTextStyle(
             fontWeight: FontWeight.w700,
@@ -201,11 +248,17 @@ class AppTheme {
         fillColor: systemDarkGroupedBg,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(color: Colors.white.withOpacity(0.1), width: 1.0),
+          borderSide: BorderSide(
+            color: Colors.white.withOpacity(0.1),
+            width: 1.0,
+          ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(color: Colors.white.withOpacity(0.08), width: 1.0),
+          borderSide: BorderSide(
+            color: Colors.white.withOpacity(0.08),
+            width: 1.0,
+          ),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
@@ -215,8 +268,15 @@ class AppTheme {
           borderRadius: BorderRadius.circular(16),
           borderSide: const BorderSide(color: Color(0xFFEF4444), width: 1.0),
         ),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
-        labelStyle: const TextStyle(color: Colors.white70, fontSize: 15, fontWeight: FontWeight.w500),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 20,
+          vertical: 18,
+        ),
+        labelStyle: const TextStyle(
+          color: Colors.white70,
+          fontSize: 15,
+          fontWeight: FontWeight.w500,
+        ),
         hintStyle: const TextStyle(color: Colors.white38, fontSize: 15),
       ),
     );
@@ -230,20 +290,8 @@ class AppTheme {
     FontStyle? fontStyle,
     double? height,
   }) {
-    try {
-      if (Platform.environment.containsKey('FLUTTER_TEST')) {
-        return TextStyle(
-          fontFamily: 'Inter',
-          color: color,
-          fontSize: fontSize,
-          fontWeight: fontWeight,
-          letterSpacing: letterSpacing,
-          fontStyle: fontStyle,
-          height: height,
-        );
-      }
-    } catch (_) {}
-    return GoogleFonts.inter(
+    return TextStyle(
+      fontFamily: 'Inter',
       color: color,
       fontSize: fontSize,
       fontWeight: fontWeight,
@@ -332,14 +380,19 @@ class ObsidianTheme {
   }
 
   // Soft modern white and obsidian dark backgrounds
-  static Color get backgroundDark => isDark ? const Color(0xFF0B0F19) : const Color(0xFFFAFAFC);
-  static Color get surfaceDark => isDark ? const Color(0xFF151B2C) : Colors.white;
-  static Color get primaryCrimson => const Color(0xFFA81D32); // Crimson Red
-  static Color get secondaryGold => const Color(0xFFD4AF37); // Faith Gold
-  static Color get textVibrant => isDark ? Colors.white : const Color(0xFF0F172A);
-  static Color get textMuted => isDark ? const Color(0xFF94A3B8) : const Color(0xFF64748B);
-  static Color get borderHairline => isDark ? const Color(0x1AFFFFFF) : const Color(0x0E000000);
- 
+  static Color get backgroundDark =>
+      isDark ? const Color(0xFF171A19) : const Color(0xFFF7F5F0);
+  static Color get surfaceDark =>
+      isDark ? const Color(0xFF222725) : Colors.white;
+  static Color get primaryCrimson => const Color(0xFF792C40); // Crimson Red
+  static Color get secondaryGold => const Color(0xFF94713C); // Faith Gold
+  static Color get textVibrant =>
+      isDark ? Colors.white : const Color(0xFF242C29);
+  static Color get textMuted =>
+      isDark ? const Color(0xFF94A3B8) : const Color(0xFF66716B);
+  static Color get borderHairline =>
+      isDark ? const Color(0x1AFFFFFF) : const Color(0x0E000000);
+
   // Compatibility Mappings
   static Color get primaryMidnight => primaryCrimson;
   static Color get crimsonSoft => primaryCrimson.withOpacity(0.85);

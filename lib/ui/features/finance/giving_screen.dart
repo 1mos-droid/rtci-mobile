@@ -1,14 +1,15 @@
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:rtc_mobile/services/giving_service.dart';
+import 'package:rtc_mobile/services/backend_client.dart';
 import 'package:rtc_mobile/providers/riverpod_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:rtc_mobile/theme/app_theme.dart';
 import 'package:rtc_mobile/widgets/glass_card.dart';
-import 'package:rtc_mobile/widgets/mesh_gradient_background.dart';
 import 'package:rtc_mobile/widgets/modern_widgets.dart';
 import 'package:rtc_mobile/application/auth/auth_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 
 class GivingScreen extends ConsumerStatefulWidget {
   const GivingScreen({super.key});
@@ -21,8 +22,90 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
   final _amountController = TextEditingController();
   String _selectedFund = 'Tithe';
   double? _customAmount;
+  bool _openingCheckout = false;
+  final _giving = const GivingService();
+  String? _requestKey;
+  String? _pendingReference;
+  double? _pendingAmount;
+  String? _pendingFund;
+  String? _checkoutUid;
 
-  final List<String> _funds = ['Tithe', 'Offering', 'Building Fund', 'Missions', 'Welfare', 'Seed'];
+  @override
+  void initState() {
+    super.initState();
+    _checkoutUid = ref.read(authNotifierProvider).value?.id;
+    _restorePending();
+  }
+
+  Future<void> _restorePending() async {
+    final uid = _checkoutUid;
+    if (uid == null) return;
+    try {
+      final preferences = await SharedPreferences.getInstance();
+      final stored = preferences.getString('rtci_pending_checkout_$uid');
+      if (stored == null || !mounted || _openingCheckout) return;
+      final data = jsonDecode(stored);
+      if (data is! Map ||
+          data['amount'] is! num ||
+          data['fund'] is! String ||
+          data['key'] is! String) {
+        return;
+      }
+      final amount = (data['amount'] as num).toDouble();
+      if (!amount.isFinite ||
+          amount <= 0 ||
+          !_funds.contains(data['fund']) ||
+          !RegExp(r'^[a-zA-Z0-9_-]{16,80}$').hasMatch(data['key'])) {
+        return;
+      }
+      final reference = data['reference'];
+      if (reference != null &&
+          (reference is! String ||
+              !RegExp(r'^rtci-[a-f0-9]{48}$').hasMatch(reference))) {
+        return;
+      }
+      setState(() {
+        _requestKey = data['key'];
+        _pendingAmount = amount;
+        _pendingFund = data['fund'];
+        _pendingReference = reference;
+      });
+    } catch (_) {
+      /* An unavailable preference store must not prevent giving. */
+    }
+  }
+
+  Future<void> _savePending({bool clear = false}) async {
+    final uid = _checkoutUid;
+    if (uid == null) return;
+    try {
+      final preferences = await SharedPreferences.getInstance();
+      if (clear) {
+        await preferences.remove('rtci_pending_checkout_$uid');
+      } else {
+        await preferences.setString(
+          'rtci_pending_checkout_$uid',
+          jsonEncode({
+            'key': _requestKey,
+            'amount': _pendingAmount,
+            'fund': _pendingFund,
+            'reference': _pendingReference,
+          }),
+        );
+      }
+    } catch (_) {
+      /* The verified server ledger remains the source of truth. */
+    }
+  }
+
+  final List<String> _funds = [
+    'Tithe',
+    'Offering',
+    'Building Fund',
+    'Missions',
+    'Welfare',
+    'Seed',
+  ];
   final List<int> _presetAmounts = [50, 100, 200, 500];
 
   @override
@@ -32,8 +115,9 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
   }
 
   void _confirmPayment(BuildContext context) {
+    if (_openingCheckout) return;
     final amt = _customAmount ?? double.tryParse(_amountController.text) ?? 0;
-    if (amt <= 0) {
+    if (!amt.isFinite || amt <= 0) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: const Text("Please enter a valid amount"),
@@ -51,273 +135,235 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
       builder: (ctx) {
         final theme = Theme.of(context);
 
-        return GlassCard(
-          borderRadius: 28,
-          padding: const EdgeInsets.all(28),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const SizedBox(height: 8),
-              Center(
-                child: Container(
-                  width: 48,
-                  height: 48,
-                  decoration: BoxDecoration(
-                    color: AppTheme.accentGold.withOpacity(0.12),
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Icon(Icons.shield_outlined, color: AppTheme.accentGold, size: 24),
-                ),
-              ),
-              const SizedBox(height: 16),
-              Text(
-                "Authorize Giving",
-                textAlign: TextAlign.center,
-                style: GoogleFonts.cinzel(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: ObsidianTheme.textVibrant,
-                ),
-              ),
-              const SizedBox(height: 16),
-              Text(
-                "You are supporting our church with",
-                textAlign: TextAlign.center,
-                style: theme.textTheme.bodyMedium?.copyWith(color: ObsidianTheme.textMuted),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                "GHC ${amt.toStringAsFixed(2)}",
-                textAlign: TextAlign.center,
-                style: GoogleFonts.plusJakartaSans(
-                  fontSize: 36,
-                  fontWeight: FontWeight.w800,
-                  color: theme.colorScheme.primary,
-                  letterSpacing: -0.5,
-                ),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                "allocated to $_selectedFund",
-                textAlign: TextAlign.center,
-                style: theme.textTheme.bodyMedium?.copyWith(
-                  color: AppTheme.accentGold,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              const SizedBox(height: 28),
-              CustomPrimaryButton(
-                text: "Confirm & Open Paystack",
-                icon: Icons.payment_rounded,
-                onPressed: () async {
-                  Navigator.pop(ctx);
-                  final scaffoldMessenger = ScaffoldMessenger.of(context);
-                  final user = ref.read(authNotifierProvider).value;
-                  
-                  final url = Uri.parse('https://paystack.shop/pay/gl0eh2twa-');
-                  try {
-                    final finance = ref.read(financialProvider);
-                    final transactionId = await finance.processGiving(
-                      amount: amt, 
-                      type: 'contribution', 
-                      description: 'Payment via Paystack for $_selectedFund',
-                      category: _selectedFund,
-                      memberId: user?.email,
-                      campus: 'Main',
-                      status: 'pending',
-                    );
-
-                    if (transactionId == null) {
-                      scaffoldMessenger.showSnackBar(
-                        const SnackBar(content: Text("Failed to initialize transaction."))
-                      );
-                      return;
-                    }
-
-                    if (await canLaunchUrl(url)) {
-                      await launchUrl(
-                        url,
-                        mode: LaunchMode.inAppWebView,
-                        webViewConfiguration: const WebViewConfiguration(
-                          enableJavaScript: true,
-                          enableDomStorage: true,
-                        ),
-                      );
-                      
-                      if (context.mounted) {
-                        _showConfirmationDialog(context, transactionId, amt);
-                      }
-                    } else {
-                      scaffoldMessenger.showSnackBar(
-                        const SnackBar(content: Text("Could not launch Paystack payment link."))
-                      );
-                    }
-                  } catch (e) {
-                    scaffoldMessenger.showSnackBar(
-                      SnackBar(content: Text("Error opening payment: $e"))
-                    );
-                  }
-                },
-              ),
-              const SizedBox(height: 12),
-              TextButton(
-                onPressed: () => Navigator.pop(ctx),
-                child: Text(
-                  "Cancel",
-                  style: TextStyle(
-                    color: ObsidianTheme.textMuted,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 8),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
-  void _showConfirmationDialog(BuildContext context, String transactionId, double amount) {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext dialogCtx) {
-        final theme = Theme.of(context);
-        final isDark = theme.brightness == Brightness.dark;
-        
-        return AlertDialog(
-          backgroundColor: isDark ? const Color(0xFF151B2C) : Colors.white,
-          surfaceTintColor: Colors.transparent,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-          title: Text(
-            "Confirm Payment Status",
-            textAlign: TextAlign.center,
-            style: GoogleFonts.cinzel(
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-              color: ObsidianTheme.textVibrant,
-            ),
-          ),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                "Did you successfully complete your donation of GHC ${amount.toStringAsFixed(0)} on the Paystack checkout page?",
-                textAlign: TextAlign.center,
-                style: GoogleFonts.plusJakartaSans(
-                  color: ObsidianTheme.textMuted,
-                  fontSize: 14,
-                  height: 1.4,
-                ),
-              ),
-            ],
-          ),
-          actionsAlignment: MainAxisAlignment.spaceEvenly,
-          actionsPadding: const EdgeInsets.only(bottom: 24, left: 16, right: 16, top: 12),
-          actions: [
-            TextButton(
-              onPressed: () async {
-                Navigator.pop(dialogCtx);
-                final finance = ref.read(financialProvider);
-                await finance.updateTransactionStatus(transactionId, 'failed');
-                if (context.mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text("Donation marked as failed or cancelled."),
-                      backgroundColor: Colors.redAccent,
-                      behavior: SnackBarBehavior.floating,
+        return SafeArea(
+          child: SingleChildScrollView(
+            child: GlassCard(
+              borderRadius: 28,
+              padding: const EdgeInsets.all(28),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const SizedBox(height: 8),
+                  Center(
+                    child: Container(
+                      width: 48,
+                      height: 48,
+                      decoration: BoxDecoration(
+                        color: AppTheme.accentGold.withOpacity(0.12),
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(
+                        Icons.shield_outlined,
+                        color: AppTheme.accentGold,
+                        size: 24,
+                      ),
                     ),
-                  );
-                }
-              },
-              child: Text(
-                "No, Cancel",
-                style: GoogleFonts.plusJakartaSans(
-                  fontWeight: FontWeight.bold,
-                  color: ObsidianTheme.textMuted,
-                ),
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    "Review your giving",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontFamily: 'Inter',
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    "You are supporting our church with",
+                    textAlign: TextAlign.center,
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    "GHC ${amt.toStringAsFixed(2)}",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontFamily: 'Inter',
+                      fontSize: 36,
+                      fontWeight: FontWeight.w800,
+                      color: theme.colorScheme.primary,
+                      letterSpacing: -0.5,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    "allocated to $_selectedFund",
+                    textAlign: TextAlign.center,
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      color: AppTheme.accentGold,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    'Your selected amount and fund will be passed securely to Paystack.',
+                    textAlign: TextAlign.center,
+                    style: theme.textTheme.bodyMedium,
+                  ),
+                  const SizedBox(height: 24),
+                  CustomPrimaryButton(
+                    text: "Confirm & Open Paystack",
+                    icon: Icons.payment_rounded,
+                    onPressed: () {
+                      Navigator.pop(ctx);
+                      _openCheckout(amt, _selectedFund);
+                    },
+                  ),
+                  const SizedBox(height: 12),
+                  TextButton(
+                    onPressed: () => Navigator.pop(ctx),
+                    child: Text(
+                      "Cancel",
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                ],
               ),
             ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: theme.colorScheme.primary,
-                foregroundColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                elevation: 0,
-              ),
-              onPressed: () async {
-                Navigator.pop(dialogCtx);
-                final finance = ref.read(financialProvider);
-                final success = await finance.updateTransactionStatus(transactionId, 'completed');
-                if (success && context.mounted) {
-                  _amountController.clear();
-                  setState(() => _customAmount = null);
-                  _showSuccessOverlay(context, amount);
-                }
-              },
-              child: Text(
-                "Yes, Completed",
-                style: GoogleFonts.plusJakartaSans(
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 0.5,
-                ),
-              ),
-            ),
-          ],
+          ),
         );
       },
     );
   }
 
-  void _showSuccessOverlay(BuildContext context, double amount) {
-    showDialog(
-      context: context,
-      builder: (ctx) {
-        return Dialog(
-          backgroundColor: Colors.transparent,
-          insetPadding: const EdgeInsets.symmetric(horizontal: 32),
-          child: GlassCard(
-            borderRadius: 24,
-            padding: const EdgeInsets.all(32),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  width: 72,
-                  height: 72,
-                  decoration: BoxDecoration(
-                    color: Colors.green.withOpacity(0.12),
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Icon(Icons.check_circle_outline_rounded, size: 44, color: Colors.green),
-                ).animate().scale(duration: 500.ms, curve: Curves.elasticOut),
-                const SizedBox(height: 24),
-                Text(
-                  "Thank You!",
-                  style: GoogleFonts.cinzel(fontSize: 22, fontWeight: FontWeight.bold, color: ObsidianTheme.textVibrant),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  "Your generous gift of GHC ${amount.toStringAsFixed(0)} has been processed.",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: ObsidianTheme.textMuted, height: 1.4),
-                ),
-                const SizedBox(height: 24),
-                CustomPrimaryButton(
-                  text: "Done",
-                  onPressed: () => Navigator.pop(ctx),
-                )
-              ],
+  Future<void> _openCheckout(double amount, String fund) async {
+    if (_openingCheckout) return;
+    setState(() => _openingCheckout = true);
+    final messenger = ScaffoldMessenger.of(context);
+    try {
+      final user = ref.read(authNotifierProvider).value;
+      if (user == null) {
+        messenger.showSnackBar(
+          const SnackBar(content: Text('Please sign in before giving.')),
+        );
+        return;
+      }
+      if (_pendingAmount != amount || _pendingFund != fund) {
+        _requestKey = null;
+        _pendingReference = null;
+      }
+      _pendingAmount = amount;
+      _pendingFund = fund;
+      _requestKey ??= GivingService.newRequestKey();
+      await _savePending();
+      final checkout = await _giving.initialize(amount, fund, _requestKey!);
+      _pendingReference = checkout.reference;
+      await _savePending();
+      if (!mounted) return;
+      final transactionId = checkout.reference;
+      final opened = await launchUrl(
+        checkout.authorizationUrl,
+        mode: LaunchMode.inAppBrowserView,
+      );
+      if (!mounted) return;
+      if (opened) {
+        _showConfirmationDialog(context, transactionId, amount);
+      } else {
+        messenger.showSnackBar(
+          const SnackBar(
+            content: Text(
+              'We couldn’t open Paystack. No payment has been confirmed.',
             ),
           ),
         );
-      },
+      }
+    } on BackendException catch (error) {
+      // No checkout URL was opened when initialization failed; a fresh attempt is safe.
+      if (_pendingReference == null) {
+        _requestKey = null;
+        await _savePending(clear: true);
+      }
+      if (mounted) {
+        messenger.showSnackBar(SnackBar(content: Text(error.message)));
+      }
+    } catch (_) {
+      if (mounted) {
+        messenger.showSnackBar(
+          const SnackBar(
+            content: Text(
+              'Checkout is unavailable. No payment has been confirmed. Please try again.',
+            ),
+          ),
+        );
+      }
+    } finally {
+      if (mounted) setState(() => _openingCheckout = false);
+    }
+  }
+
+  Future<void> _verifyPending() async {
+    final reference = _pendingReference;
+    if (reference == null || _openingCheckout) return;
+    setState(() => _openingCheckout = true);
+    try {
+      final status = await _giving.verify(reference);
+      if (!mounted) return;
+      if (status == 'completed') {
+        _requestKey = null;
+        _pendingReference = null;
+        await _savePending(clear: true);
+        if (!mounted) return;
+        await ref.read(financialProvider).fetchTransactions();
+        if (!mounted) return;
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            status == 'completed'
+                ? 'Your giving has been confirmed. Thank you.'
+                : 'Payment has not been confirmed yet. You can check again shortly.',
+          ),
+        ),
+      );
+    } on BackendException catch (error) {
+      if (mounted) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(error.message)));
+      }
+    } finally {
+      if (mounted) setState(() => _openingCheckout = false);
+    }
+  }
+
+  void _showConfirmationDialog(
+    BuildContext context,
+    String transactionId,
+    double amount,
+  ) {
+    showDialog<void>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Check your giving status'),
+        content: Text(
+          'Your GHC ${amount.toStringAsFixed(2)} contribution is awaiting confirmation. '
+          'Returning from checkout does not confirm payment. Please contact the church if you need help confirming your contribution. Reference: $transactionId',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(ctx);
+              _verifyPending();
+            },
+            child: const Text('Check payment status'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: const Text('Done'),
+          ),
+        ],
+      ),
     );
   }
 
@@ -325,192 +371,119 @@ class _GivingScreenState extends ConsumerState<GivingScreen> {
   Widget build(BuildContext context) {
     final finance = ref.watch(financialProvider);
     final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
-
     return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        title: Text(
-          "Giving Portal",
-          style: GoogleFonts.cinzel(
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-            color: ObsidianTheme.textVibrant,
-          ),
-        ),
-        centerTitle: true,
-      ),
-      body: MeshGradientBackground(
-        child: SafeArea(
-          child: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const SizedBox(height: 10),
-                Text(
-                  "SELECT GIVING CATEGORY",
-                  style: GoogleFonts.plusJakartaSans(
-                    fontWeight: FontWeight.w800,
-                    color: ObsidianTheme.textMuted,
-                    fontSize: 10,
-                    letterSpacing: 1.5,
+      appBar: AppBar(title: const Text('Giving')),
+      body: SafeArea(
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 640),
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text(
+                    'Generosity makes\na difference.',
+                    style: theme.textTheme.displayLarge?.copyWith(height: 1.2),
                   ),
-                ),
-                const SizedBox(height: 12),
-                GridView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                    childAspectRatio: 2.5,
-                  ),
-                  itemCount: _funds.length,
-                  itemBuilder: (context, index) {
-                    final f = _funds[index];
-                    final isSelected = _selectedFund == f;
-                    return InkWell(
-                      onTap: () => setState(() => _selectedFund = f),
-                      borderRadius: BorderRadius.circular(16),
-                      child: AnimatedContainer(
-                        duration: const Duration(milliseconds: 200),
-                        decoration: BoxDecoration(
-                          color: isSelected 
-                              ? theme.colorScheme.primary.withOpacity(0.08) 
-                              : (isDark ? const Color(0xFF1E293B) : Colors.white),
-                          borderRadius: BorderRadius.circular(16),
-                          border: Border.all(
-                            color: isSelected 
-                                ? theme.colorScheme.primary 
-                                : (isDark ? Colors.white.withOpacity(0.08) : Colors.black.withOpacity(0.06)),
-                            width: isSelected ? 2.0 : 1.0,
-                          ),
-                        ),
-                        alignment: Alignment.center,
-                        child: Text(
-                          f.toUpperCase(),
-                          style: GoogleFonts.plusJakartaSans(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w800,
-                            color: isSelected ? theme.colorScheme.primary : ObsidianTheme.textVibrant,
-                            letterSpacing: 0.5,
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-
-                const SizedBox(height: 32),
-
-                Text(
-                  "CHOOSE AMOUNT",
-                  style: GoogleFonts.plusJakartaSans(
-                    fontWeight: FontWeight.w800,
-                    color: ObsidianTheme.textMuted,
-                    fontSize: 10,
-                    letterSpacing: 1.5,
-                  ),
-                ),
-                const SizedBox(height: 12),
-                GridView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 12,
-                    mainAxisSpacing: 12,
-                    childAspectRatio: 2.2,
-                  ),
-                  itemCount: _presetAmounts.length,
-                  itemBuilder: (context, index) {
-                    final val = _presetAmounts[index];
-                    final isSelected = _customAmount == val.toDouble();
-                    return DonationChip(
-                      label: "GHC $val",
-                      isSelected: isSelected,
-                      onTap: () {
-                        setState(() {
-                          _customAmount = val.toDouble();
-                          _amountController.clear();
-                        });
-                      },
-                    );
-                  },
-                ),
-                
-                const SizedBox(height: 16),
-                
-                // Modern input box for custom amount
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: isDark ? const Color(0xFF1E293B) : Colors.white,
-                    borderRadius: BorderRadius.circular(16),
-                    border: Border.all(
-                      color: isDark ? Colors.white.withOpacity(0.08) : Colors.black.withOpacity(0.06),
-                      width: 1.0,
+                  const SizedBox(height: 12),
+                  Text(
+                    'Support the work of our church and the people we serve.',
+                    style: theme.textTheme.bodyLarge?.copyWith(
+                      color: theme.colorScheme.onSurfaceVariant,
+                      height: 1.6,
                     ),
                   ),
-                  child: Row(
-                    children: [
-                      Text(
-                        "GHC",
-                        style: GoogleFonts.plusJakartaSans(
-                          color: ObsidianTheme.textVibrant,
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
+                  const SizedBox(height: 32),
+                  GlassCard(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Text(
+                          'Where would you like to give?',
+                          style: theme.textTheme.titleMedium,
                         ),
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: TextField(
+                        const SizedBox(height: 16),
+                        Wrap(
+                          spacing: 8,
+                          runSpacing: 8,
+                          children: _funds
+                              .map(
+                                (fund) => ChoiceChip(
+                                  label: Text(fund),
+                                  selected: _selectedFund == fund,
+                                  onSelected: (_) =>
+                                      setState(() => _selectedFund = fund),
+                                ),
+                              )
+                              .toList(),
+                        ),
+                        const SizedBox(height: 28),
+                        Text(
+                          'Choose an amount',
+                          style: theme.textTheme.titleMedium,
+                        ),
+                        const SizedBox(height: 16),
+                        Wrap(
+                          spacing: 8,
+                          runSpacing: 8,
+                          children: _presetAmounts
+                              .map(
+                                (amount) => ChoiceChip(
+                                  label: Text('GHC $amount'),
+                                  selected: _customAmount == amount,
+                                  onSelected: (_) => setState(() {
+                                    _customAmount = amount.toDouble();
+                                    _amountController.clear();
+                                  }),
+                                ),
+                              )
+                              .toList(),
+                        ),
+                        const SizedBox(height: 20),
+                        TextField(
                           controller: _amountController,
-                          keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                          onChanged: (v) {
-                            if (v.isNotEmpty && _customAmount != null) {
-                              setState(() => _customAmount = null);
-                            }
-                          },
-                          style: TextStyle(
-                            color: ObsidianTheme.textVibrant,
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
+                          keyboardType: const TextInputType.numberWithOptions(
+                            decimal: true,
                           ),
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            enabledBorder: InputBorder.none,
-                            focusedBorder: InputBorder.none,
-                            hintText: "Enter custom amount",
-                            hintStyle: TextStyle(
-                              color: ObsidianTheme.textMuted.withOpacity(0.4),
-                              fontSize: 16,
-                              fontWeight: FontWeight.normal,
-                            ),
-                            contentPadding: EdgeInsets.zero,
+                          onChanged: (_) =>
+                              setState(() => _customAmount = null),
+                          decoration: const InputDecoration(
+                            labelText: 'Or enter your own amount',
+                            prefixText: 'GHC ',
                           ),
                         ),
-                      ),
-                    ],
+                        const SizedBox(height: 24),
+                        CustomPrimaryButton(
+                          text: 'Continue to checkout',
+                          icon: Icons.arrow_forward_rounded,
+                          isLoading: finance.isLoading || _openingCheckout,
+                          onPressed: () => _confirmPayment(context),
+                        ),
+                        const SizedBox(height: 16),
+                        if (_pendingReference != null)
+                          TextButton(
+                            onPressed: _openingCheckout ? null : _verifyPending,
+                            child: const Text('Check payment status'),
+                          ),
+                        Text(
+                          'You’ll continue to Paystack to complete your giving.',
+                          textAlign: TextAlign.center,
+                          style: theme.textTheme.bodySmall?.copyWith(
+                            height: 1.5,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-
-                const SizedBox(height: 40),
-
-                CustomPrimaryButton(
-                  text: "Proceed to Secure Paystack Checkout",
-                  isLoading: finance.isLoading,
-                  icon: Icons.lock_outline_rounded,
-                  onPressed: () => _confirmPayment(context),
-                ),
-                
-                const SizedBox(height: 100), // Space for nav bar
-              ],
+                  const SizedBox(height: 24),
+                  Text(
+                    'Thank you for being part of what God is doing in our community.',
+                    textAlign: TextAlign.center,
+                    style: theme.textTheme.bodyMedium?.copyWith(height: 1.6),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

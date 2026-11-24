@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:rtc_mobile/theme/app_theme.dart';
 import 'package:rtc_mobile/widgets/glass_card.dart';
 import 'package:rtc_mobile/widgets/mesh_gradient_background.dart';
@@ -16,7 +15,8 @@ class BibleStudiesScreen extends ConsumerStatefulWidget {
   ConsumerState<BibleStudiesScreen> createState() => _BibleStudiesScreenState();
 }
 
-class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with SingleTickerProviderStateMixin {
+class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -42,46 +42,67 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
       builder: (dialogContext) {
         final isDark = Theme.of(context).brightness == Brightness.dark;
         return AlertDialog(
-          backgroundColor: isDark ? const Color(0xFF1E202C) : const Color(0xFFE0E5EC),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+          backgroundColor: isDark
+              ? const Color(0xFF1E202C)
+              : const Color(0xFFE0E5EC),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(24),
+          ),
           title: Text(
             "Add Study Module",
-            style: GoogleFonts.cinzel(fontWeight: FontWeight.bold, color: ObsidianTheme.textVibrant),
+            style: TextStyle(
+              fontFamily: 'Inter',
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
           ),
           content: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 TextField(
-                  controller: titleController, 
+                  controller: titleController,
                   decoration: const InputDecoration(labelText: "Title"),
-                  style: TextStyle(color: ObsidianTheme.textVibrant),
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
                 ),
                 const SizedBox(height: 8),
                 TextField(
-                  controller: subtitleController, 
+                  controller: subtitleController,
                   decoration: const InputDecoration(labelText: "Subtitle"),
-                  style: TextStyle(color: ObsidianTheme.textVibrant),
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
                 ),
                 const SizedBox(height: 8),
                 TextField(
-                  controller: descController, 
+                  controller: descController,
                   decoration: const InputDecoration(labelText: "Description"),
-                  style: TextStyle(color: ObsidianTheme.textVibrant),
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
                 ),
                 const SizedBox(height: 8),
                 TextField(
-                  controller: imgController, 
+                  controller: imgController,
                   decoration: const InputDecoration(labelText: "Image URL"),
-                  style: TextStyle(color: ObsidianTheme.textVibrant),
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
                 ),
               ],
             ),
           ),
           actions: [
             TextButton(
-              onPressed: () => Navigator.pop(dialogContext), 
-              child: Text("CANCEL", style: TextStyle(color: ObsidianTheme.textMuted)),
+              onPressed: () => Navigator.pop(dialogContext),
+              child: Text(
+                "CANCEL",
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
+              ),
             ),
             ElevatedButton(
               onPressed: () async {
@@ -91,20 +112,29 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
                 final img = imgController.text.trim();
                 if (title.isNotEmpty && desc.isNotEmpty) {
                   Navigator.pop(dialogContext);
-                  final success = await ref.read(bibleStudiesProvider).addModule(
-                    title: title,
-                    subtitle: subtitle.isEmpty ? "" : subtitle,
-                    description: desc,
-                    imageUrl: img.isEmpty ? "https://images.unsplash.com/photo-1504052434569-70ad58c6744a" : img,
-                  );
+                  final success = await ref
+                      .read(bibleStudiesProvider)
+                      .addModule(
+                        title: title,
+                        subtitle: subtitle.isEmpty ? "" : subtitle,
+                        description: desc,
+                        imageUrl: img.isEmpty
+                            ? "https://images.unsplash.com/photo-1504052434569-70ad58c6744a"
+                            : img,
+                      );
                   if (success && mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("Module added successfully!"))
+                      const SnackBar(
+                        content: Text("Module added successfully!"),
+                      ),
                     );
                   }
                 }
               },
-              style: ElevatedButton.styleFrom(backgroundColor: ObsidianTheme.primaryCrimson, foregroundColor: Colors.white),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: ObsidianTheme.primaryCrimson,
+                foregroundColor: Colors.white,
+              ),
               child: const Text("ADD"),
             ),
           ],
@@ -123,38 +153,59 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
       builder: (dialogContext) {
         final isDark = Theme.of(context).brightness == Brightness.dark;
         return AlertDialog(
-          backgroundColor: isDark ? const Color(0xFF1E202C) : const Color(0xFFE0E5EC),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+          backgroundColor: isDark
+              ? const Color(0xFF1E202C)
+              : const Color(0xFFE0E5EC),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(24),
+          ),
           title: Text(
             "Add Study Resource",
-            style: GoogleFonts.cinzel(fontWeight: FontWeight.bold, color: ObsidianTheme.textVibrant),
+            style: TextStyle(
+              fontFamily: 'Inter',
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
           ),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
-                controller: titleController, 
+                controller: titleController,
                 decoration: const InputDecoration(labelText: "Resource Title"),
-                style: TextStyle(color: ObsidianTheme.textVibrant),
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
               ),
               const SizedBox(height: 8),
               TextField(
-                controller: typeController, 
-                decoration: const InputDecoration(labelText: "Type (e.g. PDF, Audio, Video)"),
-                style: TextStyle(color: ObsidianTheme.textVibrant),
+                controller: typeController,
+                decoration: const InputDecoration(
+                  labelText: "Type (e.g. PDF, Audio, Video)",
+                ),
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
               ),
               const SizedBox(height: 8),
               TextField(
-                controller: urlController, 
+                controller: urlController,
                 decoration: const InputDecoration(labelText: "Resource URL"),
-                style: TextStyle(color: ObsidianTheme.textVibrant),
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
               ),
             ],
           ),
           actions: [
             TextButton(
-              onPressed: () => Navigator.pop(dialogContext), 
-              child: Text("CANCEL", style: TextStyle(color: ObsidianTheme.textMuted)),
+              onPressed: () => Navigator.pop(dialogContext),
+              child: Text(
+                "CANCEL",
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
+              ),
             ),
             ElevatedButton(
               onPressed: () async {
@@ -163,20 +214,27 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
                 final url = urlController.text.trim();
                 if (title.isNotEmpty && type.isNotEmpty && url.isNotEmpty) {
                   Navigator.pop(dialogContext);
-                  final success = await ref.read(bibleStudiesProvider).addResource(
-                    moduleId: moduleId,
-                    title: title,
-                    type: type.toLowerCase(),
-                    url: url,
-                  );
+                  final success = await ref
+                      .read(bibleStudiesProvider)
+                      .addResource(
+                        moduleId: moduleId,
+                        title: title,
+                        type: type.toLowerCase(),
+                        url: url,
+                      );
                   if (success && mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("Resource added successfully!"))
+                      const SnackBar(
+                        content: Text("Resource added successfully!"),
+                      ),
                     );
                   }
                 }
               },
-              style: ElevatedButton.styleFrom(backgroundColor: ObsidianTheme.primaryCrimson, foregroundColor: Colors.white),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: ObsidianTheme.primaryCrimson,
+                foregroundColor: Colors.white,
+              ),
               child: const Text("ADD"),
             ),
           ],
@@ -198,14 +256,19 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
           backgroundColor: Colors.transparent,
           elevation: 0,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios_new, color: ObsidianTheme.textVibrant, size: 18),
+            icon: Icon(
+              Icons.arrow_back_ios_new,
+              color: Theme.of(context).colorScheme.onSurface,
+              size: 18,
+            ),
             onPressed: () => Navigator.pop(context),
           ),
           title: Text(
             "Ministerial Library",
-            style: GoogleFonts.cinzel(
+            style: TextStyle(
+              fontFamily: 'Inter',
               fontWeight: FontWeight.bold,
-              color: ObsidianTheme.textVibrant,
+              color: Theme.of(context).colorScheme.onSurface,
             ),
           ),
           centerTitle: true,
@@ -213,19 +276,27 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
             controller: _tabController,
             indicatorColor: ObsidianTheme.secondaryGold,
             labelColor: ObsidianTheme.primaryCrimson,
-            unselectedLabelColor: ObsidianTheme.textMuted,
-            labelStyle: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.bold, fontSize: 13),
+            unselectedLabelColor: Theme.of(
+              context,
+            ).colorScheme.onSurfaceVariant,
+            labelStyle: TextStyle(
+              fontFamily: 'Inter',
+              fontWeight: FontWeight.bold,
+              fontSize: 13,
+            ),
             tabs: const [
               Tab(text: "Study Modules"),
               Tab(text: "Resources"),
             ],
           ),
         ),
-        floatingActionButton: isAdmin ? FloatingActionButton(
-          backgroundColor: ObsidianTheme.primaryCrimson,
-          onPressed: _showAddModuleDialog,
-          child: const Icon(Icons.add, color: Colors.white),
-        ) : null,
+        floatingActionButton: isAdmin
+            ? FloatingActionButton(
+                backgroundColor: ObsidianTheme.primaryCrimson,
+                onPressed: _showAddModuleDialog,
+                child: const Icon(Icons.add, color: Colors.white),
+              )
+            : null,
         body: TabBarView(
           controller: _tabController,
           children: [
@@ -272,7 +343,12 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
     }
 
     if (libProv.modules.isEmpty) {
-      return Center(child: Text("No study modules found.", style: TextStyle(color: ObsidianTheme.textVibrant)));
+      return Center(
+        child: Text(
+          "No study modules found.",
+          style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
+        ),
+      );
     }
 
     return ListView.builder(
@@ -293,30 +369,49 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
                     Icon(Icons.bookmark, color: ObsidianTheme.secondaryGold),
                     Row(
                       children: [
-                        Text("${module.progress}%", style: GoogleFonts.plusJakartaSans(color: ObsidianTheme.primaryCrimson, fontWeight: FontWeight.bold)),
+                        Text(
+                          "${module.progress}%",
+                          style: TextStyle(
+                            fontFamily: 'Inter',
+                            color: ObsidianTheme.primaryCrimson,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                         if (isAdmin) ...[
                           const SizedBox(width: 8),
                           IconButton(
                             constraints: const BoxConstraints(),
                             padding: EdgeInsets.zero,
-                            icon: const Icon(Icons.delete_outline, color: Colors.redAccent, size: 20),
-                            onPressed: () => ref.read(bibleStudiesProvider).deleteModule(module.id),
+                            icon: const Icon(
+                              Icons.delete_outline,
+                              color: Colors.redAccent,
+                              size: 20,
+                            ),
+                            onPressed: () => ref
+                                .read(bibleStudiesProvider)
+                                .deleteModule(module.id),
                           ),
-                        ]
+                        ],
                       ],
                     ),
                   ],
                 ),
                 const SizedBox(height: 16),
-                Text(module.title, style: Theme.of(context).textTheme.headlineMedium),
+                Text(
+                  module.title,
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ),
                 if (module.subtitle != null && module.subtitle!.isNotEmpty) ...[
                   const SizedBox(height: 4),
-                  Text(module.subtitle!, style: Theme.of(context).textTheme.bodyMedium),
+                  Text(
+                    module.subtitle!,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
                 ],
                 const SizedBox(height: 24),
                 LinearProgressIndicator(
                   value: module.progress / 100,
-                  backgroundColor: ObsidianTheme.borderHairline,
+                  backgroundColor: Theme.of(context).colorScheme.outlineVariant,
                   color: ObsidianTheme.primaryCrimson,
                   minHeight: 6,
                   borderRadius: BorderRadius.circular(4),
@@ -330,44 +425,81 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
                           showAdaptiveDialog(
                             context: context,
                             builder: (dialogCtx) {
-                              final isDark = Theme.of(context).brightness == Brightness.dark;
+                              final isDark =
+                                  Theme.of(context).brightness ==
+                                  Brightness.dark;
                               return AlertDialog.adaptive(
-                                backgroundColor: isDark ? const Color(0xFF1E202C) : Colors.white,
+                                backgroundColor: isDark
+                                    ? const Color(0xFF1E202C)
+                                    : Colors.white,
                                 title: Text(
                                   module.title,
-                                  style: GoogleFonts.cinzel(fontWeight: FontWeight.bold, color: ObsidianTheme.textVibrant),
+                                  style: TextStyle(
+                                    fontFamily: 'Inter',
+                                    fontWeight: FontWeight.bold,
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.onSurface,
+                                  ),
                                 ),
                                 content: SingleChildScrollView(
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      if (module.subtitle != null && module.subtitle!.isNotEmpty) ...[
+                                      if (module.subtitle != null &&
+                                          module.subtitle!.isNotEmpty) ...[
                                         Text(
                                           module.subtitle!,
-                                          style: TextStyle(fontWeight: FontWeight.bold, color: ObsidianTheme.secondaryGold, fontSize: 14),
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: ObsidianTheme.secondaryGold,
+                                            fontSize: 14,
+                                          ),
                                         ),
                                         const SizedBox(height: 12),
                                       ],
                                       Text(
                                         module.description,
-                                        style: TextStyle(color: ObsidianTheme.textVibrant, fontSize: 14, height: 1.4),
+                                        style: TextStyle(
+                                          color: Theme.of(
+                                            context,
+                                          ).colorScheme.onSurface,
+                                          fontSize: 14,
+                                          height: 1.4,
+                                        ),
                                       ),
                                       const SizedBox(height: 20),
                                       Text(
                                         "SYLLABUS OUTLINE",
-                                        style: GoogleFonts.plusJakartaSans(
+                                        style: TextStyle(
+                                          fontFamily: 'Inter',
                                           fontWeight: FontWeight.w800,
-                                          color: ObsidianTheme.textMuted,
-                                          fontSize: 11,
+                                          color: Theme.of(
+                                            context,
+                                          ).colorScheme.onSurfaceVariant,
+                                          fontSize: 12,
                                           letterSpacing: 1.0,
                                         ),
                                       ),
                                       const SizedBox(height: 8),
-                                      _buildSyllabusItem("Week 1", "Foundations and Historical Context"),
-                                      _buildSyllabusItem("Week 2", "Core Theological Framework"),
-                                      _buildSyllabusItem("Week 3", "Practical Application in Ministry"),
-                                      _buildSyllabusItem("Week 4", "Integration, Reflection & Evaluation"),
+                                      _buildSyllabusItem(
+                                        "Week 1",
+                                        "Foundations and Historical Context",
+                                      ),
+                                      _buildSyllabusItem(
+                                        "Week 2",
+                                        "Core Theological Framework",
+                                      ),
+                                      _buildSyllabusItem(
+                                        "Week 3",
+                                        "Practical Application in Ministry",
+                                      ),
+                                      _buildSyllabusItem(
+                                        "Week 4",
+                                        "Integration, Reflection & Evaluation",
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -398,7 +530,7 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
                       ),
                     ],
                   ],
-                )
+                ),
               ],
             ),
           ),
@@ -440,7 +572,12 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
     }
 
     if (libProv.resources.isEmpty) {
-      return Center(child: Text("No resources found.", style: TextStyle(color: ObsidianTheme.textVibrant)));
+      return Center(
+        child: Text(
+          "No resources found.",
+          style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
+        ),
+      );
     }
 
     return ListView.builder(
@@ -454,24 +591,52 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
             padding: const EdgeInsets.all(16),
             child: ListTile(
               leading: CircleAvatar(
-                backgroundColor: ObsidianTheme.secondaryGold.withValues(alpha: 0.1),
-                child: Icon(Icons.file_present_outlined, color: ObsidianTheme.secondaryGold),
+                backgroundColor: ObsidianTheme.secondaryGold.withValues(
+                  alpha: 0.1,
+                ),
+                child: Icon(
+                  Icons.file_present_outlined,
+                  color: ObsidianTheme.secondaryGold,
+                ),
               ),
-              title: Text(res.title, style: TextStyle(color: ObsidianTheme.textVibrant, fontWeight: FontWeight.bold)),
-              subtitle: Text(res.type.toUpperCase(), style: TextStyle(color: ObsidianTheme.textMuted, fontSize: 10)),
+              title: Text(
+                res.title,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurface,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              subtitle: Text(
+                res.type.toUpperCase(),
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  fontSize: 10,
+                ),
+              ),
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   IconButton(
-                    icon: Icon(Icons.download, color: ObsidianTheme.textVibrant, size: 20),
+                    icon: Icon(
+                      Icons.download,
+                      color: Theme.of(context).colorScheme.onSurface,
+                      size: 20,
+                    ),
                     onPressed: () async {
                       final url = Uri.tryParse(res.url);
                       if (url != null && await canLaunchUrl(url)) {
-                        await launchUrl(url, mode: LaunchMode.externalApplication);
+                        await launchUrl(
+                          url,
+                          mode: LaunchMode.externalApplication,
+                        );
                       } else {
                         if (context.mounted) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text("Cannot open resource URL: ${res.url}")),
+                            SnackBar(
+                              content: Text(
+                                "Cannot open resource URL: ${res.url}",
+                              ),
+                            ),
                           );
                         }
                       }
@@ -479,8 +644,13 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
                   ),
                   if (isAdmin)
                     IconButton(
-                      icon: const Icon(Icons.delete_outline, color: Colors.redAccent, size: 20),
-                      onPressed: () => ref.read(bibleStudiesProvider).deleteResource(res.id),
+                      icon: const Icon(
+                        Icons.delete_outline,
+                        color: Colors.redAccent,
+                        size: 20,
+                      ),
+                      onPressed: () =>
+                          ref.read(bibleStudiesProvider).deleteResource(res.id),
                     ),
                 ],
               ),
@@ -499,12 +669,19 @@ class _BibleStudiesScreenState extends ConsumerState<BibleStudiesScreen> with Si
         children: [
           Text(
             "$week: ",
-            style: const TextStyle(fontWeight: FontWeight.bold, color: AppTheme.accentGold, fontSize: 13),
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              color: AppTheme.accentGold,
+              fontSize: 13,
+            ),
           ),
           Expanded(
             child: Text(
               topic,
-              style: TextStyle(color: ObsidianTheme.textVibrant, fontSize: 13),
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onSurface,
+                fontSize: 13,
+              ),
             ),
           ),
         ],

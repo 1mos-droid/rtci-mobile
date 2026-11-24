@@ -1,6 +1,6 @@
 # RTCI Connect 🌟
 
-The official community mobile application for the **Redeemed Transformation Chapel International (RTCI)**. Built with Flutter, Dart, Firebase, and Riverpod using modern, clean UI/UX standards (such as HSL adaptive styling, Glassmorphism, and smooth animations).
+The official community mobile application for the **Redeemed Transformation Chapel International (RTCI)**. Built with Flutter, Dart, Firebase, and Riverpod with a warm, accessible Material 3 interface, bundled typography, adaptive layouts and a custom church-seal loader.
 
 ---
 
@@ -14,10 +14,10 @@ The official community mobile application for the **Redeemed Transformation Chap
 - **📝 Church Archive Applications**: Step-by-step digital application form to join official ministries.
 - **🧒 Children Ministry**: Secure Check-in registry for kids and parents during services.
 - **🙏 Prayer Petitions**: Public or private prayer request logging with status tracking (Praying, Answered).
-- **📖 Bible & Bible Studies**: Offline/online Bible reading paired with curated study materials.
+- **📖 Bible & Bible Studies**: Bible reading paired with curated study materials. New chapter content requires a connection.
 - **🖼️ Service Gallery**: Image upload and view stream of recent service highlights.
 - **👥 Admin Controls**: User account management and role-based permissions (Member, Department Head, Admin).
-- **🎨 Obsidian Theme**: Unified adaptive styling supporting dynamic system, light, and dark modes with glassmorphic cards.
+- **🎨 Obsidian Theme**: Unified adaptive styling supporting persisted system, light, and dark modes with solid, readable cards.
 
 ---
 
@@ -27,8 +27,8 @@ This project follows clean architecture principles to ensure robustness, testabi
 
 - **State Management**: [Riverpod](https://riverpod.dev) (`flutter_riverpod` + `riverpod_annotation`). Legacy MultiProvider structures have been completely removed for clean dependencies.
 - **Backend / Database**: Cloud Firestore, Firebase Auth, and Firebase Storage.
-- **UI & Animations**: Custom glassmorphic cards (`GlassCard`), mesh gradients (`MeshGradientBackground`), and micro-animations via `flutter_animate`.
-- **Fonts & Styling**: Adaptive colors (`AdaptiveColor`) and typography from Google Fonts (`Inter`, `Cinzel`, `Plus Jakarta Sans`).
+- **UI & Animations**: Shared solid cards, native controls, responsive navigation and reduced-motion-aware loading states. Legacy widget names are retained for compatibility.
+- **Fonts & Styling**: Semantic theme colors and bundled Inter typography (OFL license included).
 
 ---
 
@@ -75,3 +75,9 @@ We welcome contributions to help make RTCI Connect even better! Feel free to ope
 ## 📄 License
 
 This project is private and proprietary. All rights reserved.
+
+## Design and release status
+
+The current visual system, library assessment and screenshot commands are documented in [docs/DESIGN.md](docs/DESIGN.md).
+
+Read [docs/RELEASE_READINESS.md](docs/RELEASE_READINESS.md) before deploying. The repository now includes secured rules, a verified giving backend and a Bible proxy. These require the coordinated staging migration, secret configuration, deployment and real-device checks described in [docs/BACKEND_ROLLOUT.md](docs/BACKEND_ROLLOUT.md) before production release.

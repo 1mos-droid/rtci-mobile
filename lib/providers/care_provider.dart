@@ -1,3 +1,4 @@
+import 'package:rtc_mobile/providers/account_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -27,15 +28,16 @@ class CareTicket {
       memberId: data['member_id'] ?? '',
       absenceCount: data['absence_count'] ?? 0,
       status: data['status'] ?? 'pending',
-      lastChecked: (data['last_checked'] as Timestamp?)?.toDate() ?? DateTime.now(),
+      lastChecked:
+          (data['last_checked'] as Timestamp?)?.toDate() ?? DateTime.now(),
     );
   }
 }
 
-class CareProvider extends ChangeNotifier {
+class CareProvider extends AccountNotifier {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  
+
   List<CareTicket> _careQueue = [];
   bool _isLoading = false;
 
@@ -47,14 +49,16 @@ class CareProvider extends ChangeNotifier {
   }
 
   void _init() {
-    _auth.authStateChanges().listen((user) {
-      if (user != null) {
-        fetchCareQueue();
-      } else {
-        _careQueue = [];
-        notifyListeners();
-      }
-    });
+    trackSubscription(
+      _auth.authStateChanges().listen((user) {
+        if (user != null) {
+          fetchCareQueue();
+        } else {
+          _careQueue = [];
+          notifyListeners();
+        }
+      }),
+    );
   }
 
   Future<void> fetchCareQueue() async {
@@ -65,8 +69,10 @@ class CareProvider extends ChangeNotifier {
       final snapshot = await _firestore
           .collection('care_tickets')
           .where('status', isEqualTo: 'pending')
-          .get();
-      _careQueue = snapshot.docs.map((doc) => CareTicket.fromFirestore(doc)).toList();
+          .get(const GetOptions(source: Source.server));
+      _careQueue = snapshot.docs
+          .map((doc) => CareTicket.fromFirestore(doc))
+          .toList();
     } catch (e) {
       debugPrint('Error fetching care queue: $e');
     } finally {

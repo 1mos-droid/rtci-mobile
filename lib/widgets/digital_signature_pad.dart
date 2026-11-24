@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class DigitalSignaturePad extends StatefulWidget {
   final Function(List<Offset?>) onSignatureChanged;
@@ -29,19 +28,24 @@ class _DigitalSignaturePadState extends State<DigitalSignaturePad> {
             Text(
               "DIGITAL SIGNATURE",
               style: theme.textTheme.labelMedium?.copyWith(
-                    color: colorScheme.secondary,
-                    letterSpacing: 1.0,
-                  ),
+                color: colorScheme.secondary,
+                letterSpacing: 1.0,
+              ),
             ),
             TextButton.icon(
               onPressed: () {
                 setState(() => _points.clear());
                 widget.onSignatureChanged(_points);
               },
-              icon: Icon(CupertinoIcons.clear, size: 14, color: colorScheme.primary),
+              icon: Icon(
+                CupertinoIcons.clear,
+                size: 14,
+                color: colorScheme.primary,
+              ),
               label: Text(
                 "CLEAR",
-                style: GoogleFonts.plusJakartaSans(
+                style: TextStyle(
+                  fontFamily: 'Inter',
                   fontSize: 10,
                   fontWeight: FontWeight.bold,
                   color: colorScheme.primary,
@@ -56,13 +60,18 @@ class _DigitalSignaturePadState extends State<DigitalSignaturePad> {
           decoration: BoxDecoration(
             color: colorScheme.surface.withValues(alpha: 0.5),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: colorScheme.outline.withValues(alpha: 0.1), width: 1.0),
+            border: Border.all(
+              color: colorScheme.outline.withValues(alpha: 0.1),
+              width: 1.0,
+            ),
           ),
           child: GestureDetector(
             onPanUpdate: (DragUpdateDetails details) {
               setState(() {
                 RenderBox object = context.findRenderObject() as RenderBox;
-                Offset localPosition = object.globalToLocal(details.globalPosition);
+                Offset localPosition = object.globalToLocal(
+                  details.globalPosition,
+                );
                 _points = List.from(_points)..add(localPosition);
               });
               widget.onSignatureChanged(_points);
@@ -72,7 +81,10 @@ class _DigitalSignaturePadState extends State<DigitalSignaturePad> {
               widget.onSignatureChanged(_points);
             },
             child: CustomPaint(
-              painter: SignaturePainter(points: _points, strokeColor: colorScheme.primary),
+              painter: SignaturePainter(
+                points: _points,
+                strokeColor: colorScheme.primary,
+              ),
               size: Size.infinite,
             ),
           ),
@@ -80,7 +92,10 @@ class _DigitalSignaturePadState extends State<DigitalSignaturePad> {
         const SizedBox(height: 8),
         Text(
           "Use your finger to sign within the designated area above.",
-          style: theme.textTheme.bodyMedium?.copyWith(fontSize: 11, color: mutedText),
+          style: theme.textTheme.bodyMedium?.copyWith(
+            fontSize: 11,
+            color: mutedText,
+          ),
           textAlign: TextAlign.center,
         ),
       ],
@@ -109,5 +124,6 @@ class SignaturePainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(SignaturePainter oldDelegate) => oldDelegate.points != points || oldDelegate.strokeColor != strokeColor;
+  bool shouldRepaint(SignaturePainter oldDelegate) =>
+      oldDelegate.points != points || oldDelegate.strokeColor != strokeColor;
 }

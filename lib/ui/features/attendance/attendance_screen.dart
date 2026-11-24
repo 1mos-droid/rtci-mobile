@@ -1,6 +1,6 @@
+import 'package:rtc_mobile/widgets/custom_logo_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:rtc_mobile/theme/app_theme.dart';
 import 'package:rtc_mobile/widgets/glass_card.dart';
@@ -30,7 +30,7 @@ class _AttendanceScreenState extends ConsumerState<AttendanceScreen> {
     final user = ref.watch(authNotifierProvider).value;
 
     return Scaffold(
-      backgroundColor: ObsidianTheme.backgroundDark,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: MeshGradientBackground(
         child: CustomScrollView(
           slivers: [
@@ -42,8 +42,9 @@ class _AttendanceScreenState extends ConsumerState<AttendanceScreen> {
                 titlePadding: const EdgeInsets.only(left: 48, bottom: 16),
                 title: Text(
                   "Attendance",
-                  style: GoogleFonts.cinzel(
-                    color: ObsidianTheme.textVibrant,
+                  style: TextStyle(
+                    fontFamily: 'Inter',
+                    color: Theme.of(context).colorScheme.onSurface,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -58,20 +59,41 @@ class _AttendanceScreenState extends ConsumerState<AttendanceScreen> {
                       padding: const EdgeInsets.all(24),
                       child: Column(
                         children: [
-                          Icon(Icons.how_to_reg, size: 48, color: ObsidianTheme.primaryCrimson),
+                          Icon(
+                            Icons.how_to_reg,
+                            size: 48,
+                            color: ObsidianTheme.primaryCrimson,
+                          ),
                           const SizedBox(height: 16),
-                          Text("Service Headcount", style: Theme.of(context).textTheme.titleLarge),
+                          Text(
+                            "Service Headcount",
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
                           const SizedBox(height: 8),
-                          Text("Enter the total number of people in attendance.", style: Theme.of(context).textTheme.bodyMedium, textAlign: TextAlign.center),
+                          Text(
+                            "Enter the total number of people in attendance.",
+                            style: Theme.of(context).textTheme.bodyMedium,
+                            textAlign: TextAlign.center,
+                          ),
                           const SizedBox(height: 24),
                           TextField(
                             controller: _headcountController,
                             keyboardType: TextInputType.number,
                             textAlign: TextAlign.center,
-                            style: GoogleFonts.plusJakartaSans(fontSize: 48, fontWeight: FontWeight.w900, color: ObsidianTheme.textVibrant),
+                            style: TextStyle(
+                              fontFamily: 'Inter',
+                              fontSize: 48,
+                              fontWeight: FontWeight.w900,
+                              color: Theme.of(context).colorScheme.onSurface,
+                            ),
                             decoration: InputDecoration(
                               hintText: "0",
-                              hintStyle: TextStyle(color: ObsidianTheme.textMuted.withValues(alpha: 0.5)),
+                              hintStyle: TextStyle(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onSurfaceVariant
+                                    .withValues(alpha: 0.5),
+                              ),
                               border: InputBorder.none,
                             ),
                           ),
@@ -80,17 +102,25 @@ class _AttendanceScreenState extends ConsumerState<AttendanceScreen> {
                             width: double.infinity,
                             child: ElevatedButton(
                               onPressed: () async {
-                                final count = int.tryParse(_headcountController.text);
+                                final count = int.tryParse(
+                                  _headcountController.text,
+                                );
                                 if (count != null) {
-                                  final scaffoldMessenger = ScaffoldMessenger.of(context);
-                                  final success = await attendanceProv.saveRecord(
-                                    date: DateTime.now(),
-                                    headcount: count,
-                                    department: user?.department,
-                                  );
+                                  final scaffoldMessenger =
+                                      ScaffoldMessenger.of(context);
+                                  final success = await attendanceProv
+                                      .saveRecord(
+                                        date: DateTime.now(),
+                                        headcount: count,
+                                        department: user?.department,
+                                      );
                                   if (success && mounted) {
                                     _headcountController.clear();
-                                    scaffoldMessenger.showSnackBar(const SnackBar(content: Text("Attendance recorded!")));
+                                    scaffoldMessenger.showSnackBar(
+                                      const SnackBar(
+                                        content: Text("Attendance recorded!"),
+                                      ),
+                                    );
                                   }
                                 }
                               },
@@ -103,13 +133,22 @@ class _AttendanceScreenState extends ConsumerState<AttendanceScreen> {
                     const SizedBox(height: 24),
                     Text(
                       "RECENT RECORDS",
-                      style: Theme.of(context).textTheme.labelLarge?.copyWith(color: ObsidianTheme.textVibrant, letterSpacing: 1.0),
+                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                        color: Theme.of(context).colorScheme.onSurface,
+                        letterSpacing: 1.0,
+                      ),
                     ),
                     const SizedBox(height: 12),
-                    if (attendanceProv.isLoading && attendanceProv.records.isEmpty)
-                      const CircularProgressIndicator()
+                    if (attendanceProv.isLoading &&
+                        attendanceProv.records.isEmpty)
+                      const CustomLogoLoader(size: 48)
                     else if (attendanceProv.records.isEmpty)
-                      Text("No recent records found.", style: TextStyle(color: ObsidianTheme.textMuted))
+                      Text(
+                        "No recent records found.",
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
+                        ),
+                      )
                     else
                       ListView.builder(
                         shrinkWrap: true,
@@ -122,22 +161,43 @@ class _AttendanceScreenState extends ConsumerState<AttendanceScreen> {
                             child: GlassCard(
                               padding: const EdgeInsets.all(16),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        DateFormat('EEEE, MMM dd').format(record.date),
-                                        style: TextStyle(color: ObsidianTheme.textVibrant, fontWeight: FontWeight.bold),
+                                        DateFormat(
+                                          'EEEE, MMM dd',
+                                        ).format(record.date),
+                                        style: TextStyle(
+                                          color: Theme.of(
+                                            context,
+                                          ).colorScheme.onSurface,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
                                       if (record.department != null)
-                                        Text(record.department!, style: TextStyle(color: ObsidianTheme.textMuted, fontSize: 11)),
+                                        Text(
+                                          record.department!,
+                                          style: TextStyle(
+                                            color: Theme.of(
+                                              context,
+                                            ).colorScheme.onSurfaceVariant,
+                                            fontSize: 12,
+                                          ),
+                                        ),
                                     ],
                                   ),
                                   Text(
                                     record.headcount.toString(),
-                                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: ObsidianTheme.secondaryGold),
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w900,
+                                      color: ObsidianTheme.secondaryGold,
+                                    ),
                                   ),
                                 ],
                               ),

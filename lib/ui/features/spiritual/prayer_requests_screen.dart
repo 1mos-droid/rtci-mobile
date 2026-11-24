@@ -1,6 +1,6 @@
+import 'package:rtc_mobile/widgets/custom_logo_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:rtc_mobile/theme/app_theme.dart';
 import 'package:rtc_mobile/widgets/glass_card.dart';
 import 'package:rtc_mobile/widgets/mesh_gradient_background.dart';
@@ -11,11 +11,11 @@ class PrayerRequestsScreen extends ConsumerStatefulWidget {
   const PrayerRequestsScreen({super.key});
 
   @override
-  ConsumerState<PrayerRequestsScreen> createState() => _PrayerRequestsScreenState();
+  ConsumerState<PrayerRequestsScreen> createState() =>
+      _PrayerRequestsScreenState();
 }
 
 class _PrayerRequestsScreenState extends ConsumerState<PrayerRequestsScreen> {
-
   void _showAddPrayerSheet(BuildContext context, String userEmail) {
     final contentController = TextEditingController();
     bool isPrivate = false;
@@ -29,7 +29,9 @@ class _PrayerRequestsScreenState extends ConsumerState<PrayerRequestsScreen> {
         return StatefulBuilder(
           builder: (context, setModalState) {
             return Padding(
-              padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+              padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom,
+              ),
               child: GlassCard(
                 borderRadius: 24,
                 padding: const EdgeInsets.all(24),
@@ -44,7 +46,7 @@ class _PrayerRequestsScreenState extends ConsumerState<PrayerRequestsScreen> {
                           width: 40,
                           height: 4,
                           decoration: BoxDecoration(
-                            color: ObsidianTheme.borderHairline,
+                            color: Theme.of(context).colorScheme.outlineVariant,
                             borderRadius: BorderRadius.circular(2),
                           ),
                         ),
@@ -52,10 +54,11 @@ class _PrayerRequestsScreenState extends ConsumerState<PrayerRequestsScreen> {
                       const SizedBox(height: 24),
                       Text(
                         "File Prayer Petition",
-                        style: GoogleFonts.cinzel(
+                        style: TextStyle(
+                          fontFamily: 'Inter',
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color: ObsidianTheme.textVibrant,
+                          color: Theme.of(context).colorScheme.onSurface,
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -63,34 +66,68 @@ class _PrayerRequestsScreenState extends ConsumerState<PrayerRequestsScreen> {
                       TextFormField(
                         controller: contentController,
                         maxLines: 4,
-                        style: TextStyle(color: ObsidianTheme.textVibrant),
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onSurface,
+                        ),
                         decoration: InputDecoration(
                           hintText: "State your intercession request here...",
-                          hintStyle: TextStyle(color: ObsidianTheme.textMuted),
+                          hintStyle: TextStyle(
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.onSurfaceVariant,
+                          ),
                           filled: true,
-                          fillColor: ObsidianTheme.surfaceDark.withValues(alpha: 0.5),
+                          fillColor: Theme.of(
+                            context,
+                          ).colorScheme.surface.withValues(alpha: 0.5),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(16),
-                            borderSide: BorderSide(color: ObsidianTheme.borderHairline),
+                            borderSide: BorderSide(
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.outlineVariant,
+                            ),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(16),
-                            borderSide: BorderSide(color: ObsidianTheme.borderHairline),
+                            borderSide: BorderSide(
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.outlineVariant,
+                            ),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(16),
-                            borderSide: BorderSide(color: ObsidianTheme.primaryCrimson),
+                            borderSide: BorderSide(
+                              color: ObsidianTheme.primaryCrimson,
+                            ),
                           ),
                         ),
                         validator: (val) {
-                          if (val == null || val.trim().isEmpty) return "Please enter your request";
+                          if (val == null || val.trim().isEmpty) {
+                            return "Please enter your request";
+                          }
                           return null;
                         },
                       ),
                       const SizedBox(height: 16),
                       SwitchListTile(
-                        title: Text("Keep Private (Pastors Only)", style: TextStyle(color: ObsidianTheme.textVibrant, fontSize: 14)),
-                        subtitle: Text("Only spiritual leaders will see this.", style: TextStyle(color: ObsidianTheme.textMuted, fontSize: 11)),
+                        title: Text(
+                          "Keep Private (Pastors Only)",
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSurface,
+                            fontSize: 14,
+                          ),
+                        ),
+                        subtitle: Text(
+                          "Only spiritual leaders will see this.",
+                          style: TextStyle(
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.onSurfaceVariant,
+                            fontSize: 12,
+                          ),
+                        ),
                         value: isPrivate,
                         activeThumbColor: ObsidianTheme.secondaryGold,
                         contentPadding: EdgeInsets.zero,
@@ -106,7 +143,9 @@ class _PrayerRequestsScreenState extends ConsumerState<PrayerRequestsScreen> {
                           backgroundColor: ObsidianTheme.primaryCrimson,
                           foregroundColor: Colors.white,
                           padding: const EdgeInsets.symmetric(vertical: 16),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
                         ),
                         onPressed: () async {
                           if (formKey.currentState!.validate()) {
@@ -147,7 +186,6 @@ class _PrayerRequestsScreenState extends ConsumerState<PrayerRequestsScreen> {
     final list = prayerProv.prayers;
 
     final isAdmin = user?.isAdmin ?? false;
-    final isDeptHead = user?.isDeptHead ?? false;
 
     return MeshGradientBackground(
       child: Scaffold(
@@ -156,14 +194,19 @@ class _PrayerRequestsScreenState extends ConsumerState<PrayerRequestsScreen> {
           backgroundColor: Colors.transparent,
           elevation: 0,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios_new, color: ObsidianTheme.textVibrant, size: 18),
+            icon: Icon(
+              Icons.arrow_back_ios_new,
+              color: Theme.of(context).colorScheme.onSurface,
+              size: 18,
+            ),
             onPressed: () => Navigator.pop(context),
           ),
           title: Text(
             "Intercession Wall",
-            style: GoogleFonts.cinzel(
+            style: TextStyle(
+              fontFamily: 'Inter',
               fontWeight: FontWeight.bold,
-              color: ObsidianTheme.textVibrant,
+              color: Theme.of(context).colorScheme.onSurface,
             ),
           ),
           centerTitle: true,
@@ -172,77 +215,129 @@ class _PrayerRequestsScreenState extends ConsumerState<PrayerRequestsScreen> {
           children: [
             Expanded(
               child: prayerProv.isLoading && list.isEmpty
-                  ? const Center(child: CircularProgressIndicator())
+                  ? const Center(child: CustomLogoLoader(size: 48))
                   : list.isEmpty
-                      ? Center(child: Text("No petitions filed.", style: Theme.of(context).textTheme.bodyMedium))
-                      : ListView.builder(
-                          padding: const EdgeInsets.all(20),
-                          itemCount: list.length,
-                          itemBuilder: (context, index) {
-                            final prayer = list[index];
-                            return Padding(
-                              padding: const EdgeInsets.only(bottom: 12),
-                              child: GlassCard(
-                                padding: const EdgeInsets.all(20),
-                                borderType: prayer.status == 'answered' ? GlassBorderType.gold : GlassBorderType.normal,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                  ? Center(
+                      child: Text(
+                        "No petitions filed.",
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                    )
+                  : ListView.builder(
+                      padding: const EdgeInsets.all(20),
+                      itemCount: list.length,
+                      itemBuilder: (context, index) {
+                        final prayer = list[index];
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 12),
+                          child: GlassCard(
+                            padding: const EdgeInsets.all(20),
+                            borderType: prayer.status == 'answered'
+                                ? GlassBorderType.gold
+                                : GlassBorderType.normal,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Chip(
-                                          label: Text(prayer.status.toUpperCase()),
-                                          backgroundColor: prayer.status == 'answered' ? Colors.green.withValues(alpha: 0.1) : Colors.orange.withValues(alpha: 0.1),
-                                          labelStyle: TextStyle(
-                                            color: prayer.status == 'answered' ? Colors.green : Colors.orange,
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                          padding: EdgeInsets.zero,
-                                          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                        ),
-                                        if (prayer.isPrivate)
-                                          Icon(Icons.lock_outline, size: 16, color: ObsidianTheme.textMuted),
-                                      ],
+                                    Chip(
+                                      label: Text(prayer.status.toUpperCase()),
+                                      backgroundColor:
+                                          prayer.status == 'answered'
+                                          ? Colors.green.withValues(alpha: 0.1)
+                                          : Colors.orange.withValues(
+                                              alpha: 0.1,
+                                            ),
+                                      labelStyle: TextStyle(
+                                        color: prayer.status == 'answered'
+                                            ? Colors.green
+                                            : Colors.orange,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                      padding: EdgeInsets.zero,
+                                      materialTapTargetSize:
+                                          MaterialTapTargetSize.shrinkWrap,
                                     ),
-                                    const SizedBox(height: 12),
-                                    Text(
-                                      prayer.request,
-                                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                    if (prayer.isPrivate)
+                                      Icon(
+                                        Icons.lock_outline,
+                                        size: 16,
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.onSurfaceVariant,
+                                      ),
+                                  ],
+                                ),
+                                const SizedBox(height: 12),
+                                Text(
+                                  prayer.request,
+                                  style: Theme.of(context).textTheme.bodyLarge
+                                      ?.copyWith(
                                         height: 1.5,
                                         fontStyle: FontStyle.italic,
                                       ),
+                                ),
+                                Divider(
+                                  height: 30,
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.outlineVariant,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "BY: ${prayer.memberName?.toUpperCase() ?? 'ANONYMOUS'}",
+                                      style: TextStyle(
+                                        fontFamily: 'Inter',
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.onSurfaceVariant,
+                                      ),
                                     ),
-                                    Divider(height: 30, color: ObsidianTheme.borderHairline),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          "BY: ${prayer.memberName?.toUpperCase() ?? 'ANONYMOUS'}",
-                                          style: GoogleFonts.plusJakartaSans(fontSize: 9, fontWeight: FontWeight.bold, color: ObsidianTheme.textMuted),
-                                        ),
-                                        if (isAdmin || isDeptHead)
-                                          Row(
-                                            children: [
-                                              IconButton(
-                                                icon: const Icon(Icons.check_circle_outline, size: 18),
-                                                onPressed: () => ref.read(prayerProvider).updateStatus(prayer.id, 'answered'),
-                                              ),
-                                              IconButton(
-                                                icon: const Icon(Icons.volunteer_activism_outlined, size: 18),
-                                                onPressed: () => ref.read(prayerProvider).updateStatus(prayer.id, 'praying'),
-                                              ),
-                                            ],
+                                    if (isAdmin || prayer.memberId == user?.id)
+                                      Row(
+                                        children: [
+                                          IconButton(
+                                            icon: const Icon(
+                                              Icons.check_circle_outline,
+                                              size: 18,
+                                            ),
+                                            onPressed: () => ref
+                                                .read(prayerProvider)
+                                                .updateStatus(
+                                                  prayer.id,
+                                                  'answered',
+                                                ),
                                           ),
-                                      ],
-                                    ),
+                                          IconButton(
+                                            icon: const Icon(
+                                              Icons.volunteer_activism_outlined,
+                                              size: 18,
+                                            ),
+                                            onPressed: () => ref
+                                                .read(prayerProvider)
+                                                .updateStatus(
+                                                  prayer.id,
+                                                  'praying',
+                                                ),
+                                          ),
+                                        ],
+                                      ),
                                   ],
                                 ),
-                              ),
-                            );
-                          },
-                        ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
             ),
           ],
         ),
@@ -250,7 +345,10 @@ class _PrayerRequestsScreenState extends ConsumerState<PrayerRequestsScreen> {
           backgroundColor: ObsidianTheme.primaryCrimson,
           onPressed: () => _showAddPrayerSheet(context, user?.email ?? ''),
           icon: const Icon(Icons.add, color: Colors.white),
-          label: const Text("Petition", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+          label: const Text(
+            "Petition",
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
         ),
       ),
     );

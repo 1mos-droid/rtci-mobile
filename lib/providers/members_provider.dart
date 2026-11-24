@@ -1,3 +1,4 @@
+import 'package:rtc_mobile/providers/account_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -34,10 +35,10 @@ class ChurchMember {
   }
 }
 
-class MembersProvider extends ChangeNotifier {
+class MembersProvider extends AccountNotifier {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  
+
   List<ChurchMember> _members = [];
   bool _isLoading = false;
 
@@ -49,14 +50,16 @@ class MembersProvider extends ChangeNotifier {
   }
 
   void _init() {
-    _auth.authStateChanges().listen((user) {
-      if (user != null) {
-        fetchMembers();
-      } else {
-        _members = [];
-        notifyListeners();
-      }
-    });
+    trackSubscription(
+      _auth.authStateChanges().listen((user) {
+        if (user != null) {
+          fetchMembers();
+        } else {
+          _members = [];
+          notifyListeners();
+        }
+      }),
+    );
   }
 
   Future<void> fetchMembers() async {
@@ -64,8 +67,12 @@ class MembersProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final snapshot = await _firestore.collection('profiles').get();
-      _members = snapshot.docs.map((doc) => ChurchMember.fromFirestore(doc)).toList();
+      final snapshot = await _firestore
+          .collection('profiles')
+          .get(const GetOptions(source: Source.server));
+      _members = snapshot.docs
+          .map((doc) => ChurchMember.fromFirestore(doc))
+          .toList();
     } catch (e) {
       debugPrint('Error fetching members: $e');
     } finally {

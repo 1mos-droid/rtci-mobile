@@ -1,12 +1,13 @@
+import 'package:rtc_mobile/providers/account_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rtc_mobile/models/sermon.dart';
 
-class SermonProvider extends ChangeNotifier {
+class SermonProvider extends AccountNotifier {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  
+
   List<Sermon> _sermons = [];
   bool _isLoading = false;
 
@@ -54,7 +55,9 @@ class SermonProvider extends ChangeNotifier {
         'speaker': speaker,
         'category': category,
         'duration': duration,
-        'image_url': imageUrl.isEmpty ? 'https://images.unsplash.com/photo-1507692049790-de58290a4334?w=500&q=80' : imageUrl,
+        'image_url': imageUrl.isEmpty
+            ? 'https://images.unsplash.com/photo-1507692049790-de58290a4334?w=500&q=80'
+            : imageUrl,
         'tag': tag,
         'audio_url': audioUrl ?? '',
         'video_url': videoUrl ?? '',

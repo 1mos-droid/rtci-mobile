@@ -1,0 +1,176 @@
+{
+  "checkedAt": "2026-11-12T08:18:18.076456+00:00",
+  "target": "Android",
+  "release": {
+    "package": "com.rtci.app.rtc_mobile",
+    "versionCode": 6,
+    "versionName": "1.1.0",
+    "debuggable": false,
+    "releaseSignerVerified": true,
+    "artifacts": [
+      {
+        "path": "build/app/outputs/flutter-apk/app-release.apk",
+        "bytes": 61714683,
+        "sha256": "4bce2d37031079d43f7fc66e697a3ffdf16db597b2dc429e7857dca78edd0dda"
+      },
+      {
+        "path": "build/app/outputs/bundle/release/app-release.aab",
+        "bytes": 52012835,
+        "sha256": "a062586b684066c5ebf161d5835ce0bf45f0d6222b770d687effa9542a4881a2"
+      }
+    ]
+  },
+  "source": {
+    "baseCommit": "3993c2829bdc984c649e02409f35a0d6de9b622e",
+    "uncommittedChanges": true,
+    "fingerprintSha256": "9483044d274a0262c250272db1496251b1048f0960642dd1191012f9ef6be163",
+    "fileCount": 253,
+    "scope": "Nonignored project files excluding docs, build outputs, local tooling and signing material"
+  },
+  "verification": {
+    "flutterTestsPassed": 90,
+    "backendAndMigrationUnitTestsPassed": 18,
+    "emulatorTestsPassed": 21,
+    "liveChecksPassed": 21,
+    "flutterAnalysis": "clean",
+    "backendDependencyVulnerabilities": 0,
+    "releaseConfiguration": "passed",
+    "providerCredentialsAbsentFromSourceAndArtifacts": true,
+    "physicalAndroidOwnerAcceptance": {
+      "signIn": "passed",
+      "bibleReading": "passed",
+      "homeRefreshAfterAppCheckEnforcement": "passed",
+      "profilePhotoUploadAfterAppCheckEnforcement": "passed"
+    },
+    "paymentRehearsal": {
+      "amountGhs": 1,
+      "status": "unpaid checkout remained pending",
+      "chargeMade": false,
+      "temporaryFirebaseDataRemoved": true
+    }
+  },
+  "deployment": {
+    "project": "rtci-22582",
+    "checkedAt": "2026-11-12T08:15:12.497Z",
+    "functions": [
+      {
+        "name": "countGroupMembership",
+        "state": "ACTIVE",
+        "runtime": "nodejs22",
+        "serviceAccount": "rtci-runtime@rtci-22582.iam.gserviceaccount.com",
+        "eventAccount": "rtci-runtime@rtci-22582.iam.gserviceaccount.com",
+        "secretVersions": []
+      },
+      {
+        "name": "initializeGiving",
+        "state": "ACTIVE",
+        "runtime": "nodejs22",
+        "serviceAccount": "rtci-runtime@rtci-22582.iam.gserviceaccount.com",
+        "secretVersions": [
+          {
+            "name": "PAYSTACK_SECRET_KEY",
+            "version": "1"
+          }
+        ]
+      },
+      {
+        "name": "countPrayerSupport",
+        "state": "ACTIVE",
+        "runtime": "nodejs22",
+        "serviceAccount": "rtci-runtime@rtci-22582.iam.gserviceaccount.com",
+        "eventAccount": "rtci-runtime@rtci-22582.iam.gserviceaccount.com",
+        "secretVersions": []
+      },
+      {
+        "name": "paystackWebhook",
+        "state": "ACTIVE",
+        "runtime": "nodejs22",
+        "serviceAccount": "rtci-runtime@rtci-22582.iam.gserviceaccount.com",
+        "secretVersions": [
+          {
+            "name": "PAYSTACK_SECRET_KEY",
+            "version": "1"
+          }
+        ]
+      },
+      {
+        "name": "bibleContent",
+        "state": "ACTIVE",
+        "runtime": "nodejs22",
+        "serviceAccount": "rtci-runtime@rtci-22582.iam.gserviceaccount.com",
+        "secretVersions": [
+          {
+            "name": "BIBLE_API_KEY",
+            "version": "1"
+          }
+        ]
+      },
+      {
+        "name": "verifyGiving",
+        "state": "ACTIVE",
+        "runtime": "nodejs22",
+        "serviceAccount": "rtci-runtime@rtci-22582.iam.gserviceaccount.com",
+        "secretVersions": [
+          {
+            "name": "PAYSTACK_SECRET_KEY",
+            "version": "1"
+          }
+        ]
+      },
+      {
+        "name": "syncLeadership",
+        "state": "ACTIVE",
+        "runtime": "nodejs22",
+        "serviceAccount": "rtci-runtime@rtci-22582.iam.gserviceaccount.com",
+        "eventAccount": "rtci-runtime@rtci-22582.iam.gserviceaccount.com",
+        "secretVersions": []
+      }
+    ],
+    "rateLimitTtl": "ACTIVE",
+    "rules": [
+      {
+        "name": "projects/rtci-22582/releases/cloud.firestore",
+        "ruleset": "projects/rtci-22582/rulesets/97c5b664-b63a-4bad-bd09-f1dd8fb8bccd",
+        "updatedAt": "2026-11-12T07:02:38.639961Z"
+      },
+      {
+        "name": "projects/rtci-22582/releases/firebase.storage/rtci-22582.firebasestorage.app",
+        "ruleset": "projects/rtci-22582/rulesets/fd808617-147f-455c-b6f3-d420ca9515bf",
+        "updatedAt": "2026-11-12T07:02:37.599422Z"
+      }
+    ],
+    "appCheckServices": [
+      {
+        "name": "projects/381753713314/services/firebasestorage.googleapis.com",
+        "mode": "ENFORCED"
+      },
+      {
+        "name": "projects/381753713314/services/firestore.googleapis.com",
+        "mode": "ENFORCED"
+      }
+    ],
+    "androidAttestation": {
+      "registeredSigningCertificateRequired": true,
+      "allowUnrecognizedVersion": true,
+      "requireLicensed": false,
+      "minimumDeviceIntegrity": "MEETS_DEVICE_INTEGRITY",
+      "tokenTtlSeconds": 3600
+    },
+    "backups": {
+      "preMigrationExport": "completed",
+      "dailyBackupRetentionDays": 7,
+      "preMigrationExportRetentionDays": 30
+    }
+  },
+  "distribution": {
+    "firebaseConsoleUrl": "https://console.firebase.google.com/project/rtci-22582/appdistribution/app/android:com.rtci.app.rtc_mobile/releases/08uvumfub7qsg",
+    "testerInvitationsSent": false,
+    "playStorePublished": false
+  },
+  "support": {
+    "home": "https://rtci-22582-support.web.app/",
+    "privacy": "https://rtci-22582-support.web.app/privacy/",
+    "accountDeletion": "https://rtci-22582-support.web.app/delete-account/",
+    "email": "ea6971684@gmail.com"
+  }
+}
